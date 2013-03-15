@@ -60,11 +60,15 @@ public class StringHandler extends SimpleChannelHandler{
 		System.out.println("Message Received");
 		
 		//Type cast received object to string. This will always come from the string decoder.
-		String message = (String)e.getMessage() + "\n";
+		String message = (String)e.getMessage();
 		System.out.println(message);
+		
+		//Add Newline character so that the client can read it.
+		message = message + "\n";
 		
 		Channel channel = e.getChannel();
 		
+		//Print Channel characteristics
 		System.out.println("Channel ID: " + channel.getId());
 		System.out.println("Channel IP: " + channel.getRemoteAddress().toString());
 		
