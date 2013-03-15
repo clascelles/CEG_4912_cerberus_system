@@ -1,5 +1,7 @@
 package com.cerberus.server.communication.handlers;
 
+import java.util.concurrent.ExecutorService;
+
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelEvent;
 import org.jboss.netty.channel.ChannelFuture;
@@ -10,6 +12,10 @@ import org.jboss.netty.channel.DownstreamMessageEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 import org.jboss.netty.channel.WriteCompletionEvent;
+
+import com.cerberus.server.decoder.Decoder;
+import com.cerberus.server.message.MessageContainer;
+import com.cerberus.server.service.executor.ExecutorServiceFactory;
 
 public class StringHandler extends SimpleChannelHandler{
 
@@ -56,28 +62,19 @@ public class StringHandler extends SimpleChannelHandler{
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e)
 			throws Exception {
-		// TODO Auto-generated method stub
-		System.out.println("Message Received");
-		
+			
 		//Type cast received object to string. This will always come from the string decoder.
 		String message = (String)e.getMessage();
-		System.out.println(message);
-		
-		//Add Newline character so that the client can read it.
-		message = message + "\n";
-		
 		Channel channel = e.getChannel();
 		
-		//Print Channel characteristics
-		System.out.println("Channel ID: " + channel.getId());
-		System.out.println("Channel IP: " + channel.getRemoteAddress().toString());
-		
-		//Send the message back to the client that sent it.
-		ChannelFuture channelFuture = Channels.future(e.getChannel());
-		ChannelEvent responseEvent = new DownstreamMessageEvent(channel, channelFuture, message, channel.getRemoteAddress());
-		ctx.sendDownstream(responseEvent);
-		
-		//TODO Add message to list or Executor service request (We need to talk about this)
+		//Log message received
+		System.out.println("Message Received [ID: " + channel.getId() + " IP: " + channel.getRemoteAddress().toString() + "]");
+				
+		//Add a task to the Decoder Thread Pool.
+		ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
+		MessageContainer messageContainer = new MessageContainer(message, channel);
+		Runnable decoderTask = new Decoder(messageContainer);
+		executor.execute(decoderTask);
 		
 		super.messageReceived(ctx, e);
 	}
