@@ -11,13 +11,13 @@ import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 import org.jboss.netty.channel.WriteCompletionEvent;
 
-public class StringHandler extends SimpleChannelHandler{
+public class StringHandler extends SimpleChannelHandler {
 
 	@Override
 	public void channelBound(ChannelHandlerContext ctx, ChannelStateEvent e)
 			throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("Channel is Bound");		
+		System.out.println("Channel is Bound");
 		super.channelBound(ctx, e);
 	}
 
@@ -58,27 +58,31 @@ public class StringHandler extends SimpleChannelHandler{
 			throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("Message Received");
-		
-		//Type cast received object to string. This will always come from the string decoder.
-		String message = (String)e.getMessage();
+
+		// Type cast received object to string. This will always come from the
+		// string decoder.
+		String message = (String) e.getMessage();
 		System.out.println(message);
-		
-		//Add Newline character so that the client can read it.
+
+		// Add Newline character so that the client can read it.
 		message = message + "\n";
-		
+
 		Channel channel = e.getChannel();
-		
-		//Print Channel characteristics
+
+		// Print Channel characteristics
 		System.out.println("Channel ID: " + channel.getId());
-		System.out.println("Channel IP: " + channel.getRemoteAddress().toString());
-		
-		//Send the message back to the client that sent it.
-		ChannelFuture channelFuture = Channels.future(e.getChannel());
-		ChannelEvent responseEvent = new DownstreamMessageEvent(channel, channelFuture, message, channel.getRemoteAddress());
+		System.out.println("Channel IP: "
+				+ channel.getRemoteAddress().toString());
+
+		// Send the message back to the client that sent it.
+		ChannelFuture channelFuture = Channels.future(channel);
+		ChannelEvent responseEvent = new DownstreamMessageEvent(channel,
+				channelFuture, message, channel.getRemoteAddress());
 		ctx.sendDownstream(responseEvent);
-		
-		//TODO Add message to list or Executor service request (We need to talk about this)
-		
+
+		// TODO Add message to list or Executor service request (We need to talk
+		// about this)
+
 		super.messageReceived(ctx, e);
 	}
 
