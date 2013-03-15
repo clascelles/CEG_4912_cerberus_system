@@ -2,6 +2,7 @@ package com.cerberus.server.communication;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
@@ -10,12 +11,8 @@ import com.cerberus.server.communication.pipeline.SimpleChannelPipelineFactory;
 
 public class CommunicationBootstrap extends Thread{
 
-	
-	
-	//Constructor
-	public CommunicationBootstrap(){
-		
-	}
+	//Get Logger
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);  
 	
 	//This runs when the thread is started
 	public void run(){
@@ -36,13 +33,12 @@ public class CommunicationBootstrap extends Thread{
 		  */
 		 ServerBootstrap bootstrap = new ServerBootstrap(channelFactory);
 		 
-		 
 		 // Set up the pipeline factory.
 		 bootstrap.setPipelineFactory(new SimpleChannelPipelineFactory());
 		
 		 // Bind and start to accept incoming connections.
 		 bootstrap.bind(new InetSocketAddress("localhost", 8080)); 
-		 System.out.println("Done Binding in Communication Bootstrap");
+		 LOGGER.info("Done Binding in Communication Bootstrap, ready to accept clients");
 		 
 	}
 	

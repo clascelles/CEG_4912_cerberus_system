@@ -1,6 +1,7 @@
 package com.cerberus.server.communication.handlers;
 
 import java.util.concurrent.ExecutorService;
+import java.util.logging.Logger;
 
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
@@ -15,43 +16,41 @@ import com.cerberus.server.service.executor.ExecutorServiceFactory;
 
 public class StringHandler extends SimpleChannelHandler {
 
+	//Get Logger
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);  
+		
 	@Override
 	public void channelBound(ChannelHandlerContext ctx, ChannelStateEvent e)
 			throws Exception {
-		// TODO Auto-generated method stub
-		System.out.println("Channel is Bound");
+		LOGGER.finest("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString() + "]: Bound");
 		super.channelBound(ctx, e);
 	}
 
 	@Override
 	public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e)
 			throws Exception {
-		// TODO Auto-generated method stub
-		System.out.println("Channel is Closed");
+		LOGGER.finest("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString() + "]: Closed");
 		super.channelClosed(ctx, e);
 	}
 
 	@Override
 	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e)
 			throws Exception {
-		// TODO Auto-generated method stub
-		System.out.println("Channel is Connected");
+		LOGGER.finest("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString() + "]: Connected");
 		super.channelConnected(ctx, e);
 	}
 
 	@Override
 	public void channelDisconnected(ChannelHandlerContext ctx,
 			ChannelStateEvent e) throws Exception {
-		// TODO Auto-generated method stub
-		System.out.println("Channel is Disconnected");
+		LOGGER.finest("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString() + "]: Disconnected");
 		super.channelDisconnected(ctx, e);
 	}
 
 	@Override
 	public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e)
 			throws Exception {
-		// TODO Auto-generated method stub
-		System.out.println("Channel is Open");
+		LOGGER.finest("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString() + "]: Open");
 		super.channelOpen(ctx, e);
 	}
 
@@ -64,7 +63,7 @@ public class StringHandler extends SimpleChannelHandler {
 		Channel channel = e.getChannel();
 		
 		//Log message received
-		System.out.println("Message Received [ID: " + channel.getId() + " IP: " + channel.getRemoteAddress().toString() + "]");
+		LOGGER.info("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString() + "]: Message Received");
 				
 		//Add a task to the Decoder Thread Pool.
 		ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
@@ -78,8 +77,7 @@ public class StringHandler extends SimpleChannelHandler {
 	@Override
 	public void writeComplete(ChannelHandlerContext ctx, WriteCompletionEvent e)
 			throws Exception {
-		// TODO Auto-generated method stub
-		System.out.println("Write Complete");
+		LOGGER.finest("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString() + "]: Write Complete");
 		super.writeComplete(ctx, e);
 	}
 
