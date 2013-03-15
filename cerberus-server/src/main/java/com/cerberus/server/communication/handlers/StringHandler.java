@@ -3,12 +3,8 @@ package com.cerberus.server.communication.handlers;
 import java.util.concurrent.ExecutorService;
 
 import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelEvent;
-import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
-import org.jboss.netty.channel.Channels;
-import org.jboss.netty.channel.DownstreamMessageEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 import org.jboss.netty.channel.WriteCompletionEvent;
@@ -17,13 +13,13 @@ import com.cerberus.server.decoder.Decoder;
 import com.cerberus.server.message.MessageContainer;
 import com.cerberus.server.service.executor.ExecutorServiceFactory;
 
-public class StringHandler extends SimpleChannelHandler{
+public class StringHandler extends SimpleChannelHandler {
 
 	@Override
 	public void channelBound(ChannelHandlerContext ctx, ChannelStateEvent e)
 			throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("Channel is Bound");		
+		System.out.println("Channel is Bound");
 		super.channelBound(ctx, e);
 	}
 
@@ -75,7 +71,7 @@ public class StringHandler extends SimpleChannelHandler{
 		MessageContainer messageContainer = new MessageContainer(message, channel);
 		Runnable decoderTask = new Decoder(messageContainer);
 		executor.execute(decoderTask);
-		
+
 		super.messageReceived(ctx, e);
 	}
 
