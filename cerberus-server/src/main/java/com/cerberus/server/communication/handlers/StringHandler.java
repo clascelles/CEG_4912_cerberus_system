@@ -10,6 +10,7 @@ import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 import org.jboss.netty.channel.WriteCompletionEvent;
 
+import com.cerberus.server.communication.ChannelOutletBinding;
 import com.cerberus.server.decoder.Decoder;
 import com.cerberus.server.message.MessageContainer;
 import com.cerberus.server.service.executor.ExecutorServiceFactory;
@@ -51,6 +52,7 @@ public class StringHandler extends SimpleChannelHandler {
 	public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e)
 			throws Exception {
 		LOGGER.finest("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString() + "]: Open");
+		ChannelOutletBinding.addChannelToGroup(e.getChannel());
 		super.channelOpen(ctx, e);
 	}
 
