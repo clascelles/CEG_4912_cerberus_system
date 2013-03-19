@@ -1,30 +1,29 @@
 package com.cerberus.server.message;
 
-import java.security.Timestamp;
+import org.joda.time.DateTime;
 
-public class Message {
+public abstract class Message {
 
-	private int outletSerialNumber;
-	private Timestamp timestamp;
-	private int messageType;
-	
-	public int getOutletSerialNumber() {
-		return outletSerialNumber;
+	private final MessageType type;
+	private final int socketId;
+	private final DateTime timestamp;
+
+	public Message(MessageType type, int socketId, long timestamp) {
+		this.type = type;
+		this.socketId = socketId;
+		this.timestamp = new DateTime(timestamp);
 	}
-	public void setOutletSerialNumber(int outletSerialNumber) {
-		this.outletSerialNumber = outletSerialNumber;
+
+	public MessageType getType() {
+		return type;
 	}
-	public Timestamp getTimestamp() {
+
+	public int getSocketId() {
+		return socketId;
+	}
+
+	public DateTime getTimestamp() {
 		return timestamp;
 	}
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
-	}
-	public int getMessageType() {
-		return messageType;
-	}
-	public void setMessageType(int messageType) {
-		this.messageType = messageType;
-	}
-	
+
 }
