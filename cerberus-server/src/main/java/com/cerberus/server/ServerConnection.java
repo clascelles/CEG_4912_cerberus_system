@@ -7,13 +7,15 @@ import com.cerberus.server.logging.ServerLogger;
 
 public class ServerConnection {
 
+	private final static String LOG_FILE = "Log.txt";
+
 	//Get Logger
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public static void main (String[] args){
 
 		//Setup the logging functions and formatting
-		ServerLogger.setup("Log.txt");
+		ServerLogger.setup(LOG_FILE);
 		LOGGER.info("Server Started.");
 
 		// Bootstrap the server.

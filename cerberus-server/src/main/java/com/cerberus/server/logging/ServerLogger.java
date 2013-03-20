@@ -11,16 +11,16 @@ public class ServerLogger {
 	static private FileHandler fileTxt;
 	static private StdoutConsoleHandler consoleHandler;
 	static private SimpleFormatter formatterTxt;
-	
-	public static void setup (String logFilename){
+
+	public static void setup(String logFileName) {
 		// Get the global logger to configure it
 	    Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	    logger.setLevel(Level.INFO);
-	   
+
 	    //Bind the handlers
 	    try {
-			fileTxt = new FileHandler(logFilename);
+			fileTxt = new FileHandler(logFileName);
 			consoleHandler = new StdoutConsoleHandler();
 		} catch (SecurityException e) {
 			System.out.println("Problem creating the log file.");
@@ -33,15 +33,15 @@ public class ServerLogger {
 	    // Create txt Formatter
 	    formatterTxt = new SimpleFormatter();
 	    fileTxt.setFormatter(formatterTxt);
-	    
+
 	    logger.setUseParentHandlers(false);
-	    
+
 	    //Log to console with .out for info and .err for above info
 	    logger.addHandler(consoleHandler);
-	    
+
 	    //Log to text file
 	    logger.addHandler(fileTxt);
-	    
-	    
+
+
 	}
 }
