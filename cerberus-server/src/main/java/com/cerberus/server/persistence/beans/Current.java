@@ -1,5 +1,6 @@
 package com.cerberus.server.persistence.beans;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -7,20 +8,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "CURRENT")
-public class Current {
+public class Current implements Serializable {
 
-	private int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Integer id;
 	private int rfidTagId;
 	private int userId;
 	private int socketId;
 	private Timestamp timestamp;
 	private int current;
 	
-	public Current(){}
+	public Current() {}
 	
 	public Current(int rfidTagId, int userId, int socketId,
 			Timestamp timestamp, int current) {
@@ -35,13 +43,14 @@ public class Current {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
+	//@ManyToOne
 	@Column(name="RFID_TAG_ID", nullable=true)
 	public int getRfidTagId() {
 		return rfidTagId;
@@ -50,6 +59,7 @@ public class Current {
 		this.rfidTagId = rfidTagId;
 	}
 	
+	//@ManyToOne
 	@Column(name="USERS_ID", nullable=false)
 	public int getUserId() {
 		return userId;
@@ -58,6 +68,7 @@ public class Current {
 		this.userId = userId;
 	}
 	
+	//@ManyToOne
 	@Column(name="SOCKET_ID", nullable=false)
 	public int getSocketId() {
 		return socketId;
