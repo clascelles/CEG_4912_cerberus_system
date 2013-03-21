@@ -5,8 +5,8 @@ public class RFIDAuthResponseMessage extends Message {
 	private final int rfidNumber;
 	private final boolean isAuthorized;
 
-	public RFIDAuthResponseMessage(MessageType type, int socketId, long timestamp, int rfidNumber, boolean isAuthorized) {
-		super(type, socketId, timestamp);
+	public RFIDAuthResponseMessage(int socketId, long timestamp, int rfidNumber, boolean isAuthorized) {
+		super(MessageType.RFID_AUTH_RES, socketId, timestamp);
 		this.rfidNumber = rfidNumber;
 		this.isAuthorized = isAuthorized;
 	}

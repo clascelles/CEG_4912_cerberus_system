@@ -5,8 +5,8 @@ public class CurrentConsumptionMessage extends Message {
 	private final int current;
 	private final int rfidNumber;
 
-	public CurrentConsumptionMessage(MessageType type, int socketId, long timestamp, int current, int rfidNumber) {
-		super(type, socketId, timestamp);
+	public CurrentConsumptionMessage(int socketId, long timestamp, int current, int rfidNumber) {
+		super(MessageType.CURRENT, socketId, timestamp);
 		this.current = current;
 		this.rfidNumber = rfidNumber;
 	}

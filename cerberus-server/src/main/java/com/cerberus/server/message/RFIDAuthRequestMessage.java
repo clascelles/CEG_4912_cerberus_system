@@ -4,8 +4,8 @@ public class RFIDAuthRequestMessage extends Message {
 
 	private final int rfidNumber;
 
-	public RFIDAuthRequestMessage(MessageType type, int socketId, long timestamp, int rfidNumber) {
-		super(type, socketId, timestamp);
+	public RFIDAuthRequestMessage(int socketId, long timestamp, int rfidNumber) {
+		super(MessageType.RFID_AUTH_REQ, socketId, timestamp);
 		this.rfidNumber = rfidNumber;
 	}
 

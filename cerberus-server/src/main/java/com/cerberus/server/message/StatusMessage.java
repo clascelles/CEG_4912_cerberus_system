@@ -1,16 +1,18 @@
 package com.cerberus.server.message;
 
+import com.cerberus.server.logic.constants.SocketStatus;
+
 public class StatusMessage extends Message {
 
-	private final MessageStatusType statusType;
+	private final SocketStatus status;
 
-	public StatusMessage(MessageType type, int socketId, long timestamp, MessageStatusType status) {
-		super(type, socketId, timestamp);
-		this.statusType = status;
+	public StatusMessage(int socketId, long timestamp, SocketStatus status) {
+		super(MessageType.STATUS, socketId, timestamp);
+		this.status = status;
 	}
 
-	public MessageStatusType getStatusType() {
-		return statusType;
+	public SocketStatus getStatus() {
+		return status;
 	}
 
 }
