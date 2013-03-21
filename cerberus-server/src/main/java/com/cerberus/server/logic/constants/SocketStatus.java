@@ -1,11 +1,11 @@
-package com.cerberus.server.message;
+package com.cerberus.server.logic.constants;
 
-public enum MessageStatusType {
+public enum SocketStatus {
 	NORMAL(0), STANDBY(1), DEFECTIVE(2);
 
 	private final int statusType;
 
-	private MessageStatusType(int statusType) {
+	private SocketStatus(int statusType) {
 		this.statusType = statusType;
 	}
 
