@@ -1,4 +1,4 @@
-package com.cerberus.server.persistence.services;
+package com.cerberus.server.service;
 
 import java.util.List;
 
@@ -9,15 +9,15 @@ import com.cerberus.server.persistence.beans.RoomType;
 
 public class CurrentServices {
 
-	private GenericDAO dao = new GenericDAO();
+	//private GenericDAO dao = new GenericDAO();
 	
 	//public Current getById(Integer id){
 	//	return dao.get(Current.class, id);
 	//}
 	
-	public Current saveCurrent(Current current){
-		return dao.save(current);
-	}
+	//public Current saveCurrent(Current current){
+	//	return dao.save(current);
+	//}
 	
 	//public Integer countCurrent(Filter filter){
 	//	return dao.count(new Search().addFilter(filter));
@@ -28,12 +28,12 @@ public class CurrentServices {
 //	}
 	
 	
-	public void insertRoomType(RoomType roomType){
-		dao.save(roomType);
-	}
-	
-	public void insertCurrent(Current current){
-		dao.save(current);	
-	}
+//	public void insertRoomType(RoomType roomType){
+//		dao.save(roomType);
+//	}
+//	
+//	public void insertCurrent(Current current){
+//		dao.save(current);	
+//	}
 	
 }
