@@ -1,25 +1,62 @@
 package com.cerberus.server.workflow;
 
-import com.cerberus.server.message.MessageContainer;
-import com.cerberus.server.persistence.beans.Current;
+import java.sql.Timestamp;
+import java.util.logging.Logger;
 
-public class CurrentWorkflow implements Workflow {
+import com.cerberus.server.message.CurrentConsumptionMessage;
+import com.cerberus.server.persistence.beans.Current;
+import com.cerberus.server.service.pool.ServiceFactory;
+import com.cerberus.server.service.pool.ServiceFactoryPool;
+
+public class CurrentWorkflow extends Workflow {
 	
-	public boolean persistCurrentMessage(MessageContainer messageContainer){
+	//Get Logger
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME); 
 		
-		//Convert the object into its right structure
-		Current current = (Current) messageContainer.getMessageDataStructure();
+	ServiceFactory serviceFactory;
+	
+	public CurrentWorkflow(){
+		serviceFactory = borrowServiceFactory();
+	}
+	
+	
+	public boolean persistCurrentMessage(CurrentConsumptionMessage message){
 		
+		//Create new Current data structure
+		Current current = new Current();
 		
-		//Link the appropriate UserID to the current through Socket --> SochetAssignment -->Users
-		//TODO Call UserService
+		current.setSocketId(message.getSocketId());
+		current.setTimestamp(new Timestamp(message.getTimestamp().getMillis()));
+		current.setCurrent(message.getCurrent());
+
+		//Get UserID
+		//TODO Get User ID from User Services
 		
-		//Link
+		//Get RFID Number ID
+		//TODO Get RFID Number ID from RFID Services
 		
-		
-		
+		try{
+			
+			//Persist the Current object
+			//TODO Persist the Current object from the Current Services
+			
+		}catch(Exception e){ //Catch if an exception occurs
+			e.printStackTrace();
+			return false;
+		}
 		
 		return true;
 	}
+	
+	public void returnServiceFactory (){
+		try {
+			ServiceFactoryPool.returnServiceFactory(serviceFactory);
+		} catch (Throwable e) {
+			LOGGER.severe("ERROR Returning Service Factory");
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 }
