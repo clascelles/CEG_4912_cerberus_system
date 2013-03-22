@@ -67,7 +67,7 @@ public class GenericDAO<T, ID extends Serializable> {
 		sessionFactory.getCurrentSession().saveOrUpdate(o);
 		tx.commit();
 	}
-
+	
 	/***/
 	@SuppressWarnings("unchecked")
 	protected List<T> getAll(final Class<T> type) {
