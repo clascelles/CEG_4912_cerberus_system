@@ -8,7 +8,6 @@ public class CurrentDAO extends GenericDAO<Current, Integer> {
 		super();
 	}
 	
-	
 	/***/
 	public Current getById(Integer id){
 		return getById(Current.class, id);

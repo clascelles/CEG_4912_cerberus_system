@@ -18,7 +18,6 @@ public class SocketOperationStatus implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
 	Integer id;
 	String status;
 	
@@ -43,8 +42,6 @@ public class SocketOperationStatus implements Serializable{
 	public void setName(String status) {
 		this.status = status;
 	}
-	
-	
 	
 	
 }

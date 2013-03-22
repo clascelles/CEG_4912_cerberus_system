@@ -18,7 +18,6 @@ public class RoomType implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
 	Integer id;
 	String name;
 	
@@ -43,8 +42,5 @@ public class RoomType implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	
 	
 }
