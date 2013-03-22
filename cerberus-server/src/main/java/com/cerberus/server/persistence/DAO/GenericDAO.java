@@ -10,12 +10,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
-
 import com.cerberus.server.persistence.HibernateUtil;
 
 @Component
 public class GenericDAO<T, ID> {
-
+	
+	private Class<T> clazz;
+	
 	@Resource(name = "sessionFactory")
 	protected SessionFactory sessionFactory;
 	
@@ -64,6 +65,14 @@ public class GenericDAO<T, ID> {
 		List<T> list = crit.list();
 		trans.commit();
 		return list;
+	}
+
+	public Class<T> getClazz() {
+		return clazz;
+	}
+
+	public void setClazz(Class<T> clazz) {
+		this.clazz = clazz;
 	}
 
 }

@@ -1,13 +1,9 @@
 package com.cerberus.server.persistence.DAO;
 
-import java.io.Serializable;
-import java.util.List;
+import com.cerberus.server.persistence.beans.Current;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
-public class CurrentDAO<Current, Integer> extends GenericDAO<Current, Integer> {
+public class CurrentDAO extends GenericDAO<Current, Integer> {
 
 	public CurrentDAO(){
 		super();
@@ -16,7 +12,7 @@ public class CurrentDAO<Current, Integer> extends GenericDAO<Current, Integer> {
 	
 	/***/
 	public Current getById(Integer id){
-		return getById(Class<Current>, id);
+		return getById(getClazz(), id);
 	}
 
 }
