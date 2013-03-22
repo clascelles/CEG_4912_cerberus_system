@@ -1,11 +1,16 @@
 package com.cerberus.server.message;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class RFIDAuthResponseMessage extends Message {
 
 	private final int rfidNumber;
 	private final boolean isAuthorized;
 
-	public RFIDAuthResponseMessage(int socketId, long timestamp, int rfidNumber, boolean isAuthorized) {
+	@JsonCreator
+	public RFIDAuthResponseMessage(@JsonProperty("socketId") int socketId, @JsonProperty("timestamp") long timestamp,
+			@JsonProperty("rfidNumber") int rfidNumber, @JsonProperty("auth") boolean isAuthorized) {
 		super(MessageType.RFID_AUTH_RES, socketId, timestamp);
 		this.rfidNumber = rfidNumber;
 		this.isAuthorized = isAuthorized;

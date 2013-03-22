@@ -4,20 +4,19 @@ import org.jboss.netty.channel.Channel;
 
 public class MessageContainer {
 
-	private String message;
+	private String rawMessage;
 	private Channel clientChannel;
-	private int messageType;
-	private Message messageObject;
+	private Message message;
 	private int structureType;
 	private Object messageDataStructure;
 	
 	/**
 	 * Constructor used for the Decoder.
-	 * @param message
+	 * @param rawMessage
 	 * @param clientChannel
 	 */
-	public MessageContainer(String message, Channel clientChannel){
-		this.message = message;
+	public MessageContainer(String rawMessage, Channel clientChannel){
+		this.rawMessage = rawMessage;
 		this.clientChannel = clientChannel;
 	}
 	
@@ -31,12 +30,12 @@ public class MessageContainer {
 		this.structureType = structureType;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getRawMessage() {
+		return rawMessage;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setRawMessage(String message) {
+		this.rawMessage = message;
 	}
 
 	public Channel getClientChannel() {
@@ -47,20 +46,12 @@ public class MessageContainer {
 		this.clientChannel = clientChannel;
 	}
 
-	public int getMessageType() {
-		return messageType;
+	public Message getMessage() {
+		return message;
 	}
 
-	public void setMessageType(int messageType) {
-		this.messageType = messageType;
-	}
-
-	public Message getMessageObject() {
-		return messageObject;
-	}
-
-	public void setMessageObject(Message messageObject) {
-		this.messageObject = messageObject;
+	public void setMessage(Message messageObject) {
+		this.message = messageObject;
 	}
 
 	public int getStructureType() {
