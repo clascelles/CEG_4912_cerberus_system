@@ -19,17 +19,17 @@ public class Socket implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private Room room;
-	private OutletOperationMode mode;
-	private Integer serialNumber;
+	private SocketOperationStatus status;
+	private SocketOperationMode mode;
+	private Outlet outlet;
 	
 	public Socket() {}
 	
-	public Socket(Room room, OutletOperationMode mode, Integer serialNumber) {
+	public Socket(SocketOperationStatus status, SocketOperationMode mode, Outlet outlet) {
 		super();
-		this.room = room;
+		this.setStatus(status);
 		this.mode = mode;
-		this.serialNumber = serialNumber;		
+		this.setOutlet(outlet);		
 	}
 	
 	@Id
@@ -40,33 +40,31 @@ public class Socket implements Serializable {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
+	}	
 
-	@Column(name="ROOM_ID", nullable=false)
-	public Room getRoom() {
-		return room;
+	@Column(name="SERIAL_NUM", nullable=false)
+	public SocketOperationStatus getStatus() {
+		return status;
 	}
-
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setStatus(SocketOperationStatus status) {
+		this.status = status;
 	}
-
-	@Column(name="OUTLET_OPERATION_MODE", nullable=false)
-	public OutletOperationMode getMode() {
+	
+	@Column(name="SOCKET_OPERATION_MODE", nullable=false)
+	public SocketOperationMode getMode() {
 		return mode;
 	}
 
-	public void setMode(OutletOperationMode mode) {
+	public void setMode(SocketOperationMode mode) {
 		this.mode = mode;
 	}
 
 	@Column(name="SERIAL_NUM", nullable=false)
-	public Integer getSerialNumber() {
-		return serialNumber;
+	public Outlet getOutlet() {
+		return outlet;
 	}
-
-	public void setSerialNumber(Integer serialNumber) {
-		this.serialNumber = serialNumber;
+	public void setOutlet(Outlet outlet) {
+		this.outlet = outlet;
 	}
 	
 }

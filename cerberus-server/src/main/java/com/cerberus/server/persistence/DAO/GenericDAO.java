@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.cerberus.server.persistence.HibernateUtil;
 
 @Component
-public class GenericDAO {
+public class GenericDAO<T> {
 
 	@Resource(name = "sessionFactory")
 	private SessionFactory sessionFactory;
@@ -25,7 +25,7 @@ public class GenericDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T save(final T o){
+	public T save(final T o){
 		Session session = sessionFactory.getCurrentSession();
 		Transaction trans=session.beginTransaction();
 		T savedO = (T) session.save(o);
@@ -40,23 +40,23 @@ public class GenericDAO {
 
 	/***/
 	@SuppressWarnings("unchecked")
-	public <T> T get(final Class<T> type, final Long id){
+	public T get(final Class<T> type, final Long id){
 		return (T) sessionFactory.getCurrentSession().get(type, id);
 	}
 
 	/***/
 	@SuppressWarnings("unchecked")
-	public <T> T merge(final T o)   {
+	public T merge(final T o)   {
 		return (T) sessionFactory.getCurrentSession().merge(o);
 	}
 
 	/***/
-	public <T> void saveOrUpdate(final T o){
+	public void saveOrUpdate(final T o){
 		sessionFactory.getCurrentSession().saveOrUpdate(o);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> List<T> getAll(final Class<T> type) {
+	public List<T> getAll(final Class<T> type) {
 		//TODO Add try catch finally
 		final Session session = sessionFactory.getCurrentSession();
 		Transaction trans=session.beginTransaction();
