@@ -39,8 +39,8 @@ public class GenericDAO<T, ID> {
 
 	/***/
 	@SuppressWarnings("unchecked")
-	protected T getById(final Class<T> T, final ID id){
-		return (T) sessionFactory.getCurrentSession().get(T, (Serializable) id);
+	protected T getById(final Class<T> clazz, final ID id){
+		return (T) sessionFactory.getCurrentSession().get(clazz, (Serializable) id);
 	}
 
 	/***/
