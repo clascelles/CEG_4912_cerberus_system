@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "ROOM")
@@ -23,10 +26,13 @@ public class Room implements Serializable{
 	RoomType roomType;
 	String name;
 	
+	public Room(){	} //Default Constructor
+	
 	public Room(String name) {
 		super();
 		this.name = name;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -37,7 +43,8 @@ public class Room implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="ROOM_TYPE_ID", nullable=false)
+	@ManyToOne()
+	@JoinColumn(name="ROOM_TYPE_ID")
 	public RoomType getRoomType() {
 		return roomType;
 	}
@@ -52,5 +59,13 @@ public class Room implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "Room [id=" + id + ", roomType=" + roomType + ", name=" + name
+				+ "]";
+	}
+	
+	
 	
 }

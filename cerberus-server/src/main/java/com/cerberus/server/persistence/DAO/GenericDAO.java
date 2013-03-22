@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Component;
 import com.cerberus.server.persistence.HibernateUtil;
 
@@ -49,6 +50,18 @@ public class GenericDAO<T, ID extends Serializable> {
 		tx.commit();
 		return get;
 	}
+	
+	/***/
+	@SuppressWarnings("unchecked")
+	public T getByFilter(DetachedCriteria criteria){
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		
+		T get = (T) criteria.getExecutableCriteria(session).uniqueResult();
+		
+		tx.commit();
+		return get;
+	}
 
 	/***/
 	@SuppressWarnings("unchecked")
@@ -74,9 +87,21 @@ public class GenericDAO<T, ID extends Serializable> {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		
-		final Criteria crit = session.createCriteria(type);
-		List<T> list = crit.list();
+		final Criteria criteria = session.createCriteria(type);
+		List<T> list = criteria.list();
 		
+		tx.commit();
+		return list;
+	}
+	
+	/***/
+	@SuppressWarnings("unchecked")
+	public List<T> getAllByFilter(DetachedCriteria criteria){
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		
+		List<T> list = criteria.getExecutableCriteria(session).list();
+				
 		tx.commit();
 		return list;
 	}

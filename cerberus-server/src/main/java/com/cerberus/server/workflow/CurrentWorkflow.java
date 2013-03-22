@@ -1,10 +1,12 @@
 package com.cerberus.server.workflow;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.cerberus.server.message.CurrentConsumptionMessage;
 import com.cerberus.server.persistence.beans.Current;
+import com.cerberus.server.persistence.beans.Room;
 import com.cerberus.server.service.pool.ServiceFactory;
 import com.cerberus.server.service.pool.ServiceFactoryPool;
 
@@ -17,6 +19,7 @@ public class CurrentWorkflow extends Workflow {
 	
 	public CurrentWorkflow(){
 		serviceFactory = borrowServiceFactory();
+		LOGGER.info("[CurrentWorkflow]: Initializing. Borrowing Service Factory from ObjectPool");
 	}
 	
 	
@@ -28,7 +31,7 @@ public class CurrentWorkflow extends Workflow {
 		current.setSocketId(message.getSocketId());
 		current.setTimestamp(new Timestamp(message.getTimestamp().getMillis()));
 		current.setCurrent(message.getCurrent());
-
+		
 		//Get UserID
 		//TODO Get User ID from User Services
 		
@@ -38,7 +41,7 @@ public class CurrentWorkflow extends Workflow {
 		try{
 			
 			//Persist the Current object
-			//TODO Persist the Current object from the Current Services
+			//TODO Persist the Current object from the Consumption Services
 			
 		}catch(Exception e){ //Catch if an exception occurs
 			e.printStackTrace();
@@ -47,6 +50,11 @@ public class CurrentWorkflow extends Workflow {
 		
 		return true;
 	}
+	
+	public List<Room> getRooms(Integer roomTypeId){
+		return serviceFactory.getSystemService().getRoomByRoomTypeId(roomTypeId);
+	}
+	
 	
 	public void returnServiceFactory (){
 		try {

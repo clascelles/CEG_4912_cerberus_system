@@ -21,10 +21,13 @@ public class RoomType implements Serializable{
 	Integer id;
 	String name;
 	
+	public RoomType(){	} //Default Constructor
+	
 	public RoomType(String name) {
 		super();
 		this.name = name;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
