@@ -18,7 +18,6 @@ public class RuleTipXref implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
 	Integer id;
 	Rule rule;
 	Tip tip;

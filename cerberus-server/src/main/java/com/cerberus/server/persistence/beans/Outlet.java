@@ -51,7 +51,7 @@ public class Outlet implements Serializable {
 		this.room = room;
 	}
 
-	@Column(name="OUTLET_OPERATION_MODE", nullable=false)
+	@Column(name="OUTLET_OPERATION_MODE_ID", nullable=false)
 	public OutletOperationMode getMode() {
 		return mode;
 	}
