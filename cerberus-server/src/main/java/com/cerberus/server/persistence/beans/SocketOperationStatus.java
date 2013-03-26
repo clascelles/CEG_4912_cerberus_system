@@ -29,6 +29,7 @@ public class SocketOperationStatus implements Serializable{
 		super();
 		this.status = status;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)

@@ -22,10 +22,15 @@ public class Tip implements Serializable{
 	Integer id;
 	String name;
 	
+	public Tip(){
+		super();
+	}
+	
 	public Tip(String name) {
 		super();
 		this.name = name;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -43,4 +48,11 @@ public class Tip implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "Tip [id=" + id + ", name=" + name + "]";
+	}
+	
+	
 }

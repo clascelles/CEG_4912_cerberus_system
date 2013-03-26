@@ -2,6 +2,7 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,16 @@ public class System implements Serializable{
 	User user;
 	String name;
 	
+	public System(){
+		super();
+	}
+	
+	public System(User user, String name) {
+		super();
+		this.user = user;
+		this.name = name;
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -34,7 +45,7 @@ public class System implements Serializable{
 		this.id = id;
 	}
 	
-	@OneToOne()
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="USER_ID", nullable=false)
 	public User getUser() {
 		return user;
@@ -49,6 +60,11 @@ public class System implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "System [id=" + id + ", user=" + user + ", name=" + name + "]";
 	}
 	
 	

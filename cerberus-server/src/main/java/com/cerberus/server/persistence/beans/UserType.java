@@ -22,12 +22,15 @@ public class UserType implements Serializable{
 	String name;
 	
 	
-	public UserType(){}
+	public UserType(){
+		super();
+	}
 	
 	public UserType(String name) {
 		super();
 		this.name = name;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)

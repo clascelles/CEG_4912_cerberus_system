@@ -2,11 +2,14 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,10 +25,15 @@ public class SocketOperationMode implements Serializable{
 	Integer id;
 	OutletOperationMode mode;
 	
+	public SocketOperationMode(){
+		super();
+	}
+	
 	public SocketOperationMode(OutletOperationMode mode) {
 		super();
 		this.mode = mode;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -36,12 +44,20 @@ public class SocketOperationMode implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="NAME", nullable=false)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="NAME", nullable=false)
 	public OutletOperationMode getMode() {
 		return mode;
 	}
 	public void setMode(OutletOperationMode mode) {
 		this.mode = mode;
+	}
+
+	@Override
+	public String toString() {
+		return "SocketOperationMode [id=" + id + ", mode=" + mode + "]";
 	}	
+	
+	
 	
 }
