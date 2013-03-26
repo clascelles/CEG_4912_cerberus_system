@@ -24,6 +24,7 @@ public class SocketOperationMode implements Serializable{
 	
 	Integer id;
 	OutletOperationMode mode;
+	String description;
 	
 	public SocketOperationMode(){
 		super();
@@ -45,13 +46,22 @@ public class SocketOperationMode implements Serializable{
 	}
 	
 	@ManyToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name="NAME", nullable=false)
+	@JoinColumn(name="OUTLET_OPERATION_MODE", nullable=false)
 	public OutletOperationMode getMode() {
 		return mode;
 	}
 	public void setMode(OutletOperationMode mode) {
 		this.mode = mode;
 	}
+	
+	@Column(name="DESCRIPTION", nullable=false)
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 
 	@Override
 	public String toString() {

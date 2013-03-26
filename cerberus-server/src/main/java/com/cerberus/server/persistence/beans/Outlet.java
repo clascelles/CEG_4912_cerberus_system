@@ -31,11 +31,12 @@ public class Outlet implements Serializable {
 		super();
 	}
 	
-	public Outlet(Room room, OutletOperationMode mode, Integer serialNumber) {
+	public Outlet(Room room, OutletOperationMode mode, Integer serialNumber, System system) {
 		super();
 		this.room = room;
 		this.mode = mode;
-		this.serialNumber = serialNumber;		
+		this.serialNumber = serialNumber;	
+		this.system = system;
 	}
 	
 	@Id

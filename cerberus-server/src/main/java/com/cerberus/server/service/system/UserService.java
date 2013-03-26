@@ -100,10 +100,14 @@ public class UserService {
 	//***************************************************
 	//USER TYPE
 	//***************************************************
+
+	public void insertUserType(UserType userType) {
+		userTypeDAO.save(userType);
+	}
 	
 	public UserType getUserTypeById(Integer userTypeId){
 		return userTypeDAO.getById(userTypeId);
-	}
+	}	
 	
 	//***************************************************
 	//USER SETTING

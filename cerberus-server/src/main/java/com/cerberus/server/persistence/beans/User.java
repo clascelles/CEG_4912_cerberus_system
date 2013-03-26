@@ -75,7 +75,7 @@ public class User implements Serializable {
 		this.setting = setting;
 	}
 
-	@OneToOne()
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="USER_TYPE_ID", nullable=false)
 	public UserType getType() {
 		return type;

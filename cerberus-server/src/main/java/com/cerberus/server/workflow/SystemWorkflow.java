@@ -4,9 +4,9 @@ import java.util.logging.Logger;
 
 import com.cerberus.server.persistence.beans.Room;
 import com.cerberus.server.persistence.beans.RoomType;
+import com.cerberus.server.persistence.beans.System;
 import com.cerberus.server.service.pool.ServiceFactory;
 import com.cerberus.server.service.pool.ServiceFactoryPool;
-import com.cerberus.server.service.system.SystemService;
 
 public class SystemWorkflow extends Workflow {
 	
@@ -27,6 +27,11 @@ public class SystemWorkflow extends Workflow {
 	public void insertRoom(Room room){
 		serviceFactory.getSystemService().insertRoom(room);
 	}
+
+	public void insertSystem(System system){
+		serviceFactory.getSystemService().insertSystem(system);
+	}	
+	
 	
 	public void returnServiceFactory (){
 		try {
