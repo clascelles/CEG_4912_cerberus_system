@@ -5,11 +5,13 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -45,7 +47,7 @@ public class SocketAssignment implements Serializable{
 		this.id = id;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JoinColumn(name="SOCKET_ID", nullable=false)
 	public Socket getSocket() {
 		return socket;
@@ -55,7 +57,7 @@ public class SocketAssignment implements Serializable{
 	}
 
 	@ManyToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name="USER_ID", nullable=false)
+	@JoinColumn(name="USERS_ID", nullable=false)
 	public User getUser() {
 		return user;
 	}

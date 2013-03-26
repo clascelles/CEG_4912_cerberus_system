@@ -1,5 +1,7 @@
 package com.cerberus.server.service.system;
 
+import java.util.List;
+
 import com.cerberus.server.persistence.DAO.ConnectionEventDAO;
 import com.cerberus.server.persistence.DAO.EventDAO;
 import com.cerberus.server.persistence.DAO.OutletDAO;
@@ -11,9 +13,13 @@ import com.cerberus.server.persistence.beans.ConnectionEvent;
 import com.cerberus.server.persistence.beans.Event;
 import com.cerberus.server.persistence.beans.Outlet;
 import com.cerberus.server.persistence.beans.OutletOperationMode;
+import com.cerberus.server.persistence.beans.Room;
 import com.cerberus.server.persistence.beans.Socket;
 import com.cerberus.server.persistence.beans.SocketAssignment;
 import com.cerberus.server.persistence.beans.SocketOperationStatus;
+import com.cerberus.server.persistence.filter.RoomFilter;
+import com.cerberus.server.persistence.filter.SocketAssignmentFilter;
+import com.cerberus.server.persistence.filter.SocketFilter;
 
 public class OutletService {
 
@@ -145,6 +151,18 @@ public class OutletService {
 	
 	public void deleteSocketAssignment(SocketAssignment socketAssignment){
 		socketAssignmentDAO.delete(socketAssignment);
+	}
+	
+	public Socket getSocketBySocketId(Integer socketId){
+		return socketDAO.getByFilter(SocketFilter.getById(socketId));
+	}
+	
+	public Socket getSocketBySerialNumber(Integer serialNumber){
+		return socketDAO.getByFilter(SocketFilter.getBySerialNum(serialNumber));
+	}
+	
+	public SocketAssignment getSocketAssignmentBySocket(Socket socket){
+		return socketAssignmentDAO.getByFilter(SocketAssignmentFilter.getBySocketId(socket.getId()));
 	}
 	
 //	public List<ConnectionEvent> getConnectionEventsByOutletId(Integer outletId){

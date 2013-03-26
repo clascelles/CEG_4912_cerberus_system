@@ -1,14 +1,17 @@
 package com.cerberus.server.workflow;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.cerberus.server.persistence.beans.ConnectionEvent;
 import com.cerberus.server.persistence.beans.Event;
 import com.cerberus.server.persistence.beans.Outlet;
 import com.cerberus.server.persistence.beans.OutletOperationMode;
+import com.cerberus.server.persistence.beans.Room;
 import com.cerberus.server.persistence.beans.Socket;
 import com.cerberus.server.persistence.beans.SocketAssignment;
 import com.cerberus.server.persistence.beans.SocketOperationStatus;
+import com.cerberus.server.persistence.beans.User;
 import com.cerberus.server.service.pool.ServiceFactory;
 import com.cerberus.server.service.pool.ServiceFactoryPool;
 
@@ -50,6 +53,28 @@ public class OutletWorkflow extends Workflow {
 	
 	public void insertSocketAssignment(SocketAssignment socketAssignment){
 		serviceFactory.getOutletService().insertSocketAssignment(socketAssignment);
+	}
+	
+	public List<Room> getRooms(Integer roomTypeId) {
+		return serviceFactory.getSystemService().getRoomByRoomTypeId(roomTypeId);
+	}
+	
+	public Socket getSocketById(Integer id) {
+		return serviceFactory.getOutletService().getSocketBySocketId(id);
+	}
+	
+	public Socket getSocketBySerialNumber(Integer serialNumber) {
+		return serviceFactory.getOutletService().getSocketBySerialNumber(serialNumber);
+	}
+	
+	public User getUserBySocketId(Integer socketId) {
+		Socket socket = serviceFactory.getOutletService().getSocketBySocketId(socketId);
+		return getUserBySocket(socket);
+	}
+	
+	public User getUserBySocket(Socket socket) {
+		SocketAssignment assignment = serviceFactory.getOutletService().getSocketAssignmentBySocket(socket);
+		return assignment.getUser();
 	}
 	
 	public void returnServiceFactory (){
