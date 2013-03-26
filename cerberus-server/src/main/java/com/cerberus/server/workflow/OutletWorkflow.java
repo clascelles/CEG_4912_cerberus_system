@@ -21,7 +21,7 @@ public class OutletWorkflow extends Workflow {
 	
 	public OutletWorkflow(){
 		serviceFactory = borrowServiceFactory();
-		LOGGER.info("[CurrentWorkflow]: Initializing. Borrowing Service Factory from ObjectPool");
+		LOGGER.info("[OutletWorkflow]: Initializing. Borrowing Service Factory from ObjectPool");
 	}
 	
 	public void insertOutletOperationMode(OutletOperationMode outletOperationMode){

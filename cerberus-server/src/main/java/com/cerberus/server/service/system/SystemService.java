@@ -4,16 +4,19 @@ import java.util.List;
 
 import com.cerberus.server.persistence.DAO.*;
 import com.cerberus.server.persistence.beans.*;
+import com.cerberus.server.persistence.beans.System;
 import com.cerberus.server.persistence.filter.RoomFilter;
 
 public class SystemService {
 	
 	RoomDAO roomDAO;
 	RoomTypeDAO roomTypeDAO;
+	SystemDAO systemDAO;
 	
 	public SystemService(){
 		roomDAO = new RoomDAO();
 		roomTypeDAO = new RoomTypeDAO();
+		systemDAO = new SystemDAO();
 	}
 	
 	//***************************************************
@@ -50,6 +53,22 @@ public class SystemService {
 	
 	public List<Room> getRoomByRoomTypeId(Integer roomTypeId){
 		return roomDAO.getAllByFilter(RoomFilter.getRoomByRoomTypeId(roomTypeId));
+	}
+	
+	//***************************************************
+	//System
+	//***************************************************
+	
+	public void insertSystem(System system){
+		systemDAO.save(system);
+	}
+	
+	public System updateSystem(System system){
+		return systemDAO.merge(system);
+	}
+	
+	public void deleteSystem(System system){
+		systemDAO.delete(system);
 	}
 
 }

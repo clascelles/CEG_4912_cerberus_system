@@ -46,6 +46,7 @@ public class RfidService {
 	public RfidTag getRfidTagByNumber(DetachedCriteria criteria){
 		return rfidTagDAO.getByFilter(criteria);
 	}
+
 	
 	//***************************************************
 	//RFID AUTHENTICATION

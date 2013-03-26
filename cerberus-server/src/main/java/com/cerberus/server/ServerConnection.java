@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import com.cerberus.server.bootstrap.CerberusServerBootstrap;
 import com.cerberus.server.logging.ServerLogger;
 import com.cerberus.server.persistence.HibernateUtil;
+import com.cerberus.server.persistence.beans.System;
 import com.cerberus.server.persistence.beans.Login;
 import com.cerberus.server.persistence.beans.PersonalInformation;
 import com.cerberus.server.persistence.beans.Room;
@@ -30,6 +31,7 @@ import com.cerberus.server.persistence.beans.OutletOperationMode;
 import com.cerberus.server.persistence.beans.RoomType;
 import com.cerberus.server.persistence.beans.Socket;
 import com.cerberus.server.persistence.beans.SocketAssignment;
+import com.cerberus.server.persistence.beans.SocketOperationMode;
 import com.cerberus.server.persistence.beans.SocketOperationStatus;
 import com.cerberus.server.workflow.OutletWorkflow;
 
@@ -48,10 +50,16 @@ public class ServerConnection {
 //		PersonalInformation personalInformation = new PersonalInformation("David", "Vezina", "613-123-4567", "6257 Ravine Way");
 //
 //		UserWorkflow userWorkflow = new UserWorkflow();
-//		UserType userType = userWorkflow.getUserTypeById(1);
+//		UserType userType = new UserType("Consumer");
+//		//UserType userType = userWorkflow.getUserTypeById(1);
 //		User user = new User(userSetting, userType, login, personalInformation, currentDate, null, currentDate, null);
 //
 //		userWorkflow.insertUser(user);
+//		
+//		System system = new System(user, "my system");
+//		
+//		SystemWorkflow systemWorkflow = new SystemWorkflow();
+//		systemWorkflow.insertSystem(system);
 		
 //		RoomType kitchen = new RoomType("Kitchen");
 //		Room myKitchen = new Room("My Kitchen", kitchen);
@@ -78,9 +86,7 @@ public class ServerConnection {
 //		outletWorkflow.insertConnectionEvent(conEvent);
 //		outletWorkflow.insertSocketOperationStatus(activeStatus);
 //		//outletWorkflow.insertSocket(socket);
-//		//outletWorkflow.insertSocketAssignment(assignment);
-		
-		
+//		//outletWorkflow.insertSocketAssignment(assignment);	
 		
 		ServerLogger.setup(LOG_FILE);
 		LOGGER.info("Server Started.");
