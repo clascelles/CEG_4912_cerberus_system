@@ -26,83 +26,170 @@ public class GenericDAO<T, ID extends Serializable> {
 	/***/
 	@SuppressWarnings("unchecked")
 	public ID save(final T o){
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		ID saved = (ID) session.save(o);
-		tx.commit();
+		Session session = null;
+		Transaction tx = null;
+		ID saved = null;
+		
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			saved = (ID) session.save(o);
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		
 		return saved;
 	}
 
 	/***/
 	public void delete(final Object object){
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		sessionFactory.getCurrentSession().delete(object);
-		tx.commit();
+		Session session = null;
+		Transaction tx = null;
+		
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			session.delete(object);
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
 	}
 
 	/***/
 	@SuppressWarnings("unchecked")
 	protected T getById(final Class<T> clazz, final ID id){
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		T get = (T) sessionFactory.getCurrentSession().get(clazz, id);
-		tx.commit();
+		Session session = null;
+		Transaction tx = null;
+		T get = null;
+		
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			get = (T) session.get(clazz, id);
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+
 		return get;
 	}
 	
 	/***/
 	@SuppressWarnings("unchecked")
 	public T getByFilter(DetachedCriteria criteria){
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
+		Session session = null;
+		Transaction tx = null;
+		T get = null;
 		
-		T get = (T) criteria.getExecutableCriteria(session).uniqueResult();
-		
-		tx.commit();
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			get = (T) criteria.getExecutableCriteria(session).uniqueResult();
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+
 		return get;
 	}
 
 	/***/
 	@SuppressWarnings("unchecked")
 	public T merge(final T o)   {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		T merged = (T) sessionFactory.getCurrentSession().merge(o);
-		tx.commit();
+		Session session = null;
+		Transaction tx = null;
+		T merged = null;
+		
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			merged = (T) session.merge(o);
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+
 		return merged;
 	}
 
 	/***/
 	public void saveOrUpdate(final T o){
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		sessionFactory.getCurrentSession().saveOrUpdate(o);
-		tx.commit();
+		Session session = null;
+		Transaction tx = null;		
+		
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			session.saveOrUpdate(o);
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+
 	}
 	
 	/***/
 	@SuppressWarnings("unchecked")
 	protected List<T> getAll(final Class<T> type) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
+		Session session = null;
+		Transaction tx = null;	
+		List<T> list = null;
 		
-		final Criteria criteria = session.createCriteria(type);
-		List<T> list = criteria.list();
-		
-		tx.commit();
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			final Criteria criteria = session.createCriteria(type);
+			list = criteria.list();
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+
 		return list;
 	}
 	
 	/***/
 	@SuppressWarnings("unchecked")
 	public List<T> getAllByFilter(DetachedCriteria criteria){
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
+		Session session = null;
+		Transaction tx = null;	
+		List<T> list = null;
 		
-		List<T> list = criteria.getExecutableCriteria(session).list();
-				
-		tx.commit();
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			criteria.getExecutableCriteria(session).list();
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+
 		return list;
 	}
 
