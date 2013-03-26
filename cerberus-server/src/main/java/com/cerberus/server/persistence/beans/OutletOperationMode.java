@@ -21,7 +21,10 @@ public class OutletOperationMode implements Serializable{
 	
 	Integer id;
 	String name;
-	
+		
+	public OutletOperationMode() {
+		super();
+	}
 	public OutletOperationMode(String name) {
 		super();
 		this.name = name;
@@ -43,8 +46,8 @@ public class OutletOperationMode implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "OutletOperationMode [id=" + id + ", name=" + name + "]";
+	}	
 }

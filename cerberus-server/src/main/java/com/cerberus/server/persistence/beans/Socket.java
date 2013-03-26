@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -42,7 +44,9 @@ public class Socket implements Serializable {
 		this.id = id;
 	}	
 
-	@Column(name="SOCKET_OPERATION_STATUS_ID", nullable=false)
+	
+	@ManyToOne()
+	@JoinColumn(name="SOCKET_OPERATION_STATUS_ID", nullable=false)
 	public SocketOperationStatus getStatus() {
 		return status;
 	}
@@ -50,7 +54,8 @@ public class Socket implements Serializable {
 		this.status = status;
 	}
 	
-	@Column(name="SOCKET_OPERATION_MODE_ID", nullable=false)
+	@ManyToOne()
+	@JoinColumn(name="SOCKET_OPERATION_MODE_ID", nullable=false)
 	public SocketOperationMode getMode() {
 		return mode;
 	}
@@ -59,12 +64,19 @@ public class Socket implements Serializable {
 		this.mode = mode;
 	}
 
-	@Column(name="OUTLET_ID", nullable=false)
+	@ManyToOne()
+	@JoinColumn(name="OUTLET_ID", nullable=false)
 	public Outlet getOutlet() {
 		return outlet;
 	}
 	public void setOutlet(Outlet outlet) {
 		this.outlet = outlet;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Socket [id=" + id + ", status=" + status + ", mode=" + mode
+				+ ", outlet=" + outlet + "]";
+	}
+		
 }

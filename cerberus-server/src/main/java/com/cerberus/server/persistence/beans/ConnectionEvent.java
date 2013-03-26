@@ -26,6 +26,10 @@ public class ConnectionEvent implements Serializable{
 	Event event;
 	Timestamp timestamp;
 	
+	public ConnectionEvent() {
+		super();
+	}
+
 	public ConnectionEvent(Outlet outlet, Event event,Timestamp timestamp) {
 		super();
 		this.outlet = outlet;
@@ -67,5 +71,11 @@ public class ConnectionEvent implements Serializable{
 	}
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	@Override
+	public String toString() {
+		return "ConnectionEvent [id=" + id + ", outlet=" + outlet + ", event="
+				+ event + ", timestamp=" + timestamp + "]";
 	}	
 }

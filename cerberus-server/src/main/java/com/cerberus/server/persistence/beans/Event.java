@@ -22,7 +22,10 @@ public class Event implements Serializable{
 	Integer id;
 	String name;
 	String description;
-	
+		
+	public Event() {
+		super();
+	}
 	public Event(String name) {
 		super();
 		this.name = name;
@@ -51,5 +54,10 @@ public class Event implements Serializable{
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}	
+	}
+	@Override
+	public String toString() {
+		return "Event [id=" + id + ", name=" + name + ", description="
+				+ description + "]";
+	}		
 }

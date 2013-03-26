@@ -83,7 +83,11 @@ public class Outlet implements Serializable {
 	public void setSystem(System system) {
 		this.system = system;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Outlet [id=" + id + ", room=" + room + ", mode=" + mode
+				+ ", serialNumber=" + serialNumber + ", system=" + system + "]";
+	}
 	
 }
