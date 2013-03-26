@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ROOM_TYPE")
-public class RoomType implements Serializable{
+@Table(name = "RULE")
+public class Rule implements Serializable{
 
 	/**
 	 * 
@@ -21,13 +21,10 @@ public class RoomType implements Serializable{
 	Integer id;
 	String name;
 	
-	public RoomType(){	} //Default Constructor
-	
-	public RoomType(String name) {
+	public Rule(String name) {
 		super();
 		this.name = name;
 	}
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -45,5 +42,4 @@ public class RoomType implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 }

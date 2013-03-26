@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ROOM_TYPE")
-public class RoomType implements Serializable{
+@Table(name = "RULE_TIP_XREF")
+public class RuleTipXref implements Serializable{
 
 	/**
 	 * 
@@ -19,15 +19,14 @@ public class RoomType implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	Integer id;
-	String name;
+	Rule rule;
+	Tip tip;
 	
-	public RoomType(){	} //Default Constructor
-	
-	public RoomType(String name) {
+	public RuleTipXref(Rule rule, Tip tip) {
 		super();
-		this.name = name;
+		this.rule = rule;
+		this.tip = tip;
 	}
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -38,12 +37,20 @@ public class RoomType implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="NAME", nullable=false)
-	public String getName() {
-		return name;
+	@Column(name="RULE_ID", nullable=false)
+	public Rule getRule() {
+		return rule;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setRule(Rule rule) {
+		this.rule = rule;
 	}
+	
+	@Column(name="TIP_ID", nullable=false)
+	public Tip getTip() {
+		return tip;
+	}
+	public void setTip(Tip tip) {
+		this.tip = tip;
+	}	
 	
 }

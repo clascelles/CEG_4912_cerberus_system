@@ -1,0 +1,2 @@
+INSERT INTO EVENT (ID, EVENT_NAME, EVENT_DESCRIPTION) VALUES('1', 'Event name 1', 'Description 1' );
+INSERT INTO EVENT (ID, EVENT_NAME, EVENT_DESCRIPTION) VALUES('2', 'Event name 2', 'Description 2' );

@@ -7,23 +7,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
-@Table(name = "ROOM_TYPE")
-public class RoomType implements Serializable{
+@Table(name = "ROOM")
+public class Room implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
 	Integer id;
+	RoomType roomType;
 	String name;
 	
-	public RoomType(){	} //Default Constructor
+	public Room(){	} //Default Constructor
 	
-	public RoomType(String name) {
+	public Room(String name) {
 		super();
 		this.name = name;
 	}
@@ -38,6 +43,15 @@ public class RoomType implements Serializable{
 		this.id = id;
 	}
 	
+	@ManyToOne()
+	@JoinColumn(name="ROOM_TYPE_ID")
+	public RoomType getRoomType() {
+		return roomType;
+	}
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
+	}
+	
 	@Column(name="NAME", nullable=false)
 	public String getName() {
 		return name;
@@ -45,5 +59,13 @@ public class RoomType implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "Room [id=" + id + ", roomType=" + roomType + ", name=" + name
+				+ "]";
+	}
+	
+	
 	
 }

@@ -10,24 +10,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ROOM_TYPE")
-public class RoomType implements Serializable{
+@Table(name = "EVENT")
+public class Event implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
 	Integer id;
 	String name;
+	String description;
 	
-	public RoomType(){	} //Default Constructor
-	
-	public RoomType(String name) {
+	public Event(String name) {
 		super();
 		this.name = name;
 	}
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -38,7 +37,7 @@ public class RoomType implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="NAME", nullable=false)
+	@Column(name="EVENT_NAME", nullable=false)
 	public String getName() {
 		return name;
 	}
@@ -46,4 +45,11 @@ public class RoomType implements Serializable{
 		this.name = name;
 	}
 	
+	@Column(name="EVENT_DESCRIPTION", nullable=false)
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}	
 }

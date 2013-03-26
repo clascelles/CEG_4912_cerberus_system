@@ -7,11 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ROOM_TYPE")
-public class RoomType implements Serializable{
+@Table(name = "SYSTEM")
+public class System implements Serializable{
 
 	/**
 	 * 
@@ -19,14 +21,8 @@ public class RoomType implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	Integer id;
+	User user;
 	String name;
-	
-	public RoomType(){	} //Default Constructor
-	
-	public RoomType(String name) {
-		super();
-		this.name = name;
-	}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -38,6 +34,15 @@ public class RoomType implements Serializable{
 		this.id = id;
 	}
 	
+	@OneToOne()
+	@JoinColumn(name="USER_ID", nullable=false)
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	@Column(name="NAME", nullable=false)
 	public String getName() {
 		return name;
@@ -45,5 +50,7 @@ public class RoomType implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
 	
 }

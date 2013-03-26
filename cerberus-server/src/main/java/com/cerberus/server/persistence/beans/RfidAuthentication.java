@@ -10,24 +10,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ROOM_TYPE")
-public class RoomType implements Serializable{
+@Table(name = "RFID_AUTHENTICATION")
+public class RfidAuthentication implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
 	Integer id;
-	String name;
+	Integer rfidTagId;
+	User owner;
 	
-	public RoomType(){	} //Default Constructor
-	
-	public RoomType(String name) {
+	public RfidAuthentication(Integer rfidTagId, User owner) {
 		super();
-		this.name = name;
+		this.rfidTagId = rfidTagId;
+		this.owner = owner;
 	}
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -38,12 +38,19 @@ public class RoomType implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="NAME", nullable=false)
-	public String getName() {
-		return name;
+	@Column(name="RFID_TAG_ID", nullable=false)
+	public Integer getRfidTagId() {
+		return rfidTagId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setRfidTagId(Integer rfidTagId) {
+		this.rfidTagId = rfidTagId;
 	}
 	
+	@Column(name="USER_ID", nullable=false)
+	public User getOwner() {
+		return owner;
+	}
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
 }

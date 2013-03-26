@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ROOM_TYPE")
-public class RoomType implements Serializable{
+@Table(name = "SOCKET_ASSIGNMENT")
+public class SocketAssignment implements Serializable{
 
 	/**
 	 * 
@@ -19,15 +19,14 @@ public class RoomType implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	Integer id;
-	String name;
+	Socket socket;
+	User user;
 	
-	public RoomType(){	} //Default Constructor
-	
-	public RoomType(String name) {
+	public SocketAssignment(Socket socket, User user) {
 		super();
-		this.name = name;
+		this.socket = socket;
+		this.user = user;
 	}
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -38,12 +37,19 @@ public class RoomType implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="NAME", nullable=false)
-	public String getName() {
-		return name;
+	@Column(name="SOCKET_ID", nullable=false)
+	public Socket getSocket() {
+		return socket;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setSocket(Socket socket) {
+		this.socket = socket;
 	}
 	
+	@Column(name="USER_ID", nullable=false)
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}	
 }

@@ -11,7 +11,7 @@ public class CerberusServerBootstrap extends Thread {
 	@Override
 	public void run() {
 
-		LOGGER.info("Bootsrapping the Cerberus server.");
+		LOGGER.info("Bootstrapping the Cerberus server.");
 		// Start all bootstrap threads here
 
 		// Executor Services Bootstrap

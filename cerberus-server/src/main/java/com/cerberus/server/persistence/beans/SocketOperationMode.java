@@ -10,24 +10,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ROOM_TYPE")
-public class RoomType implements Serializable{
+@Table(name = "SOCKET_OPERATION_MODE")
+public class SocketOperationMode implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
 	Integer id;
-	String name;
+	OutletOperationMode mode;
 	
-	public RoomType(){	} //Default Constructor
-	
-	public RoomType(String name) {
+	public SocketOperationMode(OutletOperationMode mode) {
 		super();
-		this.name = name;
+		this.mode = mode;
 	}
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -39,11 +37,11 @@ public class RoomType implements Serializable{
 	}
 	
 	@Column(name="NAME", nullable=false)
-	public String getName() {
-		return name;
+	public OutletOperationMode getMode() {
+		return mode;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	public void setMode(OutletOperationMode mode) {
+		this.mode = mode;
+	}	
 	
 }
