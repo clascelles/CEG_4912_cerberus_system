@@ -59,7 +59,7 @@ public class JsonMessageDecodingTest {
 		assertThat(currentMsg.getTimestamp(), is(equalTo(timestamp)));
 		assertThat(currentMsg.getType(), is(equalTo(MessageType.CURRENT)));
 		assertThat(currentMsg.getCurrent(), is(equalTo(3000)));
-		assertThat(currentMsg.getRfidNumber(), is(equalTo(1234567890)));
+		assertThat(currentMsg.getRfidNumber(), is(equalTo(1234567890L)));
 	}
 
 	@Test

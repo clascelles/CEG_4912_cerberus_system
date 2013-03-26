@@ -6,11 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class CurrentConsumptionMessage extends Message {
 
 	private final int current;
-	private final int rfidNumber;
+	private final Long rfidNumber;
 
 	@JsonCreator
 	public CurrentConsumptionMessage(@JsonProperty("socketId") int socketId, @JsonProperty("timestamp") long timestamp,
-			@JsonProperty("current") int current, @JsonProperty("rfidNumber") int rfidNumber) {
+			@JsonProperty("current") int current, @JsonProperty("rfidNumber") Long rfidNumber) {
 		super(MessageType.CURRENT, socketId, timestamp);
 		this.current = current;
 		this.rfidNumber = rfidNumber;
@@ -20,7 +20,7 @@ public class CurrentConsumptionMessage extends Message {
 		return current;
 	}
 
-	public int getRfidNumber() {
+	public Long getRfidNumber() {
 		return rfidNumber;
 	}
 

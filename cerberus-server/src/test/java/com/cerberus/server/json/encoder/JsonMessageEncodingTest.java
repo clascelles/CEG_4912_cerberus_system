@@ -39,7 +39,7 @@ public class JsonMessageEncodingTest {
 
 	@Test
 	public void testEncodingJsonCurrentConsumptionMessage() throws Exception {
-		CurrentConsumptionMessage message = new CurrentConsumptionMessage(socketId, timestamp, 3000, 1234567890);
+		CurrentConsumptionMessage message = new CurrentConsumptionMessage(socketId, timestamp, 3000, 1234567890L);
 
 		ObjectWriter writer = JsonDataBinderFactory.getWriter(message.getClass());
 		String jsonMessage = writer.writeValueAsString(message);

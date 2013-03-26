@@ -9,6 +9,7 @@ import com.cerberus.server.persistence.beans.Current;
 import com.cerberus.server.persistence.beans.Login;
 import com.cerberus.server.persistence.beans.Room;
 import com.cerberus.server.persistence.beans.User;
+import com.cerberus.server.persistence.filter.RfidTagFilter;
 import com.cerberus.server.service.pool.ServiceFactory;
 import com.cerberus.server.service.pool.ServiceFactoryPool;
 
@@ -29,7 +30,7 @@ public class CurrentWorkflow extends Workflow {
 		// Create new Current data structure
 		Current current = new Current();
 
-		current.setSocketId(message.getSocketId());
+		//current.setSocketId(message.getSocketId());
 		current.setTimestamp(new Timestamp(message.getTimestamp()));
 		current.setCurrent(message.getCurrent());
 
@@ -37,7 +38,7 @@ public class CurrentWorkflow extends Workflow {
 		// TODO Get User ID from User Services
 
 		// Get RFID Number ID
-		// TODO Get RFID Number ID from RFID Services
+		serviceFactory.getRfidService().getRfidTagByNumber(RfidTagFilter.getRfidTagByNumber(message.getRfidNumber()));
 
 		try {
 

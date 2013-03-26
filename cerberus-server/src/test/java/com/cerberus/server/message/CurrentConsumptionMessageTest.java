@@ -22,7 +22,7 @@ public class CurrentConsumptionMessageTest {
 
 	@Test
 	public void creatingNewCurrentConsumptionMessage() throws Exception {
-		Message currentMsg = new CurrentConsumptionMessage(socketId, timestamp, 2000, 123456789);
+		Message currentMsg = new CurrentConsumptionMessage(socketId, timestamp, 2000, 123456789L);
 
 		assertTrue(currentMsg instanceof CurrentConsumptionMessage);
 		CurrentConsumptionMessage message = (CurrentConsumptionMessage) currentMsg;
@@ -31,7 +31,7 @@ public class CurrentConsumptionMessageTest {
 		assertThat(message.getTimestamp(), is(equalTo(timestamp)));
 		assertThat(message.getType(), is(equalTo(MessageType.CURRENT)));
 		assertThat(message.getCurrent(), is(equalTo(2000)));
-		assertThat(message.getRfidNumber(), is(equalTo(123456789)));
+		assertThat(message.getRfidNumber(), is(equalTo(123456789L)));
 	}
 
 }

@@ -19,6 +19,7 @@ import com.cerberus.server.persistence.beans.UserSetting;
 import com.cerberus.server.persistence.beans.UserType;
 import com.cerberus.server.service.system.SystemService;
 import com.cerberus.server.workflow.CurrentWorkflow;
+import com.cerberus.server.workflow.RfidWorkflow;
 import com.cerberus.server.workflow.SystemWorkflow;
 import com.cerberus.server.workflow.UserWorkflow;
 
@@ -52,36 +53,43 @@ public class ServerConnection {
 //
 //		userWorkflow.insertUser(user);
 		
-		RoomType kitchen = new RoomType("Kitchen");
-		Room myKitchen = new Room("My Kitchen", kitchen);
+//		RoomType kitchen = new RoomType("Kitchen");
+//		Room myKitchen = new Room("My Kitchen", kitchen);
+//		
+//		OutletOperationMode enabledMode = new OutletOperationMode("Enabled");
+//		Outlet outlet = new Outlet(myKitchen, enabledMode, 12345);
+//		Event connectedEvent = new Event("Connected");
+//		SocketOperationStatus activeStatus = new SocketOperationStatus("Active");
+//		
+//		java.util.Date date= new java.util.Date();
+//		Timestamp ts = new Timestamp(date.getTime());
+//		ConnectionEvent conEvent = new ConnectionEvent(outlet, connectedEvent, ts);
+//		//Socket socket = new Socket(activeStatus, enabledMode, );
+//		//SocketAssignment assignment = new SocketAssignment();
+//
+//		SystemWorkflow systemWorkflow = new SystemWorkflow();
+//		OutletWorkflow outletWorkflow = new OutletWorkflow();
+//		//outletWorkflow.insertOutletOperationMode(enabledMode);
+//		//outletWorkflow.insertEvent(connectedEvent);
+//		systemWorkflow.insertRoomType(kitchen);
+//		systemWorkflow.insertRoom(myKitchen);
+//		
+//		outletWorkflow.insertOutlet(outlet);
+//		outletWorkflow.insertConnectionEvent(conEvent);
+//		outletWorkflow.insertSocketOperationStatus(activeStatus);
+//		//outletWorkflow.insertSocket(socket);
+//		//outletWorkflow.insertSocketAssignment(assignment);
 		
-		OutletOperationMode enabledMode = new OutletOperationMode("Enabled");
-		Outlet outlet = new Outlet(myKitchen, enabledMode, 12345);
-		Event connectedEvent = new Event("Connected");
-		SocketOperationStatus activeStatus = new SocketOperationStatus("Active");
 		
-		java.util.Date date= new java.util.Date();
-		Timestamp ts = new Timestamp(date.getTime());
-		ConnectionEvent conEvent = new ConnectionEvent(outlet, connectedEvent, ts);
-		//Socket socket = new Socket(activeStatus, enabledMode, );
-		//SocketAssignment assignment = new SocketAssignment();
-
-		SystemWorkflow systemWorkflow = new SystemWorkflow();
-		OutletWorkflow outletWorkflow = new OutletWorkflow();
-		//outletWorkflow.insertOutletOperationMode(enabledMode);
-		//outletWorkflow.insertEvent(connectedEvent);
-		systemWorkflow.insertRoomType(kitchen);
-		systemWorkflow.insertRoom(myKitchen);
-		
-		outletWorkflow.insertOutlet(outlet);
-		outletWorkflow.insertConnectionEvent(conEvent);
-		outletWorkflow.insertSocketOperationStatus(activeStatus);
-		//outletWorkflow.insertSocket(socket);
-		//outletWorkflow.insertSocketAssignment(assignment);
 		
 		ServerLogger.setup(LOG_FILE);
 		LOGGER.info("Server Started.");
 
+//		RfidWorkflow rfidWorkflow = new RfidWorkflow();
+//		rfidWorkflow.getRfidTagByNumber(new Long(123456789));
+//		
+//		System.out.println(rfidWorkflow.getRfidTagByNumber(new Long(123456789)));
+		
 		// Bootstrap the server.
 		CerberusServerBootstrap bootstrap = new CerberusServerBootstrap();
 		bootstrap.start();
