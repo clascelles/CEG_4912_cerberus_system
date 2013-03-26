@@ -29,6 +29,10 @@ public class OutletService {
 		outletDAO = new OutletDAO();
 		connectionEventDAO = new ConnectionEventDAO();
 		eventDAO = new EventDAO();
+		socketOperationStatusDAO = new SocketOperationStatusDAO();
+		socketDAO = new SocketDAO();
+		outletOperationModeDAO = new OutletOperationModeDAO();
+		socketAssignmentDAO = new SocketAssignmentDAO();
 	}
 	
 	//***************************************************

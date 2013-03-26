@@ -19,6 +19,7 @@ import com.cerberus.server.persistence.beans.UserSetting;
 import com.cerberus.server.persistence.beans.UserType;
 import com.cerberus.server.service.system.SystemService;
 import com.cerberus.server.workflow.CurrentWorkflow;
+import com.cerberus.server.workflow.SystemWorkflow;
 import com.cerberus.server.workflow.UserWorkflow;
 
 import com.cerberus.server.persistence.beans.ConnectionEvent;
@@ -51,8 +52,8 @@ public class ServerConnection {
 //
 //		userWorkflow.insertUser(user);
 		
-		RoomType roomType = new RoomType("Kitchen");
-		Room myKitchen = new Room("My Kitchen");
+		RoomType kitchen = new RoomType("Kitchen");
+		Room myKitchen = new Room("My Kitchen", kitchen);
 		
 		OutletOperationMode enabledMode = new OutletOperationMode("Enabled");
 		Outlet outlet = new Outlet(myKitchen, enabledMode, 12345);
@@ -64,10 +65,15 @@ public class ServerConnection {
 		ConnectionEvent conEvent = new ConnectionEvent(outlet, connectedEvent, ts);
 		//Socket socket = new Socket(activeStatus, enabledMode, );
 		//SocketAssignment assignment = new SocketAssignment();
-		
+
+		SystemWorkflow systemWorkflow = new SystemWorkflow();
 		OutletWorkflow outletWorkflow = new OutletWorkflow();
-		outletWorkflow.insertOutletOperationMode(enabledMode);
-		outletWorkflow.insertEvent(connectedEvent);
+		//outletWorkflow.insertOutletOperationMode(enabledMode);
+		//outletWorkflow.insertEvent(connectedEvent);
+		systemWorkflow.insertRoomType(kitchen);
+		systemWorkflow.insertRoom(myKitchen);
+		
+		outletWorkflow.insertOutlet(outlet);
 		outletWorkflow.insertConnectionEvent(conEvent);
 		outletWorkflow.insertSocketOperationStatus(activeStatus);
 		//outletWorkflow.insertSocket(socket);

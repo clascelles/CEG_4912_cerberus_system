@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 
 @Entity
@@ -24,86 +23,89 @@ public class Current implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private int rfidTagId;
-	private int userId;
-	private int socketId;
+	private RfidTag rfidTagId;
+	private User user;
+	private Socket socket;
 	private Timestamp timestamp;
-	private int current;
+	private Integer current;
 	
 	public Current() {
 		super();
 	}
-	
-	public Current(int rfidTagId, int userId, int socketId,
-			Timestamp timestamp, int current) {
+
+	public Current(RfidTag rfidTagId, User user, Socket socket,
+			Timestamp timestamp, Integer current) {
 		super();
 		this.rfidTagId = rfidTagId;
-		this.userId = userId;
-		this.socketId = socketId;
+		this.user = user;
+		this.socket = socket;
 		this.timestamp = timestamp;
 		this.current = current;
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	@ManyToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name="RFID_TAG_ID", nullable=true)
-	public int getRfidTagId() {
+	@JoinColumn(name="RFID_TAG_ID", nullable=false)
+	public RfidTag getRfidTagId() {
 		return rfidTagId;
 	}
-	public void setRfidTagId(int rfidTagId) {
+
+	public void setRfidTagId(RfidTag rfidTagId) {
 		this.rfidTagId = rfidTagId;
 	}
-	
+
 	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="USERS_ID", nullable=false)
-	public int getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
+
 	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="SOCKET_ID", nullable=false)
-	public int getSocketId() {
-		return socketId;
+	public Socket getSocket() {
+		return socket;
 	}
-	public void setSocketId(int socketId) {
-		this.socketId = socketId;
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
 	}
-	
+
 	@Column(name="TIMESTAMP", nullable=false)
 	public Timestamp getTimestamp() {
 		return timestamp;
 	}
+
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
-	
+
 	@Column(name="CURRENT", nullable=false)
-	public int getCurrent() {
+	public Integer getCurrent() {
 		return current;
 	}
-	public void setCurrent(int current) {
+
+	public void setCurrent(Integer current) {
 		this.current = current;
 	}
 
 	@Override
 	public String toString() {
-		return "Current [id=" + id + ", rfidTagId=" + rfidTagId + ", userId="
-				+ userId + ", socketId=" + socketId + ", timestamp="
-				+ timestamp + ", current=" + current + "]";
+		return "Current [id=" + id + ", rfidTagId=" + rfidTagId + ", user="
+				+ user + ", socket=" + socket + ", timestamp=" + timestamp
+				+ ", current=" + current + "]";
 	}
-	
-	
-	
 }
