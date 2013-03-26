@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +20,6 @@ public class ConnectionEvent implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	
 	Integer id;
 	Outlet outlet;
@@ -31,6 +32,7 @@ public class ConnectionEvent implements Serializable{
 		this.event = event;
 		this.timestamp = timestamp;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -41,7 +43,8 @@ public class ConnectionEvent implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="OUTLET_ID", nullable=false)
+	@ManyToOne()
+	@JoinColumn(name="OUTLET_ID", nullable=false)
 	public Outlet getOutlet() {
 		return outlet;
 	}
@@ -49,7 +52,8 @@ public class ConnectionEvent implements Serializable{
 		this.outlet = outlet;
 	}
 	
-	@Column(name="EVENT_ID", nullable=false)
+	@ManyToOne()
+	@JoinColumn(name="EVENT_ID", nullable=false)
 	public Event getEvent() {
 		return event;
 	}

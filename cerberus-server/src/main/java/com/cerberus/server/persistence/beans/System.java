@@ -7,11 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "SCHEDULE_START_MODE")
-public class ScheduleStartMode implements Serializable{
+@Table(name = "SYSTEM")
+public class System implements Serializable{
 
 	/**
 	 * 
@@ -19,12 +21,8 @@ public class ScheduleStartMode implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	Integer id;
-	SocketOperationMode mode;
-	
-	public ScheduleStartMode(SocketOperationMode mode) {
-		super();
-		this.mode = mode;
-	}
+	User user;
+	String name;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -36,12 +34,23 @@ public class ScheduleStartMode implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="SOCKET_OPERATION_MODE_ID", nullable=false)
-	public SocketOperationMode getSocketOperationMode() {
-		return mode;
+	@OneToOne()
+	@JoinColumn(name="USER_ID", nullable=false)
+	public User getUser() {
+		return user;
 	}
-	public void setSocketOperationMode(SocketOperationMode mode) {
-		this.mode = mode;
+	public void setUser(User user) {
+		this.user = user;
 	}
+	
+	@Column(name="NAME", nullable=false)
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 	
 }

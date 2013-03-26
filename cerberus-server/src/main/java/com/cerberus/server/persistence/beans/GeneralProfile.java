@@ -45,7 +45,7 @@ public class GeneralProfile implements Serializable{
 	public String getTypeOfDevice() {
 		return typeOfDevice;
 	}
-	public void setAverageHourlyConsumption(String typeOfDevice) {
+	public void setTypeOfDevice(String typeOfDevice) {
 		this.typeOfDevice = typeOfDevice;
 	}	
 	
@@ -53,7 +53,7 @@ public class GeneralProfile implements Serializable{
 	public Integer getRange() {
 		return range;
 	}
-	public void getRange(Integer range) {
+	public void setRange(Integer range) {
 		this.range = range;
 	}	
 	

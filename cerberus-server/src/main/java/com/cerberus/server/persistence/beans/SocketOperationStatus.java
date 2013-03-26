@@ -39,7 +39,7 @@ public class SocketOperationStatus implements Serializable{
 	public String getStatus() {
 		return status;
 	}
-	public void setName(String status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	

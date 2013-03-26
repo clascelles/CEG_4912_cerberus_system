@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +24,7 @@ public class Outlet implements Serializable {
 	private Room room;
 	private OutletOperationMode mode;
 	private Integer serialNumber;
+	private System system;
 	
 	public Outlet() {}
 	
@@ -42,7 +45,8 @@ public class Outlet implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name="ROOM_ID", nullable=false)
+	@ManyToOne()
+	@JoinColumn(name="ROOM_ID", nullable=false)
 	public Room getRoom() {
 		return room;
 	}
@@ -51,7 +55,8 @@ public class Outlet implements Serializable {
 		this.room = room;
 	}
 
-	@Column(name="OUTLET_OPERATION_MODE_ID", nullable=false)
+	@ManyToOne()
+	@JoinColumn(name="OUTLET_OPERATION_MODE_ID", nullable=false)
 	public OutletOperationMode getMode() {
 		return mode;
 	}
@@ -68,5 +73,17 @@ public class Outlet implements Serializable {
 	public void setSerialNumber(Integer serialNumber) {
 		this.serialNumber = serialNumber;
 	}
+
+	@ManyToOne()
+	@JoinColumn(name="SYSTEM_ID", nullable=false)
+	public System getSystem() {
+		return system;
+	}
+
+	public void setSystem(System system) {
+		this.system = system;
+	}
+	
+	
 	
 }

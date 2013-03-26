@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,8 +31,7 @@ public class User implements Serializable {
 	private Date lastUpdatedDate;
 	private User lastUpdatedUser;
 	
-	public User(	Integer id, 
-					UserSetting setting, 
+	public User(	UserSetting setting, 
 					UserType type, 
 					Login login, 
 					PersonalInformation information,
@@ -39,7 +40,6 @@ public class User implements Serializable {
 					Date lastUpdatedDate,
 					User lastUpdatedUser) {
 		super();
-		this.id = id;
 		this.setting = setting;
 		this.type = type;
 		this.login = login;
@@ -60,7 +60,8 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name="USER_SETTING_ID", nullable=false)
+	@OneToOne()
+	@JoinColumn(name="USER_SETTING_ID", nullable=false)
 	public UserSetting getSetting() {
 		return setting;
 	}
@@ -68,7 +69,8 @@ public class User implements Serializable {
 		this.setting = setting;
 	}
 
-	@Column(name="USER_TYPE_ID", nullable=false)
+	@OneToOne()
+	@JoinColumn(name="USER_TYPE_ID", nullable=false)
 	public UserType getType() {
 		return type;
 	}
@@ -76,7 +78,8 @@ public class User implements Serializable {
 		this.type = type;
 	}
 
-	@Column(name="LOGIN_ID", nullable=false)
+	@OneToOne()
+	@JoinColumn(name="LOGIN_ID", nullable=false)
 	public Login getLogin() {
 		return login;
 	}
@@ -84,7 +87,8 @@ public class User implements Serializable {
 		this.login = login;
 	}
 
-	@Column(name="PERSONAL_INFORMATION_ID", nullable=false)
+	@OneToOne()
+	@JoinColumn(name="PERSONAL_INFORMATION_ID", nullable=false)
 	public PersonalInformation getInformation() {
 		return information;
 	}
@@ -100,7 +104,7 @@ public class User implements Serializable {
 		this.createdDate = createdDate;
 	}
 	
-	@Column(name="CREATED_USER_ID", nullable=false)
+	@Column(name="CREATED_USER_ID", nullable=true)
 	public User getCreatedUser() {
 		return createdUser;
 	}
@@ -116,7 +120,7 @@ public class User implements Serializable {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 	
-	@Column(name="LAST_UPDATED_USER_ID", nullable=false)
+	@Column(name="LAST_UPDATED_USER_ID", nullable=true)
 	public User getLastUpdatedUser() {
 		return lastUpdatedUser;
 	}
