@@ -3,7 +3,6 @@ package com.cerberus.server.json.encoder;
 import java.util.logging.Logger;
 
 import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelFuture;
 
 import com.cerberus.server.json.JsonDataBinderFactory;
 import com.cerberus.server.message.Message;
@@ -38,18 +37,13 @@ public class JsonEncoder implements Runnable {
 		Channel channel = messageContainer.getClientChannel();
 		if (channel.isOpen()) {
 			try {
-				ChannelFuture response = channel.write(writer.writeValueAsBytes(message));
-				if (!response.await(RESPONSE_TIMEOUT_MILLIS)) {
-					LOGGER.severe("Sending message: " + message + " to client #" + channel.getId() + " timed out.");
-					// TODO Handle timeouts here
-				}
-				// Else, message was successfully sent
+				String encodedMessage = writer.writeValueAsString(message) + "\n";
+				channel.write(encodedMessage);
+				// Could use ChannelFuture to ensure the message has been
+				// sent...
+				LOGGER.info("Wrote message: " + encodedMessage + " to client #" + channel.getId());
 			} catch (JsonProcessingException e) {
 				LOGGER.severe("Exception caught when trying to encode this outgoing message: " + message);
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				LOGGER.severe("Thread interrupted while waiting for a response from the client after sending a message.");
-				// TODO Handle interruption
 				e.printStackTrace();
 			}
 		} else {

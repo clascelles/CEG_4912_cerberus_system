@@ -18,12 +18,13 @@ public class ClientConnection {
         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
         BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-        sentence = inFromUser.readLine();
+        // sentence = inFromUser.readLine();
+		sentence = "{ \"type\" : \"CURRENT\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"current\" : 3000, \"rfidNumber\" : 1234567890}";
         outToServer.writeBytes(sentence + '\n');
-        
+
         modifiedSentence = inFromServer.readLine();
         System.out.println("[Client]: " + modifiedSentence);
         clientSocket.close();
 	}
-	
+
 }
