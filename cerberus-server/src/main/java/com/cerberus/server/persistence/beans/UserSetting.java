@@ -22,7 +22,9 @@ public class UserSetting implements Serializable{
 	Integer defaultOperation;
 	Integer defaultAssignment;
 	
-	public UserSetting(){}
+	public UserSetting(){
+		super();
+	}
 	
 	public UserSetting(Integer defaultOperation, Integer defaultAssignment) {
 		super();

@@ -2,6 +2,7 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,7 @@ public class SocketAssignment implements Serializable{
 		this.socket = socket;
 		this.user = user;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -43,7 +45,7 @@ public class SocketAssignment implements Serializable{
 		this.id = id;
 	}
 
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="SOCKET_ID", nullable=false)
 	public Socket getSocket() {
 		return socket;
@@ -52,7 +54,7 @@ public class SocketAssignment implements Serializable{
 		this.socket = socket;
 	}
 
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="USER_ID", nullable=false)
 	public User getUser() {
 		return user;
@@ -60,6 +62,7 @@ public class SocketAssignment implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 	@Override
 	public String toString() {
 		return "SocketAssignment [id=" + id + ", socket=" + socket + ", user="
