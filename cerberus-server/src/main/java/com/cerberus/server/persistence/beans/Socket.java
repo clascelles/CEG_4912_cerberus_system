@@ -25,6 +25,7 @@ public class Socket implements Serializable {
 	private SocketOperationStatus status;
 	private SocketOperationMode mode;
 	private Outlet outlet;
+	private String serialNumber;
 	
 	public Socket() {
 		super();
@@ -74,6 +75,16 @@ public class Socket implements Serializable {
 	}
 	public void setOutlet(Outlet outlet) {
 		this.outlet = outlet;
+	}
+
+
+	@Column(name="SERIAL_NUM", nullable=false)
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
 	}
 
 	@Override

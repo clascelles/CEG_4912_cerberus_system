@@ -38,7 +38,7 @@ public class UserService {
 		
 		//Get the current User assigned to the SocketID
 		SocketAssignment socketAssignment = 
-				socketAssignmentDAO.getByFilter(SocketAssignmentFilter.getUserFromSocketId(socketId));
+				socketAssignmentDAO.getByFilter(SocketAssignmentFilter.getBySocketId(socketId));
 		
 		return socketAssignment.getUser();
 
