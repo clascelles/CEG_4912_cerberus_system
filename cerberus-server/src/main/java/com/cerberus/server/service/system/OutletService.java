@@ -1,7 +1,5 @@
 package com.cerberus.server.service.system;
 
-import java.util.List;
-
 import com.cerberus.server.persistence.DAO.ConnectionEventDAO;
 import com.cerberus.server.persistence.DAO.EventDAO;
 import com.cerberus.server.persistence.DAO.OutletDAO;
@@ -13,11 +11,9 @@ import com.cerberus.server.persistence.beans.ConnectionEvent;
 import com.cerberus.server.persistence.beans.Event;
 import com.cerberus.server.persistence.beans.Outlet;
 import com.cerberus.server.persistence.beans.OutletOperationMode;
-import com.cerberus.server.persistence.beans.Room;
 import com.cerberus.server.persistence.beans.Socket;
 import com.cerberus.server.persistence.beans.SocketAssignment;
 import com.cerberus.server.persistence.beans.SocketOperationStatus;
-import com.cerberus.server.persistence.filter.RoomFilter;
 import com.cerberus.server.persistence.filter.SocketAssignmentFilter;
 import com.cerberus.server.persistence.filter.SocketFilter;
 
@@ -45,8 +41,8 @@ public class OutletService {
 	//Outlet
 	//***************************************************
 	
-	public void insertOutlet(Outlet outlet){
-		outletDAO.save(outlet);
+	public Integer insertOutlet(Outlet outlet){
+		return outletDAO.save(outlet);
 	}
 	
 	public Outlet updateOutlet(Outlet outlet){
@@ -61,8 +57,8 @@ public class OutletService {
 	//ConnectionEvent
 	//***************************************************
 	
-	public void insertConnectionEvent(ConnectionEvent connectionEvent){
-		connectionEventDAO.save(connectionEvent);
+	public Integer insertConnectionEvent(ConnectionEvent connectionEvent){
+		return connectionEventDAO.save(connectionEvent);
 	}
 	
 	public ConnectionEvent updateConnectionEvent(ConnectionEvent connectionEvent){
@@ -77,8 +73,8 @@ public class OutletService {
 	//Event
 	//***************************************************
 	
-	public void insertEvent(Event event){
-		eventDAO.save(event);
+	public Integer insertEvent(Event event){
+		return eventDAO.save(event);
 	}
 	
 	public Event updateEvent(Event event){
@@ -93,8 +89,8 @@ public class OutletService {
 	//SocketOperationStatus
 	//***************************************************
 	
-	public void insertSocketOperationStatus(SocketOperationStatus socketOperationStatus){
-		socketOperationStatusDAO.save(socketOperationStatus);
+	public Integer insertSocketOperationStatus(SocketOperationStatus socketOperationStatus){
+		return socketOperationStatusDAO.save(socketOperationStatus);
 	}
 	
 	public SocketOperationStatus updateSocketOperationStatus(SocketOperationStatus socketOperationStatus){
@@ -109,8 +105,8 @@ public class OutletService {
 	//Socket
 	//***************************************************
 	
-	public void insertSocket(Socket socket){
-		socketDAO.save(socket);
+	public Integer insertSocket(Socket socket){
+		return socketDAO.save(socket);
 	}
 	
 	public Socket updateSocket(Socket socket){
@@ -125,8 +121,8 @@ public class OutletService {
 	//OutletOperationMode
 	//***************************************************
 	
-	public void insertOutletOperationMode(OutletOperationMode outletOperationMode){
-		outletOperationModeDAO.save(outletOperationMode);
+	public Integer insertOutletOperationMode(OutletOperationMode outletOperationMode){
+		return outletOperationModeDAO.save(outletOperationMode);
 	}
 	
 	public OutletOperationMode updateOutletOperationMode(OutletOperationMode outletOperationMode){
@@ -141,8 +137,8 @@ public class OutletService {
 	//SocketAssignment
 	//***************************************************
 	
-	public void insertSocketAssignment(SocketAssignment socketAssignment){
-		socketAssignmentDAO.save(socketAssignment);
+	public Integer insertSocketAssignment(SocketAssignment socketAssignment){
+		return socketAssignmentDAO.save(socketAssignment);
 	}
 	
 	public SocketAssignment updateSocketAssignment(SocketAssignment socketAssignment){
@@ -161,11 +157,8 @@ public class OutletService {
 		return socketDAO.getByFilter(SocketFilter.getBySerialNum(serialNumber));
 	}
 	
-	public SocketAssignment getSocketAssignmentBySocket(Socket socket){
-		return socketAssignmentDAO.getByFilter(SocketAssignmentFilter.getBySocketId(socket.getId()));
+	public SocketAssignment getSocketAssignmentBySocketId(Integer socketId){
+		return socketAssignmentDAO.getByFilter(SocketAssignmentFilter.getBySocketId(socketId));
 	}
-	
-//	public List<ConnectionEvent> getConnectionEventsByOutletId(Integer outletId){
-//		return
-//	}
+
 }

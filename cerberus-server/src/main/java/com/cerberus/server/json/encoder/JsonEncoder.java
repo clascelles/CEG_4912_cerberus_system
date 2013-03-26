@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 public class JsonEncoder implements Runnable {
 
-	private static final int RESPONSE_TIMEOUT_MILLIS = 30000;
+	//private static final int RESPONSE_TIMEOUT_MILLIS = 30000;
 
 	//Get Logger
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);

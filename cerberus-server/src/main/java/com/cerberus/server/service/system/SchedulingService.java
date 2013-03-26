@@ -14,8 +14,8 @@ public class SchedulingService {
 	//Outlet
 	//***************************************************
 	
-	public void insertSocketOperationMode(SocketOperationMode socketOperationMode){
-		socketOperationModeDAO.save(socketOperationMode);
+	public Integer insertSocketOperationMode(SocketOperationMode socketOperationMode){
+		return socketOperationModeDAO.save(socketOperationMode);
 	}
 	
 	public SocketOperationMode updateSocketOperationMode(SocketOperationMode socketOperationMode){

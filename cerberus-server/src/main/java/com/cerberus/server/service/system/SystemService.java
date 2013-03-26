@@ -23,8 +23,8 @@ public class SystemService {
 	//RoomType
 	//***************************************************
 	
-	public void insertRoomType(RoomType roomType){
-		roomTypeDAO.save(roomType);
+	public Integer insertRoomType(RoomType roomType){
+		return roomTypeDAO.save(roomType);
 	}
 	
 	public RoomType updateRoomType(RoomType roomType){
@@ -39,8 +39,8 @@ public class SystemService {
 	//Room
 	//***************************************************
 	
-	public void insertRoom(Room room){
-		roomDAO.save(room);
+	public Integer insertRoom(Room room){
+		return roomDAO.save(room);
 	}
 	
 	public Room updateRoom(Room room){
@@ -59,8 +59,8 @@ public class SystemService {
 	//System
 	//***************************************************
 	
-	public void insertSystem(System system){
-		systemDAO.save(system);
+	public Integer insertSystem(System system){
+		return systemDAO.save(system);
 	}
 	
 	public System updateSystem(System system){

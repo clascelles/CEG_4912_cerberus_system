@@ -16,7 +16,7 @@ public class ConsumptionService {
 	//CURRENT
 	//*************************************************
 	
-	public Current insertCurrent(Current current){
+	public Integer insertCurrent(Current current){
 		return currentDAO.save(current);	
 	}
 	

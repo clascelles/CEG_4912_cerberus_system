@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,13 +32,15 @@ public class Socket implements Serializable {
 		super();
 	}
 	
-	public Socket(SocketOperationStatus status, SocketOperationMode mode, Outlet outlet) {
+	public Socket(SocketOperationStatus status, SocketOperationMode mode,
+			Outlet outlet, String serialNumber) {
 		super();
-		this.setStatus(status);
+		this.status = status;
 		this.mode = mode;
-		this.setOutlet(outlet);		
+		this.outlet = outlet;
+		this.serialNumber = serialNumber;
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -68,7 +71,7 @@ public class Socket implements Serializable {
 		this.mode = mode;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
 	@JoinColumn(name="OUTLET_ID", nullable=false)
 	public Outlet getOutlet() {
 		return outlet;

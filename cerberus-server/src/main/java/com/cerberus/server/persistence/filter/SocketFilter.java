@@ -9,12 +9,12 @@ public class SocketFilter {
 
 	public static DetachedCriteria getById(Integer id){
 		return DetachedCriteria.forClass(Socket.class).
-				add(Restrictions.eq("socket.id", id));
+				add(Restrictions.eq("id", id));
 	}
 	
 	public static DetachedCriteria getBySerialNum(Integer serialNumber){
 		return DetachedCriteria.forClass(Socket.class).
-				add(Restrictions.eq("socket.serial_num", serialNumber));
+				add(Restrictions.eq("serialNumber", serialNumber.toString()));
 	}
 	
 }

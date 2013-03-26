@@ -2,14 +2,7 @@ package com.cerberus.server.workflow;
 
 import java.util.logging.Logger;
 
-import com.cerberus.server.persistence.beans.ConnectionEvent;
-import com.cerberus.server.persistence.beans.Event;
-import com.cerberus.server.persistence.beans.Outlet;
-import com.cerberus.server.persistence.beans.OutletOperationMode;
-import com.cerberus.server.persistence.beans.Socket;
-import com.cerberus.server.persistence.beans.SocketAssignment;
 import com.cerberus.server.persistence.beans.SocketOperationMode;
-import com.cerberus.server.persistence.beans.SocketOperationStatus;
 import com.cerberus.server.service.pool.ServiceFactory;
 import com.cerberus.server.service.pool.ServiceFactoryPool;
 

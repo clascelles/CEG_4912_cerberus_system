@@ -33,10 +33,6 @@ public class UserService {
 	
 	public User getUserBySocketId(Integer socketId){
 		
-		//Get SocketID from the Socket Serial Number
-		Socket socket = socketDAO.getById(socketId);
-		
-		//Get the current User assigned to the SocketID
 		SocketAssignment socketAssignment = 
 				socketAssignmentDAO.getByFilter(SocketAssignmentFilter.getBySocketId(socketId));
 		
@@ -52,8 +48,8 @@ public class UserService {
 		return userDAO.getById(userId);
 	}
 	
-	public void insertUser(User user){
-		userDAO.save(user);
+	public Integer insertUser(User user){
+		return userDAO.save(user);
 	}
 	
 	public User updateUser(User user){
@@ -68,8 +64,8 @@ public class UserService {
 	//LOGIN
 	//***************************************************
 	
-	public void insertLogin(Login login){
-		loginDAO.save(login);
+	public Integer insertLogin(Login login){
+		return loginDAO.save(login);
 	}
 	
 	public Login updateLogin(Login login){
@@ -84,8 +80,8 @@ public class UserService {
 	//PERSONAL INFORMATION
 	//***************************************************
 
-	public void insertPersonalInformation(PersonalInformation personalInformation){
-		personalInformationDAO.save(personalInformation);
+	public Integer insertPersonalInformation(PersonalInformation personalInformation){
+		return personalInformationDAO.save(personalInformation);
 	}
 	
 	public PersonalInformation updatePersonalInformation(PersonalInformation personalInformation){
@@ -101,8 +97,8 @@ public class UserService {
 	//USER TYPE
 	//***************************************************
 
-	public void insertUserType(UserType userType) {
-		userTypeDAO.save(userType);
+	public Integer insertUserType(UserType userType) {
+		return userTypeDAO.save(userType);
 	}
 	
 	public UserType getUserTypeById(Integer userTypeId){
@@ -113,8 +109,8 @@ public class UserService {
 	//USER SETTING
 	//***************************************************
 	
-	public void insertUserSetting(UserSetting userSetting){
-		userSettingDAO.save(userSetting);
+	public Integer insertUserSetting(UserSetting userSetting){
+		return userSettingDAO.save(userSetting);
 	}
 	
 	public UserSetting updateUserSetting(UserSetting userSetting){

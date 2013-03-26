@@ -7,7 +7,9 @@ import java.util.logging.Logger;
 import com.cerberus.server.message.CurrentConsumptionMessage;
 import com.cerberus.server.persistence.beans.Current;
 import com.cerberus.server.persistence.beans.Login;
+import com.cerberus.server.persistence.beans.RfidTag;
 import com.cerberus.server.persistence.beans.Room;
+import com.cerberus.server.persistence.beans.Socket;
 import com.cerberus.server.persistence.beans.User;
 import com.cerberus.server.persistence.filter.RfidTagFilter;
 import com.cerberus.server.service.pool.ServiceFactory;
@@ -30,19 +32,26 @@ public class CurrentWorkflow extends Workflow {
 		// Create new Current data structure
 		Current current = new Current();
 
-		current.setTimestamp(new Timestamp(message.getTimestamp()));
+		current.setTimestamp(new Timestamp(message.getTimestamp()*1000));
 		current.setCurrent(message.getCurrent());
 
-		// Get UserID
-		// TODO Get User ID from User Services
+		// Set Socket
+		Socket socket = serviceFactory.getOutletService().getSocketBySerialNumber(message.getSocketId());
+		current.setSocket(socket);
+		
+		// Set User
+		User user = serviceFactory.getUserService().getUserBySocketId(socket.getId());
+		current.setUser(user);
 
-		// Get RFID Number ID
-		serviceFactory.getRfidService().getRfidTagByNumber(RfidTagFilter.getRfidTagByNumber(message.getRfidNumber()));
+		// Set RFID Number
+		RfidTag tag = serviceFactory.getRfidService().getRfidTagByNumber(RfidTagFilter.getRfidTagByNumber(message.getRfidNumber()));
+		current.setRfidTagId(tag);
 
 		try {
 
 			// Persist the Current object
-			// TODO Persist the Current object from the Consumption Services
+			serviceFactory.getConsumptionService().insertCurrent(current);
+			LOGGER.info("Persisted CURRENT!");
 
 		} catch (Exception e) { // Catch if an exception occurs
 			e.printStackTrace();

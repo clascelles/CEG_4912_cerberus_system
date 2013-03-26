@@ -68,13 +68,7 @@ public class OutletWorkflow extends Workflow {
 	}
 	
 	public User getUserBySocketId(Integer socketId) {
-		Socket socket = serviceFactory.getOutletService().getSocketBySocketId(socketId);
-		return getUserBySocket(socket);
-	}
-	
-	public User getUserBySocket(Socket socket) {
-		SocketAssignment assignment = serviceFactory.getOutletService().getSocketAssignmentBySocket(socket);
-		return assignment.getUser();
+		return serviceFactory.getOutletService().getSocketAssignmentBySocketId(socketId).getUser();
 	}
 	
 	public void returnServiceFactory (){

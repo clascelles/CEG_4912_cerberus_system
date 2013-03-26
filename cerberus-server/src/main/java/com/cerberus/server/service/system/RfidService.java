@@ -52,8 +52,8 @@ public class RfidService {
 	//RFID AUTHENTICATION
 	//***************************************************
 	
-	public void insertRfidAuthentication(RfidAuthentication rfidAuthentication){
-		rfidAuthenticationDAO.save(rfidAuthentication);
+	public Integer insertRfidAuthentication(RfidAuthentication rfidAuthentication){
+		return rfidAuthenticationDAO.save(rfidAuthentication);
 	}
 	
 	public RfidAuthentication updateRfidAuthentication(RfidAuthentication rfidAuthentication){

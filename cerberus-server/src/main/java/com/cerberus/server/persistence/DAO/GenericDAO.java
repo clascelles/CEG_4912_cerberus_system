@@ -25,10 +25,10 @@ public class GenericDAO<T, ID extends Serializable> {
 
 	/***/
 	@SuppressWarnings("unchecked")
-	public T save(final T o){
+	public ID save(final T o){
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		T saved = (T) session.save(o);
+		ID saved = (ID) session.save(o);
 		tx.commit();
 		return saved;
 	}
