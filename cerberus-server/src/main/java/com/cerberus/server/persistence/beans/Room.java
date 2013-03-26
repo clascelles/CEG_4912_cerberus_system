@@ -2,6 +2,7 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,11 +27,14 @@ public class Room implements Serializable{
 	RoomType roomType;
 	String name;
 	
-	public Room(){	} //Default Constructor
+	public Room(){	
+		super();
+	}
 	
-	public Room(String name) {
+	public Room(String name, RoomType roomType) {
 		super();
 		this.name = name;
+		this.roomType = roomType;
 	}
 	
 	@Id
@@ -43,7 +47,7 @@ public class Room implements Serializable{
 		this.id = id;
 	}
 	
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="ROOM_TYPE_ID")
 	public RoomType getRoomType() {
 		return roomType;

@@ -3,6 +3,7 @@ package com.cerberus.server.persistence.beans;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 public class User implements Serializable {
 
 	/**
@@ -30,6 +31,8 @@ public class User implements Serializable {
 	private User createdUser;
 	private Date lastUpdatedDate;
 	private User lastUpdatedUser;
+	
+	public User(){}
 	
 	public User(	UserSetting setting, 
 					UserType type, 
@@ -60,8 +63,8 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	@OneToOne()
-	@JoinColumn(name="USER_SETTING_ID", nullable=false)
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="USER_SETTING_ID")
 	public UserSetting getSetting() {
 		return setting;
 	}
@@ -78,8 +81,8 @@ public class User implements Serializable {
 		this.type = type;
 	}
 
-	@OneToOne()
-	@JoinColumn(name="LOGIN_ID", nullable=false)
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="LOGIN_ID")
 	public Login getLogin() {
 		return login;
 	}
@@ -87,8 +90,8 @@ public class User implements Serializable {
 		this.login = login;
 	}
 
-	@OneToOne()
-	@JoinColumn(name="PERSONAL_INFORMATION_ID", nullable=false)
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="PERSONAL_INFORMATION_ID")
 	public PersonalInformation getInformation() {
 		return information;
 	}
@@ -126,6 +129,17 @@ public class User implements Serializable {
 	}
 	public void setLastUpdatedUser(User lastUpdatedUser) {
 		this.lastUpdatedUser = lastUpdatedUser;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", setting=" + setting + ", type=" + type
+				+ ", login=" + login + ", information=" + information
+				+ ", createdDate=" + createdDate + ", createdUser="
+				+ createdUser + ", lastUpdatedDate=" + lastUpdatedDate
+				+ ", lastUpdatedUser=" + lastUpdatedUser + "]";
 	}	
+	
+	
 	
 }

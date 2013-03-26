@@ -24,6 +24,10 @@ public class GeneralProfile implements Serializable{
 	Integer averageHourlyConsumption;
 	Integer instantaneousConsumption;
 	
+	public GeneralProfile(){
+		super();
+	}
+	
 	public GeneralProfile(String typeOfDevice, Integer range, Integer averageHourlyConsumption, Integer instantaneousConsumption) {
 		super();
 		this.typeOfDevice = typeOfDevice;
@@ -31,6 +35,7 @@ public class GeneralProfile implements Serializable{
 		this.averageHourlyConsumption = averageHourlyConsumption;
 		this.instantaneousConsumption = instantaneousConsumption;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -71,5 +76,15 @@ public class GeneralProfile implements Serializable{
 	}
 	public void setInstantaneousConsumption(Integer instantaneousConsumption) {
 		this.instantaneousConsumption = instantaneousConsumption;
+	}
+
+	@Override
+	public String toString() {
+		return "GeneralProfile [id=" + id + ", typeOfDevice=" + typeOfDevice
+				+ ", range=" + range + ", averageHourlyConsumption="
+				+ averageHourlyConsumption + ", instantaneousConsumption="
+				+ instantaneousConsumption + "]";
 	}	
+	
+	
 }

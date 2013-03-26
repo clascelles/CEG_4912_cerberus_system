@@ -2,11 +2,14 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,11 +25,16 @@ public class RuleTipXref implements Serializable{
 	Rule rule;
 	Tip tip;
 	
+	public RuleTipXref(){
+		super();
+	}
+	
 	public RuleTipXref(Rule rule, Tip tip) {
 		super();
 		this.rule = rule;
 		this.tip = tip;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -37,7 +45,8 @@ public class RuleTipXref implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="RULE_ID", nullable=false)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="RULE_ID", nullable=false)
 	public Rule getRule() {
 		return rule;
 	}
@@ -45,12 +54,21 @@ public class RuleTipXref implements Serializable{
 		this.rule = rule;
 	}
 	
-	@Column(name="TIP_ID", nullable=false)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="TIP_ID", nullable=false)
 	public Tip getTip() {
 		return tip;
 	}
 	public void setTip(Tip tip) {
 		this.tip = tip;
+	}
+
+	@Override
+	public String toString() {
+		return "RuleTipXref [id=" + id + ", rule=" + rule + ", tip=" + tip
+				+ "]";
 	}	
+	
+	
 	
 }

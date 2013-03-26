@@ -23,11 +23,16 @@ public class RfidTag implements Serializable{
 	Integer number;
 	String description;
 	
+	public RfidTag(){
+		super();
+	}
+	
 	public RfidTag(Integer number, String description) {
 		super();
 		this.number = number;
 		this.description = description;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -52,5 +57,13 @@ public class RfidTag implements Serializable{
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "RfidTag [id=" + id + ", number=" + number + ", description="
+				+ description + "]";
 	}	
+	
+	
 }

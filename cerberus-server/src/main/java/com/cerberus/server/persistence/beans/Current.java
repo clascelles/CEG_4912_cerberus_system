@@ -3,11 +3,13 @@ package com.cerberus.server.persistence.beans;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
@@ -28,7 +30,9 @@ public class Current implements Serializable {
 	private Timestamp timestamp;
 	private int current;
 	
-	public Current() {}
+	public Current() {
+		super();
+	}
 	
 	public Current(int rfidTagId, int userId, int socketId,
 			Timestamp timestamp, int current) {
@@ -50,8 +54,8 @@ public class Current implements Serializable {
 		this.id = id;
 	}
 	
-	//@ManyToOne
-	@Column(name="RFID_TAG_ID", nullable=true)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="RFID_TAG_ID", nullable=true)
 	public int getRfidTagId() {
 		return rfidTagId;
 	}
@@ -59,8 +63,8 @@ public class Current implements Serializable {
 		this.rfidTagId = rfidTagId;
 	}
 	
-	//@ManyToOne
-	@Column(name="USERS_ID", nullable=false)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="USERS_ID", nullable=false)
 	public int getUserId() {
 		return userId;
 	}
@@ -68,8 +72,8 @@ public class Current implements Serializable {
 		this.userId = userId;
 	}
 	
-	//@ManyToOne
-	@Column(name="SOCKET_ID", nullable=false)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="SOCKET_ID", nullable=false)
 	public int getSocketId() {
 		return socketId;
 	}
@@ -92,5 +96,14 @@ public class Current implements Serializable {
 	public void setCurrent(int current) {
 		this.current = current;
 	}
+
+	@Override
+	public String toString() {
+		return "Current [id=" + id + ", rfidTagId=" + rfidTagId + ", userId="
+				+ userId + ", socketId=" + socketId + ", timestamp="
+				+ timestamp + ", current=" + current + "]";
+	}
+	
+	
 	
 }

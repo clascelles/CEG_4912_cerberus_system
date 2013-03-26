@@ -20,6 +20,10 @@ public class SocketOperationStatus implements Serializable{
 	
 	Integer id;
 	String status;
+		
+	public SocketOperationStatus() {
+		super();
+	}
 	
 	public SocketOperationStatus(String status) {
 		super();
@@ -42,6 +46,10 @@ public class SocketOperationStatus implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "SocketOperationStatus [id=" + id + ", status=" + status + "]";
+	}
 	
 }

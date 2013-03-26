@@ -3,6 +3,7 @@ package com.cerberus.server.persistence.beans;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,10 @@ public class ConnectionEvent implements Serializable{
 	Event event;
 	Timestamp timestamp;
 	
+	public ConnectionEvent() {
+		super();
+	}
+
 	public ConnectionEvent(Outlet outlet, Event event,Timestamp timestamp) {
 		super();
 		this.outlet = outlet;
@@ -43,7 +48,7 @@ public class ConnectionEvent implements Serializable{
 		this.id = id;
 	}
 	
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="OUTLET_ID", nullable=false)
 	public Outlet getOutlet() {
 		return outlet;
@@ -52,7 +57,7 @@ public class ConnectionEvent implements Serializable{
 		this.outlet = outlet;
 	}
 	
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="EVENT_ID", nullable=false)
 	public Event getEvent() {
 		return event;
@@ -67,5 +72,11 @@ public class ConnectionEvent implements Serializable{
 	}
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	@Override
+	public String toString() {
+		return "ConnectionEvent [id=" + id + ", outlet=" + outlet + ", event="
+				+ event + ", timestamp=" + timestamp + "]";
 	}	
 }

@@ -24,6 +24,10 @@ public class PersonalInformation implements Serializable{
 	String phoneNumber;
 	String address;
 
+	public PersonalInformation(){
+		super();
+	}
+	
 	public PersonalInformation(String firstName, String lastName, String phoneNumber, String address) {
 		super();
 		this.firstName = firstName;
@@ -73,4 +77,13 @@ public class PersonalInformation implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	@Override
+	public String toString() {
+		return "PersonalInformation [id=" + id + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
+				+ ", address=" + address + "]";
+	}
+	
+	
 }

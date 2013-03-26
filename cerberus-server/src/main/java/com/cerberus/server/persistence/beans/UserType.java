@@ -21,6 +21,9 @@ public class UserType implements Serializable{
 	Integer id;
 	String name;
 	
+	
+	public UserType(){}
+	
 	public UserType(String name) {
 		super();
 		this.name = name;
@@ -42,4 +45,11 @@ public class UserType implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "UserType [id=" + id + ", name=" + name + "]";
+	}
+	
+	
 }
