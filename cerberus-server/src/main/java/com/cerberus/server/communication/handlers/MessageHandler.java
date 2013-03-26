@@ -15,7 +15,7 @@ import com.cerberus.server.json.decoder.JsonDecoder;
 import com.cerberus.server.message.MessageContainer;
 import com.cerberus.server.service.executor.ExecutorServiceFactory;
 
-public class StringHandler extends SimpleChannelHandler {
+public class MessageHandler extends SimpleChannelHandler {
 
 	//Get Logger
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);  
