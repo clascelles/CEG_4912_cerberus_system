@@ -72,7 +72,6 @@ public class ServerConnection {
 		//java.util.Date date= new java.util.Date();
 		//Timestamp ts = new Timestamp(date.getTime());
 		//ConnectionEvent conEvent = new ConnectionEvent(outlet, connectedEvent, ts);
-		//SocketAssignment assignment = new SocketAssignment();
 
 		//SystemWorkflow systemWorkflow = new SystemWorkflow();
 		OutletWorkflow outletWorkflow = new OutletWorkflow();
@@ -86,12 +85,18 @@ public class ServerConnection {
 		//outletWorkflow.insertConnectionEvent(conEvent);
 		//outletWorkflow.insertSocketOperationStatus(activeStatus);
 		
+		User fetchedUser = outletWorkflow.getUserBySocketId(3);
+		
 		
 		outletWorkflow.insertSocket(socket);
-		//outletWorkflow.insertSocketAssignment(assignment);
+
+		SocketAssignment assignment = new SocketAssignment(socket, user);
+		outletWorkflow.insertSocketAssignment(assignment);
 		
 		ServerLogger.setup(LOG_FILE);
-		LOGGER.info("Server Started.");
+		LOGGER.info("Server Started.");		
+
+		LOGGER.info("User ids for socket id 3: " + fetchedUser);
 
 		// Bootstrap the server.
 		CerberusServerBootstrap bootstrap = new CerberusServerBootstrap();
