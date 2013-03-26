@@ -28,8 +28,8 @@ public class CurrentConsumptionMessageTest {
 		CurrentConsumptionMessage message = (CurrentConsumptionMessage) currentMsg;
 
 		assertThat(message.getSocketId(), is(equalTo(socketId)));
-		assertThat(message.getTimestamp().getMillis(), is(equalTo(timestamp)));
-		assertThat(message.getType(), is(equalTo(Message.MessageType.CURRENT)));
+		assertThat(message.getTimestamp(), is(equalTo(timestamp)));
+		assertThat(message.getType(), is(equalTo(MessageType.CURRENT)));
 		assertThat(message.getCurrent(), is(equalTo(2000)));
 		assertThat(message.getRfidNumber(), is(equalTo(123456789)));
 	}

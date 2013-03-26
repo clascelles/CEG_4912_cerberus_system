@@ -30,8 +30,8 @@ public class SwitchOperatingModeMessageTest {
 		SwitchOperatingModeMessage message = (SwitchOperatingModeMessage) statusMsg;
 
 		assertThat(message.getSocketId(), is(equalTo(socketId)));
-		assertThat(message.getTimestamp().getMillis(), is(equalTo(timestamp)));
-		assertThat(message.getType(), is(equalTo(Message.MessageType.SWITCH_OP_MODE)));
+		assertThat(message.getTimestamp(), is(equalTo(timestamp)));
+		assertThat(message.getType(), is(equalTo(MessageType.SWITCH_OP_MODE)));
 		assertThat(message.getOpMode(), is(equalTo(SocketOperatingMode.ON)));
 		assertThat(message.getPowerThreshold(), is(equalTo(1000)));
 	}

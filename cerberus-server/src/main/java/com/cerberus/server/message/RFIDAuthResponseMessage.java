@@ -10,7 +10,7 @@ public class RFIDAuthResponseMessage extends Message {
 
 	@JsonCreator
 	public RFIDAuthResponseMessage(@JsonProperty("socketId") int socketId, @JsonProperty("timestamp") long timestamp,
-			@JsonProperty("rfidNumber") int rfidNumber, @JsonProperty("auth") boolean isAuthorized) {
+			@JsonProperty("rfidNumber") int rfidNumber, @JsonProperty("authorized") boolean isAuthorized) {
 		super(MessageType.RFID_AUTH_RES, socketId, timestamp);
 		this.rfidNumber = rfidNumber;
 		this.isAuthorized = isAuthorized;

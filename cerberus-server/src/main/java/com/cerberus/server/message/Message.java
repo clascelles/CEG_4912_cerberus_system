@@ -2,7 +2,7 @@ package com.cerberus.server.message;
 
 import org.joda.time.DateTime;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -16,21 +16,17 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@Type(value = GenericInformationMessage.class, name = "GENERIC_INFO") })
 public class Message {
 
-	public enum MessageType {
-		RFID_AUTH_REQ, CURRENT, STATUS, RFID_AUTH_RES, SWITCH_OP_MODE, GENERIC_INFO
-	}
-
 	private final MessageType type;
 	private final int socketId;
-	private final DateTime timestamp;
+	private final long timestamp;
 
-	public Message(@JsonProperty("type") MessageType type, @JsonProperty("socketId") int socketId,
-			@JsonProperty("timestamp") long timestamp) {
+	public Message(MessageType type, int socketId, long timestamp) {
 		this.type = type;
 		this.socketId = socketId;
-		this.timestamp = new DateTime(timestamp);
+		this.timestamp = timestamp;
 	}
 
+	@JsonIgnore
 	public MessageType getType() {
 		return type;
 	}
@@ -39,8 +35,13 @@ public class Message {
 		return socketId;
 	}
 
-	public DateTime getTimestamp() {
+	public long getTimestamp() {
 		return timestamp;
+	}
+
+	@JsonIgnore
+	public DateTime getDateTime() {
+		return new DateTime(timestamp);
 	}
 
 }

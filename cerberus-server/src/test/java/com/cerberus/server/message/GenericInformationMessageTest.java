@@ -28,8 +28,8 @@ public class GenericInformationMessageTest {
 		GenericInformationMessage message = (GenericInformationMessage) statusMsg;
 
 		assertThat(message.getSocketId(), is(equalTo(socketId)));
-		assertThat(message.getTimestamp().getMillis(), is(equalTo(timestamp)));
-		assertThat(message.getType(), is(equalTo(Message.MessageType.GENERIC_INFO)));
+		assertThat(message.getTimestamp(), is(equalTo(timestamp)));
+		assertThat(message.getType(), is(equalTo(MessageType.GENERIC_INFO)));
 		assertThat(message.getInformationType(), is(equalTo("information type")));
 		assertThat(message.getInformation(), is(equalTo("information")));
 	}

@@ -30,8 +30,8 @@ public class StatusMessageTest {
 		StatusMessage message = (StatusMessage) statusMsg;
 
 		assertThat(message.getSocketId(), is(equalTo(socketId)));
-		assertThat(message.getTimestamp().getMillis(), is(equalTo(timestamp)));
-		assertThat(message.getType(), is(equalTo(Message.MessageType.STATUS)));
+		assertThat(message.getTimestamp(), is(equalTo(timestamp)));
+		assertThat(message.getType(), is(equalTo(MessageType.STATUS)));
 		assertThat(message.getStatus(), is(equalTo(SocketStatus.NORMAL)));
 	}
 

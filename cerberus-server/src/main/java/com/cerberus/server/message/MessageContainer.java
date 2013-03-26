@@ -7,9 +7,7 @@ public class MessageContainer {
 	private String rawMessage;
 	private Channel clientChannel;
 	private Message message;
-	private int structureType;
-	private Object messageDataStructure;
-	
+
 	/**
 	 * Constructor used for the Decoder.
 	 * @param rawMessage
@@ -18,16 +16,13 @@ public class MessageContainer {
 	public MessageContainer(String rawMessage, Channel clientChannel){
 		this.rawMessage = rawMessage;
 		this.clientChannel = clientChannel;
+		this.message = null;
 	}
-	
-	/**
-	 * Constructor used for the Encoder
-	 * @param messageDataStructure
-	 * @param structureType
-	 */
-	public MessageContainer(Object messageDataStructure, int structureType){
-		this.messageDataStructure = messageDataStructure;
-		this.structureType = structureType;
+
+	public MessageContainer(Channel clientChannel, Message message) {
+		this.rawMessage = null;
+		this.clientChannel = clientChannel;
+		this.message = message;
 	}
 
 	public String getRawMessage() {
@@ -54,21 +49,4 @@ public class MessageContainer {
 		this.message = messageObject;
 	}
 
-	public int getStructureType() {
-		return structureType;
-	}
-
-	public void setStructureType(int structureType) {
-		this.structureType = structureType;
-	}
-
-	public Object getMessageDataStructure() {
-		return messageDataStructure;
-	}
-
-	public void setMessageDataStructure(Object messageDataStructure) {
-		this.messageDataStructure = messageDataStructure;
-	}
-	
-	
 }
