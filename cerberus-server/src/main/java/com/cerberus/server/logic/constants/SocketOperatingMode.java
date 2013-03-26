@@ -2,7 +2,7 @@ package com.cerberus.server.logic.constants;
 
 public enum SocketOperatingMode {
 
-	ON(1), OFF(2), SAFETY(3), RESTRICTED(4);
+	ON(0), OFF(1), SAFETY(2), RESTRICTED(3);
 
 	private final int opMode;
 

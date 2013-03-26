@@ -11,7 +11,7 @@ import org.jboss.netty.channel.SimpleChannelHandler;
 import org.jboss.netty.channel.WriteCompletionEvent;
 
 import com.cerberus.server.communication.ChannelOutletBinding;
-import com.cerberus.server.json.decoder.JSONDecoder;
+import com.cerberus.server.json.decoder.JsonDecoder;
 import com.cerberus.server.message.MessageContainer;
 import com.cerberus.server.service.executor.ExecutorServiceFactory;
 
@@ -70,7 +70,7 @@ public class StringHandler extends SimpleChannelHandler {
 		//Add a task to the Decoder Thread Pool.
 		ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
 		MessageContainer messageContainer = new MessageContainer(message, channel);
-		Runnable decoderTask = new JSONDecoder(messageContainer);
+		Runnable decoderTask = new JsonDecoder(messageContainer);
 		executor.execute(decoderTask);
 
 		super.messageReceived(ctx, e);

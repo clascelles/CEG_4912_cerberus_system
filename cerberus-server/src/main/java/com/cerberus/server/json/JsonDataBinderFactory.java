@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-public class JSONDataBinderFactory {
+public class JsonDataBinderFactory {
 
 	private final static ObjectMapper defaultMapper = new ObjectMapper();
 
