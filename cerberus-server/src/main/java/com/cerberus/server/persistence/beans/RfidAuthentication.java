@@ -2,11 +2,14 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,11 +26,16 @@ public class RfidAuthentication implements Serializable{
 	Integer rfidTagId;
 	User owner;
 	
+	public RfidAuthentication(){
+		super();
+	}
+	
 	public RfidAuthentication(Integer rfidTagId, User owner) {
 		super();
 		this.rfidTagId = rfidTagId;
 		this.owner = owner;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -46,11 +54,20 @@ public class RfidAuthentication implements Serializable{
 		this.rfidTagId = rfidTagId;
 	}
 	
-	@Column(name="USER_ID", nullable=false)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="USER_ID", nullable=false)
 	public User getOwner() {
 		return owner;
 	}
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
+
+	@Override
+	public String toString() {
+		return "RfidAuthentication [id=" + id + ", rfidTagId=" + rfidTagId
+				+ ", owner=" + owner + "]";
+	}
+	
+	
 }

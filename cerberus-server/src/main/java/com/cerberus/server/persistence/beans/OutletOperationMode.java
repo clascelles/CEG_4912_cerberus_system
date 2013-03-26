@@ -29,6 +29,7 @@ public class OutletOperationMode implements Serializable{
 		super();
 		this.name = name;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -46,6 +47,7 @@ public class OutletOperationMode implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	@Override
 	public String toString() {
 		return "OutletOperationMode [id=" + id + ", name=" + name + "]";

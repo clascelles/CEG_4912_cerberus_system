@@ -3,11 +3,14 @@ package com.cerberus.server.persistence.beans;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,7 +31,9 @@ public class Login implements Serializable{
 	private Date lastUpdatedDate;
 	private User lastUpdatedUser;
 
-	public Login(){}
+	public Login(){
+		super();
+	}
 	
 	public Login(	String username, 
 			String passwordValue, 
@@ -80,7 +85,8 @@ public class Login implements Serializable{
 		this.createdDate = createdDate;
 	}
 	
-	@Column(name="CREATED_USER_ID", nullable=false)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="CREATED_USER_ID", nullable=false)
 	public User getCreatedUser() {
 		return createdUser;
 	}
@@ -96,7 +102,8 @@ public class Login implements Serializable{
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 	
-	@Column(name="LAST_UPDATED_USER_ID", nullable=false)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="LAST_UPDATED_USER_ID", nullable=false)
 	public User getLastUpdatedUser() {
 		return lastUpdatedUser;
 	}

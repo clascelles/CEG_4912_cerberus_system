@@ -2,11 +2,14 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +23,10 @@ public class ScheduleStartMode implements Serializable{
 	
 	Integer id;
 	SocketOperationMode mode;
+	
+	public ScheduleStartMode(){
+		super();
+	}
 	
 	public ScheduleStartMode(SocketOperationMode mode) {
 		super();
@@ -36,12 +43,20 @@ public class ScheduleStartMode implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="SOCKET_OPERATION_MODE_ID", nullable=false)
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="SOCKET_OPERATION_MODE_ID", nullable=false)
 	public SocketOperationMode getSocketOperationMode() {
 		return mode;
 	}
 	public void setSocketOperationMode(SocketOperationMode mode) {
 		this.mode = mode;
 	}
+
+	@Override
+	public String toString() {
+		return "ScheduleStartMode [id=" + id + ", mode=" + mode + "]";
+	}
+	
+	
 	
 }

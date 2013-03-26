@@ -2,11 +2,14 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +25,10 @@ public class ConsumptionProfile implements Serializable{
 	RfidTag rfidTag;
 	Integer averageHourlyConsumption;
 	Integer instantaneousConsumption;
+	
+	public ConsumptionProfile(){
+		super();
+	}
 	
 	public ConsumptionProfile(RfidTag rfidTag, Integer averageHourlyConsumption, Integer instantaneousConsumption) {
 		super();
@@ -39,7 +46,8 @@ public class ConsumptionProfile implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="RFID_TAG_ID", nullable=false)
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="RFID_TAG_ID", nullable=false)
 	public RfidTag getRfidTag() {
 		return rfidTag;
 	}
@@ -61,5 +69,15 @@ public class ConsumptionProfile implements Serializable{
 	}
 	public void setInstantaneousConsumption(Integer instantaneousConsumption) {
 		this.instantaneousConsumption = instantaneousConsumption;
+	}
+
+	@Override
+	public String toString() {
+		return "ConsumptionProfile [id=" + id + ", rfidTag=" + rfidTag
+				+ ", averageHourlyConsumption=" + averageHourlyConsumption
+				+ ", instantaneousConsumption=" + instantaneousConsumption
+				+ "]";
 	}	
+	
+	
 }

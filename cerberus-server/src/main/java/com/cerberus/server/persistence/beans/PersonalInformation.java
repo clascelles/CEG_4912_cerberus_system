@@ -24,7 +24,9 @@ public class PersonalInformation implements Serializable{
 	String phoneNumber;
 	String address;
 
-	public PersonalInformation(){}
+	public PersonalInformation(){
+		super();
+	}
 	
 	public PersonalInformation(String firstName, String lastName, String phoneNumber, String address) {
 		super();

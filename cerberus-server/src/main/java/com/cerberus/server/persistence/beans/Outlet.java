@@ -2,6 +2,7 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,9 @@ public class Outlet implements Serializable {
 	private Integer serialNumber;
 	private System system;
 	
-	public Outlet() {}
+	public Outlet() {
+		super();
+	}
 	
 	public Outlet(Room room, OutletOperationMode mode, Integer serialNumber) {
 		super();
@@ -45,7 +48,7 @@ public class Outlet implements Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="ROOM_ID", nullable=false)
 	public Room getRoom() {
 		return room;
@@ -55,7 +58,7 @@ public class Outlet implements Serializable {
 		this.room = room;
 	}
 
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="OUTLET_OPERATION_MODE_ID", nullable=false)
 	public OutletOperationMode getMode() {
 		return mode;
@@ -74,7 +77,7 @@ public class Outlet implements Serializable {
 		this.serialNumber = serialNumber;
 	}
 
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="SYSTEM_ID", nullable=false)
 	public System getSystem() {
 		return system;

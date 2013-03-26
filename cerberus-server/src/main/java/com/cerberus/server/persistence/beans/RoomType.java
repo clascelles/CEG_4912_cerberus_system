@@ -21,7 +21,9 @@ public class RoomType implements Serializable{
 	Integer id;
 	String name;
 	
-	public RoomType(){	} //Default Constructor
+	public RoomType(){
+		super();
+	}
 	
 	public RoomType(String name) {
 		super();
@@ -45,5 +47,12 @@ public class RoomType implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "RoomType [id=" + id + ", name=" + name + "]";
+	}
+	
+	
 	
 }

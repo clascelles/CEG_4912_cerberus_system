@@ -21,10 +21,15 @@ public class Rule implements Serializable{
 	Integer id;
 	String name;
 	
+	public Rule(){
+		super();
+	}
+	
 	public Rule(String name) {
 		super();
 		this.name = name;
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -42,4 +47,11 @@ public class Rule implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "Rule [id=" + id + ", name=" + name + "]";
+	}
+	
+	
 }
