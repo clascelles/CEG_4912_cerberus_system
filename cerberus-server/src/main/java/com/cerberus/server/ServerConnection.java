@@ -44,52 +44,64 @@ public class ServerConnection {
 
 	public static void main (String[] args){
 
-//		Date currentDate = new Date(new java.util.Date().getTime());
-//		Login login = new Login("test", "pass", currentDate, (User) null, currentDate, (User) null);
-//		UserSetting userSetting = new UserSetting(0,0);
-//		PersonalInformation personalInformation = new PersonalInformation("David", "Vezina", "613-123-4567", "6257 Ravine Way");
-//
-//		UserWorkflow userWorkflow = new UserWorkflow();
-//		UserType userType = new UserType("Consumer");
-//		//UserType userType = userWorkflow.getUserTypeById(1);
-//		User user = new User(userSetting, userType, login, personalInformation, currentDate, null, currentDate, null);
-//
-//		userWorkflow.insertUser(user);
-//		
-//		System system = new System(user, "my system");
-//		
-//		SystemWorkflow systemWorkflow = new SystemWorkflow();
-//		systemWorkflow.insertSystem(system);
+		Date currentDate = new Date(new java.util.Date().getTime());
+		Login login = new Login("test", "pass", currentDate, (User) null, currentDate, (User) null);
+		UserSetting userSetting = new UserSetting(0,0);
+		PersonalInformation personalInformation = new PersonalInformation("David", "Vezina", "613-123-4567", "6257 Ravine Way");
+
+		UserWorkflow userWorkflow = new UserWorkflow();
+		UserType userType = new UserType("Consumer");
+		//UserType userType = userWorkflow.getUserTypeById(1);
+		User user = new User(userSetting, userType, login, personalInformation, currentDate, null, currentDate, null);
+
+		userWorkflow.insertUser(user);
 		
-//		RoomType kitchen = new RoomType("Kitchen");
-//		Room myKitchen = new Room("My Kitchen", kitchen);
-//		
-//		OutletOperationMode enabledMode = new OutletOperationMode("Enabled");
-//		Outlet outlet = new Outlet(myKitchen, enabledMode, 12345);
-//		Event connectedEvent = new Event("Connected");
-//		SocketOperationStatus activeStatus = new SocketOperationStatus("Active");
-//		
-//		java.util.Date date= new java.util.Date();
-//		Timestamp ts = new Timestamp(date.getTime());
-//		ConnectionEvent conEvent = new ConnectionEvent(outlet, connectedEvent, ts);
-//		//Socket socket = new Socket(activeStatus, enabledMode, );
-//		//SocketAssignment assignment = new SocketAssignment();
-//
+
+		System system = new System(user, "my system");
+		
+		SystemWorkflow systemWorkflow = new SystemWorkflow();
+		systemWorkflow.insertSystem(system);
+		
+		RoomType kitchen = new RoomType("Kitchen");
+		Room myKitchen = new Room("My Kitchen", kitchen);
+		
+		OutletOperationMode enabledMode = new OutletOperationMode("Enabled");
+		Outlet outlet = new Outlet(myKitchen, enabledMode, 12345, system);
+		Event connectedEvent = new Event("Connected");
+		SocketOperationStatus activeStatus = new SocketOperationStatus("Active");
+		SocketOperationMode socketOpMode = new SocketOperationMode(enabledMode);
+		
+		java.util.Date date= new java.util.Date();
+		Timestamp ts = new Timestamp(date.getTime());
+		ConnectionEvent conEvent = new ConnectionEvent(outlet, connectedEvent, ts);
+
 //		SystemWorkflow systemWorkflow = new SystemWorkflow();
-//		OutletWorkflow outletWorkflow = new OutletWorkflow();
-//		//outletWorkflow.insertOutletOperationMode(enabledMode);
-//		//outletWorkflow.insertEvent(connectedEvent);
-//		systemWorkflow.insertRoomType(kitchen);
-//		systemWorkflow.insertRoom(myKitchen);
-//		
-//		outletWorkflow.insertOutlet(outlet);
-//		outletWorkflow.insertConnectionEvent(conEvent);
-//		outletWorkflow.insertSocketOperationStatus(activeStatus);
-//		//outletWorkflow.insertSocket(socket);
-//		//outletWorkflow.insertSocketAssignment(assignment);	
+		OutletWorkflow outletWorkflow = new OutletWorkflow();
+		outletWorkflow.insertOutletOperationMode(enabledMode);
+		outletWorkflow.insertEvent(connectedEvent);
+		systemWorkflow.insertRoomType(kitchen);
+		systemWorkflow.insertRoom(myKitchen);
+
+		Socket socket = new Socket(activeStatus, socketOpMode, outlet);
+		outletWorkflow.insertOutlet(outlet);
+		outletWorkflow.insertConnectionEvent(conEvent);
+		outletWorkflow.insertSocketOperationStatus(activeStatus);
+		
+		
+		
+		
+		outletWorkflow.insertSocket(socket);
+
+		SocketAssignment assignment = new SocketAssignment(socket, user);
+		outletWorkflow.insertSocketAssignment(assignment);
+		
+		User fetchedUser = outletWorkflow.getUserBySocketId(socket.getId());
+		
 		
 		ServerLogger.setup(LOG_FILE);
-		LOGGER.info("Server Started.");
+		LOGGER.info("Server Started.");		
+
+		LOGGER.info("User ids for socket id" + socket.getId() + " : " + fetchedUser.getId());
 
 //		RfidWorkflow rfidWorkflow = new RfidWorkflow();
 //		rfidWorkflow.getRfidTagByNumber(new Long(123456789));
