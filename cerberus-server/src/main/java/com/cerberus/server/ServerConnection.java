@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import com.cerberus.server.bootstrap.CerberusServerBootstrap;
 import com.cerberus.server.logging.ServerLogger;
 import com.cerberus.server.persistence.HibernateUtil;
+import com.cerberus.server.persistence.beans.System;
 import com.cerberus.server.persistence.beans.Login;
 import com.cerberus.server.persistence.beans.PersonalInformation;
 import com.cerberus.server.persistence.beans.Room;
@@ -29,6 +30,7 @@ import com.cerberus.server.persistence.beans.OutletOperationMode;
 import com.cerberus.server.persistence.beans.RoomType;
 import com.cerberus.server.persistence.beans.Socket;
 import com.cerberus.server.persistence.beans.SocketAssignment;
+import com.cerberus.server.persistence.beans.SocketOperationMode;
 import com.cerberus.server.persistence.beans.SocketOperationStatus;
 import com.cerberus.server.workflow.OutletWorkflow;
 
@@ -41,42 +43,51 @@ public class ServerConnection {
 
 	public static void main (String[] args){
 
-//		Date currentDate = new Date(new java.util.Date().getTime());
-//		Login login = new Login("test", "pass", currentDate, (User) null, currentDate, (User) null);
-//		UserSetting userSetting = new UserSetting(0,0);
-//		PersonalInformation personalInformation = new PersonalInformation("David", "Vezina", "613-123-4567", "6257 Ravine Way");
-//
-//		UserWorkflow userWorkflow = new UserWorkflow();
-//		UserType userType = userWorkflow.getUserTypeById(1);
-//		User user = new User(userSetting, userType, login, personalInformation, currentDate, null, currentDate, null);
-//
-//		userWorkflow.insertUser(user);
+		Date currentDate = new Date(new java.util.Date().getTime());
+		Login login = new Login("test", "pass", currentDate, (User) null, currentDate, (User) null);
+		UserSetting userSetting = new UserSetting(0,0);
+		PersonalInformation personalInformation = new PersonalInformation("David", "Vezina", "613-123-4567", "6257 Ravine Way");
+
+		UserWorkflow userWorkflow = new UserWorkflow();
+		UserType userType = new UserType("Consumer");
+		//UserType userType = userWorkflow.getUserTypeById(1);
+		User user = new User(userSetting, userType, login, personalInformation, currentDate, null, currentDate, null);
+
+		userWorkflow.insertUser(user);
+		
+		System system = new System(user, "my system");
+		
+		SystemWorkflow systemWorkflow = new SystemWorkflow();
+		systemWorkflow.insertSystem(system);
 		
 		RoomType kitchen = new RoomType("Kitchen");
 		Room myKitchen = new Room("My Kitchen", kitchen);
 		
 		OutletOperationMode enabledMode = new OutletOperationMode("Enabled");
-		Outlet outlet = new Outlet(myKitchen, enabledMode, 12345);
+		Outlet outlet = new Outlet(myKitchen, enabledMode, 12345, system);
 		Event connectedEvent = new Event("Connected");
 		SocketOperationStatus activeStatus = new SocketOperationStatus("Active");
+		SocketOperationMode socketOpMode = new SocketOperationMode(enabledMode);
 		
-		java.util.Date date= new java.util.Date();
-		Timestamp ts = new Timestamp(date.getTime());
-		ConnectionEvent conEvent = new ConnectionEvent(outlet, connectedEvent, ts);
-		//Socket socket = new Socket(activeStatus, enabledMode, );
+		//java.util.Date date= new java.util.Date();
+		//Timestamp ts = new Timestamp(date.getTime());
+		//ConnectionEvent conEvent = new ConnectionEvent(outlet, connectedEvent, ts);
 		//SocketAssignment assignment = new SocketAssignment();
 
-		SystemWorkflow systemWorkflow = new SystemWorkflow();
+		//SystemWorkflow systemWorkflow = new SystemWorkflow();
 		OutletWorkflow outletWorkflow = new OutletWorkflow();
 		//outletWorkflow.insertOutletOperationMode(enabledMode);
 		//outletWorkflow.insertEvent(connectedEvent);
-		systemWorkflow.insertRoomType(kitchen);
-		systemWorkflow.insertRoom(myKitchen);
+		//systemWorkflow.insertRoomType(kitchen);
+		//systemWorkflow.insertRoom(myKitchen);
+
+		Socket socket = new Socket(activeStatus, socketOpMode, outlet);
+		//outletWorkflow.insertOutlet(outlet);
+		//outletWorkflow.insertConnectionEvent(conEvent);
+		//outletWorkflow.insertSocketOperationStatus(activeStatus);
 		
-		outletWorkflow.insertOutlet(outlet);
-		outletWorkflow.insertConnectionEvent(conEvent);
-		outletWorkflow.insertSocketOperationStatus(activeStatus);
-		//outletWorkflow.insertSocket(socket);
+		
+		outletWorkflow.insertSocket(socket);
 		//outletWorkflow.insertSocketAssignment(assignment);
 		
 		ServerLogger.setup(LOG_FILE);

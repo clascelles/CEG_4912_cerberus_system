@@ -18,6 +18,9 @@ public class UserWorkflow extends Workflow {
 		LOGGER.info("[UserWorkflow]: Initializing. Borrowing Service Factory from ObjectPool");
 	}
 	
+	public void insertUserType(UserType userType) {
+		serviceFactory.getUserService().insertUserType(userType);
+	}
 	
 	public void insertUser(User user){
 		serviceFactory.getUserService().insertUser(user);

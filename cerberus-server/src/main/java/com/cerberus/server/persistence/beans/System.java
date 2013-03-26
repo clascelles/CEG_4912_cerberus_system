@@ -46,7 +46,7 @@ public class System implements Serializable{
 	}
 	
 	@OneToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name="USER_ID", nullable=false)
+	@JoinColumn(name="USERS_ID", nullable=false)
 	public User getUser() {
 		return user;
 	}

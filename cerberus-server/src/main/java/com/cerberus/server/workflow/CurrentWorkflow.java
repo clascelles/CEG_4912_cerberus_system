@@ -29,9 +29,9 @@ public class CurrentWorkflow extends Workflow {
 		// Create new Current data structure
 		Current current = new Current();
 
-		current.setSocketId(message.getSocketId());
-		current.setTimestamp(new Timestamp(message.getTimestamp()));
-		current.setCurrent(message.getCurrent());
+		//current.setSocketId(message.getSocketId());
+		//current.setTimestamp(new Timestamp(message.getTimestamp()));
+		//current.setCurrent(message.getCurrent());
 
 		// Get UserID
 		// TODO Get User ID from User Services

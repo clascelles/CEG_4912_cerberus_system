@@ -40,7 +40,7 @@ public class RfidService {
 		return rfidTagDAO.getById(id);
 	}
 	
-	public RfidTag getRfidTagByNumber()
+	//public RfidTag getRfidTagByNumber()
 	
 	
 	
