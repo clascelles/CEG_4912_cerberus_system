@@ -28,6 +28,8 @@ public class Login implements Serializable{
 	private Date lastUpdatedDate;
 	private User lastUpdatedUser;
 
+	public Login(){}
+	
 	public Login(	String username, 
 			String passwordValue, 
 			Date createdDate, 
@@ -100,6 +102,17 @@ public class Login implements Serializable{
 	}
 	public void setLastUpdatedUser(User lastUpdatedUser) {
 		this.lastUpdatedUser = lastUpdatedUser;
+	}
+
+	@Override
+	public String toString() {
+		return "Login [id=" + id + ", username=" + username
+				+ ", passwordValue=" + passwordValue + ", createdDate="
+				+ createdDate + ", createdUser=" + createdUser
+				+ ", lastUpdatedDate=" + lastUpdatedDate + ", lastUpdatedUser="
+				+ lastUpdatedUser + "]";
 	}	
+	
+	
 	
 }

@@ -22,6 +22,8 @@ public class UserSetting implements Serializable{
 	Integer defaultOperation;
 	Integer defaultAssignment;
 	
+	public UserSetting(){}
+	
 	public UserSetting(Integer defaultOperation, Integer defaultAssignment) {
 		super();
 		this.defaultOperation = defaultOperation;
@@ -52,4 +54,13 @@ public class UserSetting implements Serializable{
 	public void setDefaultAssignment(Integer defaultAssignment) {
 		this.defaultAssignment = defaultAssignment;
 	}
+
+	@Override
+	public String toString() {
+		return "UserSetting [id=" + id + ", defaultOperation="
+				+ defaultOperation + ", defaultAssignment=" + defaultAssignment
+				+ "]";
+	}
+	
+	
 }
