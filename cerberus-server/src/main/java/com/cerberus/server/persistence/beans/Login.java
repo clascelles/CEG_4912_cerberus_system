@@ -3,7 +3,6 @@ package com.cerberus.server.persistence.beans;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -85,7 +84,7 @@ public class Login implements Serializable{
 		this.createdDate = createdDate;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="CREATED_USER_ID", nullable=false)
 	public User getCreatedUser() {
 		return createdUser;
@@ -102,7 +101,7 @@ public class Login implements Serializable{
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="LAST_UPDATED_USER_ID", nullable=false)
 	public User getLastUpdatedUser() {
 		return lastUpdatedUser;

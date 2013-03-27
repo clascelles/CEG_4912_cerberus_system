@@ -2,6 +2,7 @@ package com.cerberus.server.persistence.DAO;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
@@ -17,6 +18,9 @@ import com.cerberus.server.persistence.HibernateUtil;
 @Component
 public class GenericDAO<T, ID extends Serializable> {
 	
+	// Get Logger
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
 	@Resource(name = "sessionFactory")
 	private final SessionFactory sessionFactory;
 	
@@ -26,7 +30,7 @@ public class GenericDAO<T, ID extends Serializable> {
 
 	/***/
 	@SuppressWarnings("unchecked")
-	public ID save(final T o){
+	public synchronized ID save(final T o){
 		Session session = null;
 		Transaction tx = null;
 		ID saved = null;
@@ -35,9 +39,12 @@ public class GenericDAO<T, ID extends Serializable> {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			saved = (ID) session.save(o);
+			session.flush();
 			tx.commit();
+			System.out.println("Commit Transaction");
 		}catch (RuntimeException e) {
 			tx.rollback();
+			LOGGER.severe(e.getMessage());
 			e.printStackTrace();
 		}finally{
 			session.close();

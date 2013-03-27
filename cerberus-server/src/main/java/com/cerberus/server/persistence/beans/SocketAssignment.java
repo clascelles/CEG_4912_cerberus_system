@@ -2,7 +2,6 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -47,7 +46,7 @@ public class SocketAssignment implements Serializable{
 		this.id = id;
 	}
 
-	@OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="SOCKET_ID", nullable=false)
 	public Socket getSocket() {
 		return socket;
@@ -56,7 +55,7 @@ public class SocketAssignment implements Serializable{
 		this.socket = socket;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="USERS_ID", nullable=false)
 	public User getUser() {
 		return user;

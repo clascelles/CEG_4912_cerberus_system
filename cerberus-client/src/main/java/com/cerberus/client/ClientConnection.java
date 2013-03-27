@@ -7,14 +7,14 @@ import java.net.UnknownHostException;
 public class ClientConnection {
 
 	public static final Integer CLIENTS = 5;
-	
+
 	public static void main(String[] args) throws UnknownHostException, IOException{
-		
+
 		for(int i=0; i<CLIENTS; i++){
-			Client client = new Client();
+			Client client = new Client(i);
 			client.start();
 		}
-		
+
 	}
 
 }

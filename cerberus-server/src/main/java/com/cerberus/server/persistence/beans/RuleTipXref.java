@@ -2,7 +2,6 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,7 +44,7 @@ public class RuleTipXref implements Serializable{
 		this.id = id;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="RULE_ID", nullable=false)
 	public Rule getRule() {
 		return rule;
@@ -54,7 +53,7 @@ public class RuleTipXref implements Serializable{
 		this.rule = rule;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="TIP_ID", nullable=false)
 	public Tip getTip() {
 		return tip;

@@ -2,7 +2,6 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -55,7 +54,7 @@ public class RfidAuthentication implements Serializable{
 		this.rfidTagId = rfidTagId;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID", nullable=false)
 	public User getOwner() {
 		return owner;

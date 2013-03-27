@@ -3,7 +3,6 @@ package com.cerberus.server.persistence.beans;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -54,7 +53,7 @@ public class Current implements Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="RFID_TAG_ID", nullable=false)
 	public RfidTag getRfidTagId() {
 		return rfidTagId;
@@ -64,7 +63,7 @@ public class Current implements Serializable {
 		this.rfidTagId = rfidTagId;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="USERS_ID", nullable=false)
 	public User getUser() {
 		return user;
@@ -74,7 +73,7 @@ public class Current implements Serializable {
 		this.user = user;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="SOCKET_ID", nullable=false)
 	public Socket getSocket() {
 		return socket;

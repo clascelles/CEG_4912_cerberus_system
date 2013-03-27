@@ -2,7 +2,6 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +42,7 @@ public class ScheduleEndMode implements Serializable{
 		this.id = id;
 	}
 	
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne()
 	@JoinColumn(name="SOCKET_OPERATION_MODE_ID", nullable=false)
 	public SocketOperationMode getSocketOperationMode() {
 		return mode;

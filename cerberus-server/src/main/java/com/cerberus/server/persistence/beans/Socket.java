@@ -2,7 +2,6 @@ package com.cerberus.server.persistence.beans;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,7 +51,7 @@ public class Socket implements Serializable {
 	}	
 
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="SOCKET_OPERATION_STATUS_ID", nullable=false)
 	public SocketOperationStatus getStatus() {
 		return status;
@@ -61,7 +60,7 @@ public class Socket implements Serializable {
 		this.status = status;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="SOCKET_OPERATION_MODE_ID", nullable=false)
 	public SocketOperationMode getMode() {
 		return mode;
@@ -71,7 +70,7 @@ public class Socket implements Serializable {
 		this.mode = mode;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="OUTLET_ID", nullable=false)
 	public Outlet getOutlet() {
 		return outlet;

@@ -3,7 +3,6 @@ package com.cerberus.server.persistence.beans;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -66,7 +65,7 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne()
 	@JoinColumn(name="USER_SETTING_ID")
 	public UserSetting getSetting() {
 		return setting;
@@ -75,7 +74,7 @@ public class User implements Serializable {
 		this.setting = setting;
 	}
 
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne()
 	@JoinColumn(name="USER_TYPE_ID", nullable=false)
 	public UserType getType() {
 		return type;
@@ -84,7 +83,7 @@ public class User implements Serializable {
 		this.type = type;
 	}
 
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne()
 	@JoinColumn(name="LOGIN_ID")
 	public Login getLogin() {
 		return login;
@@ -93,7 +92,7 @@ public class User implements Serializable {
 		this.login = login;
 	}
 
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne()
 	@JoinColumn(name="PERSONAL_INFORMATION_ID")
 	public PersonalInformation getInformation() {
 		return information;
@@ -110,7 +109,7 @@ public class User implements Serializable {
 		this.createdDate = createdDate;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="CREATED_USER_ID", nullable=true)
 	public User getCreatedUser() {
 		return createdUser;
@@ -127,7 +126,7 @@ public class User implements Serializable {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="LAST_UPDATED_USER_ID", nullable=true)
 	public User getLastUpdatedUser() {
 		return lastUpdatedUser;
