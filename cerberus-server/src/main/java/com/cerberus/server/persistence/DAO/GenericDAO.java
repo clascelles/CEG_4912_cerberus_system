@@ -40,7 +40,6 @@ public class GenericDAO<T, ID extends Serializable> {
 			saved = (ID) session.save(o);
 			session.flush();
 			tx.commit();
-			System.out.println("Commit Transaction");
 		}catch (RuntimeException e) {
 			tx.rollback();
 			LOGGER.severe(e.getMessage());
@@ -183,7 +182,6 @@ public class GenericDAO<T, ID extends Serializable> {
 		Session session = null;
 		Transaction tx = null;	
 		List<T> list = null;
-		
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
