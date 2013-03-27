@@ -45,7 +45,7 @@ public class RuleTipXref implements Serializable{
 		this.id = id;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="RULE_ID", nullable=false)
 	public Rule getRule() {
 		return rule;
@@ -54,7 +54,7 @@ public class RuleTipXref implements Serializable{
 		this.rule = rule;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="TIP_ID", nullable=false)
 	public Tip getTip() {
 		return tip;

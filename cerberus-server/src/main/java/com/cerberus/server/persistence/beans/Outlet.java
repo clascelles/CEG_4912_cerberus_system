@@ -49,7 +49,7 @@ public class Outlet implements Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="ROOM_ID", nullable=false)
 	public Room getRoom() {
 		return room;
@@ -59,7 +59,7 @@ public class Outlet implements Serializable {
 		this.room = room;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="OUTLET_OPERATION_MODE_ID", nullable=false)
 	public OutletOperationMode getMode() {
 		return mode;
@@ -78,7 +78,7 @@ public class Outlet implements Serializable {
 		this.serialNumber = serialNumber;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="SYSTEM_ID", nullable=false)
 	public System getSystem() {
 		return system;

@@ -85,7 +85,7 @@ public class Login implements Serializable{
 		this.createdDate = createdDate;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="CREATED_USER_ID", nullable=false)
 	public User getCreatedUser() {
 		return createdUser;
@@ -102,7 +102,7 @@ public class Login implements Serializable{
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="LAST_UPDATED_USER_ID", nullable=false)
 	public User getLastUpdatedUser() {
 		return lastUpdatedUser;

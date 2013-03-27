@@ -45,7 +45,7 @@ public class SocketOperationMode implements Serializable{
 		this.id = id;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="OUTLET_OPERATION_MODE", nullable=false)
 	public OutletOperationMode getMode() {
 		return mode;

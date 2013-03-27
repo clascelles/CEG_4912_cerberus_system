@@ -46,7 +46,7 @@ public class System implements Serializable{
 		this.id = id;
 	}
 	
-	@OneToOne(cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USERS_ID", nullable=false)
 	public User getUser() {
 		return user;

@@ -54,7 +54,7 @@ public class Current implements Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="RFID_TAG_ID", nullable=false)
 	public RfidTag getRfidTagId() {
 		return rfidTagId;
@@ -64,7 +64,7 @@ public class Current implements Serializable {
 		this.rfidTagId = rfidTagId;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="USERS_ID", nullable=false)
 	public User getUser() {
 		return user;
@@ -74,7 +74,7 @@ public class Current implements Serializable {
 		this.user = user;
 	}
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="SOCKET_ID", nullable=false)
 	public Socket getSocket() {
 		return socket;

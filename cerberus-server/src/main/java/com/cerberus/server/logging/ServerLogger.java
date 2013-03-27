@@ -16,7 +16,7 @@ public class ServerLogger {
 		// Get the global logger to configure it
 	    Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-	    logger.setLevel(Level.INFO);
+	    logger.setLevel(Level.FINEST);
 
 	    //Bind the handlers
 	    try {

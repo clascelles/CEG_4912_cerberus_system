@@ -46,7 +46,7 @@ public class ConsumptionProfile implements Serializable{
 		this.id = id;
 	}
 	
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne()
 	@JoinColumn(name="RFID_TAG_ID", nullable=false)
 	public RfidTag getRfidTag() {
 		return rfidTag;

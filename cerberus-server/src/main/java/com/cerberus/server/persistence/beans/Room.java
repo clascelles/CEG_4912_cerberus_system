@@ -47,7 +47,7 @@ public class Room implements Serializable{
 		this.id = id;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="ROOM_TYPE_ID")
 	public RoomType getRoomType() {
 		return roomType;

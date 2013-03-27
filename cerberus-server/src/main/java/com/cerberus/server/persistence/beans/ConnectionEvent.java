@@ -48,7 +48,7 @@ public class ConnectionEvent implements Serializable{
 		this.id = id;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="OUTLET_ID", nullable=false)
 	public Outlet getOutlet() {
 		return outlet;
@@ -57,7 +57,7 @@ public class ConnectionEvent implements Serializable{
 		this.outlet = outlet;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne()
 	@JoinColumn(name="EVENT_ID", nullable=false)
 	public Event getEvent() {
 		return event;
