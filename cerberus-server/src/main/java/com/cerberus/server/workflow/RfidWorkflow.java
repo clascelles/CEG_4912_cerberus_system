@@ -20,7 +20,7 @@ public class RfidWorkflow extends Workflow{
 		LOGGER.info("[CurrentWorkflow]: Initializing. Borrowing Service Factory from ObjectPool");
 	}
 
-	public RfidTag getRfidTagByNumber(Long number){
+	public RfidTag getRfidTagByNumber(String number) {
 		return serviceFactory.getRfidService().getRfidTagByNumber(RfidTagFilter.getRfidTagByNumber(number));
 	}
 

@@ -7,9 +7,9 @@ import com.cerberus.server.persistence.beans.RfidTag;
 
 public class RfidTagFilter {
 
-	public static DetachedCriteria getRfidTagByNumber(Long number){
+	public static DetachedCriteria getRfidTagByNumber(String number){
 		return DetachedCriteria.forClass(RfidTag.class).
-				add(Restrictions.eq("number", number));
+				add(Restrictions.like("number", number));
 	}
 	
 }

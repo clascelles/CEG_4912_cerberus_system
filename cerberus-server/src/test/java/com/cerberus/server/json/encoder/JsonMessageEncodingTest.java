@@ -1,9 +1,8 @@
 package com.cerberus.server.json.encoder;
 
-import static org.junit.Assert.assertThat;
-
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 public class JsonMessageEncodingTest {
 
-	private static final String CURRENT_JSON_MESSAGE = "{ \"type\" : \"CURRENT\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"current\" : 3000, \"rfidNumber\" : 1234567890}";
+	private static final String CURRENT_JSON_MESSAGE = "{ \"type\" : \"CURRENT\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"current\" : 3000, \"rfidNumber\" : \"1234567890\"}";
 	private static final String RFID_AUTH_REQ_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_REQ\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : 1234567890}";
 	private static final String RFID_AUTH_RES_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_RES\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : 1234567890, \"authorized\" : true}";
 	private static final String STATUS_JSON_MESSAGE = "{ \"type\" : \"STATUS\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"status\" : 0}";
@@ -39,7 +38,7 @@ public class JsonMessageEncodingTest {
 
 	@Test
 	public void testEncodingJsonCurrentConsumptionMessage() throws Exception {
-		CurrentConsumptionMessage message = new CurrentConsumptionMessage(socketId, timestamp, 3000, 1234567890L);
+		CurrentConsumptionMessage message = new CurrentConsumptionMessage(socketId, timestamp, 3000, "1234567890");
 
 		ObjectWriter writer = JsonDataBinderFactory.getWriter(message.getClass());
 		String jsonMessage = writer.writeValueAsString(message);

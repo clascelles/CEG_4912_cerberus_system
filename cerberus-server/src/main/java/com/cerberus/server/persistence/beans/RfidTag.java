@@ -20,14 +20,14 @@ public class RfidTag implements Serializable{
 	
 	
 	Integer id;
-	Long number;
+	String number;
 	String description;
 	
 	public RfidTag(){
 		super();
 	}
 	
-	public RfidTag(Long number, String description) {
+	public RfidTag(String number, String description) {
 		super();
 		this.number = number;
 		this.description = description;
@@ -44,10 +44,11 @@ public class RfidTag implements Serializable{
 	}
 	
 	@Column(name="NUMBER", nullable=false)
-	public Long getNumber() {
+	public String getNumber() {
 		return number;
 	}
-	public void setNumber(Long number) {
+
+	public void setNumber(String number) {
 		this.number = number;
 	}
 	
