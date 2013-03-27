@@ -1,7 +1,6 @@
 package com.cerberus.server.json.encoder;
 
-import java.util.logging.Logger;
-
+import org.apache.log4j.Logger;
 import org.jboss.netty.channel.Channel;
 
 import com.cerberus.server.json.JsonDataBinderFactory;
@@ -16,7 +15,7 @@ public class JsonEncoder implements Runnable {
 	//private static final int RESPONSE_TIMEOUT_MILLIS = 30000;
 
 	//Get Logger
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final static Logger LOGGER = Logger.getLogger(JsonEncoder.class);
 
 	private final MessageContainer messageContainer;
 
@@ -43,7 +42,7 @@ public class JsonEncoder implements Runnable {
 				// sent...
 				LOGGER.info("Wrote message: " + encodedMessage + " to client #" + channel.getId());
 			} catch (JsonProcessingException e) {
-				LOGGER.severe("Exception caught when trying to encode this outgoing message: " + message);
+				LOGGER.error("Exception caught when trying to encode this outgoing message: " + message);
 				e.printStackTrace();
 			}
 		} else {

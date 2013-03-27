@@ -1,6 +1,6 @@
 package com.cerberus.server.workflow;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import com.cerberus.server.persistence.beans.RfidTag;
 import com.cerberus.server.persistence.filter.RfidTagFilter;
@@ -11,7 +11,7 @@ public class RfidWorkflow extends Workflow{
 
 
 	// Get Logger
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final static Logger LOGGER = Logger.getLogger(RfidWorkflow.class);
 
 	ServiceFactory serviceFactory;
 
@@ -29,7 +29,7 @@ public class RfidWorkflow extends Workflow{
 		try {
 			ServiceFactoryPool.returnServiceFactory(serviceFactory);
 		} catch (Throwable e) {
-			LOGGER.severe("ERROR Returning Service Factory");
+			LOGGER.error("ERROR Returning Service Factory");
 			e.printStackTrace();
 		}
 	}

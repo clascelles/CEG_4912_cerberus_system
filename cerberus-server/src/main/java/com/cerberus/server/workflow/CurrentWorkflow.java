@@ -2,7 +2,8 @@ package com.cerberus.server.workflow;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import com.cerberus.server.message.CurrentConsumptionMessage;
 import com.cerberus.server.persistence.beans.Current;
@@ -18,7 +19,7 @@ import com.cerberus.server.service.pool.ServiceFactoryPool;
 public class CurrentWorkflow extends Workflow {
 
 	// Get Logger
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final static Logger LOGGER = Logger.getLogger(CurrentWorkflow.class);
 
 	ServiceFactory serviceFactory;
 
@@ -38,7 +39,7 @@ public class CurrentWorkflow extends Workflow {
 		// Set Socket
 		Socket socket = serviceFactory.getOutletService().getSocketBySerialNumber(message.getSocketId());
 		current.setSocket(socket);
-		
+
 		// Set User
 		User user = serviceFactory.getUserService().getUserBySocketId(socket.getId());
 		current.setUser(user);
@@ -78,7 +79,7 @@ public class CurrentWorkflow extends Workflow {
 		try {
 			ServiceFactoryPool.returnServiceFactory(serviceFactory);
 		} catch (Throwable e) {
-			LOGGER.severe("ERROR Returning Service Factory");
+			LOGGER.error("ERROR Returning Service Factory");
 			e.printStackTrace();
 		}
 	}

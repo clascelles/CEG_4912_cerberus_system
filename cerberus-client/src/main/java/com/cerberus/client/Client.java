@@ -5,49 +5,92 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.Date;
 
 public class Client extends Thread {
 
+	private final static long RFID_NUMBER_FACTOR = 9000000000L;
+	private final static long RFID_NUMBER_SEED = 1000000000L;
+
+	private final int socketId;
+
+	public Client(int clientId) {
+		this.socketId = clientId;
+	}
+
+	@Override
 	public void run(){
-		
-		String sentence;
-        String modifiedSentence;
-        Socket clientSocket = null;
-        
-        Date startDate, stopDate;
-        
-        try{
-        clientSocket = new Socket("localhost", 8080);
-        DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-        BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+		Socket clientSocket;
+		DataOutputStream outToServer;
+		BufferedReader inFromServer;
+		String messageToSend;
+		String messageReceived;
+
+		long startDate, stopDate;
+
+
+		try {
+			clientSocket = new Socket("localhost", 8080);
+			outToServer = new DataOutputStream(clientSocket.getOutputStream());
+			inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		} catch (IOException e) {
+			System.out.println("[Client #" + socketId + "] Couldn't establish a connection to the server. Closing...");
+			e.printStackTrace();
+			return;
+		}
 
 		while(true){
-			startDate = new Date();
-			
-			sentence = "{ \"type\" : \"CURRENT\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"current\" : 3000, \"rfidNumber\" : 123456789}";
-	        outToServer.writeBytes(sentence + '\n');
-	
-	        modifiedSentence = inFromServer.readLine();
-	        stopDate = new Date();
-	        
-	        int interval = (int) (stopDate.getTime() - startDate.getTime());
-	        
-	        System.out.println("[Client] [Interval:" + interval + "] " + modifiedSentence);
-	       
+
+			try {
+				// Waits from 5 to 30 seconds before sending the next message
+				Thread.sleep((int) (5000 + (Math.random() * 25000)));
+			} catch (InterruptedException e1) {
+				System.out.println("[Client #" + socketId + "] Client interrupted. Closing...");
+				e1.printStackTrace();
+				break;
+			}
+
+			try {
+				messageToSend = createCurrentConsumptionJsonMessage();
+				startDate = System.currentTimeMillis();
+
+				outToServer.writeBytes(messageToSend);
+				messageReceived = inFromServer.readLine();
+
+				stopDate = System.currentTimeMillis();
+				int interval = (int) (stopDate - startDate);
+				System.out.println("[Client #" + socketId + "] [Interval:" + interval + "] Received message: "
+						+ messageReceived);
+			} catch (IOException e) {
+				System.out.println("[Client #" + socketId
+						+ "] IOException while sending or receiving a message. Closing...");
+				e.printStackTrace();
+				break;
+			}
+
 		}
-		 
-        }catch(Exception e){
-        	e.printStackTrace();
-        }
-        
+
         //Close Connection
         try {
 			clientSocket.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-        
-		
+
+	}
+
+	private String createCurrentConsumptionJsonMessage() {
+		int currentValue = (int) (Math.random() * 3000);
+		long rfidNumber = (long) (RFID_NUMBER_SEED + (Math.random() * RFID_NUMBER_FACTOR));
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("{\"type\":").append("\"CURRENT\"");
+		sb.append(",\"socketId\":").append(socketId);
+		sb.append(",\"timestamp\":").append(System.currentTimeMillis()/1000);
+		sb.append(",\"current\":").append(currentValue);
+		sb.append(",\"rfidNumber\":").append(rfidNumber);
+		sb.append("}").append("\n");
+
+		return sb.toString();
 	}
 }

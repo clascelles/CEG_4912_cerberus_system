@@ -2,8 +2,8 @@ package com.cerberus.server.bootstrap;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
-import java.util.logging.Logger;
 
+import org.apache.log4j.Logger;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
@@ -11,7 +11,7 @@ import com.cerberus.server.communication.pipeline.SimpleChannelPipelineFactory;
 
 public class CommunicationBootstrap extends Thread{
 
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final static Logger LOGGER = Logger.getLogger(CommunicationBootstrap.class);
 
 	//This runs when the thread is started
 	@Override

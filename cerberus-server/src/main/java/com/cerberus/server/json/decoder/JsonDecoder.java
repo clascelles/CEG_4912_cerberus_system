@@ -2,7 +2,8 @@ package com.cerberus.server.json.decoder;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import com.cerberus.server.json.JsonDataBinderFactory;
 import com.cerberus.server.logic.PersistenceLogic;
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectReader;
 public class JsonDecoder implements Runnable {
 
 	//Get Logger
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final static Logger LOGGER = Logger.getLogger(JsonDecoder.class);
 
 	private final MessageContainer messageContainer;
 
@@ -40,7 +41,7 @@ public class JsonDecoder implements Runnable {
 			executor.execute(persistenceLogic);
 
 		} catch (IOException e) {
-			LOGGER.severe("Exception caught when trying to decode this incoming JSON message: "
+			LOGGER.error("Exception caught when trying to decode this incoming JSON message: "
 					+ messageContainer.getRawMessage());
 			e.printStackTrace();
 		}

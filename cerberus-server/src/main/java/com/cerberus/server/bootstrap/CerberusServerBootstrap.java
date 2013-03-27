@@ -1,15 +1,17 @@
 package com.cerberus.server.bootstrap;
 
-import java.util.logging.Logger;
-
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 public class CerberusServerBootstrap extends Thread {
 
-	private final static Logger LOGGER = Logger
-			.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final static String LOG4J_PROPERTIES = "log4j.properties";
+	private final static Logger LOGGER = Logger.getLogger(CerberusServerBootstrap.class);
 
 	@Override
 	public void run() {
+
+		PropertyConfigurator.configure(LOG4J_PROPERTIES);
 
 		LOGGER.info("Bootstrapping the Cerberus server.");
 		// Start all bootstrap threads here

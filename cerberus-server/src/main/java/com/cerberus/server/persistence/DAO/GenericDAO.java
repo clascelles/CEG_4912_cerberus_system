@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Component;
+
 import com.cerberus.server.persistence.HibernateUtil;
 
 @Component
@@ -21,7 +22,7 @@ public class GenericDAO<T, ID extends Serializable> {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	@Resource(name = "sessionFactory")
-	private SessionFactory sessionFactory;
+	private final SessionFactory sessionFactory;
 	
 	public GenericDAO(){
 		this.sessionFactory = HibernateUtil.getSessionFactory();
