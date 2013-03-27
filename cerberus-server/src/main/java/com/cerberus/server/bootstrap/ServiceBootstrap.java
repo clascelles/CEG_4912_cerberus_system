@@ -1,12 +1,12 @@
 package com.cerberus.server.bootstrap;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import com.cerberus.server.service.executor.ExecutorServiceFactory;
 
 public class ServiceBootstrap extends Thread {
 
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final static Logger LOGGER = Logger.getLogger(ServiceBootstrap.class);
 
 	@Override
 	public void run() {

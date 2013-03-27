@@ -1,7 +1,8 @@
 package com.cerberus.server.logic;
 
 import java.util.concurrent.ExecutorService;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import com.cerberus.server.json.encoder.JsonEncoder;
 import com.cerberus.server.message.CurrentConsumptionMessage;
@@ -11,7 +12,7 @@ import com.cerberus.server.service.executor.ExecutorServiceFactory;
 public class ResponseLogic implements Runnable {
 
 	//Get Logger
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final static Logger LOGGER = Logger.getLogger(ResponseLogic.class);
 
 	MessageContainer messageContainer;
 

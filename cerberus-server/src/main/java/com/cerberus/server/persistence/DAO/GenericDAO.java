@@ -11,13 +11,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Component;
+
 import com.cerberus.server.persistence.HibernateUtil;
 
 @Component
 public class GenericDAO<T, ID extends Serializable> {
 	
 	@Resource(name = "sessionFactory")
-	private SessionFactory sessionFactory;
+	private final SessionFactory sessionFactory;
 	
 	public GenericDAO(){
 		this.sessionFactory = HibernateUtil.getSessionFactory();
@@ -172,7 +173,6 @@ public class GenericDAO<T, ID extends Serializable> {
 	}
 	
 	/***/
-	@SuppressWarnings("unchecked")
 	public List<T> getAllByFilter(DetachedCriteria criteria){
 		Session session = null;
 		Transaction tx = null;	
