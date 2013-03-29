@@ -84,7 +84,7 @@ public class Client extends Thread {
 		sb.append(",\"socketId\":").append(ClientDataGenerator.getRandomSocketId());
 		sb.append(",\"timestamp\":").append(System.currentTimeMillis()/1000);
 		sb.append(",\"current\":").append(ClientDataGenerator.getRandomCurrentValue());
-		sb.append(",\"rfidNumber\":").append("\"" + ClientDataGenerator.getRandomRfidNumber() + "\"");
+		sb.append(",\"rfidNumber\":").append("\"").append(ClientDataGenerator.getRandomRfidNumber()).append("\"");
 		sb.append("}").append("\n");
 
 		return sb.toString();
