@@ -175,7 +175,7 @@ CREATE TABLE `general_profile` (
   `AVERAGE_HOURLY_CONSUMPTION` int(11) DEFAULT NULL,
   `INSTANTANEOUS_CONSUMPTION` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,6 +184,7 @@ CREATE TABLE `general_profile` (
 
 LOCK TABLES `general_profile` WRITE;
 /*!40000 ALTER TABLE `general_profile` DISABLE KEYS */;
+INSERT INTO `general_profile` VALUES (1,'Very large appliance',4,6,6),(2,'Large appliance',3,5,5),(3,'Medium appliance',3,4,4),(4,'Small appliance',2,3,3),(5,'Very small appliance',1,2,2);
 /*!40000 ALTER TABLE `general_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,9 +228,10 @@ CREATE TABLE `outlet` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `OUTLET_OPERATION_MODE_ID` int(11) NOT NULL,
   `ROOM_ID` int(11) NOT NULL,
-  `SERIAL_NUM` tinytext,
+  `SERIAL_NUM` varchar(10) NOT NULL,
   `SYSTEM_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
+  UNIQUE KEY `SERIAL_NUM_UNIQUE` (`SERIAL_NUM`),
   KEY `OUTLET_FKIndex1` (`ROOM_ID`),
   KEY `OUTLET_FKIndex2` (`OUTLET_OPERATION_MODE_ID`),
   KEY `fk_OUTLET_SYSTEM1_idx` (`SYSTEM_ID`),
@@ -554,8 +556,9 @@ CREATE TABLE `socket` (
   `SOCKET_OPERATION_STATUS_ID` int(11) NOT NULL,
   `SOCKET_OPERATION_MODE_ID` int(11) NOT NULL,
   `OUTLET_ID` int(11) NOT NULL,
-  `SERIAL_NUM` tinytext,
+  `SERIAL_NUM` varchar(10) NOT NULL,
   PRIMARY KEY (`ID`),
+  UNIQUE KEY `SERIAL_NUM_UNIQUE` (`SERIAL_NUM`),
   KEY `SOCKET_FKIndex1` (`OUTLET_ID`),
   KEY `SOCKET_FKIndex2` (`SOCKET_OPERATION_MODE_ID`),
   KEY `SOCKET_FKIndex3` (`SOCKET_OPERATION_STATUS_ID`),
@@ -800,4 +803,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-03-27 20:56:09
+-- Dump completed on 2013-03-28 21:08:01

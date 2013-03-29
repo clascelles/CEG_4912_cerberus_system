@@ -6,7 +6,7 @@ import java.net.UnknownHostException;
 
 public class ClientConnection {
 
-	public static final Integer CLIENTS = 5;
+	public static final Integer CLIENTS = 100;
 
 	public static void main(String[] args) throws UnknownHostException, IOException{
 

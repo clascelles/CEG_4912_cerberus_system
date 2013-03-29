@@ -8,7 +8,7 @@ public class RFIDAuthRequestMessage extends Message {
 	private final int rfidNumber;
 
 	@JsonCreator
-	public RFIDAuthRequestMessage(@JsonProperty("socketId") int socketId, @JsonProperty("timestamp") long timestamp,
+	public RFIDAuthRequestMessage(@JsonProperty("socketId") long socketId, @JsonProperty("timestamp") long timestamp,
 			@JsonProperty("rfidNumber") int rfidNumber) {
 		super(MessageType.RFID_AUTH_REQ, socketId, timestamp);
 		this.rfidNumber = rfidNumber;

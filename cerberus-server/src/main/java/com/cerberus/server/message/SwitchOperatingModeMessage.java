@@ -10,7 +10,7 @@ public class SwitchOperatingModeMessage extends Message {
 	private final int powerThreshold;
 
 	@JsonCreator
-	public SwitchOperatingModeMessage(@JsonProperty("socketId") int socketId,
+	public SwitchOperatingModeMessage(@JsonProperty("socketId") long socketId,
 			@JsonProperty("timestamp") long timestamp, @JsonProperty("opMode") SocketOperatingMode opMode,
 			@JsonProperty("powerThreshold") int powerThreshold) {
 		super(MessageType.SWITCH_OP_MODE, socketId, timestamp);

@@ -9,7 +9,7 @@ public class StatusMessage extends Message {
 	private final SocketStatus status;
 
 	@JsonCreator
-	public StatusMessage(@JsonProperty("socketId") int socketId, @JsonProperty("timestamp") long timestamp,
+	public StatusMessage(@JsonProperty("socketId") long socketId, @JsonProperty("timestamp") long timestamp,
 			@JsonProperty("status") SocketStatus status) {
 		super(MessageType.STATUS, socketId, timestamp);
 		this.status = status;

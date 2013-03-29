@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,9 +27,10 @@ public class User implements Serializable {
 	private Login login;
 	private PersonalInformation information;
 	private Date createdDate;
-	private User createdUser;
+	// private User createdUser;
 	private Date lastUpdatedDate;
-	private User lastUpdatedUser;
+
+	// private User lastUpdatedUser;
 	
 	public User(){
 		super();
@@ -50,9 +50,9 @@ public class User implements Serializable {
 		this.login = login;
 		this.information = information;
 		this.createdDate = createdDate;
-		this.createdUser = createdUser;
+		// this.createdUser = createdUser;
 		this.lastUpdatedDate = lastUpdatedDate;
-		this.lastUpdatedUser = lastUpdatedUser;
+		// this.lastUpdatedUser = lastUpdatedUser;
 	}
 	
 	@Id
@@ -84,7 +84,7 @@ public class User implements Serializable {
 	}
 
 	@OneToOne()
-	@JoinColumn(name="LOGIN_ID")
+	@JoinColumn(name = "LOGIN_ID", nullable = false)
 	public Login getLogin() {
 		return login;
 	}
@@ -93,7 +93,7 @@ public class User implements Serializable {
 	}
 
 	@OneToOne()
-	@JoinColumn(name="PERSONAL_INFORMATION_ID")
+	@JoinColumn(name = "PERSONAL_INFORMATION_ID", nullable = false)
 	public PersonalInformation getInformation() {
 		return information;
 	}
@@ -109,14 +109,14 @@ public class User implements Serializable {
 		this.createdDate = createdDate;
 	}
 	
-	@ManyToOne()
-	@JoinColumn(name="CREATED_USER_ID", nullable=true)
-	public User getCreatedUser() {
-		return createdUser;
-	}
-	public void setCreatedUser(User createdUser) {
-		this.createdUser = createdUser;
-	}
+	// @ManyToOne(fetch = FetchType.LAZY)
+	// @JoinColumn(name="CREATED_USER_ID", nullable=true)
+	// public User getCreatedUser() {
+	// return createdUser;
+	// }
+	// public void setCreatedUser(User createdUser) {
+	// this.createdUser = createdUser;
+	// }
 	
 	@Column(name="LAST_UPDATED_DATE", nullable=false)
 	public Date getLastUpdatedDate() {
@@ -125,24 +125,21 @@ public class User implements Serializable {
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
-	
-	@ManyToOne()
-	@JoinColumn(name="LAST_UPDATED_USER_ID", nullable=true)
-	public User getLastUpdatedUser() {
-		return lastUpdatedUser;
-	}
-	public void setLastUpdatedUser(User lastUpdatedUser) {
-		this.lastUpdatedUser = lastUpdatedUser;
-	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", setting=" + setting + ", type=" + type
-				+ ", login=" + login + ", information=" + information
-				+ ", createdDate=" + createdDate + ", createdUser="
-				+ createdUser + ", lastUpdatedDate=" + lastUpdatedDate
-				+ ", lastUpdatedUser=" + lastUpdatedUser + "]";
-	}	
+		return "User [id=" + id + ", setting=" + setting + ", type=" + type + ", login=" + login + ", information="
+				+ information + ", createdDate=" + createdDate + ", lastUpdatedDate=" + lastUpdatedDate + "]";
+	}
+
+	// @ManyToOne(fetch = FetchType.LAZY)
+	// @JoinColumn(name="LAST_UPDATED_USER_ID", nullable=true)
+	// public User getLastUpdatedUser() {
+	// return lastUpdatedUser;
+	// }
+	// public void setLastUpdatedUser(User lastUpdatedUser) {
+	// this.lastUpdatedUser = lastUpdatedUser;
+	// }
 	
 	
 	

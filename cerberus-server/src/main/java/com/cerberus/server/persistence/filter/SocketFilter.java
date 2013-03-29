@@ -12,7 +12,7 @@ public class SocketFilter {
 				add(Restrictions.eq("id", id));
 	}
 	
-	public static DetachedCriteria getBySerialNum(Integer serialNumber){
+	public static DetachedCriteria getBySerialNum(Long serialNumber) {
 		return DetachedCriteria.forClass(Socket.class).
 				add(Restrictions.eq("serialNumber", serialNumber.toString()));
 	}

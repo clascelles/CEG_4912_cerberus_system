@@ -10,12 +10,12 @@ import org.junit.Test;
 
 public class CurrentConsumptionMessageTest {
 
-	private int socketId;
+	private Long socketId;
 	private long timestamp;
 
 	@Before
 	public void setup() {
-		socketId = 12345;
+		socketId = 12345L;
 		timestamp = System.currentTimeMillis();
 	}
 

@@ -35,7 +35,7 @@ public class JsonMessageDecodingTest {
 	private static final String EMPTY_JSON_MESSAGE = "{  }";
 	private static final String INVALID_JSON_MESSAGE = "{ \"blah\" : {} }";
 
-	private int socketId;
+	private long socketId;
 	private long timestamp;
 
 	private Message message;

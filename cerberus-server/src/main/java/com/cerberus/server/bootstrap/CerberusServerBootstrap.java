@@ -5,7 +5,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 public class CerberusServerBootstrap extends Thread {
 
-	private final static String LOG4J_PROPERTIES = "log4j.properties";
+	private final static String LOG4J_PROPERTIES = "src/main/resource/log4j.properties";
 	private final static Logger LOGGER = Logger.getLogger(CerberusServerBootstrap.class);
 
 	@Override

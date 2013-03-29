@@ -9,7 +9,8 @@ public class GenericInformationMessage extends Message {
 	private final String information;
 
 	@JsonCreator
-	public GenericInformationMessage(@JsonProperty("socketId") int socketId, @JsonProperty("timestamp") long timestamp,
+	public GenericInformationMessage(@JsonProperty("socketId") long socketId,
+			@JsonProperty("timestamp") long timestamp,
 			@JsonProperty("informationType") String informationType, @JsonProperty("information") String information) {
 		super(MessageType.GENERIC_INFO, socketId, timestamp);
 		this.informationType = informationType;

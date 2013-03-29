@@ -9,7 +9,7 @@ public class ServerConnection {
 
 		//Initialize Hibernate
 		HibernateUtil.getSessionFactory();
-		
+
 		// Bootstrap the server.
 		CerberusServerBootstrap bootstrap = new CerberusServerBootstrap();
 		bootstrap.start();

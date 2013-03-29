@@ -64,7 +64,7 @@ public class OutletWorkflow extends Workflow {
 		return serviceFactory.getOutletService().getSocketBySocketId(id);
 	}
 
-	public Socket getSocketBySerialNumber(Integer serialNumber) {
+	public Socket getSocketBySerialNumber(Long serialNumber) {
 		return serviceFactory.getOutletService().getSocketBySerialNumber(serialNumber);
 	}
 

@@ -19,13 +19,13 @@ import com.cerberus.server.persistence.filter.SocketFilter;
 
 public class OutletService {
 
-	private OutletDAO outletDAO;
-	private ConnectionEventDAO connectionEventDAO;
-	private EventDAO eventDAO;
-	private SocketOperationStatusDAO socketOperationStatusDAO;
-	private SocketDAO socketDAO;
-	private OutletOperationModeDAO outletOperationModeDAO;
-	private SocketAssignmentDAO socketAssignmentDAO;
+	private final OutletDAO outletDAO;
+	private final ConnectionEventDAO connectionEventDAO;
+	private final EventDAO eventDAO;
+	private final SocketOperationStatusDAO socketOperationStatusDAO;
+	private final SocketDAO socketDAO;
+	private final OutletOperationModeDAO outletOperationModeDAO;
+	private final SocketAssignmentDAO socketAssignmentDAO;
 	
 	public OutletService(){
 		outletDAO = new OutletDAO();
@@ -153,7 +153,7 @@ public class OutletService {
 		return socketDAO.getByFilter(SocketFilter.getById(socketId));
 	}
 	
-	public Socket getSocketBySerialNumber(Integer serialNumber){
+	public Socket getSocketBySerialNumber(Long serialNumber) {
 		return socketDAO.getByFilter(SocketFilter.getBySerialNum(serialNumber));
 	}
 	

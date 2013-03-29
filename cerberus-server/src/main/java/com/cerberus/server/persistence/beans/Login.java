@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,9 +24,10 @@ public class Login implements Serializable{
 	private String username;
 	private String passwordValue;
 	private Date createdDate;
-	private User createdUser;
+	// private User createdUser;
 	private Date lastUpdatedDate;
-	private User lastUpdatedUser;
+
+	// private User lastUpdatedUser;
 
 	public Login(){
 		super();
@@ -44,9 +43,9 @@ public class Login implements Serializable{
 		this.username = username;
 		this.passwordValue = passwordValue;
 		this.createdDate = createdDate;
-		this.createdUser = createdUser;
+		// this.createdUser = createdUser;
 		this.lastUpdatedDate = lastUpdatedDate;
-		this.lastUpdatedUser = lastUpdatedUser;
+		// this.lastUpdatedUser = lastUpdatedUser;
 	}
 	
 	
@@ -84,14 +83,14 @@ public class Login implements Serializable{
 		this.createdDate = createdDate;
 	}
 	
-	@ManyToOne()
-	@JoinColumn(name="CREATED_USER_ID", nullable=false)
-	public User getCreatedUser() {
-		return createdUser;
-	}
-	public void setCreatedUser(User createdUser) {
-		this.createdUser = createdUser;
-	}
+	// @ManyToOne(fetch = FetchType.LAZY)
+	// @JoinColumn(name="CREATED_USER_ID", nullable=false)
+	// public User getCreatedUser() {
+	// return createdUser;
+	// }
+	// public void setCreatedUser(User createdUser) {
+	// this.createdUser = createdUser;
+	// }
 	
 	@Column(name="LAST_UPDATED_DATE", nullable=false)
 	public Date getLastUpdatedDate() {
@@ -100,24 +99,21 @@ public class Login implements Serializable{
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
-	
-	@ManyToOne()
-	@JoinColumn(name="LAST_UPDATED_USER_ID", nullable=false)
-	public User getLastUpdatedUser() {
-		return lastUpdatedUser;
-	}
-	public void setLastUpdatedUser(User lastUpdatedUser) {
-		this.lastUpdatedUser = lastUpdatedUser;
-	}
 
 	@Override
 	public String toString() {
-		return "Login [id=" + id + ", username=" + username
-				+ ", passwordValue=" + passwordValue + ", createdDate="
-				+ createdDate + ", createdUser=" + createdUser
-				+ ", lastUpdatedDate=" + lastUpdatedDate + ", lastUpdatedUser="
-				+ lastUpdatedUser + "]";
-	}	
+		return "Login [id=" + id + ", username=" + username + ", passwordValue=" + passwordValue + ", createdDate="
+				+ createdDate + ", lastUpdatedDate=" + lastUpdatedDate + "]";
+	}
+
+	// @ManyToOne(fetch = FetchType.LAZY)
+	// @JoinColumn(name="LAST_UPDATED_USER_ID", nullable=false)
+	// public User getLastUpdatedUser() {
+	// return lastUpdatedUser;
+	// }
+	// public void setLastUpdatedUser(User lastUpdatedUser) {
+	// this.lastUpdatedUser = lastUpdatedUser;
+	// }
 	
 	
 	

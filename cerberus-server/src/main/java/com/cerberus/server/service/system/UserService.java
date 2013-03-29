@@ -1,5 +1,7 @@
 package com.cerberus.server.service.system;
 
+import java.util.List;
+
 import com.cerberus.server.persistence.DAO.LoginDAO;
 import com.cerberus.server.persistence.DAO.PersonalInformationDAO;
 import com.cerberus.server.persistence.DAO.SocketAssignmentDAO;
@@ -7,7 +9,12 @@ import com.cerberus.server.persistence.DAO.SocketDAO;
 import com.cerberus.server.persistence.DAO.UserDAO;
 import com.cerberus.server.persistence.DAO.UserSettingDAO;
 import com.cerberus.server.persistence.DAO.UserTypeDAO;
-import com.cerberus.server.persistence.beans.*;
+import com.cerberus.server.persistence.beans.Login;
+import com.cerberus.server.persistence.beans.PersonalInformation;
+import com.cerberus.server.persistence.beans.SocketAssignment;
+import com.cerberus.server.persistence.beans.User;
+import com.cerberus.server.persistence.beans.UserSetting;
+import com.cerberus.server.persistence.beans.UserType;
 import com.cerberus.server.persistence.filter.SocketAssignmentFilter;
 
 public class UserService {
@@ -60,6 +67,10 @@ public class UserService {
 		userDAO.delete(user);
 	}
 	
+	public List<User> getAllUser() {
+		return userDAO.getAll();
+	}
+
 	//***************************************************
 	//LOGIN
 	//***************************************************
@@ -76,6 +87,14 @@ public class UserService {
 		loginDAO.delete(login);
 	}
 	
+	public Login getLoginById(Integer loginId) {
+		return loginDAO.getById(loginId);
+	}
+
+	public List<Login> getAllLogin() {
+		return loginDAO.getAll();
+	}
+
 	//***************************************************
 	//PERSONAL INFORMATION
 	//***************************************************
@@ -105,6 +124,10 @@ public class UserService {
 		return userTypeDAO.getById(userTypeId);
 	}	
 	
+	public List<UserType> getAllUserTypes() {
+		return userTypeDAO.getAll();
+	}
+
 	//***************************************************
 	//USER SETTING
 	//***************************************************

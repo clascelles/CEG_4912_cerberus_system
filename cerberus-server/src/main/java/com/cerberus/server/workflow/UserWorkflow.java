@@ -1,5 +1,7 @@
 package com.cerberus.server.workflow;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.cerberus.server.persistence.beans.Login;
@@ -30,20 +32,40 @@ public class UserWorkflow extends Workflow {
 		serviceFactory.getUserService().insertUser(user);
 	}
 
-	public void insertLogin(Login login){
-		serviceFactory.getUserService().insertLogin(login);
+	public int insertLogin(Login login) {
+		return serviceFactory.getUserService().insertLogin(login);
 	}
 
-	public void insertPersonalInformation(PersonalInformation personalInformation){
-		serviceFactory.getUserService().insertPersonalInformation(personalInformation);
+	public int insertPersonalInformation(PersonalInformation personalInformation) {
+		return serviceFactory.getUserService().insertPersonalInformation(personalInformation);
 	}
 
-	public void insertUserSetting(UserSetting userSetting){
-		serviceFactory.getUserService().insertUserSetting(userSetting);
+	public int insertUserSetting(UserSetting userSetting) {
+		return serviceFactory.getUserService().insertUserSetting(userSetting);
 	}
 
 	public UserType getUserTypeById(Integer userTypeId){
 		return serviceFactory.getUserService().getUserTypeById(userTypeId);
+	}
+
+	public User getUserById(Integer userId) {
+		return serviceFactory.getUserService().getUserById(userId);
+	}
+
+	public Login getLoginById(Integer loginId) {
+		return serviceFactory.getUserService().getLoginById(loginId);
+	}
+
+	public List<User> getAllUsers() {
+		return serviceFactory.getUserService().getAllUser();
+	}
+
+	public List<Login> getAllLogins() {
+		return serviceFactory.getUserService().getAllLogin();
+	}
+
+	public List<UserType> getAllUserTypes() {
+		return serviceFactory.getUserService().getAllUserTypes();
 	}
 
 	@Override

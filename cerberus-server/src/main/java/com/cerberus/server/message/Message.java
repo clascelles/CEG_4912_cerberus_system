@@ -17,10 +17,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 public class Message {
 
 	private final MessageType type;
-	private final int socketId;
+	private final long socketId;
 	private final long timestamp;
 
-	public Message(MessageType type, int socketId, long timestamp) {
+	public Message(MessageType type, long socketId, long timestamp) {
 		this.type = type;
 		this.socketId = socketId;
 		this.timestamp = timestamp;
@@ -31,7 +31,7 @@ public class Message {
 		return type;
 	}
 
-	public int getSocketId() {
+	public long getSocketId() {
 		return socketId;
 	}
 
