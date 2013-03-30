@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
+import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 import org.jboss.netty.channel.WriteCompletionEvent;
@@ -87,6 +88,12 @@ public class MessageHandler extends SimpleChannelHandler {
 		LOGGER.debug("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
 				+ "]: Write Complete");
 		super.writeComplete(ctx, e);
+	}
+
+	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
+		LOGGER.warn("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
+				+ "]: Exception caught: " + e.getCause().getMessage());
 	}
 
 }
