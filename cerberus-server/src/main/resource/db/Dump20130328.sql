@@ -82,7 +82,7 @@ DROP TABLE IF EXISTS `current`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `current` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `RFID_TAG_ID` int(11) NOT NULL,
+  `RFID_TAG_ID` int(11) DEFAULT NULL,
   `USERS_ID` int(11) NOT NULL,
   `SOCKET_ID` int(11) NOT NULL,
   `TIMESTAMP` timestamp NULL DEFAULT NULL,

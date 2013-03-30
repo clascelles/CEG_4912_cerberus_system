@@ -1,9 +1,11 @@
 package com.cerberus.server.json.decoder;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
 import java.io.IOException;
 
@@ -26,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectReader;
 public class JsonMessageDecodingTest {
 
 	private static final String CURRENT_JSON_MESSAGE = "{ \"type\" : \"CURRENT\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"current\" : 3000, \"rfidNumber\" : \"1234567890\"}";
+	private static final String CURRENT_JSON_MESSAGE_NO_RFID = "{ \"type\" : \"CURRENT\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"current\" : 3000}";
 	private static final String RFID_AUTH_REQ_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_REQ\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : 1234567890}";
 	private static final String RFID_AUTH_RES_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_RES\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : 1234567890, \"authorized\" : true}";
 	private static final String STATUS_JSON_MESSAGE = "{ \"type\" : \"STATUS\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"status\" : 0}";
@@ -59,6 +62,21 @@ public class JsonMessageDecodingTest {
 		assertThat(currentMsg.getType(), is(equalTo(MessageType.CURRENT)));
 		assertThat(currentMsg.getCurrent(), is(equalTo(3000)));
 		assertThat(currentMsg.getRfidNumber(), is(equalTo("1234567890")));
+	}
+
+	@Test
+	public void testDecodingJsonCurrentWithoutRFID() throws Exception {
+		ObjectReader reader = JsonDataBinderFactory.getReader(Message.class);
+		message = reader.readValue(CURRENT_JSON_MESSAGE_NO_RFID);
+
+		assertTrue(message instanceof CurrentConsumptionMessage);
+		CurrentConsumptionMessage currentMsg = (CurrentConsumptionMessage) message;
+
+		assertThat(currentMsg.getSocketId(), is(equalTo(socketId)));
+		assertThat(currentMsg.getTimestamp(), is(equalTo(timestamp)));
+		assertThat(currentMsg.getType(), is(equalTo(MessageType.CURRENT)));
+		assertThat(currentMsg.getCurrent(), is(equalTo(3000)));
+		assertThat(currentMsg.getRfidNumber(), is(nullValue()));
 	}
 
 	@Test

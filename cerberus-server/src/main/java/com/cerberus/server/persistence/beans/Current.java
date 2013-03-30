@@ -17,17 +17,17 @@ import javax.persistence.Table;
 public class Current implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer id;
 	private RfidTag rfidTagId;
 	private User user;
 	private Socket socket;
 	private Timestamp timestamp;
 	private Integer current;
-	
+
 	public Current() {
 		super();
 	}
@@ -54,7 +54,7 @@ public class Current implements Serializable {
 	}
 
 	@ManyToOne()
-	@JoinColumn(name="RFID_TAG_ID", nullable=false)
+	@JoinColumn(name = "RFID_TAG_ID", nullable = true)
 	public RfidTag getRfidTagId() {
 		return rfidTagId;
 	}

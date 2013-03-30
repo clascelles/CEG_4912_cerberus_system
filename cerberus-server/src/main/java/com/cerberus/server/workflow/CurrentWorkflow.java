@@ -44,9 +44,16 @@ public class CurrentWorkflow extends Workflow {
 		User user = serviceFactory.getUserService().getUserBySocketId(socket.getId());
 		current.setUser(user);
 
-		// Set RFID Number
-		RfidTag tag = serviceFactory.getRfidService().getRfidTagByNumber(RfidTagFilter.getRfidTagByNumber(message.getRfidNumber()));
-		current.setRfidTagId(tag);
+		// RFID is optional
+		if (message.getRfidNumber() != null) {
+			// Set RFID Number
+			RfidTag tag = serviceFactory.getRfidService().getRfidTagByNumber(
+					RfidTagFilter.getRfidTagByNumber(message.getRfidNumber()));
+			current.setRfidTagId(tag);
+		} else {
+			current.setRfidTagId(null);
+		}
+
 
 		try {
 
