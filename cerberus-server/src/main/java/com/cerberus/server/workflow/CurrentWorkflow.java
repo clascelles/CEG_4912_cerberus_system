@@ -12,7 +12,6 @@ import com.cerberus.server.persistence.beans.RfidTag;
 import com.cerberus.server.persistence.beans.Room;
 import com.cerberus.server.persistence.beans.Socket;
 import com.cerberus.server.persistence.beans.User;
-import com.cerberus.server.persistence.filter.RfidTagFilter;
 import com.cerberus.server.service.pool.ServiceFactory;
 import com.cerberus.server.service.pool.ServiceFactoryPool;
 
@@ -47,8 +46,7 @@ public class CurrentWorkflow extends Workflow {
 		// RFID is optional
 		if (message.getRfidNumber() != null) {
 			// Set RFID Number
-			RfidTag tag = serviceFactory.getRfidService().getRfidTagByNumber(
-					RfidTagFilter.getRfidTagByNumber(message.getRfidNumber()));
+			RfidTag tag = serviceFactory.getRfidService().getRfidTagByNumber(message.getRfidNumber());
 			current.setRfidTagId(tag);
 		} else {
 			current.setRfidTagId(null);

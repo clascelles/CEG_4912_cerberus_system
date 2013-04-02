@@ -1,8 +1,9 @@
 package com.cerberus.server.json.encoder;
 
+import static org.junit.Assert.assertThat;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +22,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 public class JsonMessageEncodingTest {
 
 	private static final String CURRENT_JSON_MESSAGE = "{ \"type\" : \"CURRENT\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"current\" : 3000, \"rfidNumber\" : \"1234567890\"}";
-	private static final String RFID_AUTH_REQ_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_REQ\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : 1234567890}";
-	private static final String RFID_AUTH_RES_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_RES\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : 1234567890, \"authorized\" : true}";
+	private static final String RFID_AUTH_REQ_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_REQ\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : \"1234567890\"}";
+	private static final String RFID_AUTH_RES_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_RES\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : \"1234567890\", \"authorized\" : true}";
 	private static final String STATUS_JSON_MESSAGE = "{ \"type\" : \"STATUS\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"status\" : 0}";
 	private static final String SWITCH_OP_MODE_JSON_MESSAGE = "{ \"type\" : \"SWITCH_OP_MODE\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"opMode\" : 0, \"powerThreshold\" : 2000}";
 	private static final String GENERIC_INFO_JSON_MESSAGE = "{ \"type\" : \"GENERIC_INFO\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"informationType\" : \"typeblah\", \"information\" : \"blahblah\"}";
@@ -48,7 +49,7 @@ public class JsonMessageEncodingTest {
 
 	@Test
 	public void testEncodingJsonRFIDAuthRequestMessage() throws Exception {
-		RFIDAuthRequestMessage message = new RFIDAuthRequestMessage(socketId, timestamp, 1234567890);
+		RFIDAuthRequestMessage message = new RFIDAuthRequestMessage(socketId, timestamp, "1234567890");
 
 		ObjectWriter writer = JsonDataBinderFactory.getWriter(message.getClass());
 		String jsonMessage = writer.writeValueAsString(message);
@@ -58,7 +59,7 @@ public class JsonMessageEncodingTest {
 
 	@Test
 	public void testEncodingJsonRFIDAuthResponseMessage() throws Exception {
-		RFIDAuthResponseMessage message = new RFIDAuthResponseMessage(socketId, timestamp, 1234567890, true);
+		RFIDAuthResponseMessage message = new RFIDAuthResponseMessage(socketId, timestamp, "1234567890", true);
 
 		ObjectWriter writer = JsonDataBinderFactory.getWriter(message.getClass());
 		String jsonMessage = writer.writeValueAsString(message);

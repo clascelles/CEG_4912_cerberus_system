@@ -29,8 +29,8 @@ public class JsonMessageDecodingTest {
 
 	private static final String CURRENT_JSON_MESSAGE = "{ \"type\" : \"CURRENT\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"current\" : 3000, \"rfidNumber\" : \"1234567890\"}";
 	private static final String CURRENT_JSON_MESSAGE_NO_RFID = "{ \"type\" : \"CURRENT\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"current\" : 3000}";
-	private static final String RFID_AUTH_REQ_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_REQ\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : 1234567890}";
-	private static final String RFID_AUTH_RES_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_RES\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : 1234567890, \"authorized\" : true}";
+	private static final String RFID_AUTH_REQ_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_REQ\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : \"1234567890\"}";
+	private static final String RFID_AUTH_RES_JSON_MESSAGE = "{ \"type\" : \"RFID_AUTH_RES\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"rfidNumber\" : \"1234567890\", \"authorized\" : true}";
 	private static final String STATUS_JSON_MESSAGE = "{ \"type\" : \"STATUS\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"status\" : 0}";
 	private static final String SWITCH_OP_MODE_JSON_MESSAGE = "{ \"type\" : \"SWITCH_OP_MODE\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"opMode\" : 0, \"powerThreshold\" : 2000}";
 	private static final String GENERIC_INFO_JSON_MESSAGE = "{ \"type\" : \"GENERIC_INFO\", \"socketId\" : 12345, \"timestamp\" : 1363702072, \"informationType\" : \"blahtype\", \"information\" : \"blahblah\"}";
@@ -90,7 +90,7 @@ public class JsonMessageDecodingTest {
 		assertThat(rfidMsg.getSocketId(), is(equalTo(socketId)));
 		assertThat(rfidMsg.getTimestamp(), is(equalTo(timestamp)));
 		assertThat(rfidMsg.getType(), is(equalTo(MessageType.RFID_AUTH_REQ)));
-		assertThat(rfidMsg.getRfidNumber(), is(equalTo(1234567890)));
+		assertThat(rfidMsg.getRfidNumber(), is(equalTo("1234567890")));
 	}
 
 	@Test
@@ -104,7 +104,7 @@ public class JsonMessageDecodingTest {
 		assertThat(rfidMsg.getSocketId(), is(equalTo(socketId)));
 		assertThat(rfidMsg.getTimestamp(), is(equalTo(timestamp)));
 		assertThat(rfidMsg.getType(), is(equalTo(MessageType.RFID_AUTH_RES)));
-		assertThat(rfidMsg.getRfidNumber(), is(equalTo(1234567890)));
+		assertThat(rfidMsg.getRfidNumber(), is(equalTo("1234567890")));
 		assertThat(rfidMsg.isAuthorized(), is(true));
 	}
 

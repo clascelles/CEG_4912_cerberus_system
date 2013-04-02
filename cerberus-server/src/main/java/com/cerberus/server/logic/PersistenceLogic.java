@@ -6,8 +6,10 @@ import org.apache.log4j.Logger;
 
 import com.cerberus.server.message.CurrentConsumptionMessage;
 import com.cerberus.server.message.MessageContainer;
+import com.cerberus.server.message.RFIDAuthRequestMessage;
 import com.cerberus.server.service.executor.ExecutorServiceFactory;
 import com.cerberus.server.workflow.CurrentWorkflow;
+import com.cerberus.server.workflow.RfidWorkflow;
 
 public class PersistenceLogic implements Runnable {
 
@@ -32,6 +34,11 @@ public class PersistenceLogic implements Runnable {
 		//needs to be generated.
 		switch(messageContainer.getMessage().getType()){
 		case RFID_AUTH_REQ:
+
+			RfidWorkflow rfidWorkflow = new RfidWorkflow();
+			RFIDAuthRequestMessage message = (RFIDAuthRequestMessage) messageContainer.getMessage();
+			rfidWorkflow.authorizeRfidTag(message);
+			rfidWorkflow.returnServiceFactory();
 			break;
 		case CURRENT:
 
@@ -50,8 +57,6 @@ public class PersistenceLogic implements Runnable {
 
 			break;
 		case SWITCH_OP_MODE:
-			break;
-		case RFID_AUTH_RES:
 			break;
 		case STATUS:
 			break;

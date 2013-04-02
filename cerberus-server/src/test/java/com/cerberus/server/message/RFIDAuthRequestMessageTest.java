@@ -1,9 +1,10 @@
 package com.cerberus.server.message;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class RFIDAuthRequestMessageTest {
 
 	@Test
 	public void creatingNewRFIDAuthRequestMessage() throws Exception {
-		Message rfidAuthReq = new RFIDAuthRequestMessage(socketId, timestamp, 123456789);
+		Message rfidAuthReq = new RFIDAuthRequestMessage(socketId, timestamp, "123456789");
 
 		assertTrue(rfidAuthReq instanceof RFIDAuthRequestMessage);
 		RFIDAuthRequestMessage message = (RFIDAuthRequestMessage) rfidAuthReq;
@@ -29,7 +30,7 @@ public class RFIDAuthRequestMessageTest {
 		assertThat(message.getSocketId(), is(equalTo(socketId)));
 		assertThat(message.getTimestamp(), is(equalTo(timestamp)));
 		assertThat(message.getType(), is(equalTo(MessageType.RFID_AUTH_REQ)));
-		assertThat(message.getRfidNumber(), is(equalTo(123456789)));
+		assertThat(message.getRfidNumber(), is(equalTo("123456789")));
 	}
 
 }
