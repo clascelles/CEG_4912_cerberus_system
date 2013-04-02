@@ -20,7 +20,6 @@ public class ResponseLogic implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
-	@Override
 	public void run() {
 
 		LOGGER.info("[Response Logic]: Starting!");

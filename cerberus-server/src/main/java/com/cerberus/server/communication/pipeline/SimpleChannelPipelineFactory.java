@@ -15,7 +15,6 @@ public class SimpleChannelPipelineFactory implements ChannelPipelineFactory {
 
 	private static final int FRAME_MAXIMUM_LENGTH = 1024;
 
-	@Override
 	public ChannelPipeline getPipeline() throws Exception {
 
 		//Initialize pipeline

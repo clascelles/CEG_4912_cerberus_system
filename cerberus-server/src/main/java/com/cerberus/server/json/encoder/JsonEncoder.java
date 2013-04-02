@@ -23,7 +23,6 @@ public class JsonEncoder implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
-	@Override
 	public void run() {
 
 		//Print the message to Encode to test the framework

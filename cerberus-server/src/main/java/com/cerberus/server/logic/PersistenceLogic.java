@@ -23,7 +23,6 @@ public class PersistenceLogic implements Runnable {
 	}
 
 
-	@Override
 	public void run() {
 
 		LOGGER.info("[Persistence Logic]: Starting.");
