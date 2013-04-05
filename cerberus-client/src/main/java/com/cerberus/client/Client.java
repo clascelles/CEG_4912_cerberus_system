@@ -22,6 +22,7 @@ public class Client implements Runnable {
 		this.dataGenerator = new ClientDataGenerator();
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	public void run(){
 
@@ -77,11 +78,12 @@ public class Client implements Runnable {
         //Close Connection
         try {
 			LOGGER.info("[Client #" + clientNumber + "] closing...");
-			clientSocket.close();
+			outToServer.close();
+			LOGGER.info("[Client #" + clientNumber + "] closed.");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
+		return;
 	}
 
 }

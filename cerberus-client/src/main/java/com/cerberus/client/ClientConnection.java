@@ -6,9 +6,10 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.xml.DOMConfigurator;
 
 public class ClientConnection {
 
@@ -18,7 +19,7 @@ public class ClientConnection {
 
 		ExecutorService clientPool = Executors.newFixedThreadPool(ClientStaticConfiguration.CLIENTS);
 
-		PropertyConfigurator.configure(ClientStaticConfiguration.LOG4J_PROPERTIES);
+		DOMConfigurator.configure(ClientStaticConfiguration.LOG4J_XML);
 		LOGGER.info("Starting client simulation server.");
 
 		Socket clientSocket;
@@ -53,6 +54,24 @@ public class ClientConnection {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {
 			}
+		}
+		LOGGER.info("All clients are running!");
+
+		// Client threads will stop after they are finished with their current
+		// client.
+		clientPool.shutdown();
+		try {
+			boolean terminatedProperly = clientPool.awaitTermination(
+ClientStaticConfiguration.TOTAL_TIME_LAPSE + 5000,
+					TimeUnit.MILLISECONDS);
+			if (terminatedProperly) {
+				LOGGER.info("All client threads are done. Stopping the simulation now. See you next time! :)");
+			} else {
+				LOGGER.warn("The client threads have not closed properly. Something is sketchy here...");
+			}
+			Runtime.getRuntime().exit(0);
+		} catch (InterruptedException e) {
+			Runtime.getRuntime().exit(0);
 		}
 	}
 
