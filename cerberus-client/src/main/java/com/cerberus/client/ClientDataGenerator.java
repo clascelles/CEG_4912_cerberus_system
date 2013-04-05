@@ -9,15 +9,32 @@ public class ClientDataGenerator {
 	private static final String[] rfidNumbers = new String[] { "356AC37692", "6538B2349D", "845A3F5673", "761239DCF1",
 			"628D23A853", "3849C32683", "22568A5638", "7538632468", "AA3578B34F", "479A347B31" };
 
-	public static String getRandomSocketId() {
+	public String createCurrentConsumptionJsonMessage() {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("{\"type\":").append("\"CURRENT\"");
+		sb.append(",\"socketId\":").append(getRandomSocketId());
+		sb.append(",\"timestamp\":").append(System.currentTimeMillis() / 1000);
+		sb.append(",\"current\":").append(getRandomCurrentValue());
+
+		// RFID number is optional, will be part of the message 50% of the time
+		if (Math.random() > 0.5) {
+			sb.append(",\"rfidNumber\":").append("\"").append(getRandomRfidNumber()).append("\"");
+		}
+		sb.append("}").append("\n");
+
+		return sb.toString();
+	}
+
+	private String getRandomSocketId() {
 		return socketIds[(int) (Math.random() * socketIds.length)];
 	}
 
-	public static String getRandomRfidNumber() {
+	private String getRandomRfidNumber() {
 		return rfidNumbers[(int) (Math.random() * rfidNumbers.length)];
 	}
 
-	public static Integer getRandomCurrentValue() {
+	private Integer getRandomCurrentValue() {
 		return (int) (Math.random() * 6000);
 	}
 

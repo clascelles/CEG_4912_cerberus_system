@@ -6,12 +6,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class Client extends Thread {
+import org.apache.log4j.Logger;
+import org.perf4j.StopWatch;
+import org.perf4j.log4j.Log4JStopWatch;
+
+public class Client implements Runnable {
+
+	private static final Logger LOGGER = Logger.getLogger(Client.class);
 
 	private final int clientNumber;
+	private final ClientDataGenerator dataGenerator;
 
 	public Client(int clientNumber) {
 		this.clientNumber = clientNumber;
+		this.dataGenerator = new ClientDataGenerator();
 	}
 
 	@Override
@@ -23,46 +31,44 @@ public class Client extends Thread {
 		String messageToSend;
 		String messageReceived;
 
-		long startDate, stopDate;
-
+		StopWatch stopwatch;
 
 		try {
-			clientSocket = new Socket("localhost", 8080);
+			clientSocket = new Socket(ClientStaticConfiguration.SERVER_HOST, ClientStaticConfiguration.SERVER_PORT);
 			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 			inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		} catch (IOException e) {
-			System.out.println("[Client #" + clientNumber
+			LOGGER.warn("[Client #" + clientNumber
 					+ "] Couldn't establish a connection to the server. Closing...");
-			e.printStackTrace();
 			return;
 		}
 
-		while(true){
+		LOGGER.info("[Client #" + clientNumber + "] connected.");
+		long timeLimit = ClientStaticConfiguration.TOTAL_TIME_LAPSE + System.currentTimeMillis();
+		while (System.currentTimeMillis() < timeLimit) {
 
-			try {
-				// Waits from 5 to 30 seconds before sending the next message
-				Thread.sleep((int) (5000 + (Math.random() * 25000)));
-			} catch (InterruptedException e1) {
-				System.out.println("[Client #" + clientNumber + "] Client interrupted. Closing...");
-				e1.printStackTrace();
-				break;
+			if (ClientStaticConfiguration.WAIT_BEFORE_SENDING_NEXT_MESSAGE) {
+				// Waits from 25 to 35 seconds before sending the next message
+				try {
+					Thread.sleep((int) (25000 + (Math.random() * 10000)));
+				} catch (InterruptedException e1) {
+					System.out.println("[Client #" + clientNumber + "] Client interrupted. Closing...");
+					break;
+				}
 			}
 
 			try {
-				messageToSend = createCurrentConsumptionJsonMessage();
-				startDate = System.currentTimeMillis();
+				messageToSend = dataGenerator.createCurrentConsumptionJsonMessage();
+				stopwatch = new Log4JStopWatch("Client.interval");
 
 				outToServer.writeBytes(messageToSend);
 				messageReceived = inFromServer.readLine();
 
-				stopDate = System.currentTimeMillis();
-				int interval = (int) (stopDate - startDate);
-				System.out.println("[Client #" + clientNumber + "] [Interval:" + interval + "] Received message: "
-						+ messageReceived);
+				stopwatch.stop();
+				LOGGER.debug("[Client #" + clientNumber + "] Received message: " + messageReceived);
 			} catch (IOException e) {
-				System.out.println("[Client #" + clientNumber
+				LOGGER.warn("[Client #" + clientNumber
 						+ "] IOException while sending or receiving a message. Closing...");
-				e.printStackTrace();
 				break;
 			}
 
@@ -70,6 +76,7 @@ public class Client extends Thread {
 
         //Close Connection
         try {
+			LOGGER.info("[Client #" + clientNumber + "] closing...");
 			clientSocket.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -77,20 +84,4 @@ public class Client extends Thread {
 
 	}
 
-	private String createCurrentConsumptionJsonMessage() {
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("{\"type\":").append("\"CURRENT\"");
-		sb.append(",\"socketId\":").append(ClientDataGenerator.getRandomSocketId());
-		sb.append(",\"timestamp\":").append(System.currentTimeMillis()/1000);
-		sb.append(",\"current\":").append(ClientDataGenerator.getRandomCurrentValue());
-
-		// RFID number is optional, will be part of the message 50% of the time
-		if (Math.random() > 0.5) {
-			sb.append(",\"rfidNumber\":").append("\"").append(ClientDataGenerator.getRandomRfidNumber()).append("\"");
-		}
-		sb.append("}").append("\n");
-
-		return sb.toString();
-	}
 }
