@@ -15,5 +15,20 @@
   		<artifactId>jmock-junit4</artifactId>
   		<version>2.6.0</version>
   	</dependency>
+  	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.17</version>
+	</dependency>
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>apache-log4j-extras</artifactId>
+		<version>1.1</version>
+	</dependency>
+	<dependency>
+		<groupId>org.perf4j</groupId>
+		<artifactId>perf4j</artifactId>
+		<version>0.9.16</version>
+	</dependency>
   </dependencies>
 </project>
