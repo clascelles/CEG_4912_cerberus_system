@@ -16,10 +16,12 @@ public class Client implements Runnable {
 
 	private final int clientNumber;
 	private final ClientDataGenerator dataGenerator;
+	private final ClientThreadConfigurator configurator;
 
-	public Client(int clientNumber) {
+	public Client(int clientNumber, ClientThreadConfigurator configurator) {
 		this.clientNumber = clientNumber;
 		this.dataGenerator = new ClientDataGenerator();
+		this.configurator = configurator;
 	}
 
 	@SuppressWarnings("resource")
@@ -35,7 +37,7 @@ public class Client implements Runnable {
 		StopWatch stopwatch;
 
 		try {
-			clientSocket = new Socket(ClientStaticConfiguration.SERVER_HOST, ClientStaticConfiguration.SERVER_PORT);
+			clientSocket = new Socket(configurator.getServerHost(), configurator.getServerPort());
 			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 			inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		} catch (IOException e) {
@@ -45,10 +47,10 @@ public class Client implements Runnable {
 		}
 
 		LOGGER.info("[Client #" + clientNumber + "] connected.");
-		long timeLimit = ClientStaticConfiguration.TOTAL_TIME_LAPSE + System.currentTimeMillis();
+		long timeLimit = configurator.getSimulationTime() + System.currentTimeMillis();
 		while (System.currentTimeMillis() < timeLimit) {
 
-			if (ClientStaticConfiguration.WAIT_BEFORE_SENDING_NEXT_MESSAGE) {
+			if (configurator.isFullBlastActivated()) {
 				// Waits from 25 to 35 seconds before sending the next message
 				try {
 					Thread.sleep((int) (25000 + (Math.random() * 10000)));

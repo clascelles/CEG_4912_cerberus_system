@@ -17,39 +17,45 @@ public class ClientConnection {
 
 	public static void main(String[] args) throws UnknownHostException, IOException{
 
-		ExecutorService clientPool = Executors.newFixedThreadPool(ClientStaticConfiguration.CLIENTS);
+		// Configure client simulation using command line arguments if given
+		ClientThreadConfigurator configurator = new ClientThreadConfigurator(args);
 
-		DOMConfigurator.configure(ClientStaticConfiguration.LOG4J_XML);
-		LOGGER.info("Starting client simulation server.");
+		ExecutorService clientPool = Executors.newFixedThreadPool(configurator.getNumberOfThreads());
+
+		DOMConfigurator.configure(configurator.getLog4JXMLFilePath());
+		LOGGER.info("Starting client simulation server. " + configurator.getNumberOfThreads()
+				+ " client threads will run for " + configurator.getSimulationTime() / 1000 + " s.");
 
 		Socket clientSocket;
 		while(true) {
 			try {
-				clientSocket = new Socket(ClientStaticConfiguration.SERVER_HOST,
-						ClientStaticConfiguration.SERVER_PORT);
+				LOGGER.info("Tyring to connect to the server " + configurator.getServerHost() + ":"
+						+ configurator.getServerPort() + "...");
+				clientSocket = new Socket(configurator.getServerHost(), configurator.getServerPort());
 				if (clientSocket.isConnected()) {
+					LOGGER.info("Successfully connected to the server!");
 					clientSocket.close();
 					break;
 				}
 			} catch (IOException e) {
 				LOGGER.warn("Couldn't establish a connection to the server. Retrying in "
-						+ ClientStaticConfiguration.RETRY_CONNECTING + " ms...");
+						+ configurator.getRetryTimeout() / 1000 + " s...");
 				try {
-					Thread.sleep(ClientStaticConfiguration.RETRY_CONNECTING);
+					Thread.sleep(configurator.getRetryTimeout());
 				} catch (InterruptedException e1) {
 				}
 			}
 		}
 
-		if (ClientStaticConfiguration.WAIT_BEFORE_SENDING_NEXT_MESSAGE) {
+		if (configurator.isFullBlastActivated()) {
 			LOGGER.info("Clients will wait between 25 and 35 seconds randomly before sending messages.");
 		} else {
 			LOGGER.info("Clients will send as much messages as they can. FULL BLAST ON!!");
 		}
 
-		LOGGER.info("Starting all " + ClientStaticConfiguration.CLIENTS + " clients...");
-		for (int i = 0; i < ClientStaticConfiguration.CLIENTS; i++) {
-			clientPool.execute(new Client(i));
+		LOGGER.info("Starting all " + configurator.getNumberOfThreads() + " clients...");
+		for (int i = 0; i < configurator.getNumberOfThreads(); i++) {
+			clientPool.execute(new Client(i, configurator));
 			try {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {
@@ -62,7 +68,7 @@ public class ClientConnection {
 		clientPool.shutdown();
 		try {
 			boolean terminatedProperly = clientPool.awaitTermination(
-ClientStaticConfiguration.TOTAL_TIME_LAPSE + 5000,
+					configurator.getSimulationTime() + configurator.getRetryTimeout(),
 					TimeUnit.MILLISECONDS);
 			if (terminatedProperly) {
 				LOGGER.info("All client threads are done. Stopping the simulation now. See you next time! :)");
