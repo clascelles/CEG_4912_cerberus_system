@@ -18,7 +18,6 @@ public class CommunicationBootstrap extends Thread{
 	public void run(){
 
 		LOGGER.info("Starting Communication Initialization Thread");
-
 		/*
 		 * Create the ChannelFactory by creating two thread pools, the Boss and the Workers.
 		 * ChannelFactory: Data structure which creates and holds Channels.
@@ -39,9 +38,8 @@ public class CommunicationBootstrap extends Thread{
 		 bootstrap.setPipelineFactory(new SimpleChannelPipelineFactory());
 
 		 // Bind and start to accept incoming connections.
-		 bootstrap.bind(new InetSocketAddress("localhost", 8080));
+		bootstrap.bind(new InetSocketAddress("localhost", 8080));
 		 LOGGER.info("Done Binding in Communication Bootstrap, ready to accept clients");
-
 	}
 
 }

@@ -2,6 +2,8 @@ package com.cerberus.server.json.encoder;
 
 import org.apache.log4j.Logger;
 import org.jboss.netty.channel.Channel;
+import org.perf4j.StopWatch;
+import org.perf4j.log4j.Log4JStopWatch;
 
 import com.cerberus.server.json.JsonDataBinderFactory;
 import com.cerberus.server.message.Message;
@@ -23,10 +25,12 @@ public class JsonEncoder implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
+	@Override
 	public void run() {
 
+		StopWatch stopwatch = new Log4JStopWatch("JsonEncoder.run");
 		//Print the message to Encode to test the framework
-		LOGGER.info("[Encoder]: " + messageContainer.getMessage().toString());
+		LOGGER.debug("[Encoder]: " + messageContainer.getMessage().toString());
 
 		Message message = messageContainer.getMessage();
 		MessageType type = message.getType();
@@ -39,7 +43,7 @@ public class JsonEncoder implements Runnable {
 				channel.write(encodedMessage);
 				// Could use ChannelFuture to ensure the message has been
 				// sent...
-				LOGGER.info("Wrote message: " + encodedMessage + " to client #" + channel.getId());
+				LOGGER.debug("Wrote message: " + encodedMessage + " to client #" + channel.getId());
 			} catch (JsonProcessingException e) {
 				LOGGER.error("Exception caught when trying to encode this outgoing message: " + message);
 				e.printStackTrace();
@@ -47,6 +51,7 @@ public class JsonEncoder implements Runnable {
 		} else {
 			// TODO Channel is not open, handle it!
 		}
+		stopwatch.stop();
 
 	}
 

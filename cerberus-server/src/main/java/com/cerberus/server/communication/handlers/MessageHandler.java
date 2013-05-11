@@ -8,15 +8,17 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.channel.SimpleChannelHandler;
+import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
 import org.jboss.netty.channel.WriteCompletionEvent;
+import org.perf4j.StopWatch;
+import org.perf4j.log4j.Log4JStopWatch;
 
 import com.cerberus.server.communication.ChannelOutletBinding;
 import com.cerberus.server.json.decoder.JsonDecoder;
 import com.cerberus.server.message.MessageContainer;
 import com.cerberus.server.service.executor.ExecutorServiceFactory;
 
-public class MessageHandler extends SimpleChannelHandler {
+public class MessageHandler extends SimpleChannelUpstreamHandler {
 
 	//Get Logger
 	private final static Logger LOGGER = Logger.getLogger(MessageHandler.class);
@@ -66,20 +68,21 @@ public class MessageHandler extends SimpleChannelHandler {
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e)
 			throws Exception {
 
+		StopWatch stopwatch = new Log4JStopWatch("MessageHandler.messageReceived");
 		//Type cast received object to string. This will always come from the string decoder.
 		String message = (String)e.getMessage();
 		Channel channel = e.getChannel();
 
 		//Log message received
-		LOGGER.info("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString() + "]: Message Received");
+		LOGGER.debug("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
+				+ "]: Message Received");
 
 		//Add a task to the Decoder Thread Pool.
 		ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
 		MessageContainer messageContainer = new MessageContainer(message, channel);
 		Runnable decoderTask = new JsonDecoder(messageContainer);
 		executor.execute(decoderTask);
-
-		super.messageReceived(ctx, e);
+		stopwatch.stop();
 	}
 
 	@Override

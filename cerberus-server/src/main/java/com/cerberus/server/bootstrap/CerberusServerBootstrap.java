@@ -23,6 +23,5 @@ public class CerberusServerBootstrap extends Thread {
 		// Netty Communication Bootstrap
 		CommunicationBootstrap communication = new CommunicationBootstrap();
 		communication.start();
-
 	}
 }

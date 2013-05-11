@@ -3,6 +3,8 @@ package com.cerberus.server.logic;
 import java.util.concurrent.ExecutorService;
 
 import org.apache.log4j.Logger;
+import org.perf4j.StopWatch;
+import org.perf4j.log4j.Log4JStopWatch;
 
 import com.cerberus.server.json.encoder.JsonEncoder;
 import com.cerberus.server.message.CurrentConsumptionMessage;
@@ -20,8 +22,10 @@ public class ResponseLogic implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
+	@Override
 	public void run() {
 
+		StopWatch stopwatch = new Log4JStopWatch("ResponseLogic.run");
 		LOGGER.info("[Response Logic]: Starting!");
 
 		// TODO Add code for the Response Logic
@@ -33,6 +37,7 @@ public class ResponseLogic implements Runnable {
 		ExecutorService executor = ExecutorServiceFactory.getEncoderThreadPool();
 		Runnable encoder = new JsonEncoder(container);
 		executor.execute(encoder);
+		stopwatch.stop();
 	}
 
 }

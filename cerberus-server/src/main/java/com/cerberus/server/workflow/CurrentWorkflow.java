@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.perf4j.StopWatch;
+import org.perf4j.log4j.Log4JStopWatch;
 
 import com.cerberus.server.message.CurrentConsumptionMessage;
 import com.cerberus.server.persistence.beans.Current;
@@ -29,6 +31,7 @@ public class CurrentWorkflow extends Workflow {
 
 	public boolean persistCurrentMessage(CurrentConsumptionMessage message) {
 
+		StopWatch stopwatch = new Log4JStopWatch("CurrentWorkflow.persistCurrentMessage");
 		// Create new Current data structure
 		Current current = new Current();
 
@@ -62,6 +65,8 @@ public class CurrentWorkflow extends Workflow {
 		} catch (Exception e) { // Catch if an exception occurs
 			e.printStackTrace();
 			return false;
+		} finally {
+			stopwatch.stop();
 		}
 
 		return true;

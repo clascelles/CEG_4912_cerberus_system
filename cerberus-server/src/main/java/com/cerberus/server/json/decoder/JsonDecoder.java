@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 
 import org.apache.log4j.Logger;
+import org.perf4j.StopWatch;
+import org.perf4j.log4j.Log4JStopWatch;
 
 import com.cerberus.server.json.JsonDataBinderFactory;
 import com.cerberus.server.logic.PersistenceLogic;
@@ -23,10 +25,12 @@ public class JsonDecoder implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
+	@Override
 	public void run() {
 
 		//Print the message to decode to test the framework
-		LOGGER.info("[Decoder]: " + messageContainer.getRawMessage());
+		StopWatch stopwatch = new Log4JStopWatch("JsonDecoder.run");
+		LOGGER.debug("[Decoder]: " + messageContainer.getRawMessage());
 
 		ExecutorService executor = ExecutorServiceFactory.getPersistenceLogicThreadPool();
 
@@ -43,6 +47,8 @@ public class JsonDecoder implements Runnable {
 			LOGGER.error("Exception caught when trying to decode this incoming JSON message: "
 					+ messageContainer.getRawMessage());
 			e.printStackTrace();
+		} finally {
+			stopwatch.stop();
 		}
 	}
 

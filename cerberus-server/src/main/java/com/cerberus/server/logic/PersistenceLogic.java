@@ -3,6 +3,8 @@ package com.cerberus.server.logic;
 import java.util.concurrent.ExecutorService;
 
 import org.apache.log4j.Logger;
+import org.perf4j.StopWatch;
+import org.perf4j.log4j.Log4JStopWatch;
 
 import com.cerberus.server.message.CurrentConsumptionMessage;
 import com.cerberus.server.message.MessageContainer;
@@ -23,8 +25,10 @@ public class PersistenceLogic implements Runnable {
 	}
 
 
+	@Override
 	public void run() {
 
+		StopWatch stopwatch = new Log4JStopWatch("PersistenceLogic.run");
 		LOGGER.info("[Persistence Logic]: Starting.");
 
 		//Get the message type from the message container and instantiate the right
@@ -67,7 +71,7 @@ public class PersistenceLogic implements Runnable {
 		Runnable responseLogicTask = new ResponseLogic(messageContainer);
 		executor.execute(responseLogicTask);
 
-
+		stopwatch.stop();
 
 	}
 

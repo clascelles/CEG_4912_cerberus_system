@@ -33,7 +33,7 @@ public class RfidWorkflow extends Workflow{
 
 		try {
 			serviceFactory.getRfidService().insertRfidAuthentication(auth);
-		} catch (Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 			return false;
 		}
