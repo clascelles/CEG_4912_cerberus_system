@@ -18,7 +18,6 @@ import com.cerberus.server.logic.constants.SocketStatus;
 import com.cerberus.server.message.CurrentConsumptionMessage;
 import com.cerberus.server.message.GenericInformationMessage;
 import com.cerberus.server.message.Message;
-import com.cerberus.server.message.MessageType;
 import com.cerberus.server.message.RFIDAuthRequestMessage;
 import com.cerberus.server.message.RFIDAuthResponseMessage;
 import com.cerberus.server.message.StatusMessage;
@@ -59,7 +58,6 @@ public class JsonMessageDecodingTest {
 
 		assertThat(currentMsg.getSocketId(), is(equalTo(socketId)));
 		assertThat(currentMsg.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(currentMsg.getType(), is(equalTo(MessageType.CURRENT)));
 		assertThat(currentMsg.getCurrent(), is(equalTo(3000)));
 		assertThat(currentMsg.getRfidNumber(), is(equalTo("1234567890")));
 	}
@@ -74,7 +72,6 @@ public class JsonMessageDecodingTest {
 
 		assertThat(currentMsg.getSocketId(), is(equalTo(socketId)));
 		assertThat(currentMsg.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(currentMsg.getType(), is(equalTo(MessageType.CURRENT)));
 		assertThat(currentMsg.getCurrent(), is(equalTo(3000)));
 		assertThat(currentMsg.getRfidNumber(), is(nullValue()));
 	}
@@ -89,7 +86,6 @@ public class JsonMessageDecodingTest {
 
 		assertThat(rfidMsg.getSocketId(), is(equalTo(socketId)));
 		assertThat(rfidMsg.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(rfidMsg.getType(), is(equalTo(MessageType.RFID_AUTH_REQ)));
 		assertThat(rfidMsg.getRfidNumber(), is(equalTo("1234567890")));
 	}
 
@@ -103,7 +99,6 @@ public class JsonMessageDecodingTest {
 
 		assertThat(rfidMsg.getSocketId(), is(equalTo(socketId)));
 		assertThat(rfidMsg.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(rfidMsg.getType(), is(equalTo(MessageType.RFID_AUTH_RES)));
 		assertThat(rfidMsg.getRfidNumber(), is(equalTo("1234567890")));
 		assertThat(rfidMsg.isAuthorized(), is(true));
 	}
@@ -118,7 +113,6 @@ public class JsonMessageDecodingTest {
 
 		assertThat(currentMsg.getSocketId(), is(equalTo(socketId)));
 		assertThat(currentMsg.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(currentMsg.getType(), is(equalTo(MessageType.STATUS)));
 		assertThat(currentMsg.getStatus(), is(equalTo(SocketStatus.NORMAL)));
 	}
 
@@ -132,7 +126,6 @@ public class JsonMessageDecodingTest {
 
 		assertThat(switchMsg.getSocketId(), is(equalTo(socketId)));
 		assertThat(switchMsg.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(switchMsg.getType(), is(equalTo(MessageType.SWITCH_OP_MODE)));
 		assertThat(switchMsg.getOpMode(), is(equalTo(SocketOperatingMode.ON)));
 		assertThat(switchMsg.getPowerThreshold(), is(equalTo(2000)));
 	}
@@ -147,7 +140,6 @@ public class JsonMessageDecodingTest {
 
 		assertThat(genericMsg.getSocketId(), is(equalTo(socketId)));
 		assertThat(genericMsg.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(genericMsg.getType(), is(equalTo(MessageType.GENERIC_INFO)));
 		assertThat(genericMsg.getInformationType(), is(equalTo("blahtype")));
 		assertThat(genericMsg.getInformation(), is(equalTo("blahblah")));
 	}

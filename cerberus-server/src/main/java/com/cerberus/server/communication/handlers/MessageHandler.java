@@ -79,7 +79,7 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 
 		//Add a task to the Decoder Thread Pool.
 		ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
-		MessageContainer messageContainer = new MessageContainer(message, channel);
+		MessageContainer messageContainer = new MessageContainer(channel, message);
 		Runnable decoderTask = new JsonDecoder(messageContainer);
 		executor.execute(decoderTask);
 		stopwatch.stop();

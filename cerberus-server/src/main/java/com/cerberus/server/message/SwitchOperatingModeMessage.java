@@ -1,7 +1,9 @@
 package com.cerberus.server.message;
 
 import com.cerberus.server.logic.constants.SocketOperatingMode;
+import com.cerberus.server.workflow.MessageWorkflow;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SwitchOperatingModeMessage extends Message {
@@ -13,7 +15,7 @@ public class SwitchOperatingModeMessage extends Message {
 	public SwitchOperatingModeMessage(@JsonProperty("socketId") long socketId,
 			@JsonProperty("timestamp") long timestamp, @JsonProperty("opMode") SocketOperatingMode opMode,
 			@JsonProperty("powerThreshold") int powerThreshold) {
-		super(MessageType.SWITCH_OP_MODE, socketId, timestamp);
+		super(socketId, timestamp);
 		this.opMode = opMode;
 		this.powerThreshold = powerThreshold;
 	}
@@ -24,6 +26,13 @@ public class SwitchOperatingModeMessage extends Message {
 
 	public int getPowerThreshold() {
 		return powerThreshold;
+	}
+
+	@Override
+	@JsonIgnore
+	public MessageWorkflow getWorkflow() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

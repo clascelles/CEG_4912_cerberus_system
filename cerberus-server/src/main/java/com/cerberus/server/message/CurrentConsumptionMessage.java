@@ -1,6 +1,9 @@
 package com.cerberus.server.message;
 
+import com.cerberus.server.workflow.CurrentConsumptionWorkflow;
+import com.cerberus.server.workflow.MessageWorkflow;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CurrentConsumptionMessage extends Message {
@@ -12,7 +15,7 @@ public class CurrentConsumptionMessage extends Message {
 	public CurrentConsumptionMessage(@JsonProperty("socketId") long socketId,
 			@JsonProperty("timestamp") long timestamp,
 			@JsonProperty("current") int current, @JsonProperty("rfidNumber") String rfidNumber) {
-		super(MessageType.CURRENT, socketId, timestamp);
+		super(socketId, timestamp);
 		this.current = current;
 		this.rfidNumber = rfidNumber;
 	}
@@ -23,6 +26,12 @@ public class CurrentConsumptionMessage extends Message {
 
 	public String getRfidNumber() {
 		return rfidNumber;
+	}
+
+	@Override
+	@JsonIgnore
+	public MessageWorkflow getWorkflow() {
+		return new CurrentConsumptionWorkflow();
 	}
 
 }

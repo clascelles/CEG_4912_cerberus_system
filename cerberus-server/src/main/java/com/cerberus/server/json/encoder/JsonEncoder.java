@@ -8,7 +8,6 @@ import org.perf4j.log4j.Log4JStopWatch;
 import com.cerberus.server.json.JsonDataBinderFactory;
 import com.cerberus.server.message.Message;
 import com.cerberus.server.message.MessageContainer;
-import com.cerberus.server.message.MessageType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
@@ -33,8 +32,7 @@ public class JsonEncoder implements Runnable {
 		LOGGER.debug("[Encoder]: " + messageContainer.getMessage().toString());
 
 		Message message = messageContainer.getMessage();
-		MessageType type = message.getType();
-		ObjectWriter writer = JsonDataBinderFactory.getWriter(type.getClassType());
+		ObjectWriter writer = JsonDataBinderFactory.getWriter(message.getClass());
 
 		Channel channel = messageContainer.getClientChannel();
 		if (channel.isOpen()) {

@@ -1,6 +1,8 @@
 package com.cerberus.server.message;
 
+import com.cerberus.server.workflow.MessageWorkflow;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RFIDAuthRequestMessage extends Message {
@@ -10,12 +12,19 @@ public class RFIDAuthRequestMessage extends Message {
 	@JsonCreator
 	public RFIDAuthRequestMessage(@JsonProperty("socketId") long socketId, @JsonProperty("timestamp") long timestamp,
 			@JsonProperty("rfidNumber") String rfidNumber) {
-		super(MessageType.RFID_AUTH_REQ, socketId, timestamp);
+		super(socketId, timestamp);
 		this.rfidNumber = rfidNumber;
 	}
 
 	public String getRfidNumber() {
 		return rfidNumber;
+	}
+
+	@Override
+	@JsonIgnore
+	public MessageWorkflow getWorkflow() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

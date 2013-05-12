@@ -6,12 +6,10 @@ import org.apache.log4j.Logger;
 import org.perf4j.StopWatch;
 import org.perf4j.log4j.Log4JStopWatch;
 
-import com.cerberus.server.message.CurrentConsumptionMessage;
 import com.cerberus.server.message.MessageContainer;
-import com.cerberus.server.message.RFIDAuthRequestMessage;
+import com.cerberus.server.message.WrongMessageException;
 import com.cerberus.server.service.executor.ExecutorServiceFactory;
-import com.cerberus.server.workflow.CurrentWorkflow;
-import com.cerberus.server.workflow.RfidWorkflow;
+import com.cerberus.server.workflow.MessageWorkflow;
 
 public class PersistenceLogic implements Runnable {
 
@@ -24,55 +22,31 @@ public class PersistenceLogic implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
-
 	@Override
 	public void run() {
-
 		StopWatch stopwatch = new Log4JStopWatch("PersistenceLogic.run");
 		LOGGER.info("[Persistence Logic]: Starting.");
 
-		//Get the message type from the message container and instantiate the right
-		//workflow class to persisted the message if necessary. Once the message has
-		//been persisted, pass it to the response logic thread to see if a response
-		//needs to be generated.
-		switch(messageContainer.getMessage().getType()){
-		case RFID_AUTH_REQ:
+		boolean messageProcessed = false;
+		MessageWorkflow messageWorkflow = messageContainer.getMessage().getWorkflow();
 
-			RfidWorkflow rfidWorkflow = new RfidWorkflow();
-			RFIDAuthRequestMessage message = (RFIDAuthRequestMessage) messageContainer.getMessage();
-			rfidWorkflow.authorizeRfidTag(message);
-			rfidWorkflow.returnServiceFactory();
-			break;
-		case CURRENT:
-
-			//Instantiate the appropriate workflow
-			//Gets the Service Factory in the constructor
-			CurrentWorkflow currentWorkflow = new CurrentWorkflow();
-
-			//Type cast the message object into a current consumption message object
-			CurrentConsumptionMessage currentMessage = (CurrentConsumptionMessage) messageContainer.getMessage();
-
-			//Persist the current consumption message
-			currentWorkflow.persistCurrentMessage(currentMessage);
-
-			//Return the Service Factory to the pool
-			currentWorkflow.returnServiceFactory();
-
-			break;
-		case SWITCH_OP_MODE:
-			break;
-		case STATUS:
-			break;
-		default:
-			break;
+		try {
+			messageProcessed = messageWorkflow.handleReceivedMessage(messageContainer.getMessage());
+		} catch(WrongMessageException e) {
+			// TODO: message didn't have the appropriate workflow, wtf happened?
 		}
 
-		ExecutorService executor = ExecutorServiceFactory.getResponseLogicThreadPool();
-		Runnable responseLogicTask = new ResponseLogic(messageContainer);
-		executor.execute(responseLogicTask);
+		if (messageProcessed) {
+			messageWorkflow.returnServiceFactory();
+			ExecutorService executor = ExecutorServiceFactory.getResponseLogicThreadPool();
+			Runnable responseLogicTask = new ResponseLogic(messageContainer);
+			executor.execute(responseLogicTask);
+		} else {
+			// TODO: Message was not processed properly. Do we try again or
+			// discard the message?
+		}
 
 		stopwatch.stop();
-
 	}
 
 

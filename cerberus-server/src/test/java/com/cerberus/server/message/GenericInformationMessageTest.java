@@ -1,9 +1,10 @@
 package com.cerberus.server.message;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +29,6 @@ public class GenericInformationMessageTest {
 
 		assertThat(message.getSocketId(), is(equalTo(socketId)));
 		assertThat(message.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(message.getType(), is(equalTo(MessageType.GENERIC_INFO)));
 		assertThat(message.getInformationType(), is(equalTo("information type")));
 		assertThat(message.getInformation(), is(equalTo("information")));
 	}

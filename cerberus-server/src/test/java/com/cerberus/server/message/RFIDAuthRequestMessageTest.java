@@ -29,7 +29,6 @@ public class RFIDAuthRequestMessageTest {
 
 		assertThat(message.getSocketId(), is(equalTo(socketId)));
 		assertThat(message.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(message.getType(), is(equalTo(MessageType.RFID_AUTH_REQ)));
 		assertThat(message.getRfidNumber(), is(equalTo("123456789")));
 	}
 

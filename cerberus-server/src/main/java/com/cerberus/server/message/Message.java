@@ -2,6 +2,7 @@ package com.cerberus.server.message;
 
 import org.joda.time.DateTime;
 
+import com.cerberus.server.workflow.MessageWorkflow;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -14,21 +15,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@Type(value = RFIDAuthResponseMessage.class, name = "RFID_AUTH_RES"),
 		@Type(value = SwitchOperatingModeMessage.class, name = "SWITCH_OP_MODE"),
 		@Type(value = GenericInformationMessage.class, name = "GENERIC_INFO") })
-public class Message {
+public abstract class Message {
 
-	private final MessageType type;
 	private final long socketId;
 	private final long timestamp;
 
-	public Message(MessageType type, long socketId, long timestamp) {
-		this.type = type;
+	public Message(long socketId, long timestamp) {
 		this.socketId = socketId;
 		this.timestamp = timestamp;
-	}
-
-	@JsonIgnore
-	public MessageType getType() {
-		return type;
 	}
 
 	public long getSocketId() {
@@ -43,5 +37,8 @@ public class Message {
 	public DateTime getDateTime() {
 		return new DateTime(timestamp);
 	}
+
+	@JsonIgnore
+	public abstract MessageWorkflow getWorkflow();
 
 }

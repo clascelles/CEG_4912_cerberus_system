@@ -30,7 +30,6 @@ public class CurrentConsumptionMessageTest {
 
 		assertThat(message.getSocketId(), is(equalTo(socketId)));
 		assertThat(message.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(message.getType(), is(equalTo(MessageType.CURRENT)));
 		assertThat(message.getCurrent(), is(equalTo(2000)));
 		assertThat(message.getRfidNumber(), is(equalTo("123456789")));
 	}
@@ -45,7 +44,6 @@ public class CurrentConsumptionMessageTest {
 
 		assertThat(message.getSocketId(), is(equalTo(socketId)));
 		assertThat(message.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(message.getType(), is(equalTo(MessageType.CURRENT)));
 		assertThat(message.getCurrent(), is(equalTo(2000)));
 		assertThat(message.getRfidNumber(), is(nullValue()));
 	}

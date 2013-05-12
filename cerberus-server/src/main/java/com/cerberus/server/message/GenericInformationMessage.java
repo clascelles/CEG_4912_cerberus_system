@@ -1,6 +1,8 @@
 package com.cerberus.server.message;
 
+import com.cerberus.server.workflow.MessageWorkflow;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GenericInformationMessage extends Message {
@@ -12,7 +14,7 @@ public class GenericInformationMessage extends Message {
 	public GenericInformationMessage(@JsonProperty("socketId") long socketId,
 			@JsonProperty("timestamp") long timestamp,
 			@JsonProperty("informationType") String informationType, @JsonProperty("information") String information) {
-		super(MessageType.GENERIC_INFO, socketId, timestamp);
+		super(socketId, timestamp);
 		this.informationType = informationType;
 		this.information = information;
 	}
@@ -23,6 +25,13 @@ public class GenericInformationMessage extends Message {
 
 	public String getInformation() {
 		return information;
+	}
+
+	@Override
+	@JsonIgnore
+	public MessageWorkflow getWorkflow() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

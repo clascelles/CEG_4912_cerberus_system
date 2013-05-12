@@ -1,9 +1,10 @@
 package com.cerberus.server.message;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +31,6 @@ public class StatusMessageTest {
 
 		assertThat(message.getSocketId(), is(equalTo(socketId)));
 		assertThat(message.getTimestamp(), is(equalTo(timestamp)));
-		assertThat(message.getType(), is(equalTo(MessageType.STATUS)));
 		assertThat(message.getStatus(), is(equalTo(SocketStatus.NORMAL)));
 	}
 
