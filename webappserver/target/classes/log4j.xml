@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//LOGGER" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	
+	<!-- Default Console Appender -->
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%t] (%F:%L) - %m%n"/>
+		</layout>
+	</appender>
+	
+	<!-- Log File Appender -->
+	<appender name="logFile" class="org.apache.log4j.rolling.RollingFileAppender">
+		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<param name="FileNamePattern" value="logs/log_%d{yyyyMMdd}.txt"/>
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%t] (%F:%L) - %m%n"/>
+		</layout>
+	</appender>
+	
+	<!-- Perj4J Appenders -->
+	<!-- CoalescingStatistics groups log messages in time slices of 10 seconds -->
+	<appender name="CoalescingStatistics" class="org.perf4j.log4j.AsyncCoalescingStatisticsAppender">
+		<param name="TimeSlice" value="10000"/>
+		<appender-ref ref="perfLog"/>
+		<appender-ref ref="graphExecutionTimesMean"/>
+		<appender-ref ref="graphExecutionTPS"/>
+	</appender>
+	
+	<!-- Perf4J Log File Appender -->
+	<appender name="perfLog" class="org.apache.log4j.rolling.RollingFileAppender">
+		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<param name="FileNamePattern" value="logs/perflog_%d{yyyyMMdd}.txt"/>
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n"/>
+		</layout>
+	</appender>
+	
+	<!-- Perf4J Graph Appenders -->
+	<!-- Mean graph -->
+	<appender name="graphExecutionTimesMean" class="org.perf4j.log4j.GraphingStatisticsAppender">
+		<param name="GraphType" value="Mean"/>
+		<param name="TagNamesToGraph" value="Client.interval"/>
+		<param name="DataPointsPerGraph" value="30"/>
+		<appender-ref ref="graphsFileAppender"/>
+	</appender>
+	
+	<!-- Transaction per second (TPS) graph -->
+	<appender name="graphExecutionTPS" class="org.perf4j.log4j.GraphingStatisticsAppender">
+		<param name="GraphType" value="TPS"/>
+		<param name="TagNamesToGraph" value="Client.interval"/>
+		<param name="DataPointsPerGraph" value="30"/>
+		<appender-ref ref="graphsFileAppender"/>
+	</appender>
+	
+	<!-- Perf4J Graph HTML File Appender -->
+	<appender name="graphsFileAppender" class="org.apache.log4j.rolling.RollingFileAppender">
+		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<param name="FileNamePattern" value="logs/perfGraph_%d{yyyyMMdd}.html"/>
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="&lt;br/&gt;&lt;br/&gt;&lt;img src=&quot;%m%n&quot;/&gt;"/>
+        </layout>
+	</appender>
+    
+	<logger name="org.perf4j.TimingLogger" additivity="false">
+		<level value="info"/>
+		<appender-ref ref="CoalescingStatistics"/>
+	</logger>
+	
+	<!-- Hibernate logging properties -->
+	<logger name="org.hibernate">
+		<level value="warn"/>
+	</logger>
+	<logger name="org.springframework">
+		<level value="warn"/>
+	</logger>
+	<logger name="org.hibernate.hql.ast.AST">
+		<level value="warn"/>
+	</logger>
+	<logger name="org.hibernate.SQL">
+		<level value="warn"/>
+	</logger>
+	<logger name="org.hibernate.type">
+		<level value="warn"/>
+	</logger>
+	<logger name="org.hibernate.tool.hbm2ddl">
+		<level value="warn"/>
+	</logger>
+	<logger name="org.hibernate.hql">
+		<level value="warn"/>
+	</logger>
+	<logger name="org.hibernate.cache">
+		<level value="warn"/>
+	</logger>
+	<logger name="org.hibernate.jdbc">
+		<level value="warn"/>
+	</logger>
+	
+	<root>
+		<priority value="info" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="logFile" />
+	</root>
+
+</log4j:configuration>

@@ -1,0 +1,20 @@
+Performance Statistics   2013-05-28 18:23:50 - 2013-05-28 18:24:00
+Tag                                                  Avg(ms)         Min         Max     Std Dev       Count
+Client.interval                                       7876.0        7876        7876         0.0           1
+
+Performance Statistics   2013-05-28 18:24:00 - 2013-05-28 18:24:10
+Tag                                                  Avg(ms)         Min         Max     Std Dev       Count
+Client.interval                                         39.9          16         236        30.0         101
+
+Performance Statistics   2013-05-28 18:24:10 - 2013-05-28 18:24:20
+Tag                                                  Avg(ms)         Min         Max     Std Dev       Count
+Client.interval                                         24.1          11         145        14.1         402
+
+Performance Statistics   2013-05-28 18:24:20 - 2013-05-28 18:24:30
+Tag                                                  Avg(ms)         Min         Max     Std Dev       Count
+Client.interval                                         15.1           9          88         8.1         637
+
+Performance Statistics   2013-05-28 18:24:30 - 2013-05-28 18:24:40
+Tag                                                  Avg(ms)         Min         Max     Std Dev       Count
+Client.interval                                         13.9           9          64         7.6          85
+

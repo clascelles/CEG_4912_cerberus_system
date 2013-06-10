@@ -30,7 +30,7 @@ public abstract class MessageWorkflow {
 	}
 
 	// Method needs to be implemented by the workflows to return
-					// the Service Factory
+	// the Service Factory
 	public abstract void returnServiceFactory();
 
 }
