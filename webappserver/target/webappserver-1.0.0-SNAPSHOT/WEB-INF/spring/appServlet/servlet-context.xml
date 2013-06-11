@@ -9,6 +9,11 @@
 
 	<!-- Scans the classpath of this application for @Components to deploy as beans -->
 	<!-- <context:component-scan base-package="com.cerberus" />-->
+	
+	<!-- Import all the beans definition here.  -->
+	<import resource="controllers.xml"/>
+	<import resource="hibernate.xml"/>
+	<import resource="services.xml"/>
 
 	<!-- Configures the @Controller programming model -->
 	<mvc:annotation-driven />

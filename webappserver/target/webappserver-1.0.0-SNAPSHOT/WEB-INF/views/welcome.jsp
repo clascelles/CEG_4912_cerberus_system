@@ -26,16 +26,16 @@
 <div class="container">
 	<h1><fmt:message key="welcome.title"/></h1>
 	<div class="span-12 last">	
-		<form:form modelAttribute="loginBackingObject" action="login" method="post">		
+		<form:form modelAttribute="loginBackingObject" action="" method="post">		
 		  	<fieldset>		
 				<legend><fmt:message key="welcome.table.legend"/></legend>
 				<p>
-					<form:label	for="name" path="name" cssErrorClass="error"><fmt:message key="welcome.table.username"/></form:label><br/>
-					<form:input path="name" /> <!--<form:errors path="name" />-->			
+					<form:label	for="username" path="username" cssErrorClass="error"><fmt:message key="welcome.table.username"/></form:label><br/>
+					<form:input path="username" />			
 				</p>
 				<p>	
-					<form:label for="balance" path="balance" cssErrorClass="error"><fmt:message key="welcome.table.password"/></form:label><br/>
-					<form:input path="balance" /> <!--<form:errors path="balance" />-->
+					<form:label for="password" path="password" cssErrorClass="error"><fmt:message key="welcome.table.password"/></form:label><br/>
+					<form:input path="password" />
 				</p>
 				<p>	
 					<button type="submit" class="button positive">

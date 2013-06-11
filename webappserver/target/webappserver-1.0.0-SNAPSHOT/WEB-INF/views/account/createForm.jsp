@@ -1,8 +1,11 @@
-<%@page contentType="text/html;charset=UTF-8"%>
-<%@page pageEncoding="UTF-8"%>
+<!-- General Page Information Defined Here -->
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ page session="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+
+<!-- Importing all the Tag Libraries Here -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
@@ -27,19 +30,19 @@
 				<legend>Account Fields</legend>
 				<p>
 					<form:label	for="name" path="name" cssErrorClass="error">Name</form:label><br/>
-					<form:input path="name" /> <form:errors path="name" />			
+					<form:input path="name" /> <!--<form:errors path="name" />-->			
 				</p>
 				<p>	
 					<form:label for="balance" path="balance" cssErrorClass="error">Balance</form:label><br/>
-					<form:input path="balance" /> <form:errors path="balance" />
+					<form:input path="balance" /> <!--<form:errors path="balance" />-->
 				</p>
 				<p>
 					<form:label for="equityAllocation" path="equityAllocation" cssErrorClass="error">Equity Allocation</form:label><br/>
-					<form:input path="equityAllocation" /> <form:errors path="equityAllocation" />
+					<form:input path="equityAllocation" /> <!--<form:errors path="equityAllocation" />-->
 				</p>
 				<p>	
 					<form:label for="renewalDate" path="renewalDate" cssErrorClass="error">Renewal Date</form:label><br/>
-					<form:input path="renewalDate" /> <form:errors path="renewalDate" />
+					<form:input path="renewalDate" /> <!--<form:errors path="renewalDate" />-->
 				</p>
 				<p>	
 					 <button type="submit" class="button positive">
