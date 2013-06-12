@@ -5,12 +5,17 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 public class CerberusServerBootstrap extends Thread {
 
-	private final static String LOG4J_XML = "src/main/resource/log4j.xml";
+	
+	//private final static String LOG4J_XML = "src/main/resource/log4j.xml";
+	
+	//I'm sorry for this, I got to figure out the relative paths later.
+	private final static String LOG4J_XML = "C:\\Program Files\\Apache Software Foundation\\apache-tomcat-7.0.40\\wtpwebapps\\webappserver\\WEB-INF\\classes\\log4j.xml";
 	private final static Logger LOGGER = Logger.getLogger(CerberusServerBootstrap.class);
 
 	@Override
 	public void run() {
-
+		
+		
 		DOMConfigurator.configure(LOG4J_XML);
 
 		LOGGER.info("Bootstrapping the Cerberus server.");
