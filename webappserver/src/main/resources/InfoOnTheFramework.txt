@@ -1,0 +1,13 @@
+Spring MVC (Model View Controller)
+
+View (JSP) --> Controller by Mapping (which is URL)
+
+2 Type of HttpRequest (Get - Initiale page request/Page building)
+			Post - Processing & decision making
+
+Workflow in controller:
+Every page has a GET (build the page)
+Every page has a POST (process information)  You must do a redirect to the next GET
+When an action occurs POST --> redirect --> GET of next page  (This is known as the POST/REDIRECT/GET Pattern
+There is a "bin" Hashmap to persist some objects you want to persist in the session.
+

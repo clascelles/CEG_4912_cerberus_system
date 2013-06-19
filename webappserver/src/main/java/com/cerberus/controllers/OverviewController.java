@@ -13,11 +13,19 @@ public class OverviewController extends CerberusController {
 
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String getLoginPage(Model model) {
+	public String getLoginPage(Model model)
+			//This is how you can retrieve the object from the redirectAttrs.addFlashAttribute() method. It behaves exactly
+			//like a model attribute at this point.
+			//@ModelAttribute("user") User user 
+	{
 		
 		//Get the User object from the "bin"
 		User user = (User) bin.get("user");
-		user.getId();
+		
+		//This is our Login Security. I know, not that great but good enough for a site that will never be published.
+		if(user == null){
+			return "redirect:/welcome.jsp";
+		}
 		
 		//TO DO Build the overview page here
 		
