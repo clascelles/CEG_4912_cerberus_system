@@ -5,6 +5,7 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+	<!-- Add all the Services HERE -->
 	<bean id="accountService" class="com.cerberus.service.system.AccountService" scope="prototype"></bean>
 	<bean id="consumptionService" class="com.cerberus.service.system.ConsumptionService" scope="prototype"></bean>
 	<bean id="outletService" class="com.cerberus.service.system.OutletService" scope="prototype"></bean>
@@ -24,7 +25,5 @@
 		<property name="systemService" ref="systemService"></property>
 		<property name="userService" ref="userService"></property>
 	</bean>
-	
-	<bean id="accountWorkflow" class="com.cerberus.workflow.userResquestHandling.AccountWorkflow" scope="prototype"></bean>
 
 </beans>

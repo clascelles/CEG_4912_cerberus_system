@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import com.cerberus.applicationContext.CerberusApplicationContext;
 import com.cerberus.backingobjects.LoginBackingObject;
 import com.cerberus.persistence.beans.Login;
 import com.cerberus.persistence.beans.User;
@@ -60,11 +61,16 @@ public class LoginController extends CerberusController {
 		if (result.hasErrors()) {
 			return "welcome";
 		}
-
-		//AccountWorkflow accountWorkflow = new AccountWorkflow();
-		AccountWorkflow accountWorkflow = new AccountWorkflow();
 		
+		//Get the AccountWorkflow from the ApplicationContext.
+		//You can get any already instantiated beans from Spring through the Application Context.
 		
+		//Example:
+		//ApplicationContext ctx = CerberusApplicationContext.getApplicationContext();
+		//Bean bean = ctx.getBean("bean", Bean.class);
+		
+		AccountWorkflow accountWorkflow = CerberusApplicationContext.getWorkflows().getAccountWorkflow();
+	
 		//Look for a Login with the parameters from the backing object
 		Login userLogin = accountWorkflow.getLoginInstance(loginBackingObject);
 		
