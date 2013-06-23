@@ -56,5 +56,8 @@
 	<!-- Application Context -->
 	<bean id="CerberusApplicationContext" class="com.cerberus.applicationContext.CerberusApplicationContext"></bean>
 	
+	<!-- Server Context -->
+	<bean id="ServerContext" class="com.cerberus.applicationContext.ServerContext"></bean>
+	
 
 </beans>
