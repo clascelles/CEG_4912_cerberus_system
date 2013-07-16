@@ -13,10 +13,10 @@
 
 
 	<!-- Initiating all the controllers -->
-	<bean id="loginController" class="com.cerberus.controllers.LoginController">
+	<bean id="loginController" class="com.cerberus.module.account.controllers.LoginController">
 		<property name="bin" ref="bin"></property>
 	</bean>
-	<bean id="overviewController" class="com.cerberus.controllers.OverviewController">
+	<bean id="overviewController" class="com.cerberus.module.home.controllers.OverviewController">
 		<property name="bin" ref="bin"></property>
 	</bean>
 

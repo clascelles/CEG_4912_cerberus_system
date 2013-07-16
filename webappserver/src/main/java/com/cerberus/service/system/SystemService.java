@@ -2,10 +2,13 @@ package com.cerberus.service.system;
 
 import java.util.List;
 
-import com.cerberus.persistence.DAO.*;
-import com.cerberus.persistence.beans.*;
-import com.cerberus.persistence.beans.System;
-import com.cerberus.persistence.filter.RoomFilter;
+import com.cerberus.model.system.bean.Room;
+import com.cerberus.model.system.bean.RoomType;
+import com.cerberus.model.system.bean.System;
+import com.cerberus.model.system.dao.RoomDAO;
+import com.cerberus.model.system.dao.RoomTypeDAO;
+import com.cerberus.model.system.dao.SystemDAO;
+import com.cerberus.model.system.filter.RoomFilter;
 
 public class SystemService {
 	

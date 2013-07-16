@@ -8,6 +8,6 @@
 	<!-- When the first GenericDAO is instantiated, Hibernate is configured and started.
 	Here I instantiate the Generic DAO to start Hibernate when the server starts, otherwise,
 	Hibernate would start at the first transaction and it would take longer at the first transaction -->
-	<bean id="genericDAO" class="com.cerberus.persistence.DAO.GenericDAO"></bean>
+	<bean id="genericDAO" class="com.cerberus.model.generic.dao.GenericDAO"></bean>
 
 </beans>

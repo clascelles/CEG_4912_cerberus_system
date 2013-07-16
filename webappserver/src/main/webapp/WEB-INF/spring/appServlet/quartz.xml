@@ -8,12 +8,12 @@
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 
-	<bean id="startServerTask" class="com.cerberus.bootstrap.CerberusServerBootstrap" />
+	<bean id="startServerTask" class="com.cerberus.frameworks.quartz.CerberusServerBootstrap" />
 
 	<!-- Spring Quartz -->
 	<bean name="startDaemonServerJob" class="org.springframework.scheduling.quartz.JobDetailBean">
 
-		<property name="jobClass" value="com.cerberus.bootstrap.StartDaemonServerJob" />
+		<property name="jobClass" value="com.cerberus.frameworks.quartz.StartDaemonServerJob" />
 
 		<property name="jobDataAsMap">
 			<map>

@@ -6,11 +6,11 @@
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<!-- Add all the Workflows HERE -->
-	<bean id="accountWorkflow" class="com.cerberus.workflow.userResquestHandling.AccountWorkflow" scope="prototype"></bean>
+	<bean id="accountWorkflow" class="com.cerberus.module.account.workflows.AccountWorkflow" scope="prototype"></bean>
 	
 	
 	<!-- Workflow Factory to get them from the Application Context -->
-	<bean id="workflows" class="com.cerberus.workflow.Workflows">
+	<bean id="workflows" class="com.cerberus.module.generic.workflows.Workflows">
 		<property name="accountWorkflow" ref="accountWorkflow"></property>
 	</bean>
 	

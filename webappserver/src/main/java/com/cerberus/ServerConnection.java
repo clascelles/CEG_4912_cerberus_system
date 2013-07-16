@@ -1,7 +1,7 @@
 package com.cerberus;
 
-import com.cerberus.bootstrap.CerberusServerBootstrap;
-import com.cerberus.persistence.HibernateUtil;
+import com.cerberus.frameworks.hibernate.HibernateUtil;
+import com.cerberus.frameworks.quartz.CerberusServerBootstrap;
 
 public class ServerConnection {
 
