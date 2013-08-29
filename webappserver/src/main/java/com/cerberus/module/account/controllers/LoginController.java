@@ -41,7 +41,7 @@ public class LoginController extends CerberusController {
 		//more information like the ID, the createdDate, etc.
 		model.addAttribute(LOGIN_BACKING_OBJECT, new LoginBackingObject());
 		
-		return "welcome";
+		return "login";
 	}
 	
 	//POST occurs when submitting a form. It is used to handle the data inputed or changed in the form, do some pre-processing
@@ -54,13 +54,12 @@ public class LoginController extends CerberusController {
 			//will survive a redirect to the next page. Objects added to the Model will not!
 			final RedirectAttributes redirectAttrs,
 			//Add all the model attributes in a neat list here. 
-			@ModelAttribute (LOGIN_BACKING_OBJECT) LoginBackingObject loginBackingObject,
-			
+			@ModelAttribute (LOGIN_BACKING_OBJECT) LoginBackingObject loginBackingObject,			
 			BindingResult result) {
 		
 		//Check for error binding the model attributes to their respective objects
 		if (result.hasErrors()) {
-			return "welcome";
+			return "login";
 		}
 		
 		//Get the AccountWorkflow from the ApplicationContext.
@@ -78,7 +77,7 @@ public class LoginController extends CerberusController {
 		//Make sure that it found a matching Login by confirming 
 		//that the Login object return is a good instance and not NULL
 		if (userLogin == null){
-			return "welcome";
+			return "login";
 		}
 		
 		//Get the User object to have all the User information that are useful like the
@@ -93,17 +92,7 @@ public class LoginController extends CerberusController {
 		//redirectAttrs.addFlashAttribute("user", user);
 
 		
-		return "redirect:/home/overview";
-	}
-
-	@RequestMapping(value="/forgot", method=RequestMethod.POST)
-	public String forgotPassword( LoginBackingObject loginBackingObject, BindingResult result) {
-		if (result.hasErrors()) {
-			return "welcome";
-		}
-		
-		//TO DO Send password to email address
-		return "redirect:/welcome";
+		return "redirect:/home/index";
 	}
 	
 }

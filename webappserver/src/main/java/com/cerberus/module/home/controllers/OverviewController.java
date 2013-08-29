@@ -9,7 +9,7 @@ import com.cerberus.model.account.bean.User;
 import com.cerberus.module.generic.controllers.CerberusController;
 
 @Controller
-@RequestMapping(value="/home/overview")
+@RequestMapping(value="/home/index")
 public class OverviewController extends CerberusController {
 
 	
@@ -30,7 +30,7 @@ public class OverviewController extends CerberusController {
 		
 		//TO DO Build the overview page here
 		
-		return "home/overview";
+		return "home/index";
 	}
 
 }
