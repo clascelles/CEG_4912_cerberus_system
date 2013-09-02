@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cerberus.model.account.bean.User;
 import com.cerberus.module.generic.controllers.CerberusController;
+import com.cerberus.module.home.backingobjects.TopBarBackingObject;
 
 @Controller
 @RequestMapping(value="/home/index")
 public class OverviewController extends CerberusController {
 
+	private static final String TOP_BAR_BACKING_OBJECT = "topBarBackingObject";
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getLoginPage(Model model)
@@ -25,12 +27,21 @@ public class OverviewController extends CerberusController {
 		
 		//This is our Login Security. I know, not that great but good enough for a site that will never be published.
 		if(user == null){
-			return "redirect:/welcome.jsp";
+			return "redirect:/";
 		}
 		
-		//TO DO Build the overview page here
+		TopBarBackingObject topBarBackingObject = new TopBarBackingObject();
+		topBarBackingObject.setName(user.getInformation().getFirstName() + " " + user.getInformation().getLastName());
+		
+		model.addAttribute(TOP_BAR_BACKING_OBJECT, topBarBackingObject);
 		
 		return "home/index";
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public String post(Model model)	{
+		return null;
+		
 	}
 
 }

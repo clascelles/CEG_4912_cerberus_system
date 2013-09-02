@@ -17,7 +17,6 @@ import com.cerberus.module.account.workflows.AccountWorkflow;
 import com.cerberus.module.generic.controllers.CerberusController;
 
 @Controller
-@RequestMapping(value="/")
 public class LoginController extends CerberusController {
 	
 	//Model Attribute Name. Use a non-modifiable String constant so that the name set in the GET function can
@@ -32,7 +31,7 @@ public class LoginController extends CerberusController {
 	
 	//The @RequestMapping can also be done at the method level if the same controller handles more than one mapping.
 	//Just add the value="" to the current annotation.
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String getLoginPage(Model model) {
 
 		//Add all the "backingObject" that will be used in the page. A backing object is simply an object that often match
@@ -47,7 +46,7 @@ public class LoginController extends CerberusController {
 	//POST occurs when submitting a form. It is used to handle the data inputed or changed in the form, do some pre-processing
 	//of the information and any database query necessary. In this case, the POST method uses the LoginBackingObject to get the
 	//full login object and with that get the User object, which it puts in the session "bin" variable.
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(value="/", method=RequestMethod.POST)
 	public String validateLogin(Model model, 
 			//The RedirectAttributes is VERY IMPORTANT. It is used to pass all the info that is useful to build the next page
 			//in the GET method of the next controller. Use the addFlashAttribute function. The object added to the redirectAttrs
@@ -93,6 +92,15 @@ public class LoginController extends CerberusController {
 
 		
 		return "redirect:/home/index";
+	}
+	
+	@RequestMapping(value="logout", method=RequestMethod.GET)
+	public String logout(Model model) {
+		
+		//Remove all the information from the bin
+		bin.clear();		
+		
+		return "redirect:/";
 	}
 	
 }

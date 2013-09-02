@@ -346,17 +346,17 @@ margin-left:-2px;
 font-family: 'Shojumaru', cursive, Arial, serif; 
 letter-spacing:2px;
 text-shadow:1px 1px 5px rgba(0, 0, 0, 0.5);
-width:166px;
+width:200px;
 }
 .brand img{
 float:left;
-height:24px;
+height:26px;
 width:20px;
 margin-right:5px;
 }
 .brand span{
 float:left;
-height:24px;
+height:26px;
 }
 @media (max-width: 979px){
 .sidebar-nav{

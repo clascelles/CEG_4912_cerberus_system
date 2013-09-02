@@ -56,7 +56,7 @@
 	<![endif]-->
 
 	<!-- The fav icon -->
-	<link rel="shortcut icon" href="resources/img/favicon.ico">
+	<link rel="shortcut icon" href="resources/img/favicon.png">
 		
 </head>
 
