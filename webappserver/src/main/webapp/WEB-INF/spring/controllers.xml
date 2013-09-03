@@ -16,8 +16,23 @@
 	<bean id="loginController" class="com.cerberus.module.account.controllers.LoginController">
 		<property name="bin" ref="bin"></property>
 	</bean>
+	<bean id="accountController" class="com.cerberus.module.account.controllers.AccountController">
+		<property name="bin" ref="bin"></property>
+	</bean>
 	<bean id="overviewController" class="com.cerberus.module.home.controllers.OverviewController">
 		<property name="bin" ref="bin"></property>
 	</bean>
-
+	<bean id="outletController" class="com.cerberus.module.outlets.controllers.OutletController">
+		<property name="bin" ref="bin"></property>
+	</bean>
+	<bean id="scheduleController" class="com.cerberus.module.schedules.controllers.ScheduleController">
+		<property name="bin" ref="bin"></property>
+	</bean>
+	<bean id="systemController" class="com.cerberus.module.system.controllers.SystemController">
+		<property name="bin" ref="bin"></property>
+	</bean>
+	<bean id="usageController" class="com.cerberus.module.usage.controllers.UsageController">
+		<property name="bin" ref="bin"></property>
+	</bean>
+	
 </beans>
