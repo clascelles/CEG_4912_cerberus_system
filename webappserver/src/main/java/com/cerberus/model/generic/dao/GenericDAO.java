@@ -186,7 +186,7 @@ public class GenericDAO<T, ID extends Serializable> {
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			criteria.getExecutableCriteria(session).list();
+			list = criteria.getExecutableCriteria(session).list();
 			tx.commit();
 		}catch (RuntimeException e) {
 			tx.rollback();

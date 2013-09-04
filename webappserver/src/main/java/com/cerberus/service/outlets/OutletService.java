@@ -1,5 +1,7 @@
 package com.cerberus.service.outlets;
 
+import java.util.List;
+
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.OutletOperationMode;
 import com.cerberus.model.outlets.bean.Socket;
@@ -10,6 +12,7 @@ import com.cerberus.model.outlets.dao.OutletOperationModeDAO;
 import com.cerberus.model.outlets.dao.SocketAssignmentDAO;
 import com.cerberus.model.outlets.dao.SocketDAO;
 import com.cerberus.model.outlets.dao.SocketOperationStatusDAO;
+import com.cerberus.model.outlets.filter.OutletFilter;
 import com.cerberus.model.outlets.filter.SocketAssignmentFilter;
 import com.cerberus.model.outlets.filter.SocketFilter;
 import com.cerberus.model.usage.bean.ConnectionEvent;
@@ -51,6 +54,10 @@ public class OutletService {
 	
 	public void deleteOutlet(Outlet outlet){
 		outletDAO.delete(outlet);
+	}
+	
+	public List<Outlet> getOutletListBySystemId(Integer systemId){
+		return outletDAO.getAllByFilter(OutletFilter.getBySystemId(systemId));
 	}
 	
 	//***************************************************

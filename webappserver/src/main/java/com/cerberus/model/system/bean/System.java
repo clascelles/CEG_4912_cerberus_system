@@ -25,6 +25,7 @@ public class System implements Serializable{
 	
 	Integer id;
 	User user;
+	Integer userId;
 	String name;
 	
 	public System(){
@@ -54,6 +55,14 @@ public class System implements Serializable{
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	@Column(name="USERS_ID", nullable=false, insertable=false, updatable=false)
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 	
 	@Column(name="NAME", nullable=false)

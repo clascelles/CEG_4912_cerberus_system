@@ -28,17 +28,19 @@ public class Outlet implements Serializable {
 	private OutletOperationMode mode;
 	private Integer serialNumber;
 	private System system;
+	private Integer systemId;
 	
 	public Outlet() {
 		super();
 	}
 	
-	public Outlet(Room room, OutletOperationMode mode, Integer serialNumber, System system) {
+	public Outlet(Room room, OutletOperationMode mode, Integer serialNumber, System system, Integer systemId) {
 		super();
 		this.room = room;
 		this.mode = mode;
 		this.serialNumber = serialNumber;	
 		this.system = system;
+		this.systemId = systemId;
 	}
 	
 	@Id
@@ -88,6 +90,16 @@ public class Outlet implements Serializable {
 
 	public void setSystem(System system) {
 		this.system = system;
+	}
+	
+
+	@Column(name="SYSTEM_ID", nullable=false, insertable=false, updatable=false)
+	public Integer getSystemId() {
+		return systemId;
+	}
+
+	public void setSystemId(Integer systemId) {
+		this.systemId = systemId;
 	}
 
 	@Override

@@ -72,7 +72,9 @@
 							</h2>
 						</div>
 						<div class="box-content">
-							Put Content Here!
+							<c:forEach items="${outletBackingObject}" var="item">
+   								 ${item}<br/>
+							</c:forEach>
 							<div class="clearfix"></div>
 						</div>
 					</div>

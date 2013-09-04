@@ -7,12 +7,15 @@
 
 	<!-- Add all the Workflows HERE -->
 	<bean id="accountWorkflow" class="com.cerberus.module.account.workflows.AccountWorkflow" scope="prototype"></bean>
+	<bean id="outletWorkflow" class="com.cerberus.module.outlets.workflows.OutletWorkflow" scope="prototype"></bean>
 	
 	
 	<!-- Workflow Factory to get them from the Application Context -->
 	<bean id="workflows" class="com.cerberus.module.generic.workflows.Workflows">
 		<property name="accountWorkflow" ref="accountWorkflow"></property>
+		<property name="outletWorkflow" ref="outletWorkflow"></property>
 	</bean>
+
 	
 	
 

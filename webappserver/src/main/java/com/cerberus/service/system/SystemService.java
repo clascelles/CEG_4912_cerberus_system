@@ -9,6 +9,7 @@ import com.cerberus.model.system.dao.RoomDAO;
 import com.cerberus.model.system.dao.RoomTypeDAO;
 import com.cerberus.model.system.dao.SystemDAO;
 import com.cerberus.model.system.filter.RoomFilter;
+import com.cerberus.model.system.filter.SystemFilter;
 
 public class SystemService {
 	
@@ -72,6 +73,10 @@ public class SystemService {
 	
 	public void deleteSystem(System system){
 		systemDAO.delete(system);
+	}
+	
+	public System getSystemByUserId(Integer userId){
+		return systemDAO.getByFilter(SystemFilter.getSystemByUserId(userId));
 	}
 
 }
