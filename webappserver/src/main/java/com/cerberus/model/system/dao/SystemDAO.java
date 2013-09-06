@@ -3,17 +3,17 @@ package com.cerberus.model.system.dao;
 import java.util.List;
 
 import com.cerberus.model.generic.dao.GenericDAO;
-import com.cerberus.model.system.bean.System;
+import com.cerberus.model.system.bean.CerberusSystem;
 
-public class SystemDAO extends GenericDAO<System, Integer> {
+public class SystemDAO extends GenericDAO<CerberusSystem, Integer> {
 
-	public System getById(Integer systemId){
-		return getById(System.class, systemId);
+	public CerberusSystem getById(Integer systemId){
+		return getById(CerberusSystem.class, systemId);
 	}
 	
 	/***/
-	public List<System> getAll(){
-		return getAll(System.class);
+	public List<CerberusSystem> getAll(){
+		return getAll(CerberusSystem.class);
 	}
 	
 }

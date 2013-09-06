@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.cerberus.model.system.bean.Room;
-import com.cerberus.model.system.bean.System;
+import com.cerberus.model.system.bean.CerberusSystem;
 
 @Entity
 @Table(name = "OUTLET")
@@ -27,14 +27,14 @@ public class Outlet implements Serializable {
 	private Room room;
 	private OutletOperationMode mode;
 	private Integer serialNumber;
-	private System system;
+	private CerberusSystem system;
 	private Integer systemId;
 	
 	public Outlet() {
 		super();
 	}
 	
-	public Outlet(Room room, OutletOperationMode mode, Integer serialNumber, System system, Integer systemId) {
+	public Outlet(Room room, OutletOperationMode mode, Integer serialNumber, CerberusSystem system, Integer systemId) {
 		super();
 		this.room = room;
 		this.mode = mode;
@@ -84,11 +84,11 @@ public class Outlet implements Serializable {
 
 	@ManyToOne()
 	@JoinColumn(name="SYSTEM_ID", nullable=false)
-	public System getSystem() {
+	public CerberusSystem getSystem() {
 		return system;
 	}
 
-	public void setSystem(System system) {
+	public void setSystem(CerberusSystem system) {
 		this.system = system;
 	}
 	

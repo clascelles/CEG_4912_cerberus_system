@@ -16,3 +16,6 @@
 7. Install MySQL 5.6.11.0 (You may need to also install .NET4.0 for MySQL to install. You will get a warning, follow the link and install)
 
 8. Open Eclipse. Go to Help->MarketPlace and download "Maven Integration for Eclipse (m2e)"  and "EGit"
+
+9. Preferences-->Java-->Installed JRE --> Edit JRE_HOME points to JDK.
+Go to "Project properties -> Deployment Assembly page".

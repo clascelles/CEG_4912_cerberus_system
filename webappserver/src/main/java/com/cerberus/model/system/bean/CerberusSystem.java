@@ -16,7 +16,7 @@ import com.cerberus.model.account.bean.User;
 
 @Entity
 @Table(name = "SYSTEM")
-public class System implements Serializable{
+public class CerberusSystem implements Serializable{
 
 	/**
 	 * 
@@ -28,11 +28,11 @@ public class System implements Serializable{
 	Integer userId;
 	String name;
 	
-	public System(){
+	public CerberusSystem(){
 		super();
 	}
 	
-	public System(User user, String name) {
+	public CerberusSystem(User user, String name) {
 		super();
 		this.user = user;
 		this.name = name;

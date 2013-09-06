@@ -72,25 +72,25 @@
 	
 	<!-- Hibernate logging properties -->
 	<logger name="org.hibernate">
-		<level value="debug"/>
+		<level value="warn"/>
 	</logger>
 	<logger name="org.springframework">
 		<level value="warn"/>
 	</logger>
 	<logger name="org.hibernate.hql.ast.AST">
-		<level value="debug"/>
+		<level value="warn"/>
 	</logger>
 	<logger name="org.hibernate.SQL">
-		<level value="debug"/>
+		<level value="warn"/>
 	</logger>
 	<logger name="org.hibernate.type">
-		<level value="debug"/>
+		<level value="warn"/>
 	</logger>
 	<logger name="org.hibernate.tool.hbm2ddl">
 		<level value="warn"/>
 	</logger>
 	<logger name="org.hibernate.hql">
-		<level value="debug"/>
+		<level value="warn"/>
 	</logger>
 	<logger name="org.hibernate.cache">
 		<level value="warn"/>

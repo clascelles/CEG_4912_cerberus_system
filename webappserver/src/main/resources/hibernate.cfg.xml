@@ -41,7 +41,7 @@
         <mapping class="com.cerberus.model.outlets.bean.SocketAssignment"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.SocketOperationMode"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.SocketOperationStatus"></mapping>
-        <mapping class="com.cerberus.model.system.bean.System"></mapping>
+        <mapping class="com.cerberus.model.system.bean.CerberusSystem"></mapping>
         <mapping class="com.cerberus.model.usage.bean.Tip"></mapping>
         <mapping class="com.cerberus.model.account.bean.User"></mapping>
         <mapping class="com.cerberus.model.account.bean.UserSetting"></mapping>

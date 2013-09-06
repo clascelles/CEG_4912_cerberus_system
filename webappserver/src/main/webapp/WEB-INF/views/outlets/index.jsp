@@ -73,7 +73,7 @@
 						</div>
 						<div class="box-content">
 							<c:forEach items="${outletBackingObject}" var="item">
-   								 ${item}<br/>
+   								 ${item.id}<br/>
 							</c:forEach>
 							<div class="clearfix"></div>
 						</div>

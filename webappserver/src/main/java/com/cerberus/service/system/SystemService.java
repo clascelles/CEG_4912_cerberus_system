@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cerberus.model.system.bean.Room;
 import com.cerberus.model.system.bean.RoomType;
-import com.cerberus.model.system.bean.System;
+import com.cerberus.model.system.bean.CerberusSystem;
 import com.cerberus.model.system.dao.RoomDAO;
 import com.cerberus.model.system.dao.RoomTypeDAO;
 import com.cerberus.model.system.dao.SystemDAO;
@@ -63,19 +63,19 @@ public class SystemService {
 	//System
 	//***************************************************
 	
-	public Integer insertSystem(System system){
+	public Integer insertSystem(CerberusSystem system){
 		return systemDAO.save(system);
 	}
 	
-	public System updateSystem(System system){
+	public CerberusSystem updateSystem(CerberusSystem system){
 		return systemDAO.merge(system);
 	}
 	
-	public void deleteSystem(System system){
+	public void deleteSystem(CerberusSystem system){
 		systemDAO.delete(system);
 	}
 	
-	public System getSystemByUserId(Integer userId){
+	public CerberusSystem getSystemByUserId(Integer userId){
 		return systemDAO.getByFilter(SystemFilter.getSystemByUserId(userId));
 	}
 
