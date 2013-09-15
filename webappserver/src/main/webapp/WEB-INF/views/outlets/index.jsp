@@ -34,7 +34,7 @@
 <body>
 	
 	<!-- topbar starts -->
-	<%@include file="\WEB-INF\views\main/topbar.jsp" %>
+	<%@include file="\WEB-INF\views\main\topbar.jsp" %>
 	<!-- topbar ends -->
 
 	<div class="container-fluid">
@@ -72,9 +72,26 @@
 							</h2>
 						</div>
 						<div class="box-content">
-							<c:forEach items="${outletBackingObject}" var="item">
-   								 ${item.id}<br/>
-							</c:forEach>
+						  	<table class="table table-striped table-bordered bootstrap-datatable datatable">
+							  <thead>
+								  <tr>
+									  <th>ID</th>
+									  <th>Room</th>
+									  <th>Operation Mode</th>
+									  <th>Serial Number</th>
+								  </tr>
+							  </thead>   
+							  <tbody>
+							  	<c:forEach items="${outletBackingObject}" var="item">
+							  		<tr>
+							  			<td>${item.id}</td>
+							  			<td>${item.room.name}</td>
+							  			<td>${item.mode.name}</td>
+							  			<td>${item.serialNumber}</td>
+							  		</tr>
+								</c:forEach>
+							  </tbody>
+						    </table>							
 							<div class="clearfix"></div>
 						</div>
 					</div>

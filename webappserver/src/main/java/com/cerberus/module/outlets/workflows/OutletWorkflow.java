@@ -27,6 +27,9 @@ public class OutletWorkflow extends Workflow {
 			for(Outlet outlet : outlets){
 				OutletBackingObject outletBO = new OutletBackingObject();
 				outletBO.setId(outlet.getId());		
+				outletBO.setRoom(outlet.getRoom());
+				outletBO.setMode(outlet.getMode());
+				outletBO.setSerialNumber(outlet.getSerialNumber());
 				outletBackingObjects.add(outletBO);
 			}
 		}
