@@ -1,13 +1,20 @@
-Spring MVC (Model View Controller)
+Spring MVC (Model View Controller):
+-The Spring framework is responsible to initialize classes before it application starts.
+-It is controlled by xml files located in the webapp/WEB-INF/spring directory.
+-It instantiates objects like controllers, Hibenate DAOs, quartz schedulers, services and workflows.
 
-View (JSP) --> Controller by Mapping (which is URL)
+Spring is also responsible to map our views to the appropriate controller.
+It does that by looking at the URL and the HttpRequest type to figure out which function to call.
+There is 2 Type of HttpRequest:	Get - Initiale page request/Page building
+								Post - Processing & decision making
 
-2 Type of HttpRequest (Get - Initiale page request/Page building)
-			Post - Processing & decision making
-
-Workflow in controller:
-Every page has a GET (build the page)
-Every page has a POST (process information)  You must do a redirect to the next GET
+Ideal workflow in controllers:
+-Every page has a GET (build the page)
+-Every page has a POST (process information)  
+-Once the information is processed, you must do a redirect to the next GET.
 When an action occurs POST --> redirect --> GET of next page  (This is known as the POST/REDIRECT/GET Pattern
-There is a "bin" Hashmap to persist some objects you want to persist in the session.
+
+How to work with a controller:
+-I've put an example with a lot of comments to explain every aspect of it. Please have a look at the LoginController
+-There is a "bin" Hashmap to persist some objects you want to persist in the session.
 
