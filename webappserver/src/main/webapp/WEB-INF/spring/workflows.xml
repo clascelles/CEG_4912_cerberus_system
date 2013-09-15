@@ -8,12 +8,19 @@
 	<!-- Add all the Workflows HERE -->
 	<bean id="accountWorkflow" class="com.cerberus.module.account.workflows.AccountWorkflow" scope="prototype"></bean>
 	<bean id="outletWorkflow" class="com.cerberus.module.outlets.workflows.OutletWorkflow" scope="prototype"></bean>
-	
+	<bean id="usageWorkflow" class="com.cerberus.module.usage.workflows.UsageWorkflow" scope="prototype"></bean>
+	<bean id="overviewWorkflow" class="com.cerberus.module.overview.workflows.OverviewWorkflow" scope="prototype"></bean>
+	<bean id="scheduleWorkflow" class="com.cerberus.module.schedules.workflows.ScheduleWorkflow" scope="prototype"></bean>
+	<bean id="systemWorkflow" class="com.cerberus.module.system.workflows.SystemWorkflow" scope="prototype"></bean>
 	
 	<!-- Workflow Factory to get them from the Application Context -->
 	<bean id="workflows" class="com.cerberus.module.generic.workflows.Workflows">
 		<property name="accountWorkflow" ref="accountWorkflow"></property>
 		<property name="outletWorkflow" ref="outletWorkflow"></property>
+		<property name="usageWorkflow" ref="usageWorkflow"></property>
+		<property name="overviewWorkflow" ref="overviewWorkflow"></property>
+		<property name="scheduleWorkflow" ref="scheduleWorkflow"></property>
+		<property name="systemWorkflow" ref="systemWorkflow"></property>
 	</bean>
 
 	

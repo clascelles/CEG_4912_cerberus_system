@@ -1,4 +1,4 @@
-package com.cerberus.module.home.controllers;
+package com.cerberus.module.overview.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cerberus.model.account.bean.User;
 import com.cerberus.module.generic.controllers.CerberusController;
-import com.cerberus.module.home.backingobjects.TopBarBackingObject;
+import com.cerberus.module.overview.backingobjects.TopBarBackingObject;
 
 @Controller
 @RequestMapping(value="/home/index")

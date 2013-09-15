@@ -19,7 +19,7 @@
 	<bean id="accountController" class="com.cerberus.module.account.controllers.AccountController">
 		<property name="bin" ref="bin"></property>
 	</bean>
-	<bean id="overviewController" class="com.cerberus.module.home.controllers.OverviewController">
+	<bean id="overviewController" class="com.cerberus.module.overview.controllers.OverviewController">
 		<property name="bin" ref="bin"></property>
 	</bean>
 	<bean id="outletController" class="com.cerberus.module.outlets.controllers.OutletController">

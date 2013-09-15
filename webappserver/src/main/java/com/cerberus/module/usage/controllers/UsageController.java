@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.module.generic.controllers.CerberusController;
-import com.cerberus.module.home.backingobjects.TopBarBackingObject;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
+import com.cerberus.module.overview.backingobjects.TopBarBackingObject;
 
 @Controller
 public class UsageController extends CerberusController {

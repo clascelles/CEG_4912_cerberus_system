@@ -1,4 +1,4 @@
-package com.cerberus.module.home.backingobjects;
+package com.cerberus.module.overview.backingobjects;
 
 public class TopBarBackingObject {
 
