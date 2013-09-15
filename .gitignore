@@ -1,7 +1,7 @@
 #Project specific ignores#
 ##########################
-.classpath
-.project
+webappserver/.classpath
+webappserver/.project
 webappserver/target/
 webappserver/.settings
 
