@@ -101,7 +101,7 @@
 		</div>
 
 		<footer>
-			<p class="pull-left">&copy; Cerberus Technoligies 2013 </p>
+			<p class="pull-left">&copy; Cerberus Technologies 2013 </p>
 			<p class="pull-right">Powered by: <a href="http://usman.it/free-responsive-admin-template">Charisma</a>	</p>
 		</footer>
 

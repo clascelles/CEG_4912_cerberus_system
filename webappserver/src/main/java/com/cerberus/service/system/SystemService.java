@@ -55,6 +55,14 @@ public class SystemService {
 		roomDAO.delete(room);
 	}
 	
+	public List<Room> getAllRooms() {
+		return roomDAO.getAll();
+	}
+	
+	public List<Room> getRooms(Integer systemId) {
+		return roomDAO.getBySystemId(systemId);
+	}
+	
 	public List<Room> getRoomByRoomTypeId(Integer roomTypeId){
 		return roomDAO.getAllByFilter(RoomFilter.getRoomByRoomTypeId(roomTypeId));
 	}
