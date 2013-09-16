@@ -64,12 +64,17 @@
 					</ul>
 				</div>
 
+				<!-- view outlets -->
+				
 				<div class="row-fluid">
 					<div class="box span12">
 						<div class="box-header well">
 							<h2>
-								<i class="icon-film"></i> Outlets
+								<i class="icon-film"></i> View Outlets
 							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
 						</div>
 						<div class="box-content">
 						  	<table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -96,6 +101,48 @@
 						</div>
 					</div>
 				</div>
+				
+				<!-- add outlets -->
+				
+				<div class="row-fluid">
+					<div class="box span12">
+						<div class="box-header well">
+							<h2>
+								<i class="icon-film"></i> Add Outlet
+							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
+						</div>
+						<div class="box-content">
+						  	<form id="addOutlet" class="form-horizontal">
+						  		<fieldset>
+						  			<div class="control-group">
+										<label class="control-label" for="outletName">Name</label>
+										<div class="controls">
+											<input class="input-xlarge" id="outletName" type="text" value="">
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" for="selectRoom">Room</label>
+										<div class="controls">
+										  	<select id="selectRoom" data-rel="chosen">
+										  		<c:forEach items="${rooms}" var="room">
+													<option>${room.name}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary" name="add" value="Add">Add</button>
+										<button type="reset" class="btn" name="reset">Clear</button>
+									</div>
+						  		</fieldset>
+						  	</form>						  								
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -117,7 +164,7 @@
 		</div>
 
 		<footer>
-			<p class="pull-left">&copy; Cerberus Technoligies 2013 </p>
+			<p class="pull-left">&copy; Cerberus Technologies 2013 </p>
 			<p class="pull-right">Powered by: <a href="http://usman.it/free-responsive-admin-template">Charisma</a>	</p>
 		</footer>
 

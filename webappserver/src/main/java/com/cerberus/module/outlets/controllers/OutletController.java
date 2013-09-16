@@ -2,13 +2,20 @@ package com.cerberus.module.outlets.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
+import com.cerberus.module.account.backingobjects.RoomBackingObject;
+import com.cerberus.module.account.workflows.AccountWorkflow;
 import com.cerberus.module.generic.controllers.CerberusController;
 import com.cerberus.module.outlets.backingobjects.OutletBackingObject;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
@@ -19,7 +26,8 @@ public class OutletController extends CerberusController {
 
 	private static final String TOP_BAR_BACKING_OBJECT = "topBarBackingObject";
 	private static final String OUTLET_BACKING_OBJECT = "outletBackingObject";
-	
+	private static final String ROOMS = "rooms";
+		
 	@RequestMapping(value="/outlets/index", method=RequestMethod.GET)
 	public String getLoginPage(Model model)	{
 		
@@ -41,13 +49,28 @@ public class OutletController extends CerberusController {
 		List<OutletBackingObject> outletUserList = outletWorkflow.getOutletFromUser(user);
 		model.addAttribute(OUTLET_BACKING_OBJECT, outletUserList);
 		
+		//Get the outlet list for the current user.
+		AccountWorkflow accountWorkflow = CerberusApplicationContext.getWorkflows().getAccountWorkflow();
+		List<RoomBackingObject> rooms = accountWorkflow.getRoomsForUser(user);
+		model.addAttribute(ROOMS, rooms);
+		
+		System.out.println("loading outlets/index");
+		
 		return "outlets/index";
 	}
 	
 	@RequestMapping(value="/outlets/index", method=RequestMethod.POST)
 	public String post(Model model)	{
-		return null;
-		
+		System.out.println("outlets/index generic post submitted");
+		return null;		
 	}
+	
+	/*@RequestMapping(params = "add", method = RequestMethod.POST)
+	public String addOutlet(HttpServletRequest request, @ModelAttribute User user, BindingResult result, SessionStatus status) {
+	    // validate your result
+	    // if no errors, save it and redirect to successView.
+		System.out.println("add outlet button clicked");
+		return "ok";
+	}*/
 
 }
