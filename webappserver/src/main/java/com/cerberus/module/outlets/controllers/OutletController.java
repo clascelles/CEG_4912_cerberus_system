@@ -59,24 +59,18 @@ public class OutletController extends CerberusController {
 		return "outlets/index";
 	}
 	
-	@RequestMapping(value = "/addOutlet", method=RequestMethod.POST)
-	public String addButtonClicked(Model model)	{
-		System.out.println("add button clicked");
-		return null;		
-	}
-	
 	@RequestMapping(value="/outlets/index", method=RequestMethod.POST)
 	public String post(Model model)	{
 		System.out.println("outlets/index generic post submitted");
 		return null;		
 	}
 	
-	@RequestMapping(params = "add", method = RequestMethod.POST)
+	/*@RequestMapping(params = "add", method = RequestMethod.POST)
 	public String addOutlet(HttpServletRequest request, @ModelAttribute User user, BindingResult result, SessionStatus status) {
 	    // validate your result
 	    // if no errors, save it and redirect to successView.
 		System.out.println("add outlet button clicked");
 		return "ok";
-	}
+	}*/
 
 }
