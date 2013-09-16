@@ -11,6 +11,7 @@ import com.cerberus.module.account.backingobjects.LoginBackingObject;
 import com.cerberus.module.account.backingobjects.RoomBackingObject;
 import com.cerberus.module.generic.workflows.Workflow;
 import com.cerberus.service.account.UserService;
+import com.cerberus.service.system.SystemService;
 
 public class AccountWorkflow extends Workflow {
 	
@@ -27,6 +28,8 @@ public class AccountWorkflow extends Workflow {
 	
 	public List<RoomBackingObject> getRoomsForUser(User user) {
 
+		SystemService systemService = serviceFactory.getSystemService();	
+		
 		CerberusSystem system = systemService.getSystemByUserId(user.getId());
 		
 		List<Room> rooms = systemService.getRooms(system.getId());
@@ -41,6 +44,8 @@ public class AccountWorkflow extends Workflow {
 				backingObjects.add(roomBO);
 			}
 		}
+		
+		this.returnServiceFactory();
 		
 		return backingObjects;
 	}

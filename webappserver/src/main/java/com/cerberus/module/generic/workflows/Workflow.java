@@ -10,10 +10,7 @@ public abstract class Workflow {
 	//Get Logger
 	private final static Logger LOGGER = Logger.getLogger(Workflow.class);
 	
-	protected static ServiceFactory serviceFactory = borrowServiceFactory();
-	
-	//Common Services
-	protected static SystemService systemService = serviceFactory.getSystemService();	
+	protected static ServiceFactory serviceFactory = borrowServiceFactory();	
 
 	//Method used by the constructor to get the Service Factory
 	protected static ServiceFactory borrowServiceFactory(){

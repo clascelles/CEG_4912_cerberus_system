@@ -7,15 +7,16 @@ import com.cerberus.model.account.bean.User;
 import com.cerberus.module.generic.workflows.Workflow;
 import com.cerberus.module.outlets.backingobjects.OutletBackingObject;
 import com.cerberus.service.outlets.OutletService;
+import com.cerberus.service.system.SystemService;
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.system.bean.CerberusSystem;
 
 public class OutletWorkflow extends Workflow {
 	
-	protected OutletService outletService = serviceFactory.getOutletService();
-	
 	public List<OutletBackingObject> getOutletFromUser(User user){
 		
+		SystemService systemService = serviceFactory.getSystemService();		
+		OutletService outletService = serviceFactory.getOutletService();		
 		CerberusSystem system = systemService.getSystemByUserId(user.getId());
 		
 		List<Outlet> outlets = outletService.getOutletListBySystemId(system.getId());
@@ -32,6 +33,8 @@ public class OutletWorkflow extends Workflow {
 				outletBackingObjects.add(outletBO);
 			}
 		}
+		
+		this.returnServiceFactory();
 		
 		return outletBackingObjects;
 	
