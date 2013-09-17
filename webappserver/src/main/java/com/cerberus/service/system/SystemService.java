@@ -9,6 +9,7 @@ import com.cerberus.model.system.dao.RoomDAO;
 import com.cerberus.model.system.dao.RoomTypeDAO;
 import com.cerberus.model.system.dao.SystemDAO;
 import com.cerberus.model.system.filter.RoomFilter;
+import com.cerberus.model.system.filter.RoomTypeFilter;
 import com.cerberus.model.system.filter.SystemFilter;
 
 public class SystemService {
@@ -39,6 +40,14 @@ public class SystemService {
 		roomTypeDAO.delete(roomType);
 	}
 	
+	public List<RoomType> getAllRoomTypes() {
+		return roomTypeDAO.getAll();
+	}
+	
+	public RoomType getRoomTypeById(Integer id) {
+		return roomTypeDAO.getByFilter(RoomTypeFilter.getById(id));
+	}
+	
 	//***************************************************
 	//Room
 	//***************************************************
@@ -63,6 +72,10 @@ public class SystemService {
 		return roomDAO.getBySystemId(systemId);
 	}
 	
+	public Room getRoomById(Integer id) {
+		return roomDAO.getById(id);
+	}
+	
 	public List<Room> getRoomByRoomTypeId(Integer roomTypeId){
 		return roomDAO.getAllByFilter(RoomFilter.getRoomByRoomTypeId(roomTypeId));
 	}
@@ -81,6 +94,10 @@ public class SystemService {
 	
 	public void deleteSystem(CerberusSystem system){
 		systemDAO.delete(system);
+	}
+	
+	public CerberusSystem getSystemById(Integer id) {
+		return systemDAO.getById(id);
 	}
 	
 	public CerberusSystem getSystemByUserId(Integer userId){

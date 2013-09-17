@@ -1,19 +1,22 @@
 package com.cerberus.module.outlets.workflows;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.cerberus.model.account.bean.User;
 import com.cerberus.module.generic.workflows.Workflow;
-import com.cerberus.module.outlets.backingobjects.OutletBackingObject;
 import com.cerberus.service.outlets.OutletService;
 import com.cerberus.service.system.SystemService;
 import com.cerberus.model.outlets.bean.Outlet;
+import com.cerberus.model.outlets.bean.OutletOperationMode;
 import com.cerberus.model.system.bean.CerberusSystem;
 
 public class OutletWorkflow extends Workflow {
 	
-	public List<OutletBackingObject> getOutletFromUser(User user){
+	public void insertOutlet(Outlet outlet) {		
+		serviceFactory.getOutletService().insertOutlet(outlet);		
+	}
+	
+	public List<Outlet> getOutletFromUser(User user){
 		
 		SystemService systemService = serviceFactory.getSystemService();		
 		OutletService outletService = serviceFactory.getOutletService();		
@@ -21,23 +24,18 @@ public class OutletWorkflow extends Workflow {
 		
 		List<Outlet> outlets = outletService.getOutletListBySystemId(system.getId());
 		
-		List<OutletBackingObject> outletBackingObjects = new ArrayList<OutletBackingObject>();
+		this.returnServiceFactory();
 		
-		if(outlets != null){
-			for(Outlet outlet : outlets){
-				OutletBackingObject outletBO = new OutletBackingObject();
-				outletBO.setId(outlet.getId());		
-				outletBO.setRoom(outlet.getRoom());
-				outletBO.setMode(outlet.getMode());
-				outletBO.setSerialNumber(outlet.getSerialNumber());
-				outletBackingObjects.add(outletBO);
-			}
-		}
+		return outlets;	
+	}
+	
+	public OutletOperationMode getOutletOperationModeById(Integer id) {
+		OutletService outletService = serviceFactory.getOutletService();
+		OutletOperationMode outletOperationMode = outletService.getOutletOperationModeById(id);
 		
 		this.returnServiceFactory();
 		
-		return outletBackingObjects;
-	
+		return outletOperationMode;
 	}
 
 }

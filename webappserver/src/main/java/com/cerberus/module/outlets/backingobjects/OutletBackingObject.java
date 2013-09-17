@@ -1,16 +1,13 @@
 package com.cerberus.module.outlets.backingobjects;
 
-import com.cerberus.model.outlets.bean.OutletOperationMode;
-import com.cerberus.model.system.bean.CerberusSystem;
-import com.cerberus.model.system.bean.Room;
-
 public class OutletBackingObject {
 	
 	private Integer id;
-	private Room room;
-	private OutletOperationMode mode;
+	private Integer roomId;
+	private String 	roomName;
+	private Integer modeId;
+	private String 	modeName;
 	private Integer serialNumber;
-	private CerberusSystem system;
 	private Integer systemId;
 
 	public Integer getId() {
@@ -21,20 +18,36 @@ public class OutletBackingObject {
 		this.id = id;
 	}
 
-	public Room getRoom() {
-		return room;
+	public Integer getRoomId() {
+		return roomId;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 
-	public OutletOperationMode getMode() {
-		return mode;
+	public String getRoomName() {
+		return roomName;
 	}
 
-	public void setMode(OutletOperationMode mode) {
-		this.mode = mode;
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+
+	public Integer getModeId() {
+		return modeId;
+	}
+
+	public void setModeId(Integer modeId) {
+		this.modeId = modeId;
+	}
+
+	public String getModeName() {
+		return modeName;
+	}
+
+	public void setModeName(String modeName) {
+		this.modeName = modeName;
 	}
 
 	public Integer getSerialNumber() {
@@ -45,14 +58,6 @@ public class OutletBackingObject {
 		this.serialNumber = serialNumber;
 	}
 
-	public CerberusSystem getSystem() {
-		return system;
-	}
-
-	public void setSystem(CerberusSystem system) {
-		this.system = system;
-	}
-
 	public Integer getSystemId() {
 		return systemId;
 	}
@@ -60,7 +65,5 @@ public class OutletBackingObject {
 	public void setSystemId(Integer systemId) {
 		this.systemId = systemId;
 	}
-	
-	
 	
 }

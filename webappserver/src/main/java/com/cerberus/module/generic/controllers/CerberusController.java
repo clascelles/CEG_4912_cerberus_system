@@ -5,6 +5,8 @@ import java.util.HashMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.cerberus.model.account.bean.User;
+
 @Controller
 @SessionAttributes ("bin")
 public abstract class CerberusController {
@@ -19,5 +21,8 @@ public abstract class CerberusController {
 		this.bin = bin;
 	}
 	
+	public User getUser() {
+		return (User) bin.get("user");
+	}	
 	
 }

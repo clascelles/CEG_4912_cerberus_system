@@ -13,6 +13,7 @@ import com.cerberus.model.outlets.dao.SocketAssignmentDAO;
 import com.cerberus.model.outlets.dao.SocketDAO;
 import com.cerberus.model.outlets.dao.SocketOperationStatusDAO;
 import com.cerberus.model.outlets.filter.OutletFilter;
+import com.cerberus.model.outlets.filter.OutletOperationModeFilter;
 import com.cerberus.model.outlets.filter.SocketAssignmentFilter;
 import com.cerberus.model.outlets.filter.SocketFilter;
 import com.cerberus.model.usage.bean.ConnectionEvent;
@@ -138,6 +139,10 @@ public class OutletService {
 	
 	public void deleteOutletOperationMode(OutletOperationMode outletOperationMode){
 		outletOperationModeDAO.delete(outletOperationMode);
+	}
+	
+	public OutletOperationMode getOutletOperationModeById(Integer id) {
+		return outletOperationModeDAO.getByFilter(OutletOperationModeFilter.getById(id));
 	}
 	
 	//***************************************************

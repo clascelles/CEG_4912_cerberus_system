@@ -87,11 +87,11 @@
 								  </tr>
 							  </thead>   
 							  <tbody>
-							  	<c:forEach items="${outletBackingObject}" var="item">
+							  	<c:forEach items="${userOutlets}" var="item">
 							  		<tr>
 							  			<td>${item.id}</td>
-							  			<td>${item.room.name}</td>
-							  			<td>${item.mode.name}</td>
+							  			<td>${item.roomName}</td>
+							  			<td>${item.modeName}</td>
 							  			<td>${item.serialNumber}</td>
 							  		</tr>
 								</c:forEach>
@@ -115,26 +115,26 @@
 							</div>
 						</div>
 						<div class="box-content">
-						  	<form id="addOutlet" class="form-horizontal">
+						  	<form id="addOutlet" class="form-horizontal" method="post">
 						  		<fieldset>
-						  			<div class="control-group">
-										<label class="control-label" for="outletName">Name</label>
+									<div class="control-group">
+										<label class="control-label">Serial Number</label>
 										<div class="controls">
-											<input class="input-xlarge" id="outletName" type="text" value="">
+											<input class="input-xlarge" name="serialNumber" type="text">
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label" for="selectRoom">Room</label>
+										<label class="control-label">Room</label>
 										<div class="controls">
-										  	<select id="selectRoom" data-rel="chosen">
+										  	<select name="roomId" data-rel="chosen">
 										  		<c:forEach items="${rooms}" var="room">
-													<option>${room.name}</option>
+													<option value="${room.typeId}">${room.name}</option>
 												</c:forEach>
 											</select>
 										</div>
 									</div>
 									<div class="form-actions">
-										<button type="submit" class="btn btn-primary" name="add" value="Add">Add</button>
+										<button type="submit" class="btn btn-primary" name="add">Add</button>
 										<button type="reset" class="btn" name="reset">Clear</button>
 									</div>
 						  		</fieldset>

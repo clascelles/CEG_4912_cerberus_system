@@ -1,12 +1,20 @@
 package com.cerberus.module.account.backingobjects;
 
-import com.cerberus.model.system.bean.RoomType;
-
 public class RoomBackingObject {
 	
+	private Integer id;
 	private String name;
-	private RoomType type;
+	private Integer typeId;
+	private Integer systemId;
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -15,12 +23,20 @@ public class RoomBackingObject {
 		this.name = name;
 	}
 	
-	public RoomType getType() {
-		return type;
+	public Integer getTypeId() {
+		return typeId;
 	}
 	
-	public void setType(RoomType type) {
-		this.type = type;
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
+
+	public Integer getSystemId() {
+		return systemId;
+	}
+
+	public void setSystemId(Integer systemId) {
+		this.systemId = systemId;
 	}	
 	
 }
