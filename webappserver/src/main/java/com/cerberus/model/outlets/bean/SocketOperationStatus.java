@@ -18,6 +18,10 @@ public class SocketOperationStatus implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public static final Integer GOOD = 1;
+	public static final Integer ERRORS = 2;
+	public static final Integer DISABLED = 3;
+	
 	Integer id;
 	String status;
 		

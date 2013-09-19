@@ -1,6 +1,8 @@
 package com.cerberus.module.outlets.backingobjects;
 
-public class OutletBackingObject {
+import com.cerberus.model.outlets.bean.Outlet;
+
+public class OutletBackingObject extends BackingObject<Outlet> {
 	
 	private Integer id;
 	private Integer roomId;

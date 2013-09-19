@@ -60,7 +60,9 @@
 
 				<div>
 					<ul class="breadcrumb">
-						<li><a href="#">Outlets</a></li>
+						<li><a href="/webappserver/outlets/index">Outlets</a></li>
+						<li><span>></span></li>
+						<li><a href="#">View Outlet</a></li>
 					</ul>
 				</div>
 
@@ -70,77 +72,73 @@
 					<div class="box span12">
 						<div class="box-header well">
 							<h2>
-								<i class="icon-film"></i> View Outlets
+								<i class="icon-list-alt"></i>
+								View Outlet ${outlet.id}
 							</h2>
 							<div class="box-icon">
 								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
 							</div>
 						</div>
 						<div class="box-content">
-						  	<table class="table table-striped table-bordered bootstrap-datatable datatable">
-							  <thead>
-								  <tr>
-									  <th>ID</th>
-									  <th>Room</th>
-									  <th>Operation Mode</th>
-									  <th>Serial Number</th>
-									  <th>Action</th>
-								  </tr>
-							  </thead>   
-							  <tbody>
-							  	<c:forEach items="${userOutlets}" var="item">
-							  		<tr>
-							  			<td>${item.id}</td>
-							  			<td>${item.roomName}</td>
-							  			<td>${item.modeName}</td>
-							  			<td>${item.serialNumber}</td>
-							  			<td><a class="btn btn-primary" href="/webappserver/outlets/view?id=${item.id}"><i class="icon-zoom-in icon-white"></i>View</a></td>
-							  		</tr>
-								</c:forEach>
-							  </tbody>
-						    </table>							
-							<div class="clearfix"></div>
-						</div>
-					</div>
-				</div>
-				
-				<!-- add outlets -->
-				
-				<div class="row-fluid">
-					<div class="box span12">
-						<div class="box-header well">
-							<h2>
-								<i class="icon-film"></i> Add Outlet
-							</h2>
-							<div class="box-icon">
-								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+						  	
+						  	<div class="span4">
+						  		<span><b>Operation Mode</b>&nbsp; &nbsp; &nbsp;${outlet.modeName}</span>
 							</div>
-						</div>
-						<div class="box-content">
-						  	<form id="addOutlet" class="form-horizontal" method="post">
-						  		<fieldset>
-									<div class="control-group">
-										<label class="control-label">Serial Number</label>
-										<div class="controls">
-											<input class="input-xlarge" name="serialNumber" type="text">
+						  	
+						  	<c:forEach items="${sockets}" var="socket">
+								<div class="row-fluid">
+									<div class="box span12">
+										<div class="box-header well">
+											<h2>
+												<i class="icon-film"></i> Socket ${socket.position}
+											</h2>
+											<div class="box-icon">
+												<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+											</div>
+										</div>
+										<div class="box-content">	
+											<div class="span6">
+												<div class="row-fluid">
+													<div class="span4"><b>Consumer</b></div>
+													<div class="span4">${socket.connectedUsername}</div>
+												</div>
+												
+												<div class="row-fluid">
+													<div class="span4"><b>Operation Mode</b></div>
+													<div class="span4">${socket.statusName} - ${socket.operationModeName}</div>
+												</div>
+												
+												<div class="row-fluid">
+													<div class="span4"><b>Power Usage</b></div>
+													<div class="span4">TODO: power usage</div>
+												</div>
+												
+												<div class="row-fluid">
+													<div class="span4"><b>Time Connected</b></div>
+													<div class="span4">TODO: time connected</div>
+												</div>
+												
+												<div class="row-fluid">
+													<div class="span4"><b>Connected Utility</b></div>
+													<div class="span4">TODO: connected utility</div>
+												</div>
+												
+												<div class="row-fluid">
+													<div class="span4"><b>Serial Number</b></div>
+													<div class="span4">${socket.serialNumber}</div>
+												</div>
+											</div>
+											
+											<div class="span6">
+												[graph goes here]
+											</div>	
+										  	
+											<div class="clearfix"></div>
 										</div>
 									</div>
-									<div class="control-group">
-										<label class="control-label">Room</label>
-										<div class="controls">
-										  	<select name="roomId" data-rel="chosen">
-										  		<c:forEach items="${rooms}" var="room">
-													<option value="${room.typeId}">${room.name}</option>
-												</c:forEach>
-											</select>
-										</div>
-									</div>
-									<div class="form-actions">
-										<button type="submit" class="btn btn-primary" name="add">Add</button>
-										<button type="reset" class="btn" name="reset">Clear</button>
-									</div>
-						  		</fieldset>
-						  	</form>						  								
+								</div>
+							</c:forEach>
+						  	
 							<div class="clearfix"></div>
 						</div>
 					</div>
@@ -177,10 +175,6 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<%@include file="\WEB-INF\views\main\javascript.jsp" %>
-	
-	<script>
-		$('reset').click(function() { document.getElementById('serialNumber').value = ''; });
-	</script>
 	
 </body>
 </html>

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -131,6 +132,12 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [id=" + id + ", setting=" + setting + ", type=" + type + ", login=" + login + ", information="
 				+ information + ", createdDate=" + createdDate + ", lastUpdatedDate=" + lastUpdatedDate + "]";
+	}
+	
+	//helper method
+	@Transient
+	public String getFullName() {
+		return information.getFirstName() + " " + information.getLastName();
 	}
 
 	// @ManyToOne(fetch = FetchType.LAZY)

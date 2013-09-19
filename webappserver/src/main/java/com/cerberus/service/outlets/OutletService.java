@@ -6,11 +6,13 @@ import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.OutletOperationMode;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketAssignment;
+import com.cerberus.model.outlets.bean.SocketOperationMode;
 import com.cerberus.model.outlets.bean.SocketOperationStatus;
 import com.cerberus.model.outlets.dao.OutletDAO;
 import com.cerberus.model.outlets.dao.OutletOperationModeDAO;
 import com.cerberus.model.outlets.dao.SocketAssignmentDAO;
 import com.cerberus.model.outlets.dao.SocketDAO;
+import com.cerberus.model.outlets.dao.SocketOperationModeDAO;
 import com.cerberus.model.outlets.dao.SocketOperationStatusDAO;
 import com.cerberus.model.outlets.filter.OutletFilter;
 import com.cerberus.model.outlets.filter.OutletOperationModeFilter;
@@ -27,6 +29,7 @@ public class OutletService {
 	private final ConnectionEventDAO connectionEventDAO;
 	private final EventDAO eventDAO;
 	private final SocketOperationStatusDAO socketOperationStatusDAO;
+	private final SocketOperationModeDAO socketOperationModeDAO;
 	private final SocketDAO socketDAO;
 	private final OutletOperationModeDAO outletOperationModeDAO;
 	private final SocketAssignmentDAO socketAssignmentDAO;
@@ -36,6 +39,7 @@ public class OutletService {
 		connectionEventDAO = new ConnectionEventDAO();
 		eventDAO = new EventDAO();
 		socketOperationStatusDAO = new SocketOperationStatusDAO();
+		socketOperationModeDAO = new SocketOperationModeDAO();
 		socketDAO = new SocketDAO();
 		outletOperationModeDAO = new OutletOperationModeDAO();
 		socketAssignmentDAO = new SocketAssignmentDAO();
@@ -44,7 +48,7 @@ public class OutletService {
 	//***************************************************
 	//Outlet
 	//***************************************************
-	
+		
 	public Integer insertOutlet(Outlet outlet){
 		return outletDAO.save(outlet);
 	}
@@ -55,6 +59,10 @@ public class OutletService {
 	
 	public void deleteOutlet(Outlet outlet){
 		outletDAO.delete(outlet);
+	}
+	
+	public Outlet getOutletById(Integer id) {
+		return outletDAO.getById(id);
 	}
 	
 	public List<Outlet> getOutletListBySystemId(Integer systemId){
@@ -109,6 +117,30 @@ public class OutletService {
 		socketOperationStatusDAO.delete(socketOperationStatus);
 	}
 	
+	public SocketOperationStatus getStatusById(Integer id) {
+		return socketOperationStatusDAO.getById(id);
+	}
+	
+	//***************************************************
+	//SocketOperationMode
+	//***************************************************
+	
+	public Integer insertSocketOperationMode(SocketOperationMode socketOperationMode){
+		return socketOperationModeDAO.save(socketOperationMode);
+	}
+	
+	public SocketOperationMode updateSocketOperationMode(SocketOperationMode socketOperationMode){
+		return socketOperationModeDAO.merge(socketOperationMode);
+	}
+	
+	public void deleteSocketOperationMode(SocketOperationMode socketOperationMode){
+		socketOperationModeDAO.delete(socketOperationMode);
+	}
+	
+	public SocketOperationMode getModeById(Integer id) {
+		return socketOperationModeDAO.getById(id);
+	}
+	
 	//***************************************************
 	//Socket
 	//***************************************************
@@ -123,6 +155,30 @@ public class OutletService {
 	
 	public void deleteSocket(Socket socket){
 		socketDAO.delete(socket);
+	}
+	
+	public List<Socket> getAllSockets() {
+		return socketDAO.getAll();
+	}
+	
+	public Socket getSocketById(Integer id) {
+		return socketDAO.getById(id);
+	}
+	
+	public List<Socket> getSocketsByOutlet(Integer outletId) {
+		return socketDAO.getAllByFilter(SocketFilter.getByOutletId(outletId));
+	}
+	
+	public Socket getSocketBySocketId(Integer socketId){
+		return socketDAO.getByFilter(SocketFilter.getById(socketId));
+	}
+	
+	public Socket getSocketBySerialNumber(Long serialNumber) {
+		return socketDAO.getByFilter(SocketFilter.getBySerialNum(serialNumber));
+	}
+	
+	public SocketAssignment getSocketAssignmentBySocketId(Integer socketId){
+		return socketAssignmentDAO.getByFilter(SocketAssignmentFilter.getBySocketId(socketId));
 	}
 	
 	//***************************************************
@@ -159,18 +215,6 @@ public class OutletService {
 	
 	public void deleteSocketAssignment(SocketAssignment socketAssignment){
 		socketAssignmentDAO.delete(socketAssignment);
-	}
-	
-	public Socket getSocketBySocketId(Integer socketId){
-		return socketDAO.getByFilter(SocketFilter.getById(socketId));
-	}
-	
-	public Socket getSocketBySerialNumber(Long serialNumber) {
-		return socketDAO.getByFilter(SocketFilter.getBySerialNum(serialNumber));
-	}
-	
-	public SocketAssignment getSocketAssignmentBySocketId(Integer socketId){
-		return socketAssignmentDAO.getByFilter(SocketAssignmentFilter.getBySocketId(socketId));
 	}
 
 }

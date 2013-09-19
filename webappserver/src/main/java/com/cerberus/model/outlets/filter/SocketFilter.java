@@ -17,4 +17,9 @@ public class SocketFilter {
 				add(Restrictions.eq("serialNumber", serialNumber.toString()));
 	}
 	
+	public static DetachedCriteria getByOutletId(Integer outletId){
+		return DetachedCriteria.forClass(Socket.class).
+				add(Restrictions.eq("outlet.id", outletId));
+	}
+	
 }

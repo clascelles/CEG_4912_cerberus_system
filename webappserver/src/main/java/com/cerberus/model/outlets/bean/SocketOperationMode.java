@@ -20,6 +20,10 @@ public class SocketOperationMode implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public static final Integer DISABLED = 1;
+	public static final Integer MONITORING = 2;
+	public static final Integer AUTHENTICATION = 3;
+	public static final Integer CHILD_SAFETY = 4;
 	
 	Integer id;
 	OutletOperationMode mode;

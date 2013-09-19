@@ -1,6 +1,8 @@
 package com.cerberus.model.outlets.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.cerberus.frameworks.spring.CerberusApplicationContext;
+import com.cerberus.module.outlets.workflows.OutletWorkflow;
 
 @Entity
 @Table(name = "SOCKET")
@@ -21,10 +27,14 @@ public class Socket implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public static final Integer TOP = 0;
+	public static final Integer BOTTOM = 1;
+	
 	private Integer id;
 	private SocketOperationStatus status;
 	private SocketOperationMode mode;
 	private Outlet outlet;
+	private Integer position;
 	private String serialNumber;
 	
 	public Socket() {
@@ -79,6 +89,14 @@ public class Socket implements Serializable {
 		this.outlet = outlet;
 	}
 
+	@Column(name="SOCKET_POSITION", nullable=false)
+	public Integer getPosition() {
+		return position;
+	}
+
+	public void setPosition(Integer position) {
+		this.position = position;
+	}
 
 	@Column(name="SERIAL_NUM", nullable=false)
 	public String getSerialNumber() {
@@ -93,6 +111,40 @@ public class Socket implements Serializable {
 	public String toString() {
 		return "Socket [id=" + id + ", status=" + status + ", mode=" + mode
 				+ ", outlet=" + outlet + "]";
+	}
+	
+	//helper
+	@Transient
+	public static Socket create(Outlet outlet, Integer position, String serialNumber) {
+		Socket socket = new Socket();
+
+		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
+		
+		socket.setMode(outletWorkflow.getSocketModeById(SocketOperationMode.DISABLED));
+		socket.setOutlet(outlet);
+		socket.setPosition(position);
+		socket.setStatus(outletWorkflow.getSocketStatusById(SocketOperationStatus.DISABLED));
+		socket.setSerialNumber(serialNumber);
+		
+		return socket;
+	}
+	
+	@Transient
+	public static String getNewSerial() {		
+		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
+		String serial = "4500006700";
+		List<String> existingSerials = new ArrayList<String>();
+		for(Socket socket : outletWorkflow.getAllSockets()) {
+			existingSerials.add(socket.getSerialNumber());
+		}
+		
+		while(existingSerials.contains(serial)) {
+			Long serialValue = Long.parseLong(serial);
+			serialValue++;
+			serial = serialValue.toString();
+		}
+		
+		return serial;
 	}
 		
 }

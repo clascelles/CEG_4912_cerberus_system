@@ -299,7 +299,7 @@ CREATE TABLE `personal_information` (
 
 LOCK TABLES `personal_information` WRITE;
 /*!40000 ALTER TABLE `personal_information` DISABLE KEYS */;
-INSERT INTO `personal_information` VALUES (1,'Cerberus','Cerberus','None','None'),(2,'David','Vezina','613-897-7811','6257 Ravine Way'),(3,'Charles','Lascelles','613-677-9541','Unknown'),(4,'Micheal','Woods','613-324-3899','Unknown'),(5,'Frederik','Vezina','613-898-7811','6257 Ravine Way'),(6,'Josephine','Quan','613-858-1228','Unknown');
+INSERT INTO `personal_information` VALUES (1,'Cerberus','Cerberus','None','None'),(2,'David','Vezina','613-897-7811','6257 Ravine Way'),(3,'Charles','Lascelles','613-677-9541','Unknown'),(4,'Michael','Woods','613-324-3899','Unknown'),(5,'Frederik','Vezina','613-898-7811','6257 Ravine Way'),(6,'Josephine','Quan','613-858-1228','Unknown');
 /*!40000 ALTER TABLE `personal_information` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -562,8 +562,10 @@ CREATE TABLE `socket` (
   `SOCKET_OPERATION_STATUS_ID` int(11) NOT NULL,
   `SOCKET_OPERATION_MODE_ID` int(11) NOT NULL,
   `OUTLET_ID` int(11) NOT NULL,
+  `SOCKET_POSITION` tinyint(1) NOT NULL,
   `SERIAL_NUM` varchar(10) NOT NULL,
   PRIMARY KEY (`ID`),
+  UNIQUE INDEX (`OUTLET_ID`, `SOCKET_POSITION`),
   UNIQUE KEY `SERIAL_NUM_UNIQUE` (`SERIAL_NUM`),
   KEY `SOCKET_FKIndex1` (`OUTLET_ID`),
   KEY `SOCKET_FKIndex2` (`SOCKET_OPERATION_MODE_ID`),
@@ -580,7 +582,7 @@ CREATE TABLE `socket` (
 
 LOCK TABLES `socket` WRITE;
 /*!40000 ALTER TABLE `socket` DISABLE KEYS */;
-INSERT INTO `socket` VALUES (1,1,4,1,'4500006701'),(2,1,3,1,'4500006702'),(3,1,4,2,'4500006703'),(4,1,3,3,'4500006704'),(5,1,2,4,'4500006705'),(6,1,3,4,'4500006706'),(7,1,3,5,'4500006707'),(8,1,4,6,'4500006708'),(9,1,3,6,'4500006709'),(10,1,3,7,'4500006710'),(11,1,3,8,'4500006711'),(12,1,4,9,'4500006712'),(13,1,3,10,'4500006713'),(14,1,2,10,'4500006714'),(15,1,3,11,'4500006715'),(16,1,3,11,'4500006716'),(17,1,3,12,'4500006717');
+INSERT INTO `socket` VALUES (1,1,4,1,0,'4500006701'),(2,1,3,1,1,'4500006702'),(3,1,4,2,0,'4500006703'),(4,1,3,3,0,'4500006704'),(5,1,2,4,0,'4500006705'),(6,1,3,4,1,'4500006706'),(7,1,3,5,0,'4500006707'),(8,1,4,6,0,'4500006708'),(9,1,3,6,1,'4500006709'),(10,1,3,7,0,'4500006710'),(11,1,3,8,0,'4500006711'),(12,1,4,9,0,'4500006712'),(13,1,3,10,0,'4500006713'),(14,1,2,10,1,'4500006714'),(15,1,3,11,0,'4500006715'),(16,1,3,11,1,'4500006716'),(17,1,3,12,0,'4500006717');
 /*!40000 ALTER TABLE `socket` ENABLE KEYS */;
 UNLOCK TABLES;
 

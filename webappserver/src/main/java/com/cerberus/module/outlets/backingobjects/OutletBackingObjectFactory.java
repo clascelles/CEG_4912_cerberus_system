@@ -1,31 +1,21 @@
 package com.cerberus.module.outlets.backingobjects;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Outlet;
+import com.cerberus.model.outlets.bean.OutletOperationMode;
 import com.cerberus.model.system.bean.CerberusSystem;
 import com.cerberus.model.system.bean.Room;
-import com.cerberus.module.generic.constants.CerberusConstants;
+import com.cerberus.model.system.bean.RoomType;
 import com.cerberus.module.generic.workflows.Workflows;
 
-public class OutletBackingObjectFactory {
-
-	public static List<OutletBackingObject> getBackingObjects(List<Outlet> outlets) {
-		List<OutletBackingObject> backingObjects = new ArrayList<OutletBackingObject>();
-		
-		if(outlets != null) {	
-			for(Outlet outlet : outlets) {
-				backingObjects.add(getBackingObject(outlet));
-			}			
-		}
-		
-		return backingObjects;
-	}
+public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, OutletBackingObject> {
 	
-	public static OutletBackingObject getBackingObject(User user) {
+	public static OutletBackingObjectFactory INSTANCE = new OutletBackingObjectFactory();
+		
+	public OutletBackingObject getBackingObject(User user) {
 		OutletBackingObject backingObject = new OutletBackingObject();
 		if(user != null) {
 			CerberusSystem system = CerberusApplicationContext.getWorkflows().getSystemWorkflow().getSystemByUserId(user.getId());
@@ -35,8 +25,9 @@ public class OutletBackingObjectFactory {
 		}
 		return backingObject;
 	}
-	
-	public static OutletBackingObject getBackingObject(Outlet outlet) {
+
+	@Override
+	public OutletBackingObject getBackingObject(Outlet outlet) {
 		OutletBackingObject backingObject = new OutletBackingObject();
 		backingObject.setId(outlet.getId());
 		backingObject.setModeId(outlet.getMode().getId());
@@ -47,34 +38,46 @@ public class OutletBackingObjectFactory {
 		backingObject.setSystemId(outlet.getSystemId());
 		return backingObject;
 	}
-	
-	public static Outlet bind(OutletBackingObject backingObject, User user) {
+
+	@Override
+	public Outlet bind(OutletBackingObject backingObject, User user) {
 		Workflows workflows = CerberusApplicationContext.getWorkflows();
-		Outlet outlet = new Outlet();
-		outlet.setId(backingObject.getId());
+		
+		Outlet outlet;
+		
+		if(backingObject.getId() != null) {
+			outlet = workflows.getOutletWorkflow().getOutletById(backingObject.getId());
+			if(outlet == null) {
+				outlet = new Outlet();
+				outlet.setId(backingObject.getId());			
+			}			
+		} else {
+			outlet = new Outlet();
+			outlet.setId(backingObject.getId());
+		}
 		
 		if(backingObject.getModeId() != null) {
 			outlet.setMode(workflows.getOutletWorkflow().getOutletOperationModeById(backingObject.getModeId()));			
 		} else {
-			outlet.setMode(workflows.getOutletWorkflow().getOutletOperationModeById(CerberusConstants.OUTLET_OPERATION_MODE_DISABLED));
+			outlet.setMode(workflows.getOutletWorkflow().getOutletOperationModeById(OutletOperationMode.DISABLED));
 		}
 		
 		if(backingObject.getRoomId() != null) {
 			outlet.setRoom(workflows.getSystemWorkflow().getRoomById(backingObject.getRoomId()));			
 		} else {
-			List<Room> kitchens = workflows.getSystemWorkflow().getRoomsByRoomTypeId(CerberusConstants.ROOM_TYPE_KITCHEN);
+			List<Room> kitchens = workflows.getSystemWorkflow().getRoomsByRoomTypeId(RoomType.KITCHEN);
 			if(!kitchens.isEmpty()) {
 				outlet.setRoom(kitchens.get(0));
 			} else {
-				List<Room> foyers = workflows.getSystemWorkflow().getRoomsByRoomTypeId(CerberusConstants.ROOM_TYPE_FOYER);
+				List<Room> foyers = workflows.getSystemWorkflow().getRoomsByRoomTypeId(RoomType.FOYER);
 				if(!foyers.isEmpty()) {
 					outlet.setRoom(foyers.get(0));
 				} else {
-					List<Room> bedrooms = workflows.getSystemWorkflow().getRoomsByRoomTypeId(CerberusConstants.ROOM_TYPE_BEDROOM);
+					List<Room> bedrooms = workflows.getSystemWorkflow().getRoomsByRoomTypeId(RoomType.BEDROOM);
 					if(!bedrooms.isEmpty()) {
 						outlet.setRoom(bedrooms.get(0));
 					} else {
-						List<Room> bathrooms = workflows.getSystemWorkflow().getRoomsByRoomTypeId(CerberusConstants.ROOM_TYPE_BATHROOM);
+						List<Room> bathrooms = workflows.getSystemWorkflow().getRoomsByRoomTypeId(RoomType.BATHROOM);
 						if(!bathrooms.isEmpty()) {
 							outlet.setRoom(bathrooms.get(0));
 						}
@@ -83,7 +86,9 @@ public class OutletBackingObjectFactory {
 			}			
 		}
 		
-		outlet.setSerialNumber(backingObject.getSerialNumber());
+		if(backingObject.getSerialNumber() != null) {
+			outlet.setSerialNumber(backingObject.getSerialNumber());			
+		}
 		
 		if(backingObject.getSystemId() != null) {
 			outlet.setSystem(workflows.getSystemWorkflow().getSystemById(backingObject.getSystemId()));
