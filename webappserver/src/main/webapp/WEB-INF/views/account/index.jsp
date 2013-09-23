@@ -72,7 +72,76 @@
 							</h2>
 						</div>
 						<div class="box-content">
-							Put Content Here!
+							<form id="editProfile" class="form-horizontal" method="post">
+						  		<fieldset>
+						  			
+									<div class="row-fluid">
+										<div class="span6">
+											<div class="control-group">
+												<label class="control-label">Username</label>
+												<div class="controls">
+													<input class="input-xlarge" name="username" type="text" value="${userBackingObject.username}">
+												</div>
+											</div>
+											
+											<div class="control-group">
+												<label class="control-label">Old Password:</label>
+												<div class="controls">
+													<input class="input-xlarge" name="oldPassword" type="text">
+												</div>
+											</div>
+											
+											<div class="control-group">
+												<label class="control-label">New Password:</label>
+												<div class="controls">
+													<input class="input-xlarge" name="newPassword" type="text">
+												</div>
+											</div>
+											
+											<div class="control-group">
+												<label class="control-label">Confirm New Password:</label>
+												<div class="controls">
+													<input class="input-xlarge" name="confirmPassword" type="text">
+												</div>
+											</div>
+										</div>
+												  			
+										<div class="span6">
+											<div class="control-group">
+												<label class="control-label">First Name:</label>
+												<div class="controls">
+													<input class="input-xlarge" name="firstName" type="text" value="${userBackingObject.firstName}">
+												</div>
+											</div>
+											
+											<div class="control-group">
+												<label class="control-label">Last Name:</label>
+												<div class="controls">
+													<input class="input-xlarge" name="lastName" type="text" value="${userBackingObject.lastName}">
+												</div>
+											</div>
+											
+											<div class="control-group">
+												<label class="control-label">Phone Number:</label>
+												<div class="controls">
+													<input class="input-xlarge" name="phoneNumber" type="text" value="${userBackingObject.phoneNumber}">
+												</div>
+											</div>
+											
+											<div class="control-group">
+												<label class="control-label">Address:</label>
+												<div class="controls">
+													<input class="input-xlarge" name="address" type="text" value="${userBackingObject.address}">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
+										<button type="reset" class="btn" name="reset">Reset</button>
+									</div>
+						  		</fieldset>
+						  	</form>						  								
 							<div class="clearfix"></div>
 						</div>
 					</div>
@@ -109,6 +178,16 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<%@include file="\WEB-INF\views\main\javascript.jsp" %>
+	
+	<script>
+		$('reset').click(function() { 
+			document.getElementById('username').value = ${userBackingObject.username}; 
+			document.getElementById('firstName').value = ${userBackingObject.firstName}; 
+			document.getElementById('lastName').value = ${userBackingObject.lastName}; 
+			document.getElementById('phoneNumber').value = ${userBackingObject.phoneNumber}; 
+			document.getElementById('address').value = ${userBackingObject.address};
+			});
+	</script>
 	
 </body>
 </html>

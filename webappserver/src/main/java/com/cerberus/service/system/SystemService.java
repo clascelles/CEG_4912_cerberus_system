@@ -10,7 +10,6 @@ import com.cerberus.model.system.dao.RoomTypeDAO;
 import com.cerberus.model.system.dao.SystemDAO;
 import com.cerberus.model.system.filter.RoomFilter;
 import com.cerberus.model.system.filter.RoomTypeFilter;
-import com.cerberus.model.system.filter.SystemFilter;
 
 public class SystemService {
 	
@@ -98,10 +97,6 @@ public class SystemService {
 	
 	public CerberusSystem getSystemById(Integer id) {
 		return systemDAO.getById(id);
-	}
-	
-	public CerberusSystem getSystemByUserId(Integer userId){
-		return systemDAO.getByFilter(SystemFilter.getSystemByUserId(userId));
 	}
 
 }

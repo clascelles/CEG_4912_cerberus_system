@@ -74,15 +74,4 @@ public class SystemWorkflow extends Workflow {
 		
 		return system; 
 	}
-	
-	public CerberusSystem getSystemByUserId(Integer id) {
-		SystemService systemService = serviceFactory.getSystemService();
-		
-		CerberusSystem system = systemService.getSystemByUserId(id);
-		
-		this.returnServiceFactory();
-		
-		return system; 
-	}
-	
 }

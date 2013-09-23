@@ -1,6 +1,7 @@
 package com.cerberus.module.outlets.backingobjects;
 
 import com.cerberus.model.outlets.bean.Outlet;
+import com.cerberus.module.generic.backingobjects.BackingObject;
 
 public class OutletBackingObject extends BackingObject<Outlet> {
 	

@@ -9,6 +9,7 @@ import com.cerberus.model.outlets.bean.OutletOperationMode;
 import com.cerberus.model.system.bean.CerberusSystem;
 import com.cerberus.model.system.bean.Room;
 import com.cerberus.model.system.bean.RoomType;
+import com.cerberus.module.generic.backingobjects.BackingObjectFactory;
 import com.cerberus.module.generic.workflows.Workflows;
 
 public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, OutletBackingObject> {
@@ -18,7 +19,7 @@ public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, Out
 	public OutletBackingObject getBackingObject(User user) {
 		OutletBackingObject backingObject = new OutletBackingObject();
 		if(user != null) {
-			CerberusSystem system = CerberusApplicationContext.getWorkflows().getSystemWorkflow().getSystemByUserId(user.getId());
+			CerberusSystem system = user.getLogin().getSystem();
 			if(system != null) {
 				backingObject.setSystemId(system.getId());
 			}	
@@ -94,7 +95,7 @@ public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, Out
 			outlet.setSystem(workflows.getSystemWorkflow().getSystemById(backingObject.getSystemId()));
 			outlet.setSystemId(backingObject.getSystemId());			
 		} else {
-			outlet.setSystem(workflows.getSystemWorkflow().getSystemByUserId(user.getId()));
+			outlet.setSystem(user.getLogin().getSystem());
 		}
 		
 		return outlet;

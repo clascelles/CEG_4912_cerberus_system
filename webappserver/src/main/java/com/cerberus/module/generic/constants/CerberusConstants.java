@@ -11,9 +11,9 @@ public class CerberusConstants {
 	public static final String INDEX = "index";
 	public static final String VIEW = "view";
 	
-	public static final String ACCOUNTS_MODULE = "accounts";	
-	public static final String ACCOUNTS_VIEW = ACCOUNTS_MODULE + SEPARATOR + INDEX;
-	public static final String ACCOUNTS_MAPPING = SEPARATOR + ACCOUNTS_VIEW;
+	public static final String ACCOUNT_MODULE = "account";	
+	public static final String ACCOUNT_VIEW = ACCOUNT_MODULE + SEPARATOR + INDEX;
+	public static final String ACCOUNT_MAPPING = SEPARATOR + ACCOUNT_VIEW;
 	
 	public static final String OUTLETS_MODULE = "outlets";	
 	public static final String OUTLETS_VIEW = OUTLETS_MODULE + SEPARATOR + INDEX;

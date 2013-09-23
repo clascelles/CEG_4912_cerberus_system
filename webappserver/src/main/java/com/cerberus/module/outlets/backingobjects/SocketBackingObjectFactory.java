@@ -4,6 +4,7 @@ import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketAssignment;
+import com.cerberus.module.generic.backingobjects.BackingObjectFactory;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
 
 public class SocketBackingObjectFactory extends BackingObjectFactory<Socket, SocketBackingObject> {
