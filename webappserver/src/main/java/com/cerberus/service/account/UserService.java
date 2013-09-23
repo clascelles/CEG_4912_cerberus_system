@@ -107,6 +107,10 @@ public class UserService {
 		DetachedCriteria criteria = LoginFilter.getLoginByUsernameAndPassword(username, password);
 		return loginDAO.getByFilter(criteria);
 	}
+	
+	public List<Login> getLoginsBySystemId(Integer systemId) {
+		return loginDAO.getAllByFilter(LoginFilter.getLoginsBySystemId(systemId));
+	}
 
 	//***************************************************
 	//PERSONAL INFORMATION

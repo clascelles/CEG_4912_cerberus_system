@@ -30,6 +30,7 @@ public class Login implements Serializable{
 	private String passwordValue;
 	private CerberusSystem system;
 	private Date createdDate;
+	private boolean isSysAdmin;
 	// private User createdUser;
 	private Date lastUpdatedDate;
 
@@ -91,7 +92,16 @@ public class Login implements Serializable{
 	public void setSystem(CerberusSystem system) {
 		this.system = system;
 	}
-	
+
+	@Column(name="IS_SYS_ADMIN", nullable=false)
+	public boolean isSysAdmin() {
+		return isSysAdmin;
+	}
+
+	public void setSysAdmin(boolean isSysAdmin) {
+		this.isSysAdmin = isSysAdmin;
+	}
+
 	@Column(name="CREATED_DATE", nullable=false)
 	public Date getCreatedDate() {
 		return createdDate;

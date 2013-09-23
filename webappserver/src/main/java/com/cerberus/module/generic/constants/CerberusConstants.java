@@ -10,7 +10,7 @@ public class CerberusConstants {
 	public static final String REDIRECT = "redirect:/";
 	public static final String INDEX = "index";
 	public static final String VIEW = "view";
-	
+		
 	public static final String ACCOUNT_MODULE = "account";	
 	public static final String ACCOUNT_VIEW = ACCOUNT_MODULE + SEPARATOR + INDEX;
 	public static final String ACCOUNT_MAPPING = SEPARATOR + ACCOUNT_VIEW;
@@ -32,6 +32,10 @@ public class CerberusConstants {
 	public static final String SYSTEM_MODULE = "system";	
 	public static final String SYSTEM_VIEW = SYSTEM_MODULE + SEPARATOR + INDEX;
 	public static final String SYSTEM_MAPPING = SEPARATOR + SYSTEM_VIEW;
+	
+	public static final String USER_MODULE = "user";
+	public static final String SYSTEM_USER_VIEW = SYSTEM_MODULE + SEPARATOR + USER_MODULE + SEPARATOR + VIEW;
+	public static final String SYSTEM_USER_MAPPING = SEPARATOR + SYSTEM_USER_VIEW;
 	
 	public static final String USAGE_MODULE = "usage";	
 	public static final String USAGE_VIEW = USAGE_MODULE + SEPARATOR + INDEX;

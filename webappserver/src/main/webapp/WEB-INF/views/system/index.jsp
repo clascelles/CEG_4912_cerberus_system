@@ -63,20 +63,65 @@
 						<li><a href="#">System</a></li>
 					</ul>
 				</div>
-
-				<div class="row-fluid">
-					<div class="box span12">
-						<div class="box-header well">
-							<h2>
-								<i class="icon-wrench"></i> System
-							</h2>
-						</div>
-						<div class="box-content">
-							Put Content Here!
-							<div class="clearfix"></div>
+				
+				<c:if test="${isSysAdmin}">					
+					<div class="row-fluid">
+						<div class="box span12">
+							<div class="box-header well">
+								<h2>
+									<i class="icon-wrench"></i> System Settings
+								</h2>
+								<div class="box-icon">
+									<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+								</div>
+							</div>
+							<div class="box-content">
+								System settings here
+								<div class="clearfix"></div>
+							</div>
 						</div>
 					</div>
-				</div>
+					
+					<div class="row-fluid">
+						<div class="box span12">
+							<div class="box-header well">
+								<h2>
+									<i class="icon-wrench"></i> Manage Users
+								</h2>
+								<div class="box-icon">
+									<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+								</div>
+							</div>
+							<div class="box-content">
+							  	<table class="table table-striped table-bordered bootstrap-datatable datatable">
+								  <thead>
+									  <tr>
+										  <th>Username</th>
+										  <th>First Name</th>
+										  <th>Last Name</th>
+										  <th>Phone Number</th>
+										  <th>Address</th>
+										  <th>Actions</th>
+									  </tr>
+								  </thead>   
+								  <tbody>
+								  	<c:forEach items="${usersList}" var="user">
+								  		<tr>
+								  			<td>${user.login.username}</td>
+								  			<td>${user.information.firstName}</td>
+								  			<td>${user.information.lastName}</td>
+								  			<td>${user.information.phoneNumber}</td>
+								  			<td>${user.information.address}</td>
+								  			<td><a class="btn btn-primary" href="/webappserver/system/user/view?id=${user.id}"><i class="icon-zoom-in icon-white"></i>View</a></td>
+								  		</tr>
+									</c:forEach>
+								  </tbody>
+							    </table>							
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				</c:if>
 			</div>
 		</div>
 

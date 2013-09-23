@@ -13,4 +13,10 @@ public class LoginFilter {
 				add(Restrictions.like("passwordValue", password));
 	}
 	
+	public static DetachedCriteria getLoginsBySystemId(Integer systemId){
+		return DetachedCriteria.forClass(Login.class).
+				add(Restrictions.eq("system.id", systemId));
+	}
+	
+	
 }

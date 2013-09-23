@@ -201,6 +201,7 @@ CREATE TABLE `login` (
   `USERNAME` tinytext,
   `PASSWORD_VAL` tinytext,
   `SYSTEM_ID` int(11) NOT NULL,
+  `IS_SYS_ADMIN` tinyint(1) NOT NULL,
   `CREATED_DATE` date DEFAULT NULL,
   `CREATED_USER_ID` int(11) DEFAULT NULL,
   `LAST_UPDATED_DATE` date DEFAULT NULL,
@@ -217,7 +218,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,'admin','cerberus',1,'2013-03-27',NULL,'2013-03-27',NULL),(2,'dvezina','cerberus',1,'2013-03-27',NULL,'2013-03-27',NULL),(3,'clascelles','cerberus',2,'2013-03-27',NULL,'2013-03-27',NULL),(4,'mwoods','cerberus',3,'2013-03-27',NULL,'2013-03-27',NULL),(5,'fvezina','cerberus',3,'2013-03-27',NULL,'2013-03-27',NULL),(6,'jquan','cerberus',3,'2013-03-27',NULL,'2013-03-27',NULL);
+INSERT INTO `login` VALUES (1,'admin','cerberus',1,1,'2013-03-27',NULL,'2013-03-27',NULL),(2,'dvezina','cerberus',1,1,'2013-03-27',NULL,'2013-03-27',NULL),(3,'clascelles','cerberus',2,1,'2013-03-27',NULL,'2013-03-27',NULL),(4,'mwoods','cerberus',3,1,'2013-03-27',NULL,'2013-03-27',NULL),(5,'fvezina','cerberus',3,1,'2013-03-27',NULL,'2013-03-27',NULL),(6,'jquan','cerberus',3,1,'2013-03-27',NULL,'2013-03-27',NULL);
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
