@@ -18,7 +18,7 @@ public class SystemWorkflow extends Workflow {
 
 		SystemService systemService = serviceFactory.getSystemService();	
 		
-		CerberusSystem system = systemService.getSystemByUserId(user.getId());
+		CerberusSystem system = user.getLogin().getSystem();
 		
 		List<Room> rooms = systemService.getRooms(system.getId());
 		

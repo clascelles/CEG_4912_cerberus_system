@@ -8,7 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cerberus.model.system.bean.CerberusSystem;
 
 
 @Entity
@@ -24,6 +28,7 @@ public class Login implements Serializable{
 	private Integer id;
 	private String username;
 	private String passwordValue;
+	private CerberusSystem system;
 	private Date createdDate;
 	// private User createdUser;
 	private Date lastUpdatedDate;
@@ -35,7 +40,8 @@ public class Login implements Serializable{
 	}
 	
 	public Login(	String username, 
-			String passwordValue, 
+			String passwordValue,
+			CerberusSystem system, 
 			Date createdDate, 
 			User createdUser, 
 			Date lastUpdatedDate, 
@@ -74,6 +80,16 @@ public class Login implements Serializable{
 	}
 	public void setPasswordValue(String passwordValue) {
 		this.passwordValue = passwordValue;
+	}
+	
+	@ManyToOne()
+	@JoinColumn(name="SYSTEM_ID", nullable=false)
+	public CerberusSystem getSystem() {
+		return system;
+	}
+
+	public void setSystem(CerberusSystem system) {
+		this.system = system;
 	}
 	
 	@Column(name="CREATED_DATE", nullable=false)
