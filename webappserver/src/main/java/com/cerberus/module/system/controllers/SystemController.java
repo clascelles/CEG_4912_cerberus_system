@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,10 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.message.CerberusLogger;
 import com.cerberus.model.account.bean.User;
+import com.cerberus.model.outlets.bean.Outlet;
+import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.system.bean.CerberusSystem;
+import com.cerberus.module.account.backingobjects.UserBackingObject;
 import com.cerberus.module.account.backingobjects.UserBackingObjectFactory;
+import com.cerberus.module.account.workflows.AccountWorkflow;
 import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
+import com.cerberus.module.outlets.backingobjects.OutletBackingObject;
+import com.cerberus.module.outlets.backingobjects.OutletBackingObjectFactory;
 
 @Controller
 public class SystemController extends CerberusController {
@@ -65,7 +72,7 @@ public class SystemController extends CerberusController {
 		model.addAttribute(USER, 
 				UserBackingObjectFactory.INSTANCE.getBackingObject(
 						CerberusApplicationContext.getWorkflows().getAccountWorkflow().
-								getUserById(user.getId())));
+								getUserById(id)));
 		
 		CerberusLogger.get(CerberusConstants.SYSTEM_USER_VIEW);
 		
@@ -76,6 +83,39 @@ public class SystemController extends CerberusController {
 	public String post(Model model)	{
 		return null;
 		
+	}
+	
+	@RequestMapping(value=CerberusConstants.SYSTEM_USER_MAPPING, method=RequestMethod.POST, params="submit")
+	public String submitUserChanges(Model model, 
+			@RequestParam(value = "id") Integer id, 
+			@ModelAttribute(USER) UserBackingObject userBackingObject)	{
+		CerberusLogger.post(CerberusConstants.SYSTEM_USER_VIEW);
+		
+		User editedUser = CerberusApplicationContext.getWorkflows().getAccountWorkflow().getUserById(id);
+		
+		User updated = UserBackingObjectFactory.INSTANCE.bind(userBackingObject, editedUser);
+
+		AccountWorkflow accountWorkflow = CerberusApplicationContext.getWorkflows().getAccountWorkflow();
+		accountWorkflow.updateLogin(updated.getLogin());
+		accountWorkflow.updatePersonalInformation(updated.getInformation());
+		
+		return getViewUserPage(model, id);		
+	}
+	
+	
+	@RequestMapping(value=CerberusConstants.SYSTEM_USER_MAPPING, method=RequestMethod.POST, params="reset")
+	public String resetPassword(Model model, 
+			@RequestParam(value = "id") Integer id,
+			@ModelAttribute(USER) UserBackingObject userBackingObject)	{
+		CerberusLogger.post(CerberusConstants.SYSTEM_USER_VIEW);
+		
+		User editedUser = CerberusApplicationContext.getWorkflows().getAccountWorkflow().getUserById(id);
+		
+		AccountWorkflow accountWorkflow = CerberusApplicationContext.getWorkflows().getAccountWorkflow();
+		editedUser = accountWorkflow.resetUserPassword(editedUser);
+		accountWorkflow.updateLogin(editedUser.getLogin());
+		
+		return getViewUserPage(model, id);		
 	}
 
 }

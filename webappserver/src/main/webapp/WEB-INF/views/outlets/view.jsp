@@ -80,6 +80,9 @@
 							</div>
 						</div>
 						<div class="box-content">
+						
+							<br/>- child safety mode (in outlet)
+							<br/>- authentication mode (enable/disable)	
 						  	
 						  	<div class="span3">
 						  		<span><b>Serial Number</b>&nbsp; &nbsp; &nbsp;${outlet.serialNumber}</span>

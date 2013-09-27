@@ -76,7 +76,31 @@
 								</div>
 							</div>
 							<div class="box-content">
-								System settings here
+								
+								<br/>- default outlet behavior modes (if lost connection)
+								<br/>- spike protection (enable/disable)
+								<br/>- default child and authentication mode
+								<br/>- total shut off / disable system				
+
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row-fluid">
+						<div class="box span12">
+							<div class="box-header well">
+								<h2>
+									<i class="icon-wrench"></i> Security Settings
+								</h2>
+								<div class="box-icon">
+									<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+								</div>
+							</div>
+							<div class="box-content">
+								
+								- encryption key
+																
 								<div class="clearfix"></div>
 							</div>
 						</div>

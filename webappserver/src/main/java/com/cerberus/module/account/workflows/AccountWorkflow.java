@@ -22,6 +22,12 @@ public class AccountWorkflow extends Workflow {
 		return currentLogin;
 	}
 	
+	public User resetUserPassword(User user) {
+		CerberusLogger.resetPasswordMessage(user.getId().toString());
+		user.getLogin().setPasswordValue(user.getLogin().getUsername());
+		return user;
+	}
+	
 	public User getUserById(Integer userId) {
 		User user = serviceFactory.getUserService().getUserById(userId);
 		this.returnServiceFactory();
