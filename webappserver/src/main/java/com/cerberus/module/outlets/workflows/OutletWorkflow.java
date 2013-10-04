@@ -21,10 +21,9 @@ public class OutletWorkflow extends Workflow {
 	}
 	
 	public List<Outlet> getOutletFromUser(User user){
-		
-		SystemService systemService = serviceFactory.getSystemService();		
+			
 		OutletService outletService = serviceFactory.getOutletService();		
-		CerberusSystem system = systemService.getSystemByUserId(user.getId());
+		CerberusSystem system = user.getLogin().getSystem();
 		
 		List<Outlet> outlets = outletService.getOutletListBySystemId(system.getId());
 		

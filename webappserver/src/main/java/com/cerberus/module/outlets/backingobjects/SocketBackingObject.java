@@ -1,6 +1,7 @@
 package com.cerberus.module.outlets.backingobjects;
 
 import com.cerberus.model.outlets.bean.Socket;
+import com.cerberus.module.generic.backingobjects.BackingObject;
 
 public class SocketBackingObject extends BackingObject<Socket> {
 	

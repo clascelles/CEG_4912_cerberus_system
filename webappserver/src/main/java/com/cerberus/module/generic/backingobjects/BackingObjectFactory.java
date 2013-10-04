@@ -1,4 +1,4 @@
-package com.cerberus.module.outlets.backingobjects;
+package com.cerberus.module.generic.backingobjects;
 
 import java.util.ArrayList;
 import java.util.List;

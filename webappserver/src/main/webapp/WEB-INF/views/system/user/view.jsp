@@ -60,7 +60,9 @@
 
 				<div>
 					<ul class="breadcrumb">
-						<li><a href="#">Account</a></li>
+						<li><a href="/webappserver/system/index">System</a></li>
+						<li><span>></span></li>
+						<li><a href="#">View User</a></li>
 					</ul>
 				</div>
 
@@ -70,78 +72,78 @@
 							<h2>
 								<i class="icon-user"></i> Profile
 							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
 						</div>
 						<div class="box-content">
 							<form id="editProfile" class="form-horizontal" method="post">
-						  		<fieldset>
-						  			
+						  		<fieldset>						  			
 									<div class="row-fluid">
 										<div class="span6">
 											<div class="control-group">
 												<label class="control-label">Username</label>
 												<div class="controls">
-													<input class="input-xlarge" name="username" type="text" value="${userBackingObject.username}">
+													<input class="input-xlarge" name="username" type="text" value="${user.username}">
 												</div>
-											</div>
+											</div>											
 											
-											<div class="control-group">
-												<label class="control-label">Old Password:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="oldPassword" type="text">
-												</div>
-											</div>
-											
-											<div class="control-group">
-												<label class="control-label">New Password:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="newPassword" type="text">
-												</div>
-											</div>
-											
-											<div class="control-group">
-												<label class="control-label">Confirm New Password:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="confirmPassword" type="text">
-												</div>
-											</div>
-										</div>
-												  			
-										<div class="span6">
 											<div class="control-group">
 												<label class="control-label">First Name:</label>
 												<div class="controls">
-													<input class="input-xlarge" name="firstName" type="text" value="${userBackingObject.firstName}">
+													<input class="input-xlarge" name="firstName" type="text" value="${user.firstName}">
 												</div>
 											</div>
 											
 											<div class="control-group">
 												<label class="control-label">Last Name:</label>
 												<div class="controls">
-													<input class="input-xlarge" name="lastName" type="text" value="${userBackingObject.lastName}">
+													<input class="input-xlarge" name="lastName" type="text" value="${user.lastName}">
 												</div>
 											</div>
-											
+										</div>
+												  			
+										<div class="span6">											
 											<div class="control-group">
 												<label class="control-label">Phone Number:</label>
 												<div class="controls">
-													<input class="input-xlarge" name="phoneNumber" type="text" value="${userBackingObject.phoneNumber}">
+													<input class="input-xlarge" name="phoneNumber" type="text" value="${user.phoneNumber}">
 												</div>
 											</div>
 											
 											<div class="control-group">
 												<label class="control-label">Address:</label>
 												<div class="controls">
-													<input class="input-xlarge" name="address" type="text" value="${userBackingObject.address}">
+													<input class="input-xlarge" name="address" type="text" value="${user.address}">
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="form-actions">
 										<button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
-										<button type="reset" class="btn" name="reset">Reset</button>
+										<button type="submit" class="btn" name="reset">Reset Password</button>
 									</div>
 						  		</fieldset>
 						  	</form>						  								
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row-fluid">
+					<div class="box span12">
+						<div class="box-header well">
+							<h2>
+								<i class="icon-user"></i> User Statistics
+							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
+						</div>
+						<div class="box-content">
+							
+							User statistics go here...
+										  								
 							<div class="clearfix"></div>
 						</div>
 					</div>

@@ -80,9 +80,20 @@
 							</div>
 						</div>
 						<div class="box-content">
+						
+							<br/>- child safety mode (in outlet)
+							<br/>- authentication mode (enable/disable)	
 						  	
-						  	<div class="span4">
+						  	<div class="span3">
+						  		<span><b>Serial Number</b>&nbsp; &nbsp; &nbsp;${outlet.serialNumber}</span>
+							</div>
+						  	
+						  	<div class="span3">
 						  		<span><b>Operation Mode</b>&nbsp; &nbsp; &nbsp;${outlet.modeName}</span>
+							</div>
+							
+							<div class="span3">
+						  		<span><b>Room</b>&nbsp; &nbsp; &nbsp;${outlet.roomName}</span>
 							</div>
 						  	
 						  	<c:forEach items="${sockets}" var="socket">

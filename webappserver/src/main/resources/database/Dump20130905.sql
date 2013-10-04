@@ -200,11 +200,15 @@ CREATE TABLE `login` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `USERNAME` tinytext,
   `PASSWORD_VAL` tinytext,
+  `SYSTEM_ID` int(11) NOT NULL,
+  `IS_SYS_ADMIN` tinyint(1) NOT NULL,
   `CREATED_DATE` date DEFAULT NULL,
   `CREATED_USER_ID` int(11) DEFAULT NULL,
   `LAST_UPDATED_DATE` date DEFAULT NULL,
   `LAST_UPDATED_USER_ID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `LOGIN_FKIndex1` (`SYSTEM_ID`),
+  CONSTRAINT `fk_?DBABFD7F?D1BC?49AC?A144?243A68EA2FA7?` FOREIGN KEY (`SYSTEM_ID`) REFERENCES `system` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -214,7 +218,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,'admin','cerberus','2013-03-27',NULL,'2013-03-27',NULL),(2,'dvezina','cerberus','2013-03-27',NULL,'2013-03-27',NULL),(3,'clascelles','cerberus','2013-03-27',NULL,'2013-03-27',NULL),(4,'mwoods','cerberus','2013-03-27',NULL,'2013-03-27',NULL),(5,'fvezina','cerberus','2013-03-27',NULL,'2013-03-27',NULL),(6,'jquan','cerberus','2013-03-27',NULL,'2013-03-27',NULL);
+INSERT INTO `login` VALUES (1,'admin','cerberus',1,1,'2013-03-27',NULL,'2013-03-27',NULL),(2,'dvezina','cerberus',1,1,'2013-03-27',NULL,'2013-03-27',NULL),(3,'clascelles','cerberus',2,1,'2013-03-27',NULL,'2013-03-27',NULL),(4,'mwoods','cerberus',3,1,'2013-03-27',NULL,'2013-03-27',NULL),(5,'fvezina','cerberus',3,1,'2013-03-27',NULL,'2013-03-27',NULL),(6,'jquan','cerberus',3,1,'2013-03-27',NULL,'2013-03-27',NULL);
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -673,11 +677,8 @@ DROP TABLE IF EXISTS `system`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `system` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `USERS_ID` int(11) NOT NULL,
   `NAME` tinytext,
-  PRIMARY KEY (`ID`),
-  KEY `SYSTEM_FKIndex1` (`USERS_ID`),
-  CONSTRAINT `fk_?DBABFD7F?D1BC?49AC?A144?883A68EA2FA7?` FOREIGN KEY (`USERS_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -687,7 +688,7 @@ CREATE TABLE `system` (
 
 LOCK TABLES `system` WRITE;
 /*!40000 ALTER TABLE `system` DISABLE KEYS */;
-INSERT INTO `system` VALUES (1,2,'David\'s System'),(2,3,'Charles\' System'),(3,4,'Michael\'s System');
+INSERT INTO `system` VALUES (1,'David''s System'),(2,'Charles'' System'),(3,'Michael''s System');
 /*!40000 ALTER TABLE `system` ENABLE KEYS */;
 UNLOCK TABLES;
 
