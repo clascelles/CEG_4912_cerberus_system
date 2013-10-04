@@ -44,10 +44,10 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 		current.setCurrent(currentMessage.getCurrent());
 
 		// Set Socket
-		current.setSocket(serviceFactory.getOutletService().getSocketBySerialNumber(receivedMessage.getSocketId()));
+		current.setSocket(serviceFactory.getOutletService().getSocketBySerialNumber(receivedMessage.getOutletId()));
 
 		// Set User
-		current.setUser(serviceFactory.getUserService().getUserBySocketId(serviceFactory.getOutletService().getSocketBySerialNumber(receivedMessage.getSocketId()).getId()));
+		current.setUser(serviceFactory.getUserService().getUserBySocketId(serviceFactory.getOutletService().getSocketBySerialNumber(receivedMessage.getOutletId()).getId()));
 
 		// RFID is optional
 		String rfidNumber = currentMessage.getRfidNumber();

@@ -35,7 +35,7 @@ public class RFIDAuthRequestWorkflow extends MessageWorkflow{
 					+ "should've been a RFIDAuthRequestMessage, but instead was: " + receivedMessage.getClass());
 		}
 
-		Socket socket = serviceFactory.getOutletService().getSocketBySerialNumber(receivedMessage.getSocketId());
+		Socket socket = serviceFactory.getOutletService().getSocketBySerialNumber(receivedMessage.getOutletId());
 		User user = serviceFactory.getUserService().getUserBySocketId(socket.getId());
 
 		RfidTag rfidTag = serviceFactory.getRfidService().getRfidTagByNumber(requestMessage.getRfidNumber());
