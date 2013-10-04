@@ -2,6 +2,8 @@ package com.cerberus.daemon.bytemessage;
 
 import java.nio.ByteBuffer;
 
+import javax.xml.bind.DatatypeConverter;
+
 import com.cerberus.daemon.message.Message;
 
 public class ByteArrayWriter {
@@ -16,10 +18,13 @@ public class ByteArrayWriter {
 
 	public byte[] write(Message message) {
 		messageBuffer.clear();
-		messageBuffer.putInt(message.getType().getIntValue());
-		messageBuffer.putLong(message.getSocketId());
+		messageBuffer.put((byte) message.getType().getIntValue());
+		messageBuffer.put(message.getOutletId().getBytes());
+		messageBuffer.put((byte) message.getSocket());
 		messageBuffer.putLong(message.getTimestamp());
-		messageBuffer.put(message.getRfidNumber().getBytes());
+		// RFID Number is converted from a String to a hex byte array
+		messageBuffer.put(DatatypeConverter.parseHexBinary(message.getRfidNumber()));
+
 
 		return messageBuffer.array();
 
