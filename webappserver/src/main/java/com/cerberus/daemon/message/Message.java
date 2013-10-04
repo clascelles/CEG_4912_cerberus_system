@@ -2,27 +2,25 @@ package com.cerberus.daemon.message;
 
 import org.joda.time.DateTime;
 
+import com.cerberus.daemon.constants.MessageType;
 import com.cerberus.daemon.workflow.MessageWorkflow;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({ @Type(value = RFIDAuthRequestMessage.class, name = "RFID_AUTH_REQ"),
-		@Type(value = CurrentConsumptionMessage.class, name = "CURRENT"),
-		@Type(value = StatusMessage.class, name = "STATUS"),
-		@Type(value = RFIDAuthResponseMessage.class, name = "RFID_AUTH_RES"),
-		@Type(value = SwitchOperatingModeMessage.class, name = "SWITCH_OP_MODE"),
-		@Type(value = GenericInformationMessage.class, name = "GENERIC_INFO") })
 public abstract class Message {
 
+	private final MessageType type;
 	private final long socketId;
 	private final long timestamp;
+	private final String rfidNumber;
 
-	public Message(long socketId, long timestamp) {
+	public Message(MessageType type, long socketId, long timestamp, String rfidNumber) {
+		this.type = type;
 		this.socketId = socketId;
 		this.timestamp = timestamp;
+		this.rfidNumber = rfidNumber;
+	}
+
+	public MessageType getType() {
+		return type;
 	}
 
 	public long getSocketId() {
@@ -33,12 +31,13 @@ public abstract class Message {
 		return timestamp;
 	}
 
-	@JsonIgnore
 	public DateTime getDateTime() {
 		return new DateTime(timestamp);
 	}
 
-	@JsonIgnore
-	public abstract MessageWorkflow getWorkflow();
+	public String getRfidNumber() {
+		return rfidNumber;
+	}
 
+	public abstract MessageWorkflow getWorkflow();
 }

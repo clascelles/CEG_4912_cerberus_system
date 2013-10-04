@@ -1,20 +1,16 @@
 package com.cerberus.daemon.message;
 
+import com.cerberus.daemon.constants.MessageType;
 import com.cerberus.daemon.workflow.MessageWorkflow;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GenericInformationMessage extends Message {
 
 	private final String informationType;
 	private final String information;
 
-	@JsonCreator
-	public GenericInformationMessage(@JsonProperty("socketId") long socketId,
-			@JsonProperty("timestamp") long timestamp,
-			@JsonProperty("informationType") String informationType, @JsonProperty("information") String information) {
-		super(socketId, timestamp);
+	public GenericInformationMessage(long socketId, long timestamp, String rfidNumber,
+			String informationType, String information) {
+		super(MessageType.GENERIC, socketId, timestamp, rfidNumber);
 		this.informationType = informationType;
 		this.information = information;
 	}
@@ -28,9 +24,8 @@ public class GenericInformationMessage extends Message {
 	}
 
 	@Override
-	@JsonIgnore
 	public MessageWorkflow getWorkflow() {
-		// TODO Auto-generated method stub
+		// TODO Create workflow for this message
 		return null;
 	}
 

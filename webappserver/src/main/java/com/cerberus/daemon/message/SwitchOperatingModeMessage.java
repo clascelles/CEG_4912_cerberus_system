@@ -1,21 +1,17 @@
 package com.cerberus.daemon.message;
 
+import com.cerberus.daemon.constants.MessageType;
 import com.cerberus.daemon.constants.SocketOperatingMode;
 import com.cerberus.daemon.workflow.MessageWorkflow;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SwitchOperatingModeMessage extends Message {
 
 	private final SocketOperatingMode opMode;
 	private final int powerThreshold;
 
-	@JsonCreator
-	public SwitchOperatingModeMessage(@JsonProperty("socketId") long socketId,
-			@JsonProperty("timestamp") long timestamp, @JsonProperty("opMode") SocketOperatingMode opMode,
-			@JsonProperty("powerThreshold") int powerThreshold) {
-		super(socketId, timestamp);
+	public SwitchOperatingModeMessage(long socketId, long timestamp, String rfidNumber,
+			SocketOperatingMode opMode, int powerThreshold) {
+		super(MessageType.OP_MODE_SWITCH, socketId, timestamp, rfidNumber);
 		this.opMode = opMode;
 		this.powerThreshold = powerThreshold;
 	}
@@ -29,9 +25,8 @@ public class SwitchOperatingModeMessage extends Message {
 	}
 
 	@Override
-	@JsonIgnore
 	public MessageWorkflow getWorkflow() {
-		// TODO Auto-generated method stub
+		// TODO Create workflow for this message
 		return null;
 	}
 

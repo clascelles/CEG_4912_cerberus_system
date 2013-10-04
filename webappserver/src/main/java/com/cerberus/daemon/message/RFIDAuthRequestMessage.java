@@ -1,29 +1,17 @@
 package com.cerberus.daemon.message;
 
+import com.cerberus.daemon.constants.MessageType;
 import com.cerberus.daemon.workflow.MessageWorkflow;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RFIDAuthRequestMessage extends Message {
 
-	private final String rfidNumber;
-
-	@JsonCreator
-	public RFIDAuthRequestMessage(@JsonProperty("socketId") long socketId, @JsonProperty("timestamp") long timestamp,
-			@JsonProperty("rfidNumber") String rfidNumber) {
-		super(socketId, timestamp);
-		this.rfidNumber = rfidNumber;
-	}
-
-	public String getRfidNumber() {
-		return rfidNumber;
+	public RFIDAuthRequestMessage(long socketId, long timestamp, String rfidNumber) {
+		super(MessageType.RFID_AUTH_REQ, socketId, timestamp, rfidNumber);
 	}
 
 	@Override
-	@JsonIgnore
 	public MessageWorkflow getWorkflow() {
-		// TODO Auto-generated method stub
+		// TODO Create workflow for this message
 		return null;
 	}
 

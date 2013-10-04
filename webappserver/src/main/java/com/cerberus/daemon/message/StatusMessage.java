@@ -1,19 +1,15 @@
 package com.cerberus.daemon.message;
 
+import com.cerberus.daemon.constants.MessageType;
 import com.cerberus.daemon.constants.SocketStatus;
 import com.cerberus.daemon.workflow.MessageWorkflow;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StatusMessage extends Message {
 
 	private final SocketStatus status;
 
-	@JsonCreator
-	public StatusMessage(@JsonProperty("socketId") long socketId, @JsonProperty("timestamp") long timestamp,
-			@JsonProperty("status") SocketStatus status) {
-		super(socketId, timestamp);
+	public StatusMessage(long socketId, long timestamp, String rfidNumber, SocketStatus status) {
+		super(MessageType.STATUS, socketId, timestamp, rfidNumber);
 		this.status = status;
 	}
 
@@ -22,9 +18,8 @@ public class StatusMessage extends Message {
 	}
 
 	@Override
-	@JsonIgnore
 	public MessageWorkflow getWorkflow() {
-		// TODO Auto-generated method stub
+		// TODO Create workflow for this message
 		return null;
 	}
 
