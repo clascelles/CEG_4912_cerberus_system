@@ -8,9 +8,9 @@ public class GenericInformationMessage extends Message {
 	private final String informationType;
 	private final String information;
 
-	public GenericInformationMessage(long socketId, long timestamp, String rfidNumber,
+	public GenericInformationMessage(String outletId, int socket, long timestamp, String rfidNumber,
 			String informationType, String information) {
-		super(MessageType.GENERIC, socketId, timestamp, rfidNumber);
+		super(MessageType.GENERIC, outletId, socket, timestamp, rfidNumber);
 		this.informationType = informationType;
 		this.information = information;
 	}

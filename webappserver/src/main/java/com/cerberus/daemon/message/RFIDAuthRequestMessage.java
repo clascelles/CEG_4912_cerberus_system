@@ -5,8 +5,8 @@ import com.cerberus.daemon.workflow.MessageWorkflow;
 
 public class RFIDAuthRequestMessage extends Message {
 
-	public RFIDAuthRequestMessage(long socketId, long timestamp, String rfidNumber) {
-		super(MessageType.RFID_AUTH_REQ, socketId, timestamp, rfidNumber);
+	public RFIDAuthRequestMessage(String outletId, int socket, long timestamp, String rfidNumber) {
+		super(MessageType.RFID_AUTH_REQ, outletId, socket, timestamp, rfidNumber);
 	}
 
 	@Override

@@ -8,8 +8,8 @@ public class CurrentConsumptionMessage extends Message {
 
 	private final int current;
 
-	public CurrentConsumptionMessage(long socketId, long timestamp, String rfidNumber, int current) {
-		super(MessageType.CURRENT, socketId, timestamp, rfidNumber);
+	public CurrentConsumptionMessage(String outletId, int socket, long timestamp, String rfidNumber, int current) {
+		super(MessageType.CURRENT, outletId, socket, timestamp, rfidNumber);
 		this.current = current;
 	}
 

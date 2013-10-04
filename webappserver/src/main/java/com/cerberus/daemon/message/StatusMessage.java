@@ -8,8 +8,8 @@ public class StatusMessage extends Message {
 
 	private final SocketStatus status;
 
-	public StatusMessage(long socketId, long timestamp, String rfidNumber, SocketStatus status) {
-		super(MessageType.STATUS, socketId, timestamp, rfidNumber);
+	public StatusMessage(String outletId, int socket, long timestamp, String rfidNumber, SocketStatus status) {
+		super(MessageType.STATUS, outletId, socket, timestamp, rfidNumber);
 		this.status = status;
 	}
 
