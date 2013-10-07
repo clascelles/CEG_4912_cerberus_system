@@ -71,8 +71,30 @@
 								<i class="icon-time"></i> Schedule
 							</h2>
 						</div>
-						<div class="box-content">
-							Put Content Here!
+						<div class="box-content">							
+							<form id="getOutletSchedules" class="form-horizontal" method="post">
+						  		<fieldset>
+									<div class="control-group">
+										<label class="control-label">Outlet</label>
+										<div class="controls">
+											<select data-placeholder="Your Outlet" id="selectError2" data-rel="chosen">
+												<option value=""></option>											
+												<c:forEach items="${outlets}" var="room">		  			
+													<optgroup label="${room.key.name}">
+														<c:forEach items="${room.value}" var="outlet">
+														  <option>${outlet.id}</option>
+														</c:forEach>
+													</optgroup>
+										  		</c:forEach>
+									  		</select>									  		
+										</div>
+									</div>
+									<!-- <div class="form-actions">
+										<button type="submit" class="btn btn-primary" name="add">Add</button>
+										<button type="reset" class="btn" name="reset">Clear</button>
+									</div> -->
+						  		</fieldset>
+						  	</form>
 							<div class="clearfix"></div>
 						</div>
 					</div>

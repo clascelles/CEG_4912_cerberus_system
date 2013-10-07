@@ -25,13 +25,7 @@ import com.cerberus.module.system.workflows.SystemWorkflow;
 
 @Controller
 public class OutletController extends CerberusController {
-
-	private static final String USER_OUTLETS = "userOutlets";
-	private static final String ROOMS = "rooms";
-	private static final String NEW_OUTLET = "newOutlet";
-	private static final String OUTLET = "outlet";
-	private static final String SOCKETS = "sockets";
-		
+	
 	@RequestMapping(value=CerberusConstants.OUTLETS_MAPPING, method=RequestMethod.GET)
 	public String getOutletsPage(Model model)	{
 		
@@ -48,15 +42,14 @@ public class OutletController extends CerberusController {
 		//Get the outlet list for the current user.
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();		
 		List<OutletBackingObject> outletBackingObjects = OutletBackingObjectFactory.INSTANCE.getBackingObjects(outletWorkflow.getOutletFromUser(user));
-		model.addAttribute(USER_OUTLETS, outletBackingObjects);
+		model.addAttribute(CerberusConstants.USER_OUTLETS, outletBackingObjects);
 		
-		//Get the outlet list for the current user.
 		SystemWorkflow systemWorkflow = CerberusApplicationContext.getWorkflows().getSystemWorkflow();
-		List<RoomBackingObject> rooms = systemWorkflow.getRoomsForUser(user);
-		model.addAttribute(ROOMS, rooms);
+		List<RoomBackingObject> rooms = systemWorkflow.getRoomBackingObjects(user);
+		model.addAttribute(CerberusConstants.ROOMS, rooms);
 		
 		OutletBackingObject newOutlet = OutletBackingObjectFactory.INSTANCE.getBackingObject(user);
-		model.addAttribute(NEW_OUTLET, newOutlet);
+		model.addAttribute(CerberusConstants.NEW_OUTLET, newOutlet);
 		
 		CerberusLogger.get(CerberusConstants.OUTLETS_VIEW);
 		
@@ -78,9 +71,9 @@ public class OutletController extends CerberusController {
 
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 		Outlet outlet = outletWorkflow.getOutletById(id);
-		model.addAttribute(OUTLET, OutletBackingObjectFactory.INSTANCE.getBackingObject(outlet));
+		model.addAttribute(CerberusConstants.OUTLET, OutletBackingObjectFactory.INSTANCE.getBackingObject(outlet));
 		
-		model.addAttribute(SOCKETS, SocketBackingObjectFactory.INSTANCE.getBackingObjects(outletWorkflow.getSocketsByOutlet(outlet)));	
+		model.addAttribute(CerberusConstants.SOCKETS, SocketBackingObjectFactory.INSTANCE.getBackingObjects(outletWorkflow.getSocketsByOutlet(outlet)));	
 		
 		CerberusLogger.get(CerberusConstants.VIEW_OUTLET_VIEW);
 		
@@ -88,12 +81,11 @@ public class OutletController extends CerberusController {
 	}
 	
 	@RequestMapping(value=CerberusConstants.OUTLETS_MAPPING, method=RequestMethod.POST)
-	public String post(Model model, @ModelAttribute(NEW_OUTLET) OutletBackingObject newOutlet)	{
+	public String post(Model model, @ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet)	{
 		CerberusLogger.post(CerberusConstants.OUTLETS_VIEW);
 		
 		//Add the outlet
 		Outlet outlet = OutletBackingObjectFactory.INSTANCE.bind(newOutlet, getUser());
-		String abc = "!23";
 		CerberusApplicationContext.getWorkflows().getOutletWorkflow().insertOutlet(outlet);
 		
 		//Add the two sockets

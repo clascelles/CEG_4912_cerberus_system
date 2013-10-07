@@ -7,9 +7,9 @@ import com.cerberus.model.outlets.bean.Outlet;
 
 public class OutletFilter {
 
-	public static DetachedCriteria getBySystemId(Integer systemId){
+	public static DetachedCriteria getByRoomId(Integer roomId){
 		return DetachedCriteria.forClass(Outlet.class).
-				add(Restrictions.eq("systemId", systemId));
+				add(Restrictions.eq("room.id", roomId));
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.cerberus.module.outlets.workflows;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cerberus.model.account.bean.User;
@@ -13,6 +14,7 @@ import com.cerberus.model.outlets.bean.SocketAssignment;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
 import com.cerberus.model.outlets.bean.SocketOperationStatus;
 import com.cerberus.model.system.bean.CerberusSystem;
+import com.cerberus.model.system.bean.Room;
 
 public class OutletWorkflow extends Workflow {
 	
@@ -22,10 +24,16 @@ public class OutletWorkflow extends Workflow {
 	
 	public List<Outlet> getOutletFromUser(User user){
 			
-		OutletService outletService = serviceFactory.getOutletService();		
+		OutletService outletService = serviceFactory.getOutletService();
+		SystemService systemService = serviceFactory.getSystemService();
 		CerberusSystem system = user.getLogin().getSystem();
-		
-		List<Outlet> outlets = outletService.getOutletListBySystemId(system.getId());
+
+		List<Outlet> outlets = new ArrayList<Outlet>();
+		List<Room> rooms = systemService.getRooms(system.getId());
+
+		for(Room room : rooms) {
+			outlets.addAll(outletService.getOutletsByRoomId(room.getId()));
+		}		
 		
 		this.returnServiceFactory();
 		
@@ -39,6 +47,16 @@ public class OutletWorkflow extends Workflow {
 		this.returnServiceFactory();
 		
 		return outlet;
+	}
+	
+	public List<Outlet> getOutletsByRoomId(Integer roomId) {
+		OutletService outletService = serviceFactory.getOutletService();
+		
+		List<Outlet> outlets = outletService.getOutletsByRoomId(roomId);
+		
+		this.returnServiceFactory();
+		
+		return outlets;		
 	}
 	
 	public OutletOperationMode getOutletOperationModeById(Integer id) {

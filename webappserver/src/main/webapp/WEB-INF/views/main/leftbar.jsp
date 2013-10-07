@@ -7,7 +7,7 @@
 			<li><a class="ajax-link" href="/webappserver/outlets/index"><i class="icon-film"></i><span class="hidden-tablet"> Outlets</span></a></li>
 			<li><a class="ajax-link" href="/webappserver/account/index"><i class="icon-user"></i><span class="hidden-tablet"> Account</span></a></li>
 			<li><a class="ajax-link" href="/webappserver/system/index"><i class="icon-wrench"></i><span class="hidden-tablet"> System</span></a></li>
-			<li><a class="ajax-link" href="/webappserver/schedule/index"><i class="icon-time"></i><span class="hidden-tablet"> Scheduling</span></a></li>
+			<li><a class="ajax-link" href="/webappserver/schedules/index"><i class="icon-time"></i><span class="hidden-tablet"> Scheduling</span></a></li>
 			<li><a class="ajax-link" href="/webappserver/usage/index"><i class="icon-signal"></i><span class="hidden-tablet"> Usage</span></a></li>
 		</ul>
 	</div><!--/.well -->

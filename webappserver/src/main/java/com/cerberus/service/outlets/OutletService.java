@@ -64,9 +64,9 @@ public class OutletService {
 	public Outlet getOutletById(Integer id) {
 		return outletDAO.getById(id);
 	}
-
-	public List<Outlet> getOutletListBySystemId(Integer systemId){
-		return outletDAO.getAllByFilter(OutletFilter.getBySystemId(systemId));
+	
+	public List<Outlet> getOutletsByRoomId(Integer roomId) {
+		return outletDAO.getAllByFilter(OutletFilter.getByRoomId(roomId));		
 	}
 
 	//***************************************************
