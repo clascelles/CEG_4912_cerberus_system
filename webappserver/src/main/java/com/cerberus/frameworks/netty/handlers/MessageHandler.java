@@ -13,7 +13,7 @@ import org.jboss.netty.channel.WriteCompletionEvent;
 import org.perf4j.StopWatch;
 import org.perf4j.log4j.Log4JStopWatch;
 
-import com.cerberus.daemon.decoder.JsonDecoder;
+import com.cerberus.daemon.decoder.ByteMessageDecoder;
 import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.MessageContainer;
 import com.cerberus.frameworks.netty.ChannelOutletBinding;
@@ -69,8 +69,9 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 			throws Exception {
 
 		StopWatch stopwatch = new Log4JStopWatch("MessageHandler.messageReceived");
-		//Type cast received object to string. This will always come from the string decoder.
-		String message = (String)e.getMessage();
+
+		//String message = (String)e.getMessage();
+		byte[] message = (byte[]) e.getMessage();
 		Channel channel = e.getChannel();
 
 		//Log message received
@@ -80,7 +81,9 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 		//Add a task to the Decoder Thread Pool.
 		ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
 		MessageContainer messageContainer = new MessageContainer(channel, message);
-		Runnable decoderTask = new JsonDecoder(messageContainer);
+
+		//Runnable decoderTask = new JsonDecoder(messageContainer);
+		Runnable decoderTask = new ByteMessageDecoder(messageContainer);
 		executor.execute(decoderTask);
 		stopwatch.stop();
 	}

@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.perf4j.StopWatch;
 import org.perf4j.log4j.Log4JStopWatch;
 
-import com.cerberus.daemon.encoder.JsonEncoder;
+import com.cerberus.daemon.encoder.ByteMessageEncoder;
 import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.CurrentConsumptionMessage;
 import com.cerberus.daemon.message.MessageContainer;
@@ -34,7 +34,8 @@ public class ResponseLogic implements Runnable {
 		MessageContainer container = new MessageContainer(messageContainer.getClientChannel(), message);
 
 		ExecutorService executor = ExecutorServiceFactory.getEncoderThreadPool();
-		Runnable encoder = new JsonEncoder(container);
+		//Runnable encoder = new JsonEncoder(container);
+		Runnable encoder = new ByteMessageEncoder(container);
 		executor.execute(encoder);
 		stopwatch.stop();
 	}
