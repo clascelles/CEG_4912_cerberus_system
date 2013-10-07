@@ -5,11 +5,10 @@ import org.jboss.netty.channel.Channel;
 import org.perf4j.StopWatch;
 import org.perf4j.log4j.Log4JStopWatch;
 
-import com.cerberus.daemon.bytemessage.ByteArrayWriter;
 import com.cerberus.daemon.bytemessage.ByteMessageHandlerFactory;
+import com.cerberus.daemon.bytemessage.ByteMessageWriter;
 import com.cerberus.daemon.message.Message;
 import com.cerberus.daemon.message.MessageContainer;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class ByteMessageEncoder implements Runnable {
 
@@ -26,13 +25,12 @@ public class ByteMessageEncoder implements Runnable {
 
 	public void run() {
 
-		StopWatch stopwatch = new Log4JStopWatch("JsonEncoder.run");
+		StopWatch stopwatch = new Log4JStopWatch("ByteMessageEncoder.run");
 		//Print the message to Encode to test the framework
 		LOGGER.debug("[Encoder]: " + messageContainer.getMessage().toString());
 
 		Message message = messageContainer.getMessage();
-		ByteArrayWriter writer = ByteMessageHandlerFactory.getWriter();
-		//ObjectWriter writer = JsonDataBinderFactory.getWriter(message.getClass());
+		ByteMessageWriter writer = ByteMessageHandlerFactory.getWriter();
 
 		Channel channel = messageContainer.getClientChannel();
 		if (channel.isOpen()) {
@@ -42,7 +40,7 @@ public class ByteMessageEncoder implements Runnable {
 				// Could use ChannelFuture to ensure the message has been
 				// sent...
 				LOGGER.debug("Wrote message: " + encodedMessage + " to client #" + channel.getId());
-			} catch (JsonProcessingException e) {
+			} catch (IllegalArgumentException e) {
 				LOGGER.error("Exception caught when trying to encode this outgoing message: " + message);
 				e.printStackTrace();
 			}
