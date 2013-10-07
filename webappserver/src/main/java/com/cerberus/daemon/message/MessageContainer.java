@@ -5,7 +5,7 @@ import org.jboss.netty.channel.Channel;
 public class MessageContainer {
 
 	private final Channel clientChannel;
-	private final String rawMessage;
+	private final byte[] rawMessage;
 	private Message message;
 
 	/**
@@ -13,7 +13,7 @@ public class MessageContainer {
 	 * @param clientChannel
 	 * @param rawMessage
 	 */
-	public MessageContainer(Channel clientChannel, String rawMessage){
+	public MessageContainer(Channel clientChannel, byte[] rawMessage){
 		this.rawMessage = rawMessage;
 		this.clientChannel = clientChannel;
 		this.message = null;
@@ -25,7 +25,7 @@ public class MessageContainer {
 		this.message = message;
 	}
 
-	public String getRawMessage() {
+	public byte[] getRawMessage() {
 		return rawMessage;
 	}
 
