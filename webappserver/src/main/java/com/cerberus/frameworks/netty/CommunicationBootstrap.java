@@ -13,6 +13,10 @@ public class CommunicationBootstrap extends Thread{
 
 	private final static Logger LOGGER = Logger.getLogger(CommunicationBootstrap.class);
 
+	// Should be moved to somewhere else for configuration
+	private final static String NETTY_HOST = "localhost";
+	private final static int NETTY_PORT = 7896;
+
 	//This runs when the thread is started
 	@Override
 	public void run(){
@@ -38,7 +42,7 @@ public class CommunicationBootstrap extends Thread{
 		 bootstrap.setPipelineFactory(new SimpleChannelPipelineFactory());
 
 		 // Bind and start to accept incoming connections.
-		bootstrap.bind(new InetSocketAddress("localhost", 8080));
+		bootstrap.bind(new InetSocketAddress(NETTY_HOST, NETTY_PORT));
 		 LOGGER.info("Done Binding in Communication Bootstrap, ready to accept clients");
 	}
 

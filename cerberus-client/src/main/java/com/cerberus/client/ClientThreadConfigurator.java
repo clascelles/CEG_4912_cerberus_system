@@ -9,7 +9,7 @@ public class ClientThreadConfigurator {
 	// Default config values
 	private static final int DEFAULT_NUMBER_OF_THREADS = 1;
 	private static final int DEFAULT_SIMULATION_TIME = 60000; // 1 minute
-	private static final int DEFAULT_SERVER_PORT = 8080;
+	private static final int DEFAULT_SERVER_PORT = 7896;
 	private static final String DEFAULT_SERVER_HOST = "localhost";
 	private static final boolean DEFAULT_FULL_BLAST_ACTIVATED = false;
 
