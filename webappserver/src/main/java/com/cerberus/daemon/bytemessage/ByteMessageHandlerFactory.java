@@ -2,14 +2,14 @@ package com.cerberus.daemon.bytemessage;
 
 public class ByteMessageHandlerFactory {
 
-	private final static ByteArrayReader reader = new ByteArrayReader();
-	private final static ByteArrayWriter writer = new ByteArrayWriter();
+	private final static ByteMessageReader reader = new ByteMessageReader();
+	private final static ByteMessageWriter writer = new ByteMessageWriter();
 
-	public static ByteArrayReader getReader() {
+	public static ByteMessageReader getReader() {
 		return reader;
 	}
 
-	public static ByteArrayWriter getWriter() {
+	public static ByteMessageWriter getWriter() {
 		return writer;
 	}
 
