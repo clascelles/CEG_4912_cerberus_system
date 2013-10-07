@@ -1,13 +1,10 @@
 package com.cerberus.frameworks.netty.pipeline;
 
+import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.handler.codec.frame.DelimiterBasedFrameDecoder;
-import org.jboss.netty.handler.codec.frame.Delimiters;
-import org.jboss.netty.handler.codec.string.StringDecoder;
-import org.jboss.netty.handler.codec.string.StringEncoder;
-import org.jboss.netty.util.CharsetUtil;
 
 import com.cerberus.frameworks.netty.handlers.MessageHandler;
 
@@ -24,9 +21,13 @@ public class SimpleChannelPipelineFactory implements ChannelPipelineFactory {
 
 		//Decoders
 		//Need these two to convert raw ChannelBuffers into Strings
+		//DelimiterBasedFrameDecoder delimiterFrameDecoder = new DelimiterBasedFrameDecoder(FRAME_MAXIMUM_LENGTH, Delimiters.lineDelimiter());
+
+		// Splitting frames based on pipe '|' delimiters instead of new lines
 		DelimiterBasedFrameDecoder delimiterFrameDecoder = new DelimiterBasedFrameDecoder(FRAME_MAXIMUM_LENGTH,
-				Delimiters.lineDelimiter());
-		StringDecoder stringDecoder = new StringDecoder(CharsetUtil.UTF_8);
+				ChannelBuffers.wrappedBuffer(new byte[] {'|'}));
+		//StringDecoder stringDecoder = new StringDecoder(CharsetUtil.UTF_8);
+
 
 		//Handlers
 		//Need this to insert logic
@@ -34,7 +35,7 @@ public class SimpleChannelPipelineFactory implements ChannelPipelineFactory {
 
 		//Encoders
 		//Need this to encode a string into a ChannelBuffer
-		StringEncoder stringEncoder = new StringEncoder(CharsetUtil.UTF_8);
+		//StringEncoder stringEncoder = new StringEncoder(CharsetUtil.UTF_8);
 
 		/*
 		 * Add the Handler to the pipeline. We can add many handler to the pipeline.
@@ -42,9 +43,9 @@ public class SimpleChannelPipelineFactory implements ChannelPipelineFactory {
 		 * runtime to change the handling of data. (useful for compression of data)
 		 */
 		pipeline.addLast("delimiterFrameDecoder", delimiterFrameDecoder);
-		pipeline.addLast("stringDecoder", stringDecoder);
+		//pipeline.addLast("stringDecoder", stringDecoder);
 
-		pipeline.addLast("stringEncoder", stringEncoder);
+		//pipeline.addLast("stringEncoder", stringEncoder);
 		pipeline.addLast("messageHandler", messageHandler);
 
 		return pipeline;
