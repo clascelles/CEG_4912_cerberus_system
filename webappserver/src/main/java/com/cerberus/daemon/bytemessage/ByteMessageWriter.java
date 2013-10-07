@@ -12,13 +12,11 @@ import com.cerberus.daemon.message.SwitchOperatingModeMessage;
 
 public class ByteMessageWriter {
 
-	private static int MAX_MESSAGE_LENGTH = 50;
-
 	private final ByteBuffer messageBuffer;
 	private final ByteTimestampHandler timestampHandler;
 
 	public ByteMessageWriter() {
-		this.messageBuffer = ByteBuffer.allocate(MAX_MESSAGE_LENGTH);
+		this.messageBuffer = ByteBuffer.allocate(ByteMessage.MAX_MESSAGE_LENGTH);
 		this.timestampHandler = new ByteTimestampHandler();
 	}
 
