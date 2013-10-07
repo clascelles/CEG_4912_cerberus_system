@@ -42,7 +42,7 @@ public class ByteTimestampHandler {
 		time = time.withMinuteOfHour(timestamp[5]);
 		time = time.withSecondOfMinute(timestamp[6]);
 
-		return time.getMillis();
+		return time.getMillis()/1000;
 	}
 
 	private byte[] formatYear(int year) {
