@@ -113,8 +113,13 @@ public class OutletController extends CerberusController {
 		//Add the outlet
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 		Outlet outlet = outletWorkflow.getOutletById(newOutlet.getId());
-		outlet.setMode(outletWorkflow.getOutletOperationModeById(newOutlet.getModeId()));
-		outletWorkflow.updateOutlet(outlet);
+		
+		if(outlet.getMode().getId() != newOutlet.getModeId()) {
+			outlet.setMode(outletWorkflow.getOutletOperationModeById(newOutlet.getModeId()));
+			outletWorkflow.updateOutlet(outlet);
+			
+			//Send message to netty workflow
+		}
 		
 		return getViewOutletPage(model, newOutlet.getId());		
 	}
