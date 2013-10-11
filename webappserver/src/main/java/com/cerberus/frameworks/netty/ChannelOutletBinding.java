@@ -11,14 +11,14 @@ public class ChannelOutletBinding {
 	private static int CHANNEL_ID_MAP_SIZE = 1000;
 
 	//Create a new HashMap with 1000 places
-	private static HashMap<Long, Integer> map = new HashMap<Long, Integer>(CHANNEL_ID_MAP_SIZE);
+	private static HashMap<String, Integer> map = new HashMap<String, Integer>(CHANNEL_ID_MAP_SIZE);
 	private static ChannelGroup channelGroup = new DefaultChannelGroup();
 
-	public static int getChannelId(long outletSerialNumber){
+	public static int getChannelId(String outletSerialNumber){
 		return map.get(outletSerialNumber);
 	}
 
-	public static void bindOutletSerialNumberWithChannelId(Long outletSerialNumber, Integer channelId){
+	public static void bindOutletSerialNumberWithChannelId(String outletSerialNumber, Integer channelId){
 		map.put(outletSerialNumber, channelId);
 	}
 
@@ -30,7 +30,7 @@ public class ChannelOutletBinding {
 		return channelGroup.find(channelId);
 	}
 
-	public static Channel getChannelFromGroupByOutlet(Long outletSerialNumber){
+	public static Channel getChannelFromGroupByOutlet(String outletSerialNumber){
 		return getChannelFromGroupById(getChannelId(outletSerialNumber));
 	}
 

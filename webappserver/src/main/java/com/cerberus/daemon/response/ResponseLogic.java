@@ -29,13 +29,13 @@ public class ResponseLogic implements Runnable {
 
 		// TODO Add code for the Response Logic
 		// Dummy message sent for now (to test encoding)...
-		CurrentConsumptionMessage message = new CurrentConsumptionMessage("1234567", 0 ,
-				System.currentTimeMillis() / 1000, "1234567890", 1000);
-		MessageContainer container = new MessageContainer(messageContainer.getClientChannel(), message);
+		//CurrentConsumptionMessage message = new CurrentConsumptionMessage("1234567", 0 ,
+		//		System.currentTimeMillis() / 1000, "1234567890", 1000);
+		//MessageContainer container = new MessageContainer(messageContainer.getClientChannel(), message);
 
 		ExecutorService executor = ExecutorServiceFactory.getEncoderThreadPool();
 		//Runnable encoder = new JsonEncoder(container);
-		Runnable encoder = new ByteMessageEncoder(container);
+		Runnable encoder = new ByteMessageEncoder(messageContainer);
 		executor.execute(encoder);
 		stopwatch.stop();
 	}

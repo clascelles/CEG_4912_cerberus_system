@@ -3,6 +3,7 @@ package com.cerberus.frameworks.netty.handlers;
 import java.util.concurrent.ExecutorService;
 
 import org.apache.log4j.Logger;
+import org.jboss.netty.buffer.BigEndianHeapChannelBuffer;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
@@ -13,6 +14,8 @@ import org.jboss.netty.channel.WriteCompletionEvent;
 import org.perf4j.StopWatch;
 import org.perf4j.log4j.Log4JStopWatch;
 
+import com.cerberus.daemon.bytemessage.ByteMessage;
+import com.cerberus.daemon.constants.MessageType;
 import com.cerberus.daemon.decoder.ByteMessageDecoder;
 import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.MessageContainer;
@@ -70,22 +73,29 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 
 		StopWatch stopwatch = new Log4JStopWatch("MessageHandler.messageReceived");
 
-		//String message = (String)e.getMessage();
-		byte[] message = (byte[]) e.getMessage();
+		byte[] message = ((BigEndianHeapChannelBuffer) e.getMessage()).array();
 		Channel channel = e.getChannel();
+		
+		if (message[0] == MessageType.INIT.getIntValue()){
+			ChannelOutletBinding.addChannelToGroup(channel);
+			ChannelOutletBinding.bindOutletSerialNumberWithChannelId(new String(new ByteMessage(message).getOutletId()), channel.getId());
+		}
 
 		//Log message received
 		LOGGER.debug("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
 				+ "]: Message Received");
 
+		
 		//Add a task to the Decoder Thread Pool.
 		ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
 		MessageContainer messageContainer = new MessageContainer(channel, message);
 
 		//Runnable decoderTask = new JsonDecoder(messageContainer);
 		Runnable decoderTask = new ByteMessageDecoder(messageContainer);
+		
 		executor.execute(decoderTask);
 		stopwatch.stop();
+		
 	}
 
 	@Override

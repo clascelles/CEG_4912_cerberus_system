@@ -13,6 +13,12 @@
 	<bean id="scheduleWorkflow" class="com.cerberus.module.schedules.workflows.ScheduleWorkflow" scope="prototype"></bean>
 	<bean id="systemWorkflow" class="com.cerberus.module.system.workflows.SystemWorkflow" scope="prototype"></bean>
 	
+	
+	<!--  Add all the Message Handling Workflows Here -->
+	<bean id="switchOperationModeWorkflow" class="com.cerberus.daemon.workflow.SwitchOperationModeWorkflow" scope="prototype"></bean>
+	
+	
+	
 	<!-- Workflow Factory to get them from the Application Context -->
 	<bean id="workflows" class="com.cerberus.module.generic.workflows.Workflows">
 		<property name="accountWorkflow" ref="accountWorkflow"></property>
@@ -21,6 +27,8 @@
 		<property name="overviewWorkflow" ref="overviewWorkflow"></property>
 		<property name="scheduleWorkflow" ref="scheduleWorkflow"></property>
 		<property name="systemWorkflow" ref="systemWorkflow"></property>
+		
+		<property name="switchOperationModeWorkflow" ref="switchOperationModeWorkflow"></property>
 	</bean>
 
 	

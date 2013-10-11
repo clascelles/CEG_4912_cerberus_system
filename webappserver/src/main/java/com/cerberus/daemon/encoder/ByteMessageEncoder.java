@@ -33,9 +33,12 @@ public class ByteMessageEncoder implements Runnable {
 		ByteMessageWriter writer = ByteMessageHandlerFactory.getWriter();
 
 		Channel channel = messageContainer.getClientChannel();
-		if (channel.isOpen()) {
+		//if (channel.isOpen()) {
 			try {
 				byte[] encodedMessage = writer.write(message);
+				LOGGER.debug("Wrote message: " + encodedMessage.toString());
+				
+				
 				channel.write(encodedMessage);
 				// Could use ChannelFuture to ensure the message has been
 				// sent...
@@ -44,9 +47,9 @@ public class ByteMessageEncoder implements Runnable {
 				LOGGER.error("Exception caught when trying to encode this outgoing message: " + message);
 				e.printStackTrace();
 			}
-		} else {
+		//} else {
 			// TODO Channel is not open, handle it!
-		}
+		//}
 		stopwatch.stop();
 
 	}

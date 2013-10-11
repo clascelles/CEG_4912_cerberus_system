@@ -47,8 +47,8 @@ public class ByteTimestampHandler {
 
 	private byte[] formatYear(int year) {
 		byte[] formattedYear = new byte[2];
-		formattedYear[0] = intToByte(year);
-		formattedYear[1] = (byte) ((year >>> 8) & 0xFF);
+		formattedYear[1] = intToByte(year);
+		formattedYear[0] = (byte) ((year >>> 8) & 0xFF);
 
 		return formattedYear;
 	}

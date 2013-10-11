@@ -1,5 +1,6 @@
 package com.cerberus.module.outlets.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cerberus.daemon.constants.SocketOperatingMode;
+import com.cerberus.daemon.message.SwitchOperatingModeMessage;
+import com.cerberus.daemon.message.WrongMessageException;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.message.CerberusLogger;
 import com.cerberus.model.account.bean.User;
@@ -25,6 +29,7 @@ import com.cerberus.module.outlets.backingobjects.OutletOperationModeBackingObje
 import com.cerberus.module.outlets.backingobjects.SocketBackingObjectFactory;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
 import com.cerberus.module.system.workflows.SystemWorkflow;
+
 
 @Controller
 public class OutletController extends CerberusController {
@@ -118,7 +123,17 @@ public class OutletController extends CerberusController {
 			outlet.setMode(outletWorkflow.getOutletOperationModeById(newOutlet.getModeId()));
 			outletWorkflow.updateOutlet(outlet);
 			
-			//Send message to netty workflow
+			SwitchOperatingModeMessage updateMessage = new SwitchOperatingModeMessage(
+					String.format("%012d", outlet.getSerialNumber()), 1, new Date().getTime(), "F458C7AAE4", 
+					SocketOperatingMode.fromIntValue(newOutlet.getModeId()), 0);
+			
+			try {
+				CerberusApplicationContext.getWorkflows().getSwitchOperationModeWorkflow().handleSendingMessage(updateMessage);
+			} catch (WrongMessageException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		
 		return getViewOutletPage(model, newOutlet.getId());		

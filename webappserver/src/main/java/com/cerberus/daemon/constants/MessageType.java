@@ -2,7 +2,7 @@ package com.cerberus.daemon.constants;
 
 public enum MessageType {
 	
-	CURRENT(0), STATUS(1), RFID_AUTH_REQ(2), RFID_AUTH_RES(3), OP_MODE_SWITCH(4), GENERIC(5);
+	CURRENT(0), STATUS(1), RFID_AUTH_REQ(2), RFID_AUTH_RES(3), OP_MODE_SWITCH(4), GENERIC(5), INIT(6);
 	
 	private final int type;
 	
