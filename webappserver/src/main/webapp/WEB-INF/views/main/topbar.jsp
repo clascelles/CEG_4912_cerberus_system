@@ -15,7 +15,7 @@
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="/webappserver/account/profile">Profile</a></li>
+					<li><a href="/webappserver/account/index">Profile</a></li>
 					<li class="divider"></li>
 					<li><a href="/webappserver/logout">Logout</a>
 				</ul>
