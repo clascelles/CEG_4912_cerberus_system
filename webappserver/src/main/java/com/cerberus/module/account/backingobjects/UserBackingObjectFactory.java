@@ -12,6 +12,8 @@ public class UserBackingObjectFactory extends BackingObjectFactory<User, UserBac
 	@Override
 	public UserBackingObject getBackingObject(User user) {
 		UserBackingObject backingObject = new UserBackingObject();
+		backingObject.setId(user.getId());
+		backingObject.setSysAdmin(user.getLogin().isSysAdmin());
 		backingObject.setUsername(user.getLogin().getUsername());
 		backingObject.setFirstName(user.getInformation().getFirstName());
 		backingObject.setLastName(user.getInformation().getLastName());

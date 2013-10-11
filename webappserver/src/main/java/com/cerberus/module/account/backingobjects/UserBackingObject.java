@@ -5,6 +5,8 @@ import com.cerberus.module.generic.backingobjects.BackingObject;
 
 public class UserBackingObject extends BackingObject<User> {
 
+	private Integer id;
+	private boolean sysAdmin;
 	private String username;
 	private String firstName;
 	private String lastName;
@@ -14,6 +16,22 @@ public class UserBackingObject extends BackingObject<User> {
 	private String oldPassword;
 	private String newPassword;
 	private String confirmPassword;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public boolean isSysAdmin() {
+		return sysAdmin;
+	}
+
+	public void setSysAdmin(boolean isSysAdmin) {
+		this.sysAdmin = isSysAdmin;
+	}
 
 	public String getUsername() {
 		return username;

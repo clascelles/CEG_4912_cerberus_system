@@ -28,6 +28,7 @@ public class SocketBackingObjectFactory extends BackingObjectFactory<Socket, Soc
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 		
 		SocketAssignment assignment = outletWorkflow.getSocketAssignmentBySocketId(socket.getId());
+		backingObject.setConnectedUserId((assignment != null) ? assignment.getUser().getId() : -1);
 		backingObject.setConnectedUsername((assignment != null) ? assignment.getUser().getFullName() : UNASSIGNED);
 		
 		return backingObject;

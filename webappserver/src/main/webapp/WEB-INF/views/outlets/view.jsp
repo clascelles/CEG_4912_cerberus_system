@@ -79,84 +79,134 @@
 								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
 							</div>
 						</div>
-						<div class="box-content">
-						
-							<br/>- child safety mode (in outlet)
-							<br/>- authentication mode (enable/disable)	
-						  	
-						  	<div class="span3">
-						  		<span><b>Serial Number</b>&nbsp; &nbsp; &nbsp;${outlet.serialNumber}</span>
-							</div>
-						  	
-						  	<div class="span3">
-						  		<span><b>Operation Mode</b>&nbsp; &nbsp; &nbsp;${outlet.modeName}</span>
-							</div>
-							
-							<div class="span3">
-						  		<span><b>Room</b>&nbsp; &nbsp; &nbsp;${outlet.roomName}</span>
-							</div>
-						  	
-						  	<c:forEach items="${sockets}" var="socket">
-								<div class="row-fluid">
-									<div class="box span12">
-										<div class="box-header well">
-											<h2>
-												<i class="icon-film"></i> Socket ${socket.position}
-											</h2>
-											<div class="box-icon">
-												<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-											</div>
+						<div class="box-content">						  	
+						  	<form id="modifyOutlet" class="form-horizontal" method="post">						  		
+						  		<fieldset>
+									<div class="row-fluid">
+										<div class="span2">
+									  		<span><b>Serial Number</b></span>
 										</div>
-										<div class="box-content">	
-											<div class="span6">
-												<div class="row-fluid">
-													<div class="span4"><b>Consumer</b></div>
-													<div class="span4">${socket.connectedUsername}</div>
-												</div>
-												
-												<div class="row-fluid">
-													<div class="span4"><b>Operation Mode</b></div>
-													<div class="span4">${socket.statusName} - ${socket.operationModeName}</div>
-												</div>
-												
-												<div class="row-fluid">
-													<div class="span4"><b>Power Usage</b></div>
-													<div class="span4">TODO: power usage</div>
-												</div>
-												
-												<div class="row-fluid">
-													<div class="span4"><b>Time Connected</b></div>
-													<div class="span4">TODO: time connected</div>
-												</div>
-												
-												<div class="row-fluid">
-													<div class="span4"><b>Connected Utility</b></div>
-													<div class="span4">TODO: connected utility</div>
-												</div>
-												
-												<div class="row-fluid">
-													<div class="span4"><b>Serial Number</b></div>
-													<div class="span4">${socket.serialNumber}</div>
-												</div>
-											</div>
-											
-											<div class="span6">
-												[graph goes here]
-											</div>	
-										  	
-											<div class="clearfix"></div>
+										<div class="span2">
+									  		<span>${outlet.serialNumber}</span>
 										</div>
 									</div>
-								</div>
-							</c:forEach>
-						  	
-							<div class="clearfix"></div>
+									
+									<div class="row-fluid">
+										<div class="span2">
+									  		<span><b>Room</b></span>
+										</div>
+										<div class="span2">
+									  		<span>${outlet.roomName}</span>
+										</div>
+									</div>
+									
+									<div class="row-fluid">
+										<div class="span2">
+									  		<span><b>Operation Mode</b></span>
+										</div>
+										<div class="span2">
+							  				<select name="modeId" data-rel="chosen" <c:if test="${!user.sysAdmin}">disabled</c:if>>
+										  		<c:forEach items="${modes}" var="mode">
+													<option value="${mode.id}" <c:if test="${mode.id == outlet.modeId}">selected</c:if>>${mode.name}</option>												
+												</c:forEach>
+											</select>	
+										</div>							
+									</div>									
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary" name="update">Update</button>
+									</div>
+								</fieldset>
+						  	</form>
+						  	<div class="clearfix"></div>
 						</div>
 					</div>
-				</div>
+				</div>				  
+						  	
+			  	<c:forEach items="${sockets}" var="socket">					  	
+				  	<form id="modifySocket" class="form-horizontal" method="post">						  		
+				  		<fieldset>
+							<div class="row-fluid">
+								<div class="box span12">
+									<div class="box-header well">
+										<h2>
+											<i class="icon-film"></i> Socket ${socket.position}
+										</h2>
+										<div class="box-icon">
+											<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+										</div>
+									</div>
+									<div class="box-content">
+										<div class="span6">
+											<div class="row-fluid">
+												<div class="span4"><b>Consumer</b></div>
+												<c:choose>
+												    <c:when test="${socket.connectedUserId == -1}">											    
+									  					<select name="connectedUserId" data-rel="chosen">
+															<option value="-1" selected>Unassigned</option>
+															<option value="${user.id}">Me</option>
+														</select>
+												    </c:when>
+												      
+											        <c:when test="${socket.connectedUserId == user.id}">									    
+									  					<select name="connectedUserId" data-rel="chosen">
+															<option value="-1">Unassigned</option>
+															<option value="${user.id}" selected>Me</option>
+														</select>
+												    </c:when>
+												
+												    <c:otherwise>							    
+									  					<select name="connectedUserId" data-rel="chosen" <c:if test="${!user.sysAdmin}">disabled</c:if>>
+															<option value="${socket.connectedUserId}">${socket.connectedUsername}</option>
+															<option value="-1">Unassigned</option>
+														</select>
+												    </c:otherwise>
+												</c:choose>
+											</div>
+											
+											<div class="row-fluid">
+												<div class="span4"><b>Operation Mode</b></div>
+												<div class="span4">${socket.statusName} - ${socket.operationModeName}</div>
+											</div>
+											
+											<div class="row-fluid">
+												<div class="span4"><b>Power Usage</b></div>
+												<div class="span4">TODO: power usage</div>
+											</div>
+											
+											<div class="row-fluid">
+												<div class="span4"><b>Time Connected</b></div>
+												<div class="span4">TODO: time connected</div>
+											</div>
+											
+											<div class="row-fluid">
+												<div class="span4"><b>Connected Utility</b></div>
+												<div class="span4">TODO: connected utility</div>
+											</div>
+											
+											<div class="row-fluid">
+												<div class="span4"><b>Serial Number</b></div>
+												<div class="span4">${socket.serialNumber}</div>
+											</div>									
+											<div class="form-actions">
+												<button type="submit" class="btn btn-primary" name="update">Update</button>
+											</div>
+										</div>
+										
+										<div class="span6">
+											[graph goes here]
+										</div>	
+									  	
+										<div class="clearfix"></div>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</c:forEach>
+			  	
+				<div class="clearfix"></div>
 			</div>
 		</div>
-
 
 		<hr>
 

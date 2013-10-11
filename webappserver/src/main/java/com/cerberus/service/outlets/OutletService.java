@@ -201,6 +201,10 @@ public class OutletService {
 	public OutletOperationMode getOutletOperationModeById(Integer id) {
 		return outletOperationModeDAO.getByFilter(OutletOperationModeFilter.getById(id));
 	}
+	
+	public List<OutletOperationMode> getOutletOperationModes() {
+		return outletOperationModeDAO.getAll();
+	}
 
 	//***************************************************
 	//SocketAssignment

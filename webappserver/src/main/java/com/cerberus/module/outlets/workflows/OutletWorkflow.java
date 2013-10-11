@@ -19,7 +19,13 @@ import com.cerberus.model.system.bean.Room;
 public class OutletWorkflow extends Workflow {
 	
 	public void insertOutlet(Outlet outlet) {		
-		serviceFactory.getOutletService().insertOutlet(outlet);		
+		serviceFactory.getOutletService().insertOutlet(outlet);	
+		this.returnServiceFactory();	
+	}
+	
+	public void updateOutlet(Outlet outlet) {
+		serviceFactory.getOutletService().updateOutlet(outlet);
+		this.returnServiceFactory();
 	}
 	
 	public List<Outlet> getOutletFromUser(User user){
@@ -57,6 +63,15 @@ public class OutletWorkflow extends Workflow {
 		this.returnServiceFactory();
 		
 		return outlets;		
+	}
+	
+	public List<OutletOperationMode> getOutletOperationModes() {
+		OutletService outletService = serviceFactory.getOutletService();
+		List<OutletOperationMode> outletOperationModes = outletService.getOutletOperationModes();
+		
+		this.returnServiceFactory();
+		
+		return outletOperationModes;		
 	}
 	
 	public OutletOperationMode getOutletOperationModeById(Integer id) {
