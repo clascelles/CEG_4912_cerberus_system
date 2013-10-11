@@ -14,7 +14,7 @@ import com.cerberus.service.system.SystemService;
 
 public class SystemWorkflow extends Workflow {
 	
-	public List<RoomBackingObject> getRoomsForUser(User user) {
+	public List<RoomBackingObject> getRoomBackingObjects(User user) {
 
 		SystemService systemService = serviceFactory.getSystemService();	
 		
@@ -34,6 +34,16 @@ public class SystemWorkflow extends Workflow {
 		
 		return backingObjects;
 	}
+	
+	public List<Room> getRooms(Integer systemId) {
+		SystemService systemService = serviceFactory.getSystemService();
+		
+		List<Room> rooms = systemService.getRooms(systemId);
+		
+		this.returnServiceFactory();
+		
+		return rooms;
+	} 
 	
 	public Room getRoomById(Integer id) {
 		SystemService systemService = serviceFactory.getSystemService();

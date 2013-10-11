@@ -25,17 +25,17 @@ public class Room implements Serializable{
 	Integer id;
 	RoomType roomType;
 	String name;
-	Integer systemId;
+	CerberusSystem system;
 	
 	public Room(){	
 		super();
 	}
 	
-	public Room(String name, RoomType roomType, Integer systemId) {
+	public Room(String name, RoomType roomType, CerberusSystem system) {
 		super();
 		this.name = name;
 		this.roomType = roomType;
-		this.systemId = systemId;
+		this.system = system;
 	}
 	
 	@Id
@@ -65,18 +65,20 @@ public class Room implements Serializable{
 		this.name = name;
 	}
 	
-	@Column(name="SYSTEM_ID", nullable=false)
-	public Integer getSystemId() {
-		return systemId;
+	@ManyToOne()
+	@JoinColumn(name="SYSTEM_ID", nullable=false)
+	public CerberusSystem getSystem() {
+		return system;
 	}
-	public void setSystemId(Integer systemId) {
-		this.systemId = systemId;
+
+	public void setSystem(CerberusSystem system) {
+		this.system = system;
 	}
 
 	@Override
 	public String toString() {
 		return "Room [id=" + id + ", roomType=" + roomType + ", name=" + name
-				+ ", systemId = " + systemId + "]";
+				+ ", system = " + system.getId() + "]";
 	}
 	
 	

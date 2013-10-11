@@ -13,7 +13,7 @@ public class RoomFilter {
 	
 	public static DetachedCriteria getBySystemId(Integer systemId){
 		return DetachedCriteria.forClass(Room.class).
-				add(Restrictions.eq("systemId", systemId));
+				add(Restrictions.eq("system.id", systemId));
 	}
 	
 	public static DetachedCriteria getRoomByRoomTypeId(Integer roomTypeId){

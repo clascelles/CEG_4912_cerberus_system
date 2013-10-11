@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.cerberus.model.system.bean.CerberusSystem;
 import com.cerberus.model.system.bean.Room;
 
 @Entity
@@ -28,20 +27,16 @@ public class Outlet implements Serializable {
 	private OutletOperationMode mode;
 	//TODO: Change serialNumber from Integer to String.
 	private Integer serialNumber;
-	private CerberusSystem system;
-	private Integer systemId;
 
 	public Outlet() {
 		super();
 	}
 
-	public Outlet(Room room, OutletOperationMode mode, Integer serialNumber, CerberusSystem system, Integer systemId) {
+	public Outlet(Room room, OutletOperationMode mode, Integer serialNumber) {
 		super();
 		this.room = room;
 		this.mode = mode;
 		this.serialNumber = serialNumber;
-		this.system = system;
-		this.systemId = systemId;
 	}
 
 	@Id
@@ -83,30 +78,10 @@ public class Outlet implements Serializable {
 		this.serialNumber = serialNumber;
 	}
 
-	@ManyToOne()
-	@JoinColumn(name="SYSTEM_ID", nullable=false)
-	public CerberusSystem getSystem() {
-		return system;
-	}
-
-	public void setSystem(CerberusSystem system) {
-		this.system = system;
-	}
-
-
-	@Column(name="SYSTEM_ID", nullable=false, insertable=false, updatable=false)
-	public Integer getSystemId() {
-		return systemId;
-	}
-
-	public void setSystemId(Integer systemId) {
-		this.systemId = systemId;
-	}
-
 	@Override
 	public String toString() {
 		return "Outlet [id=" + id + ", room=" + room + ", mode=" + mode
-				+ ", serialNumber=" + serialNumber + ", system=" + system + "]";
+				+ ", serialNumber=" + serialNumber + "]";
 	}
 
 }

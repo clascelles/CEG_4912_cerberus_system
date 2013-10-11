@@ -41,4 +41,14 @@ public class CerberusConstants {
 	public static final String USAGE_VIEW = USAGE_MODULE + SEPARATOR + INDEX;
 	public static final String USAGE_MAPPING = SEPARATOR + USAGE_VIEW;
 	
+	//binding constants
+	public static final String USER_OUTLETS = "userOutlets";
+	public static final String ROOMS = "rooms";
+	public static final String NEW_OUTLET = "newOutlet";
+	public static final String OUTLET = "outlet";
+	public static final String SOCKETS = "sockets";	
+	public static final String OUTLETS = "outlets";	
+	public static final String MODES = "modes";
+	public static final String USER = "user";
+	
 }

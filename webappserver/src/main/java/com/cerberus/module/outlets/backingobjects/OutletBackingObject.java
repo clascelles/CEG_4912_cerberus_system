@@ -11,7 +11,6 @@ public class OutletBackingObject extends BackingObject<Outlet> {
 	private Integer modeId;
 	private String 	modeName;
 	private Integer serialNumber;
-	private Integer systemId;
 
 	public Integer getId() {
 		return id;
@@ -59,14 +58,6 @@ public class OutletBackingObject extends BackingObject<Outlet> {
 
 	public void setSerialNumber(Integer serialNumber) {
 		this.serialNumber = serialNumber;
-	}
-
-	public Integer getSystemId() {
-		return systemId;
-	}
-
-	public void setSystemId(Integer systemId) {
-		this.systemId = systemId;
 	}
 	
 }

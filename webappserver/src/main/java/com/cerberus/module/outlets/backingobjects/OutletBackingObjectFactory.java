@@ -6,7 +6,6 @@ import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.OutletOperationMode;
-import com.cerberus.model.system.bean.CerberusSystem;
 import com.cerberus.model.system.bean.Room;
 import com.cerberus.model.system.bean.RoomType;
 import com.cerberus.module.generic.backingobjects.BackingObjectFactory;
@@ -18,12 +17,6 @@ public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, Out
 		
 	public OutletBackingObject getBackingObject(User user) {
 		OutletBackingObject backingObject = new OutletBackingObject();
-		if(user != null) {
-			CerberusSystem system = user.getLogin().getSystem();
-			if(system != null) {
-				backingObject.setSystemId(system.getId());
-			}	
-		}
 		return backingObject;
 	}
 
@@ -36,7 +29,6 @@ public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, Out
 		backingObject.setRoomId(outlet.getRoom().getId());
 		backingObject.setRoomName(outlet.getRoom().getName());
 		backingObject.setSerialNumber(outlet.getSerialNumber());
-		backingObject.setSystemId(outlet.getSystemId());
 		return backingObject;
 	}
 
@@ -89,13 +81,6 @@ public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, Out
 		
 		if(backingObject.getSerialNumber() != null) {
 			outlet.setSerialNumber(backingObject.getSerialNumber());			
-		}
-		
-		if(backingObject.getSystemId() != null) {
-			outlet.setSystem(workflows.getSystemWorkflow().getSystemById(backingObject.getSystemId()));
-			outlet.setSystemId(backingObject.getSystemId());			
-		} else {
-			outlet.setSystem(user.getLogin().getSystem());
 		}
 		
 		return outlet;

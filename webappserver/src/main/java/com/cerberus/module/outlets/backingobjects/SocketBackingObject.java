@@ -15,6 +15,7 @@ public class SocketBackingObject extends BackingObject<Socket> {
 	private String 	serialNumber;	
 	
 	//these should all be realtime, so should be stored/updated somehow else
+	private Integer connectedUserId;
 	private String  connectedUsername;
 	private String  powerUsage;
 	private String	timeConnected;
@@ -82,6 +83,14 @@ public class SocketBackingObject extends BackingObject<Socket> {
 
 	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
+	}
+
+	public Integer getConnectedUserId() {
+		return connectedUserId;
+	}
+
+	public void setConnectedUserId(Integer connectedUserId) {
+		this.connectedUserId = connectedUserId;
 	}
 
 	public String getConnectedUsername() {
