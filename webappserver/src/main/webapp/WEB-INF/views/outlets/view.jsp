@@ -164,8 +164,8 @@
 											</div>
 											
 											<div class="row-fluid">
-												<div class="span4"><b>Operation Mode</b></div>
-												<div class="span4">${socket.statusName} - ${socket.operationModeName}</div>
+												<div class="span4"><b>Status</b></div>
+												<div class="span4">${socket.statusName}</div>
 											</div>
 											
 											<div class="row-fluid">
