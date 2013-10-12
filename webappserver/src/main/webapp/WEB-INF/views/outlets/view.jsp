@@ -111,13 +111,13 @@
 												</c:forEach>
 											</select>	
 										</div>							
-									</div>									
+									</div>			
+						  			<div class="clearfix"></div>						
 									<div class="form-actions">
 										<button type="submit" class="btn btn-primary" name="update">Update</button>
 									</div>
 								</fieldset>
 						  	</form>
-						  	<div class="clearfix"></div>
 						</div>
 					</div>
 				</div>				  
@@ -136,7 +136,7 @@
 										</div>
 									</div>
 									<div class="box-content">
-										<div class="span6">
+										<div class="span5">
 											<div class="row-fluid">
 												<div class="span4"><b>Consumer</b></div>
 												<c:choose>
@@ -170,34 +170,41 @@
 											
 											<div class="row-fluid">
 												<div class="span4"><b>Power Usage</b></div>
-												<div class="span4">TODO: power usage</div>
+												<div class="span4">
+													<span id="usage${socket.position}">${socket.powerUsage}</span>
+												</div>
 											</div>
 											
 											<div class="row-fluid">
 												<div class="span4"><b>Time Connected</b></div>
-												<div class="span4">TODO: time connected</div>
+												<div class="span4">
+													<span id="timeConnected${socket.position}">${socket.timeConnected}</span>
+												</div>
 											</div>
 											
 											<div class="row-fluid">
 												<div class="span4"><b>Connected Utility</b></div>
-												<div class="span4">TODO: connected utility</div>
+												<div class="span4">
+													<span id="utility${socket.position}">${socket.connectedUtilityName}</span>
+												</div>
 											</div>
 											
 											<div class="row-fluid">
 												<div class="span4"><b>Serial Number</b></div>
 												<div class="span4">${socket.serialNumber}</div>
-											</div>									
-											<div class="form-actions">
-												<button type="submit" class="btn btn-primary" name="update">Update</button>
 											</div>
 										</div>
 										
-										<div class="span6">
-											[graph goes here]
-										</div>	
-									  	
+										<div class="span7">
+											<div class="box-content">
+												<div id="socket${socket.position}" style="height:160px;"></div>
+											</div>
+										</div>
 										<div class="clearfix"></div>
-									</div>
+										<div class="form-actions">
+											<button type="submit" class="btn btn-primary" name="update">Update</button>
+										</div>	
+									</div>						
 								</div>
 							</div>
 						</fieldset>
@@ -236,6 +243,7 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<%@include file="\WEB-INF\views\main\javascript.jsp" %>
+	<script src="/webappserver/resources/js/viewOutlets.js"></script>
 	
 </body>
 </html>
