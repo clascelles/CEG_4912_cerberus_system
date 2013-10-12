@@ -141,21 +141,21 @@
 												<div class="span4"><b>Consumer</b></div>
 												<c:choose>
 												    <c:when test="${socket.connectedUserId == -1}">											    
-									  					<select name="connectedUserId" data-rel="chosen">
+									  					<select name="connectedUserId" data-rel="chosen" disabled>
 															<option value="-1" selected>Unassigned</option>
 															<option value="${user.id}">Me</option>
 														</select>
 												    </c:when>
 												      
 											        <c:when test="${socket.connectedUserId == user.id}">									    
-									  					<select name="connectedUserId" data-rel="chosen">
+									  					<select name="connectedUserId" data-rel="chosen" disabled>
 															<option value="-1">Unassigned</option>
 															<option value="${user.id}" selected>Me</option>
 														</select>
 												    </c:when>
 												
 												    <c:otherwise>							    
-									  					<select name="connectedUserId" data-rel="chosen" <c:if test="${!user.sysAdmin}">disabled</c:if>>
+									  					<select name="connectedUserId" data-rel="chosen" disabled <%-- <c:if test="${!user.sysAdmin}">disabled</c:if> --%>>
 															<option value="${socket.connectedUserId}">${socket.connectedUsername}</option>
 															<option value="-1">Unassigned</option>
 														</select>
@@ -201,9 +201,9 @@
 											</div>
 										</div>
 										<div class="clearfix"></div>
-										<div class="form-actions">
+										<!-- <div class="form-actions">
 											<button type="submit" class="btn btn-primary" name="update">Update</button>
-										</div>	
+										</div>	 -->
 									</div>						
 								</div>
 							</div>
