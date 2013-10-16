@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum SocketOperatingMode {
 
-	ON(0), OFF(1), SAFETY(2), RESTRICTED(3);
+	ON(1), OFF(2), MONITORING(3), SAFETY(4), RESTRICTED(5);
 
 	private final int opMode;
 

@@ -124,8 +124,8 @@ public class OutletController extends CerberusController {
 			outletWorkflow.updateOutlet(outlet);
 			
 			SwitchOperatingModeMessage updateMessage = new SwitchOperatingModeMessage(
-					String.format("%012d", outlet.getSerialNumber()), 1, new Date().getTime(), "F458C7AAE4", 
-					SocketOperatingMode.fromIntValue(newOutlet.getModeId()), 0);
+					outlet.getSerialNumber(), 1, new Date().getTime(), "F458C7AAE4", 
+					SocketOperatingMode.fromIntValue(newOutlet.getModeId()), 1);
 			
 			try {
 				CerberusApplicationContext.getWorkflows().getSwitchOperationModeWorkflow().handleSendingMessage(updateMessage);

@@ -29,7 +29,7 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 	@Override
 	public void channelBound(ChannelHandlerContext ctx, ChannelStateEvent e)
 			throws Exception {
-		LOGGER.debug("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
+		LOGGER.info("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
 				+ "]: Bound");
 		super.channelBound(ctx, e);
 	}
@@ -37,7 +37,7 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 	@Override
 	public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e)
 			throws Exception {
-		LOGGER.debug("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
+		LOGGER.info("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
 				+ "]: Closed");
 		super.channelClosed(ctx, e);
 	}
@@ -45,7 +45,7 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 	@Override
 	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e)
 			throws Exception {
-		LOGGER.debug("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
+		LOGGER.info("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
 				+ "]: Connected");
 		super.channelConnected(ctx, e);
 	}
@@ -53,7 +53,7 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 	@Override
 	public void channelDisconnected(ChannelHandlerContext ctx,
 			ChannelStateEvent e) throws Exception {
-		LOGGER.debug("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
+		LOGGER.info("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
 				+ "]: Disconnected");
 		super.channelDisconnected(ctx, e);
 	}
@@ -61,7 +61,7 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 	@Override
 	public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e)
 			throws Exception {
-		LOGGER.debug("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
+		LOGGER.info("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
 				+ "]: Open");
 		ChannelOutletBinding.addChannelToGroup(e.getChannel());
 		super.channelOpen(ctx, e);
@@ -71,37 +71,45 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e)
 			throws Exception {
 
+		//Log message received
+		LOGGER.info("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
+				+ "]: Message Received");
+
 		StopWatch stopwatch = new Log4JStopWatch("MessageHandler.messageReceived");
 
 		byte[] message = ((BigEndianHeapChannelBuffer) e.getMessage()).array();
 		Channel channel = e.getChannel();
 		
+		//For debugging purposes only
+		//for(int i=0; i<message.length; i++){
+		//	System.out.print(String.format("%02x ",  message[i]));
+		//}
+		//System.out.println();
+
 		if (message[0] == MessageType.INIT.getIntValue()){
 			ChannelOutletBinding.addChannelToGroup(channel);
 			ChannelOutletBinding.bindOutletSerialNumberWithChannelId(new String(new ByteMessage(message).getOutletId()), channel.getId());
+		}else{
+
+			//Add a task to the Decoder Thread Pool.
+			ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
+			MessageContainer messageContainer = new MessageContainer(channel, message);
+
+			//Runnable decoderTask = new JsonDecoder(messageContainer);
+			Runnable decoderTask = new ByteMessageDecoder(messageContainer);
+
+			executor.execute(decoderTask);	
+
 		}
 
-		//Log message received
-		LOGGER.debug("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
-				+ "]: Message Received");
-
-		
-		//Add a task to the Decoder Thread Pool.
-		ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
-		MessageContainer messageContainer = new MessageContainer(channel, message);
-
-		//Runnable decoderTask = new JsonDecoder(messageContainer);
-		Runnable decoderTask = new ByteMessageDecoder(messageContainer);
-		
-		executor.execute(decoderTask);
 		stopwatch.stop();
-		
+
 	}
 
 	@Override
 	public void writeComplete(ChannelHandlerContext ctx, WriteCompletionEvent e)
 			throws Exception {
-		LOGGER.debug("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
+		LOGGER.info("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
 				+ "]: Write Complete");
 		super.writeComplete(ctx, e);
 	}

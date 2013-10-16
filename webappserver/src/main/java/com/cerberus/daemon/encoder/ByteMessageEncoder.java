@@ -1,6 +1,7 @@
 package com.cerberus.daemon.encoder;
 
 import org.apache.log4j.Logger;
+import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.perf4j.StopWatch;
 import org.perf4j.log4j.Log4JStopWatch;
@@ -36,10 +37,15 @@ public class ByteMessageEncoder implements Runnable {
 		//if (channel.isOpen()) {
 			try {
 				byte[] encodedMessage = writer.write(message);
-				LOGGER.debug("Wrote message: " + encodedMessage.toString());
 				
+				//For debugging purposes only
+				//for(int i=0; i<encodedMessage.length; i++){
+				//	System.out.print(String.format("%02x ",  encodedMessage[i]));
+				//}
+				//System.out.println();
+
+				channel.write(ChannelBuffers.wrappedBuffer(encodedMessage));
 				
-				channel.write(encodedMessage);
 				// Could use ChannelFuture to ensure the message has been
 				// sent...
 				LOGGER.debug("Wrote message: " + encodedMessage + " to client #" + channel.getId());

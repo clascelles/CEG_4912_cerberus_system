@@ -10,7 +10,7 @@ public class OutletBackingObject extends BackingObject<Outlet> {
 	private String 	roomName;
 	private Integer modeId;
 	private String 	modeName;
-	private Integer serialNumber;
+	private String serialNumber;
 
 	public Integer getId() {
 		return id;
@@ -52,11 +52,11 @@ public class OutletBackingObject extends BackingObject<Outlet> {
 		this.modeName = modeName;
 	}
 
-	public Integer getSerialNumber() {
+	public String getSerialNumber() {
 		return serialNumber;
 	}
 
-	public void setSerialNumber(Integer serialNumber) {
+	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
 	}
 	

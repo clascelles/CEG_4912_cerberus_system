@@ -6,6 +6,7 @@ import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.handler.codec.frame.DelimiterBasedFrameDecoder;
 
+
 import com.cerberus.frameworks.netty.handlers.MessageHandler;
 
 public class SimpleChannelPipelineFactory implements ChannelPipelineFactory {
@@ -36,6 +37,7 @@ public class SimpleChannelPipelineFactory implements ChannelPipelineFactory {
 		//Encoders
 		//Need this to encode a string into a ChannelBuffer
 		//StringEncoder stringEncoder = new StringEncoder(CharsetUtil.UTF_8);
+		
 
 		/*
 		 * Add the Handler to the pipeline. We can add many handler to the pipeline.
@@ -47,7 +49,9 @@ public class SimpleChannelPipelineFactory implements ChannelPipelineFactory {
 
 		//pipeline.addLast("stringEncoder", stringEncoder);
 		pipeline.addLast("messageHandler", messageHandler);
-
+		
+		
+		
 		return pipeline;
 	}
 

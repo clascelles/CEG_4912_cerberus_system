@@ -25,14 +25,13 @@ public class Outlet implements Serializable {
 	private Integer id;
 	private Room room;
 	private OutletOperationMode mode;
-	//TODO: Change serialNumber from Integer to String.
-	private Integer serialNumber;
+	private String serialNumber;
 
 	public Outlet() {
 		super();
 	}
 
-	public Outlet(Room room, OutletOperationMode mode, Integer serialNumber) {
+	public Outlet(Room room, OutletOperationMode mode, String serialNumber) {
 		super();
 		this.room = room;
 		this.mode = mode;
@@ -70,11 +69,11 @@ public class Outlet implements Serializable {
 	}
 
 	@Column(name="SERIAL_NUM", nullable=false)
-	public Integer getSerialNumber() {
+	public String getSerialNumber() {
 		return serialNumber;
 	}
 
-	public void setSerialNumber(Integer serialNumber) {
+	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
 	}
 
