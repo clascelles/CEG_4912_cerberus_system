@@ -5,6 +5,8 @@ webappserver/.project
 webappserver/target/
 webappserver/.settings
 
+cerberus-client/logs/
+
 
 # Compiled source #
 ###################

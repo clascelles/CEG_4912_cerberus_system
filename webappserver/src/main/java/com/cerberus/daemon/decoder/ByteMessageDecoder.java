@@ -16,7 +16,7 @@ import com.cerberus.daemon.persistence.PersistenceLogic;
 public class ByteMessageDecoder implements Runnable {
 
 	//Get Logger
-	private final static Logger LOGGER = Logger.getLogger(JsonDecoder.class);
+	private final static Logger LOGGER = Logger.getLogger(ByteMessageDecoder.class);
 
 	private final MessageContainer messageContainer;
 
@@ -24,6 +24,7 @@ public class ByteMessageDecoder implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
+	@Override
 	public void run() {
 
 		//Print the message to decode to test the framework
