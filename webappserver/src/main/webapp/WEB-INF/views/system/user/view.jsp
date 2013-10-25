@@ -84,21 +84,21 @@
 											<div class="control-group">
 												<label class="control-label">Username</label>
 												<div class="controls">
-													<input class="input-xlarge" name="username" type="text" value="${user.username}">
+													<input class="input-xlarge" name="username" type="text" value="${user.username}" <c:if test="${!isSysAdmin}">readonly</c:if>>
 												</div>
 											</div>											
 											
 											<div class="control-group">
 												<label class="control-label">First Name:</label>
 												<div class="controls">
-													<input class="input-xlarge" name="firstName" type="text" value="${user.firstName}">
+													<input class="input-xlarge" name="firstName" type="text" value="${user.firstName}" <c:if test="${!isSysAdmin}">readonly</c:if>>
 												</div>
 											</div>
 											
 											<div class="control-group">
 												<label class="control-label">Last Name:</label>
 												<div class="controls">
-													<input class="input-xlarge" name="lastName" type="text" value="${user.lastName}">
+													<input class="input-xlarge" name="lastName" type="text" value="${user.lastName}" <c:if test="${!isSysAdmin}">readonly</c:if>>
 												</div>
 											</div>
 										</div>
@@ -107,22 +107,24 @@
 											<div class="control-group">
 												<label class="control-label">Phone Number:</label>
 												<div class="controls">
-													<input class="input-xlarge" name="phoneNumber" type="text" value="${user.phoneNumber}">
+													<input class="input-xlarge" name="phoneNumber" type="text" value="${user.phoneNumber}" <c:if test="${!isSysAdmin}">readonly</c:if>>
 												</div>
 											</div>
 											
 											<div class="control-group">
 												<label class="control-label">Address:</label>
 												<div class="controls">
-													<input class="input-xlarge" name="address" type="text" value="${user.address}">
+													<input class="input-xlarge" name="address" type="text" value="${user.address}" <c:if test="${!isSysAdmin}">readonly</c:if>>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="form-actions">
-										<button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
-										<button type="submit" class="btn" name="reset">Reset Password</button>
-									</div>
+									<c:if test="${isSysAdmin}">
+										<div class="form-actions">
+											<button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
+											<button type="submit" class="btn" name="reset">Reset Password</button>
+										</div>
+									</c:if>
 						  		</fieldset>
 						  	</form>						  								
 							<div class="clearfix"></div>

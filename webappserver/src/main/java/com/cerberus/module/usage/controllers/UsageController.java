@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
+import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
 import com.cerberus.module.overview.backingobjects.TopBarBackingObject;
@@ -19,13 +20,11 @@ public class UsageController extends CerberusController {
 	@RequestMapping(value="/usage/index", method=RequestMethod.GET)
 	public String getLoginPage(Model model)	{
 		
-		//Get the User object from the "bin"
-		User user = (User) bin.get("user");
-		
-		//This is our Login Security. I know, not that great but good enough for a site that will never be published.
+		User user = getUser();		
 		if(user == null){
-			return "redirect:/";
-		}
+			return CerberusConstants.REDIRECT;
+		}		
+		initTopBar(model, user);
 		
 		TopBarBackingObject topBarBackingObject = new TopBarBackingObject();
 		topBarBackingObject.setName(user.getInformation().getFirstName() + " " + user.getInformation().getLastName());

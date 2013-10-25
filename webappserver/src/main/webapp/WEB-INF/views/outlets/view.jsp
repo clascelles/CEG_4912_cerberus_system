@@ -105,7 +105,7 @@
 									  		<span><b>Operation Mode</b></span>
 										</div>
 										<div class="span2">
-							  				<select name="modeId" data-rel="chosen" <c:if test="${!user.sysAdmin}">disabled</c:if>>
+							  				<select name="modeId" data-rel="chosen" <c:if test="${!isSysAdmin}">disabled</c:if>>
 										  		<c:forEach items="${modes}" var="mode">
 													<option value="${mode.id}" <c:if test="${mode.id == outlet.modeId}">selected</c:if>>${mode.name}</option>												
 												</c:forEach>

@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cerberus.model.outlets.bean.OutletOperationMode;
 
 @Entity
 @Table(name = "SYSTEM")
@@ -20,6 +24,10 @@ public class CerberusSystem implements Serializable{
 	
 	Integer id;
 	String name;
+	boolean systemActive;
+	OutletOperationMode defaultOperationMode;
+	boolean spikeProtection;
+	String encryptionKey;	
 	
 	public CerberusSystem(){
 		super();
@@ -57,7 +65,7 @@ public class CerberusSystem implements Serializable{
 		this.userId = userId;
 	}*/
 	
-	@Column(name="NAME", nullable=false)
+	@Column(name="NAME", nullable=true)
 	public String getName() {
 		return name;
 	}
@@ -65,9 +73,51 @@ public class CerberusSystem implements Serializable{
 		this.name = name;
 	}
 
+	@Column(name="SYSTEM_ACTIVE", nullable=false)
+	public boolean isSystemActive() {
+		return systemActive;
+	}
+
+	public void setSystemActive(boolean systemActive) {
+		this.systemActive = systemActive;
+	}
+
+	@ManyToOne()
+	@JoinColumn(name="OUTLET_OPERATION_MODE_ID", nullable=false)
+	public OutletOperationMode getDefaultOperationMode() {
+		return defaultOperationMode;
+	}
+
+	public void setDefaultOperationMode(OutletOperationMode defaultOperationMode) {
+		this.defaultOperationMode = defaultOperationMode;
+	}
+
+	@Column(name="SPIKE_PROTECTION", nullable=false)
+	public boolean isSpikeProtection() {
+		return spikeProtection;
+	}
+
+	public void setSpikeProtection(boolean spikeProtection) {
+		this.spikeProtection = spikeProtection;
+	}
+
+	@Column(name="ENCRYPTION_KEY", nullable=false)
+	public String getEncryptionKey() {
+		return encryptionKey;
+	}
+
+	public void setEncryptionKey(String encryptionKey) {
+		this.encryptionKey = encryptionKey;
+	}
+
 	@Override
 	public String toString() {
-		return "System [id=" + id + ", name=" + name + "]";
+		return "System [id=" + id 
+				+ ", name=" + name 
+				+ ", active=" + systemActive 
+				+ ", defaultOperationMode=" + defaultOperationMode 
+				+ ", spikeProtection=" + spikeProtection 
+				+ ", encryptionKey=" + encryptionKey + "]";
 	}
 	
 	

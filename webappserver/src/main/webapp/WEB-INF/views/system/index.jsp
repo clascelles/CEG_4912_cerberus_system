@@ -76,12 +76,51 @@
 								</div>
 							</div>
 							<div class="box-content">
-								
-								<br/>- default outlet behavior modes (if lost connection)
-								<br/>- spike protection (enable/disable)
-								<br/>- default child and authentication mode
-								<br/>- total shut off / disable system				
-
+								<form id="editSystem" class="form-horizontal" method="post">
+							  		<fieldset>							  			
+										<div class="row-fluid">
+											<div class="span6">															
+												<div class="control-group">
+													<label class="control-label">Default Outlet Mode:</label>
+													<div class="controls">														
+										  				<select name="defaultOutletOperationModeId" data-rel="chosen" <c:if test="${!isSysAdmin}">disabled</c:if>>
+													  		<c:forEach items="${modes}" var="mode">
+																<option value="${mode.id}" <c:if test="${mode.id == systemSettings.defaultOutletOperationModeId}">selected</c:if>>${mode.name}</option>												
+															</c:forEach>
+														</select>
+													</div>
+												</div>
+												
+												<div class="control-group">
+													<label class="control-label">Spike Protection:</label>
+													<div class="controls">
+														<select name="spikeProtection" data-rel="chosen" <c:if test="${!isSysAdmin}">disabled</c:if>>
+															<option value="1" <c:if test="${systemSettings.spikeProtection}">selected</c:if>>Enabled</option>
+															<option value="0" <c:if test="${!systemSettings.spikeProtection}">selected</c:if>>Disabled</option>
+														</select>
+													</div>
+												</div>
+												
+												<div class="control-group">
+													<label class="control-label">System Active:</label>
+													<div class="controls">
+													
+														<select name="systemActive" data-rel="chosen" <c:if test="${!isSysAdmin}">disabled</c:if>>
+															<option value="1" <c:if test="${systemSettings.systemActive}">selected</c:if>>Enabled</option>
+															<option value="0" <c:if test="${!systemSettings.systemActive}">selected</c:if>>Disabled</option>
+														</select>												
+													</div>
+												</div>
+											</div>
+										</div>
+										<c:if test="${isSysAdmin}">
+											<div class="form-actions">
+												<button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
+												<button type="submit" class="btn" name="resetSettings">Reset</button>
+											</div>
+										</c:if>										
+							  		</fieldset>
+							  	</form>	
 								<div class="clearfix"></div>
 							</div>
 						</div>
@@ -98,9 +137,26 @@
 								</div>
 							</div>
 							<div class="box-content">
-								
-								- encryption key
-																
+								<form id="editSystem" class="form-horizontal" method="post">
+							  		<fieldset>							  			
+										<div class="row-fluid">
+											<div class="span6">															
+												<div class="control-group">
+													<label class="control-label">Encryption Key:</label>
+													<div class="controls">
+														<input class="input-xlarge" name="encryptionKey" type="text" value="${systemSettings.encryptionKey}">
+													</div>
+												</div>
+											</div>
+										</div>										
+										<c:if test="${isSysAdmin}">
+											<div class="form-actions">
+												<button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
+												<button type="reset" class="btn" name="resetSecurity">Reset</button>
+											</div>
+										</c:if>	
+							  		</fieldset>
+							  	</form>	
 								<div class="clearfix"></div>
 							</div>
 						</div>

@@ -19,6 +19,7 @@ public abstract class CerberusController {
 		TopBarBackingObject topBarBackingObject = new TopBarBackingObject();
 		topBarBackingObject.setName(user.getFullName());
 		model.addAttribute(CerberusConstants.TOP_BAR_BACKING_OBJECT, topBarBackingObject);
+		model.addAttribute(CerberusConstants.IS_SYS_ADMIN, user.isSysAdmin());
 	}
 
 	protected HashMap<String, Object> bin;

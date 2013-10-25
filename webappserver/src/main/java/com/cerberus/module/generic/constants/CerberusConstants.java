@@ -50,5 +50,8 @@ public class CerberusConstants {
 	public static final String OUTLETS = "outlets";	
 	public static final String MODES = "modes";
 	public static final String USER = "user";
+	public static final String SYSTEM_SETTINGS = "systemSettings";
+	public static final String USERS_LIST = "usersList";	
+	public static final String IS_SYS_ADMIN = "isSysAdmin";
 	
 }
