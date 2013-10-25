@@ -16,7 +16,7 @@ public class ByteMessageEncoder implements Runnable {
 	//private static final int RESPONSE_TIMEOUT_MILLIS = 30000;
 
 	//Get Logger
-	private final static Logger LOGGER = Logger.getLogger(JsonEncoder.class);
+	private final static Logger LOGGER = Logger.getLogger(ByteMessageEncoder.class);
 
 	private final MessageContainer messageContainer;
 
@@ -24,6 +24,7 @@ public class ByteMessageEncoder implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
+	@Override
 	public void run() {
 
 		StopWatch stopwatch = new Log4JStopWatch("ByteMessageEncoder.run");
@@ -37,7 +38,7 @@ public class ByteMessageEncoder implements Runnable {
 		//if (channel.isOpen()) {
 			try {
 				byte[] encodedMessage = writer.write(message);
-				
+
 				//For debugging purposes only
 				//for(int i=0; i<encodedMessage.length; i++){
 				//	System.out.print(String.format("%02x ",  encodedMessage[i]));
@@ -45,7 +46,7 @@ public class ByteMessageEncoder implements Runnable {
 				//System.out.println();
 
 				channel.write(ChannelBuffers.wrappedBuffer(encodedMessage));
-				
+
 				// Could use ChannelFuture to ensure the message has been
 				// sent...
 				LOGGER.debug("Wrote message: " + encodedMessage + " to client #" + channel.getId());
