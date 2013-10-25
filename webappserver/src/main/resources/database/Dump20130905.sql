@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `cerberus` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cerberus`;
--- MySQL dump 10.13  Distrib 5.6.11, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.11, for Win32 (x86)
 --
--- Host: localhost    Database: cerberus
+-- Host: 127.0.0.1    Database: cerberus
 -- ------------------------------------------------------
--- Server version	5.6.11
+-- Server version	5.5.30
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -300,7 +300,7 @@ CREATE TABLE `personal_information` (
 
 LOCK TABLES `personal_information` WRITE;
 /*!40000 ALTER TABLE `personal_information` DISABLE KEYS */;
-INSERT INTO `personal_information` VALUES (1,'Cerberus','Cerberus','None','None'),(2,'David','Vezina','613-897-7811','6257 Ravine Way'),(3,'Charles','Lascelles','613-677-9541','Unknown'),(4,'Michael','Woods','613-324-3899','Unknown'),(5,'Frederik','Vezina','613-898-7811','6257 Ravine Way'),(6,'Josephine','Quan','613-858-1228','Unknown');
+INSERT INTO `personal_information` VALUES (1,'Cerberus','Cerberus','None','None'),(2,'David','Vezina','613-897-7811','6257 Ravine Way'),(3,'Charles','Lascelles','613-677-9541','Unknown'),(4,'Michael','Woods','613-324-1234','Unknown'),(5,'Frederik','Vezina','613-898-7811','6257 Ravine Way'),(6,'Josephine','Quan','613-858-1228','Unknown');
 /*!40000 ALTER TABLE `personal_information` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -315,6 +315,7 @@ CREATE TABLE `rfid_authentication` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `RFID_TAG_ID` int(11) NOT NULL,
   `USERS_ID` int(11) NOT NULL,
+  `PERMISSION` tinyint(4) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `RFID_AUTHENTICATION_FKIndex1` (`USERS_ID`),
   KEY `RFID_AUTHENTICATION_FKIndex2` (`RFID_TAG_ID`),
@@ -375,7 +376,7 @@ CREATE TABLE `room` (
   KEY `SYST_FKIndex2` (`SYSTEM_ID`),
   CONSTRAINT `fk_?57C41637?4A56?4C24?8C6A?7B99B6CD9BB1?` FOREIGN KEY (`ROOM_TYPE_ID`) REFERENCES `room_type` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?81C21334?4A56?4C24?8C6A?DAD687C6CD04?` FOREIGN KEY (`SYSTEM_ID`) REFERENCES `system` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -384,9 +385,7 @@ CREATE TABLE `room` (
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` VALUES (1,7,'Kitchen',1),(2,10,'Master Bathroom',1),(3,10,'Kid''s Bathroom',1),(4,14,'Master Bedroom',1),(5,14,'David''s Bedroom',1),(6,14,'Fred Bedroom',1),(7,9,'Main Hallway',1),(8,5,'Laundry Room',1);
-INSERT INTO `room` VALUES (11,7,'Kitchen',1),(12,10,'Master Bathroom',2),(13,10,'Kid''s Bathroom',2),(14,14,'Master Bedroom',2),(15,14,'David''s Bedroom',2),(16,14,'Fred Bedroom',2),(17,9,'Main Hallway',2),(18,5,'Laundry Room',2);
-INSERT INTO `room` VALUES (21,7,'Kitchen',3),(22,10,'Master Bathroom',3),(23,10,'Kid''s Bathroom',3),(24,14,'Master Bedroom',3),(25,14,'David''s Bedroom',3),(26,14,'Fred Bedroom',3),(27,9,'Main Hallway',3),(28,5,'Laundry Room',3);
+INSERT INTO `room` VALUES (1,7,'Kitchen',1),(2,10,'Master Bathroom',1),(3,10,'Kid\'s Bathroom',1),(4,14,'Master Bedroom',1),(5,14,'David\'s Bedroom',1),(6,14,'Fred Bedroom',1),(7,9,'Main Hallway',1),(8,5,'Laundry Room',1),(11,7,'Kitchen',1),(12,10,'Master Bathroom',2),(13,10,'Kid\'s Bathroom',2),(14,14,'Master Bedroom',2),(15,14,'David\'s Bedroom',2),(16,14,'Fred Bedroom',2),(17,9,'Main Hallway',2),(18,5,'Laundry Room',2),(21,7,'Kitchen',3),(22,10,'Master Bathroom',3),(23,10,'Kid\'s Bathroom',3),(24,14,'Master Bedroom',3),(25,14,'David\'s Bedroom',3),(26,14,'Fred Bedroom',3),(27,9,'Main Hallway',3),(28,5,'Laundry Room',3);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -566,7 +565,7 @@ CREATE TABLE `socket` (
   `SOCKET_POSITION` tinyint(1) NOT NULL,
   `SERIAL_NUM` varchar(10) NOT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE INDEX (`OUTLET_ID`, `SOCKET_POSITION`),
+  UNIQUE KEY `OUTLET_ID` (`OUTLET_ID`,`SOCKET_POSITION`),
   UNIQUE KEY `SERIAL_NUM_UNIQUE` (`SERIAL_NUM`),
   KEY `SOCKET_FKIndex1` (`OUTLET_ID`),
   KEY `SOCKET_FKIndex2` (`SOCKET_OPERATION_MODE_ID`),
@@ -685,7 +684,7 @@ CREATE TABLE `system` (
 
 LOCK TABLES `system` WRITE;
 /*!40000 ALTER TABLE `system` DISABLE KEYS */;
-INSERT INTO `system` VALUES (1,'David''s System'),(2,'Charles'' System'),(3,'Michael''s System');
+INSERT INTO `system` VALUES (1,'David\'s System'),(2,'Charles\' System'),(3,'Michael\'s System');
 /*!40000 ALTER TABLE `system` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -809,4 +808,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-09-05 13:56:13
+-- Dump completed on 2013-10-25  9:49:04
