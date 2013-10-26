@@ -30,4 +30,14 @@ public class SwitchOperatingModeMessage extends Message {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		String message = super.toString();
+		message += ":";
+		message += opMode.toString() + ":";
+		message += powerThreshold;
+
+		return message;
+	}
+
 }

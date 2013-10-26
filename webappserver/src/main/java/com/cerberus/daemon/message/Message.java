@@ -46,4 +46,15 @@ public abstract class Message {
 	}
 
 	public abstract MessageWorkflow getWorkflow();
+
+	@Override
+	public String toString() {
+		String message = "";
+		message += outletId + ":";
+		message += socket + ":";
+		message += getDateTime().toString() + ":";
+		message += rfidNumber;
+
+		return message;
+	}
 }
