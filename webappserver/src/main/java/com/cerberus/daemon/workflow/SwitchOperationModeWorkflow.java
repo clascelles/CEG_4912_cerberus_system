@@ -12,7 +12,7 @@ import com.cerberus.daemon.message.Message;
 import com.cerberus.daemon.message.MessageContainer;
 import com.cerberus.daemon.message.SwitchOperatingModeMessage;
 import com.cerberus.daemon.message.WrongMessageException;
-import com.cerberus.daemon.response.ResponseLogic;
+import com.cerberus.daemon.response.MessageResponse;
 import com.cerberus.frameworks.netty.ChannelOutletBinding;
 
 public class SwitchOperationModeWorkflow extends MessageWorkflow {
@@ -36,7 +36,7 @@ public class SwitchOperationModeWorkflow extends MessageWorkflow {
 		MessageContainer messageContainer = new MessageContainer(c, message);
 
 		ExecutorService executor = ExecutorServiceFactory.getResponseLogicThreadPool();
-		Runnable responseLogicTask = new ResponseLogic(messageContainer);
+		Runnable responseLogicTask = new MessageResponse(messageContainer);
 		executor.execute(responseLogicTask);
 
 		return true;
@@ -51,7 +51,7 @@ public class SwitchOperationModeWorkflow extends MessageWorkflow {
 		MessageContainer container = new MessageContainer(null, message);
 
 		ExecutorService executor = ExecutorServiceFactory.getResponseLogicThreadPool();
-		Runnable responseLogicTask = new ResponseLogic(container);
+		Runnable responseLogicTask = new MessageResponse(container);
 		executor.execute(responseLogicTask);
 
 		return true;

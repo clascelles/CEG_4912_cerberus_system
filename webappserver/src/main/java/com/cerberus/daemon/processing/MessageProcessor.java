@@ -9,17 +9,17 @@ import org.perf4j.log4j.Log4JStopWatch;
 import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.MessageContainer;
 import com.cerberus.daemon.message.WrongMessageException;
-import com.cerberus.daemon.response.ResponseLogic;
+import com.cerberus.daemon.response.MessageResponse;
 import com.cerberus.daemon.workflow.MessageWorkflow;
 
-public class PersistenceLogic implements Runnable {
+public class MessageProcessor implements Runnable {
 
 	//Get Logger
-	private final static Logger LOGGER = Logger.getLogger(PersistenceLogic.class);
+	private final static Logger LOGGER = Logger.getLogger(MessageProcessor.class);
 
 	MessageContainer messageContainer;
 
-	public PersistenceLogic (MessageContainer messageContainer){
+	public MessageProcessor (MessageContainer messageContainer){
 		this.messageContainer = messageContainer;
 	}
 
@@ -39,7 +39,7 @@ public class PersistenceLogic implements Runnable {
 		if (messageProcessed) {
 			messageWorkflow.returnServiceFactory();
 			ExecutorService executor = ExecutorServiceFactory.getResponseLogicThreadPool();
-			Runnable responseLogicTask = new ResponseLogic(messageContainer);
+			Runnable responseLogicTask = new MessageResponse(messageContainer);
 			executor.execute(responseLogicTask);
 		} else {
 			// TODO: Message was not processed properly. Do we try again or

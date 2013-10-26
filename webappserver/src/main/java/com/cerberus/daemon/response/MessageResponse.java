@@ -12,14 +12,14 @@ import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.MessageContainer;
 import com.cerberus.frameworks.netty.ChannelOutletBinding;
 
-public class ResponseLogic implements Runnable {
+public class MessageResponse implements Runnable {
 
 	//Get Logger
-	private final static Logger LOGGER = Logger.getLogger(ResponseLogic.class);
+	private final static Logger LOGGER = Logger.getLogger(MessageResponse.class);
 
 	MessageContainer messageContainer;
 
-	public ResponseLogic(MessageContainer messageContainer) {
+	public MessageResponse(MessageContainer messageContainer) {
 		this.messageContainer = messageContainer;
 	}
 

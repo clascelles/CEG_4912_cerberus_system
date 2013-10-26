@@ -11,7 +11,7 @@ import com.cerberus.daemon.bytemessage.ByteMessageReader;
 import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.Message;
 import com.cerberus.daemon.message.MessageContainer;
-import com.cerberus.daemon.persistence.PersistenceLogic;
+import com.cerberus.daemon.persistence.MessageProcessor;
 
 public class ByteMessageDecoder implements Runnable {
 
@@ -39,7 +39,7 @@ public class ByteMessageDecoder implements Runnable {
 			messageContainer.setMessage(message);
 
 			// Start a new thread for the persistence logic with the message
-			Runnable persistenceLogic = new PersistenceLogic(messageContainer);
+			Runnable persistenceLogic = new MessageProcessor(messageContainer);
 			executor.execute(persistenceLogic);
 
 		} catch (IllegalArgumentException e) {
