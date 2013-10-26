@@ -66,6 +66,9 @@ public class RfidService {
 		rfidAuthenticationDAO.delete(rfidAuthentication);
 	}
 
+	public RfidAuthentication getRfidAuthenticationById(Integer id) {
+		return rfidAuthenticationDAO.getById(id);
+	}
 
 
 }

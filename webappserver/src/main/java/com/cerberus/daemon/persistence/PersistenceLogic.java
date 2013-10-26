@@ -31,7 +31,7 @@ public class PersistenceLogic implements Runnable {
 		MessageWorkflow messageWorkflow = messageContainer.getMessage().getWorkflow();
 
 		try {
-			messageProcessed = messageWorkflow.handleReceivedMessage(messageContainer.getMessage());
+			messageProcessed = messageWorkflow.handleMessage(messageContainer.getMessage());
 		} catch(WrongMessageException e) {
 			// TODO: message didn't have the appropriate workflow, wtf happened?
 		}

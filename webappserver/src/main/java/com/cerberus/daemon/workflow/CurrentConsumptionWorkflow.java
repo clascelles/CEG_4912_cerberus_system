@@ -25,7 +25,7 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 	}
 
 	@Override
-	public boolean handleReceivedMessage(Message receivedMessage) throws WrongMessageException {
+	public boolean handleMessage(Message receivedMessage) throws WrongMessageException {
 
 		StopWatch stopwatch = new Log4JStopWatch("CurrentWorkflow.handleReceivedMessage");
 
@@ -72,12 +72,6 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 		}
 
 		return true;
-	}
-
-	@Override
-	public boolean handleSendingMessage(Message sendingMessage) throws WrongMessageException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

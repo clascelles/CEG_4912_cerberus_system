@@ -3,13 +3,14 @@ package com.cerberus.daemon.response;
 import java.util.concurrent.ExecutorService;
 
 import org.apache.log4j.Logger;
+import org.jboss.netty.channel.Channel;
 import org.perf4j.StopWatch;
 import org.perf4j.log4j.Log4JStopWatch;
 
 import com.cerberus.daemon.encoder.ByteMessageEncoder;
 import com.cerberus.daemon.executor.ExecutorServiceFactory;
-import com.cerberus.daemon.message.CurrentConsumptionMessage;
 import com.cerberus.daemon.message.MessageContainer;
+import com.cerberus.frameworks.netty.ChannelOutletBinding;
 
 public class ResponseLogic implements Runnable {
 
@@ -22,6 +23,7 @@ public class ResponseLogic implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
+	@Override
 	public void run() {
 
 		StopWatch stopwatch = new Log4JStopWatch("ResponseLogic.run");
@@ -33,8 +35,20 @@ public class ResponseLogic implements Runnable {
 		//		System.currentTimeMillis() / 1000, "1234567890", 1000);
 		//MessageContainer container = new MessageContainer(messageContainer.getClientChannel(), message);
 
+		// If client channel is null, then find the channel linked to the outletId
+		if(messageContainer.getClientChannel() == null) {
+			String outletId = messageContainer.getMessage().getOutletId();
+			Channel channel = ChannelOutletBinding.getChannelFromGroupByOutlet(messageContainer.getMessage().getOutletId());
+			if(channel != null) {
+				messageContainer.setClientChannel(channel);
+			} else {
+				LOGGER.error("Cannot find the channel linked to outletID: " + outletId + ", discarding the message.");
+				LOGGER.error("Message: " + messageContainer.getMessage().toString());
+			}
+		}
+
+		// Send to encoder
 		ExecutorService executor = ExecutorServiceFactory.getEncoderThreadPool();
-		//Runnable encoder = new JsonEncoder(container);
 		Runnable encoder = new ByteMessageEncoder(messageContainer);
 		executor.execute(encoder);
 		stopwatch.stop();

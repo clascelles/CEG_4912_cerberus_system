@@ -24,7 +24,7 @@ public class RFIDAuthRequestWorkflow extends MessageWorkflow{
 	}
 
 	@Override
-	public boolean handleReceivedMessage(Message receivedMessage) throws WrongMessageException {
+	public boolean handleMessage(Message receivedMessage) throws WrongMessageException {
 
 		// Create new Current data structure
 		RFIDAuthRequestMessage requestMessage;
@@ -49,12 +49,6 @@ public class RFIDAuthRequestWorkflow extends MessageWorkflow{
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	public boolean handleSendingMessage(Message sendingMessage) throws WrongMessageException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
