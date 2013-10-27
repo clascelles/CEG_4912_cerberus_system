@@ -1,4 +1,4 @@
-package com.cerberus.daemon.persistence;
+package com.cerberus.daemon.processing;
 
 import java.util.concurrent.ExecutorService;
 
@@ -23,6 +23,7 @@ public class MessageProcessor implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
+	@Override
 	public void run() {
 		StopWatch stopwatch = new Log4JStopWatch("PersistenceLogic.run");
 		LOGGER.info("[Persistence Logic]: Starting.");

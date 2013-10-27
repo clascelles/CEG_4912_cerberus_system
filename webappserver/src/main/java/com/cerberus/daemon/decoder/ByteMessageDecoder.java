@@ -11,7 +11,7 @@ import com.cerberus.daemon.bytemessage.ByteMessageReader;
 import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.Message;
 import com.cerberus.daemon.message.MessageContainer;
-import com.cerberus.daemon.persistence.MessageProcessor;
+import com.cerberus.daemon.processing.MessageProcessor;
 
 public class ByteMessageDecoder implements Runnable {
 
