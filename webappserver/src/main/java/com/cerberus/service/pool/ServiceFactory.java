@@ -3,14 +3,14 @@ package com.cerberus.service.pool;
 import com.cerberus.service.account.AccountService;
 import com.cerberus.service.account.UserService;
 import com.cerberus.service.outlets.OutletService;
-import com.cerberus.service.outlets.RfidService;
 import com.cerberus.service.schedules.SchedulingService;
+import com.cerberus.service.security.RfidService;
 import com.cerberus.service.system.SystemService;
 import com.cerberus.service.usage.ConsumptionService;
 import com.cerberus.service.usage.StatisticService;
 
 public class ServiceFactory {
-	
+
 	private AccountService accountService;
 	private ConsumptionService consumptionService;
 	private OutletService outletService;
@@ -19,7 +19,7 @@ public class ServiceFactory {
 	private StatisticService statisticService;
 	private SystemService systemService;
 	private UserService userService;
-	
+
 	public ServiceFactory(){
 		accountService = new AccountService();
 		consumptionService = new ConsumptionService();
@@ -30,8 +30,8 @@ public class ServiceFactory {
 		systemService = new SystemService();
 		userService = new UserService();
 	}
-	
-	public ServiceFactory(AccountService accountService, ConsumptionService consumptionService, OutletService outletService, 
+
+	public ServiceFactory(AccountService accountService, ConsumptionService consumptionService, OutletService outletService,
 			RfidService rfidService, SchedulingService schedulingService, StatisticService statisticService, SystemService systemService,
 			UserService userService){
 		this.accountService = accountService;

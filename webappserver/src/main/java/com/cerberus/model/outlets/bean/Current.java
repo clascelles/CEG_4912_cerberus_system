@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.cerberus.model.account.bean.User;
+import com.cerberus.model.security.bean.RfidTag;
 
 @Entity
 @Table(name = "CURRENT")

@@ -11,26 +11,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.cerberus.model.outlets.bean.RfidTag;
+import com.cerberus.model.security.bean.RfidTag;
+
 
 @Entity
 @Table(name = "CONSUMPTION_PROFILE")
 public class ConsumptionProfile implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-		
+
 	Integer id;
 	RfidTag rfidTag;
 	Integer averageHourlyConsumption;
 	Integer instantaneousConsumption;
-	
+
 	public ConsumptionProfile(){
 		super();
 	}
-	
+
 	public ConsumptionProfile(RfidTag rfidTag, Integer averageHourlyConsumption, Integer instantaneousConsumption) {
 		super();
 		this.rfidTag = rfidTag;
@@ -46,7 +47,7 @@ public class ConsumptionProfile implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	@OneToOne()
 	@JoinColumn(name="RFID_TAG_ID", nullable=false)
 	public RfidTag getRfidTag() {
@@ -55,15 +56,15 @@ public class ConsumptionProfile implements Serializable{
 	public void setRfidTag(RfidTag rfidTag) {
 		this.rfidTag = rfidTag;
 	}
-	
+
 	@Column(name="AVERAGE_HOURLY_CONSUMPTION", nullable=false)
 	public Integer getAverageHourlyConsumption() {
 		return averageHourlyConsumption;
 	}
 	public void setAverageHourlyConsumption(Integer averageHourlyConsumption) {
 		this.averageHourlyConsumption = averageHourlyConsumption;
-	}	
-	
+	}
+
 	@Column(name="INSTANTANEOUS_CONSUMPTION", nullable=false)
 	public Integer getInstantaneousConsumption() {
 		return instantaneousConsumption;
@@ -78,7 +79,7 @@ public class ConsumptionProfile implements Serializable{
 				+ ", averageHourlyConsumption=" + averageHourlyConsumption
 				+ ", instantaneousConsumption=" + instantaneousConsumption
 				+ "]";
-	}	
-	
-	
+	}
+
+
 }

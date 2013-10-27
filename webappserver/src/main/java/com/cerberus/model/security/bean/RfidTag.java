@@ -1,4 +1,4 @@
-package com.cerberus.model.outlets.bean;
+package com.cerberus.model.security.bean;
 
 import java.io.Serializable;
 
@@ -14,25 +14,25 @@ import javax.persistence.Table;
 public class RfidTag implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	Integer id;
 	String number;
 	String description;
-	
+
 	public RfidTag(){
 		super();
 	}
-	
+
 	public RfidTag(String number, String description) {
 		super();
 		this.number = number;
 		this.description = description;
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -42,7 +42,7 @@ public class RfidTag implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	@Column(name="NUMBER", nullable=false)
 	public String getNumber() {
 		return number;
@@ -51,7 +51,7 @@ public class RfidTag implements Serializable{
 	public void setNumber(String number) {
 		this.number = number;
 	}
-	
+
 	@Column(name="DESCRIPTION", nullable=false)
 	public String getDescription() {
 		return description;
@@ -64,7 +64,7 @@ public class RfidTag implements Serializable{
 	public String toString() {
 		return "RfidTag [id=" + id + ", number=" + number + ", description="
 				+ description + "]";
-	}	
-	
-	
+	}
+
+
 }
