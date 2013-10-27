@@ -29,12 +29,6 @@ public class MessageResponse implements Runnable {
 		StopWatch stopwatch = new Log4JStopWatch("ResponseLogic.run");
 		LOGGER.info("[Response Logic]: Starting!");
 
-		// TODO Add code for the Response Logic
-		// Dummy message sent for now (to test encoding)...
-		//CurrentConsumptionMessage message = new CurrentConsumptionMessage("1234567", 0 ,
-		//		System.currentTimeMillis() / 1000, "1234567890", 1000);
-		//MessageContainer container = new MessageContainer(messageContainer.getClientChannel(), message);
-
 		// If client channel is null, then find the channel linked to the outletId
 		if(messageContainer.getClientChannel() == null) {
 			String outletId = messageContainer.getMessage().getOutletId();
