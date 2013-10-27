@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 
-//import javax.annotation.Resource;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,16 +12,17 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Component;
 
 import com.cerberus.frameworks.hibernate.HibernateUtil;
+//import javax.annotation.Resource;
 
 @Component
 public class GenericDAO<T, ID extends Serializable> {
-	
+
 	// Get Logger
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+
 	//@Resource(name = "sessionFactory")
 	private final SessionFactory sessionFactory;
-	
+
 	public GenericDAO(){
 		this.sessionFactory = HibernateUtil.getSessionFactory();
 	}
@@ -34,7 +33,7 @@ public class GenericDAO<T, ID extends Serializable> {
 		Session session = null;
 		Transaction tx = null;
 		ID saved = null;
-		
+
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
@@ -48,7 +47,7 @@ public class GenericDAO<T, ID extends Serializable> {
 		}finally{
 			session.close();
 		}
-		
+
 		return saved;
 	}
 
@@ -56,7 +55,7 @@ public class GenericDAO<T, ID extends Serializable> {
 	public void delete(final Object object){
 		Session session = null;
 		Transaction tx = null;
-		
+
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
@@ -76,7 +75,7 @@ public class GenericDAO<T, ID extends Serializable> {
 		Session session = null;
 		Transaction tx = null;
 		T get = null;
-		
+
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
@@ -91,14 +90,14 @@ public class GenericDAO<T, ID extends Serializable> {
 
 		return get;
 	}
-	
+
 	/***/
 	@SuppressWarnings("unchecked")
 	public T getByFilter(DetachedCriteria criteria){
 		Session session = null;
 		Transaction tx = null;
 		T get = null;
-		
+
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
@@ -120,7 +119,7 @@ public class GenericDAO<T, ID extends Serializable> {
 		Session session = null;
 		Transaction tx = null;
 		T merged = null;
-		
+
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
@@ -139,8 +138,8 @@ public class GenericDAO<T, ID extends Serializable> {
 	/***/
 	public void saveOrUpdate(final T o){
 		Session session = null;
-		Transaction tx = null;		
-		
+		Transaction tx = null;
+
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
@@ -154,14 +153,14 @@ public class GenericDAO<T, ID extends Serializable> {
 		}
 
 	}
-	
+
 	/***/
 	@SuppressWarnings("unchecked")
 	protected List<T> getAll(final Class<T> type) {
 		Session session = null;
-		Transaction tx = null;	
+		Transaction tx = null;
 		List<T> list = null;
-		
+
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
@@ -177,11 +176,12 @@ public class GenericDAO<T, ID extends Serializable> {
 
 		return list;
 	}
-	
+
 	/***/
+	@SuppressWarnings("unchecked")
 	public List<T> getAllByFilter(DetachedCriteria criteria){
 		Session session = null;
-		Transaction tx = null;	
+		Transaction tx = null;
 		List<T> list = null;
 		try{
 			session = sessionFactory.openSession();
