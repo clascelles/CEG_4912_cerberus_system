@@ -707,7 +707,12 @@ DROP TABLE IF EXISTS `system`;
 CREATE TABLE `system` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `NAME` tinytext,
-  PRIMARY KEY (`ID`)
+  `SYSTEM_ACTIVE` tinyint(1) NOT NULL,
+  `OUTLET_OPERATION_MODE_ID` int(11) NOT NULL,
+  `SPIKE_PROTECTION` tinyint(1) NOT NULL,
+  `ENCRYPTION_KEY` text NOT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `fk_?E5461ABC?5077?4C52?853B?F22D3C58FE98?` FOREIGN KEY (`OUTLET_OPERATION_MODE_ID`) REFERENCES `outlet_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -717,8 +722,7 @@ CREATE TABLE `system` (
 
 LOCK TABLES `system` WRITE;
 /*!40000 ALTER TABLE `system` DISABLE KEYS */;
-INSERT INTO `system` VALUES (1,'David\'s System'),(2,'Charles\' System'),(3,'Michael\'s System');
-/*!40000 ALTER TABLE `system` ENABLE KEYS */;
+INSERT INTO `system` VALUES (1,'David''s System',1,1,1,'1234123412341234'),(2,'Charles'' System',1,1,1,'1234123412341234'),(3,'Michael''s System',1,1,1,'1234123412341234');/*!40000 ALTER TABLE `system` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
