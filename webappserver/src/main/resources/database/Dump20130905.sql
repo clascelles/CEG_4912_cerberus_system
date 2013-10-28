@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `cerberus` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cerberus`;
--- MySQL dump 10.13  Distrib 5.6.11, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
 -- Host: localhost    Database: cerberus
 -- ------------------------------------------------------
--- Server version	5.6.11
+-- Server version	5.6.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -354,7 +354,7 @@ CREATE TABLE `rfid_authentication` (
   KEY `RFID_AUTHENTICATION_FKIndex2` (`RFID_TAG_ID`),
   CONSTRAINT `fk_?A6EB1914?11DD?4133?96A3?61550B77EB73?` FOREIGN KEY (`USERS_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?F5A69B10?3132?4778?8CD3?3A9622D55F73?` FOREIGN KEY (`RFID_TAG_ID`) REFERENCES `rfid_tag` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,6 +363,7 @@ CREATE TABLE `rfid_authentication` (
 
 LOCK TABLES `rfid_authentication` WRITE;
 /*!40000 ALTER TABLE `rfid_authentication` DISABLE KEYS */;
+INSERT INTO `rfid_authentication` VALUES (1,1,2,0),(2,2,2,0),(3,3,2,1),(4,4,2,1),(5,5,2,1),(6,6,2,2),(7,7,2,0),(8,8,2,2),(9,9,2,2),(10,10,2,2);
 /*!40000 ALTER TABLE `rfid_authentication` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -391,6 +392,23 @@ LOCK TABLES `rfid_tag` WRITE;
 INSERT INTO `rfid_tag` VALUES (1,'356AC37692','Toaster'),(2,'6538B2349D','Laptop'),(3,'845A3F5673','Kettle'),(4,'761239DCF1','Television'),(5,'628D23A853','Computer'),(6,'3849C32683','Light'),(7,'22568A5638','Phone Charger'),(8,'7538632468','Vaccum'),(9,'AA3578B34F','Radio'),(10,'479A347B31','Alarm Clock');
 /*!40000 ALTER TABLE `rfid_tag` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `rfid_tag_view`
+--
+
+DROP TABLE IF EXISTS `rfid_tag_view`;
+/*!50001 DROP VIEW IF EXISTS `rfid_tag_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `rfid_tag_view` (
+  `RFID_ID` tinyint NOT NULL,
+  `RFID_NUMBER` tinyint NOT NULL,
+  `RFID_DESC` tinyint NOT NULL,
+  `USER_ID` tinyint NOT NULL,
+  `RFID_PERMISSION` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `room`
@@ -712,6 +730,7 @@ CREATE TABLE `system` (
   `SPIKE_PROTECTION` tinyint(1) NOT NULL,
   `ENCRYPTION_KEY` text NOT NULL,
   PRIMARY KEY (`ID`),
+  KEY `fk_?E5461ABC?5077?4C52?853B?F22D3C58FE98?` (`OUTLET_OPERATION_MODE_ID`),
   CONSTRAINT `fk_?E5461ABC?5077?4C52?853B?F22D3C58FE98?` FOREIGN KEY (`OUTLET_OPERATION_MODE_ID`) REFERENCES `outlet_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -722,7 +741,8 @@ CREATE TABLE `system` (
 
 LOCK TABLES `system` WRITE;
 /*!40000 ALTER TABLE `system` DISABLE KEYS */;
-INSERT INTO `system` VALUES (1,'David''s System',1,1,1,'1234123412341234'),(2,'Charles'' System',1,1,1,'1234123412341234'),(3,'Michael''s System',1,1,1,'1234123412341234');/*!40000 ALTER TABLE `system` ENABLE KEYS */;
+INSERT INTO `system` VALUES (1,'David\'s System',1,1,1,'1234123412341234'),(2,'Charles\' System',1,1,1,'1234123412341234'),(3,'Michael\'s System',1,1,1,'1234123412341234');
+/*!40000 ALTER TABLE `system` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -890,6 +910,25 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `rfid_tag_view`
+--
+
+/*!50001 DROP TABLE IF EXISTS `rfid_tag_view`*/;
+/*!50001 DROP VIEW IF EXISTS `rfid_tag_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `rfid_tag_view` AS (select `rfid_tag`.`ID` AS `RFID_ID`,`rfid_tag`.`NUMBER` AS `RFID_NUMBER`,`rfid_tag`.`DESCRIPTION` AS `RFID_DESC`,`rfid_authentication`.`USERS_ID` AS `USER_ID`,`rfid_authentication`.`PERMISSION` AS `RFID_PERMISSION` from (`rfid_tag` join `rfid_authentication` on((`rfid_authentication`.`RFID_TAG_ID` = `rfid_tag`.`ID`)))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `user_system_view`
 --
 
@@ -917,4 +956,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-28 12:25:28
+-- Dump completed on 2013-10-28 14:57:28
