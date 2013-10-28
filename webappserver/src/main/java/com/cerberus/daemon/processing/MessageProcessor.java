@@ -1,4 +1,4 @@
-package com.cerberus.daemon.persistence;
+package com.cerberus.daemon.processing;
 
 import java.util.concurrent.ExecutorService;
 
@@ -9,20 +9,21 @@ import org.perf4j.log4j.Log4JStopWatch;
 import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.MessageContainer;
 import com.cerberus.daemon.message.WrongMessageException;
-import com.cerberus.daemon.response.ResponseLogic;
+import com.cerberus.daemon.response.MessageResponse;
 import com.cerberus.daemon.workflow.MessageWorkflow;
 
-public class PersistenceLogic implements Runnable {
+public class MessageProcessor implements Runnable {
 
 	//Get Logger
-	private final static Logger LOGGER = Logger.getLogger(PersistenceLogic.class);
+	private final static Logger LOGGER = Logger.getLogger(MessageProcessor.class);
 
 	MessageContainer messageContainer;
 
-	public PersistenceLogic (MessageContainer messageContainer){
+	public MessageProcessor (MessageContainer messageContainer){
 		this.messageContainer = messageContainer;
 	}
 
+	@Override
 	public void run() {
 		StopWatch stopwatch = new Log4JStopWatch("PersistenceLogic.run");
 		LOGGER.info("[Persistence Logic]: Starting.");
@@ -31,7 +32,7 @@ public class PersistenceLogic implements Runnable {
 		MessageWorkflow messageWorkflow = messageContainer.getMessage().getWorkflow();
 
 		try {
-			messageProcessed = messageWorkflow.handleReceivedMessage(messageContainer.getMessage());
+			messageProcessed = messageWorkflow.handleMessage(messageContainer.getMessage());
 		} catch(WrongMessageException e) {
 			// TODO: message didn't have the appropriate workflow, wtf happened?
 		}
@@ -39,7 +40,7 @@ public class PersistenceLogic implements Runnable {
 		if (messageProcessed) {
 			messageWorkflow.returnServiceFactory();
 			ExecutorService executor = ExecutorServiceFactory.getResponseLogicThreadPool();
-			Runnable responseLogicTask = new ResponseLogic(messageContainer);
+			Runnable responseLogicTask = new MessageResponse(messageContainer);
 			executor.execute(responseLogicTask);
 		} else {
 			// TODO: Message was not processed properly. Do we try again or

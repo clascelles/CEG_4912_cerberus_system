@@ -4,8 +4,8 @@ import org.jboss.netty.channel.Channel;
 
 public class MessageContainer {
 
-	private final Channel clientChannel;
 	private final byte[] rawMessage;
+	private Channel clientChannel;
 	private Message message;
 
 	/**
@@ -31,6 +31,10 @@ public class MessageContainer {
 
 	public Channel getClientChannel() {
 		return clientChannel;
+	}
+
+	public void setClientChannel(Channel channel) {
+		this.clientChannel = channel;
 	}
 
 	public Message getMessage() {

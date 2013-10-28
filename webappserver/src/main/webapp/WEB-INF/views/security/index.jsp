@@ -20,7 +20,7 @@
 	<meta charset="utf-8">
 	<title><fmt:message key="overview.title"/></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Cerberus Application Overview">
+	<meta name="description" content="Cerberus Application Security Page">
 	<meta name="author" content="David Vezina">
 
 	<!-- The styles -->
@@ -34,7 +34,7 @@
 <body>
 	
 	<!-- topbar starts -->
-	<%@include file="\WEB-INF\views\main/topbar.jsp" %>
+	<%@include file="\WEB-INF\views\main\topbar.jsp" %>
 	<!-- topbar ends -->
 
 	<div class="container-fluid">
@@ -60,92 +60,87 @@
 
 				<div>
 					<ul class="breadcrumb">
-						<li><a href="/webappserver/system/index">System</a></li>
-						<li><span>></span></li>
-						<li><a href="#">View User</a></li>
+						<li><a href="#">RFID Tags</a></li>
 					</ul>
 				</div>
 
-				<div class="row-fluid">
-					<div class="box span12">
-						<div class="box-header well">
-							<h2>
-								<i class="icon-user"></i> Profile
-							</h2>
-							<div class="box-icon">
-								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-							</div>
-						</div>
-						<div class="box-content">
-							<form id="editProfile" class="form-horizontal" method="post">
-						  		<fieldset>						  			
-									<div class="row-fluid">
-										<div class="span6">
-											<div class="control-group">
-												<label class="control-label">Username</label>
-												<div class="controls">
-													<input class="input-xlarge" name="username" type="text" value="${user.username}" <c:if test="${!isSysAdmin}">readonly</c:if>>
-												</div>
-											</div>											
-											
-											<div class="control-group">
-												<label class="control-label">First Name:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="firstName" type="text" value="${user.firstName}" <c:if test="${!isSysAdmin}">readonly</c:if>>
-												</div>
-											</div>
-											
-											<div class="control-group">
-												<label class="control-label">Last Name:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="lastName" type="text" value="${user.lastName}" <c:if test="${!isSysAdmin}">readonly</c:if>>
-												</div>
-											</div>
-										</div>
-												  			
-										<div class="span6">											
-											<div class="control-group">
-												<label class="control-label">Phone Number:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="phoneNumber" type="text" value="${user.phoneNumber}" <c:if test="${!isSysAdmin}">readonly</c:if>>
-												</div>
-											</div>
-											
-											<div class="control-group">
-												<label class="control-label">Address:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="address" type="text" value="${user.address}" <c:if test="${!isSysAdmin}">readonly</c:if>>
-												</div>
-											</div>
-										</div>
-									</div>
-									<c:if test="${isSysAdmin}">
-										<div class="form-actions">
-											<button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
-											<button type="submit" class="btn" name="reset">Reset Password</button>
-										</div>
-									</c:if>
-						  		</fieldset>
-						  	</form>						  								
-							<div class="clearfix"></div>
-						</div>
-					</div>
-				</div>
+				<!-- view rfid tags -->
 				
 				<div class="row-fluid">
 					<div class="box span12">
 						<div class="box-header well">
 							<h2>
-								<i class="icon-user"></i> User Statistics
+								<i class="icon-tags"></i> View RFID Tags
 							</h2>
 							<div class="box-icon">
 								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
 							</div>
 						</div>
 						<div class="box-content">
-							
-							User statistics go here...
-										  								
+						  	<table class="table table-striped table-bordered bootstrap-datatable datatable">
+							  <thead>
+								  <tr>
+									  <th>ID</th>
+									  <th>Room</th>
+									  <th>Operation Mode</th>
+									  <th>Serial Number</th>
+									  <th>Action</th>
+								  </tr>
+							  </thead>   
+							  <tbody>
+							  	<c:forEach items="${userOutlets}" var="item">
+							  		<tr>
+							  			<td>${item.id}</td>
+							  			<td>${item.roomName}</td>
+							  			<td>${item.modeName}</td>
+							  			<td>${item.serialNumber}</td>
+							  			<td><a class="btn btn-primary" href="/webappserver/outlets/view?id=${item.id}"><i class="icon-zoom-in icon-white"></i>View</a></td>
+							  		</tr>
+								</c:forEach>
+							  </tbody>
+						    </table>							
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- add rfid tags -->
+				
+				<div class="row-fluid">
+					<div class="box span12">
+						<div class="box-header well">
+							<h2>
+								<i class="icon-tag"></i> Add an RFID Tag
+							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
+						</div>
+						<div class="box-content">
+						  	<form id="addOutlet" class="form-horizontal" method="post">
+						  		<fieldset>
+									<div class="control-group">
+										<label class="control-label">Serial Number</label>
+										<div class="controls">
+											<input class="input-xlarge" name="serialNumber" type="text">
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Room</label>
+										<div class="controls">
+										  	<select name="roomId" data-rel="chosen">
+										  		<c:forEach items="${rooms}" var="room">
+													<option value="${room.typeId}">${room.name}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary" name="add">Add</button>
+										<button type="reset" class="btn" name="reset">Clear</button>
+									</div>
+						  		</fieldset>
+						  	</form>						  								
 							<div class="clearfix"></div>
 						</div>
 					</div>
@@ -184,13 +179,7 @@
 	<%@include file="\WEB-INF\views\main\javascript.jsp" %>
 	
 	<script>
-		$('reset').click(function() { 
-			document.getElementById('username').value = ${userBackingObject.username}; 
-			document.getElementById('firstName').value = ${userBackingObject.firstName}; 
-			document.getElementById('lastName').value = ${userBackingObject.lastName}; 
-			document.getElementById('phoneNumber').value = ${userBackingObject.phoneNumber}; 
-			document.getElementById('address').value = ${userBackingObject.address};
-			});
+		$('reset').click(function() { document.getElementById('serialNumber').value = ''; });
 	</script>
 	
 </body>

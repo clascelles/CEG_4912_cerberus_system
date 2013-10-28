@@ -84,4 +84,12 @@ public class SystemWorkflow extends Workflow {
 		
 		return system; 
 	}
+	
+	public void updateSystem(CerberusSystem system) {
+		SystemService systemService = serviceFactory.getSystemService();
+		
+		systemService.updateSystem(system);
+		
+		this.returnServiceFactory();
+	}
 }

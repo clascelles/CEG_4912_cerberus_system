@@ -10,7 +10,7 @@ import com.cerberus.daemon.message.CurrentConsumptionMessage;
 import com.cerberus.daemon.message.Message;
 import com.cerberus.daemon.message.WrongMessageException;
 import com.cerberus.model.outlets.bean.Current;
-import com.cerberus.model.outlets.bean.RfidTag;
+import com.cerberus.model.security.bean.RfidTag;
 
 public class CurrentConsumptionWorkflow extends MessageWorkflow {
 
@@ -25,7 +25,7 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 	}
 
 	@Override
-	public boolean handleReceivedMessage(Message receivedMessage) throws WrongMessageException {
+	public boolean handleMessage(Message receivedMessage) throws WrongMessageException {
 
 		StopWatch stopwatch = new Log4JStopWatch("CurrentWorkflow.handleReceivedMessage");
 
@@ -72,12 +72,6 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 		}
 
 		return true;
-	}
-
-	@Override
-	public boolean handleSendingMessage(Message sendingMessage) throws WrongMessageException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

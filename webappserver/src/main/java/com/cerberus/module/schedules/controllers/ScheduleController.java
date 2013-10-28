@@ -27,14 +27,10 @@ public class ScheduleController extends CerberusController {
 	@RequestMapping(value=CerberusConstants.SCHEDULES_MAPPING, method=RequestMethod.GET)
 	public String getLoginPage(Model model)	{
 		
-		//Get the User object from the "bin"
-		User user = getUser();
-		
-		//This is our Login Security. I know, not that great but good enough for a site that will never be published.
+		User user = getUser();		
 		if(user == null){
 			return CerberusConstants.REDIRECT;
-		}
-		
+		}		
 		initTopBar(model, user);
 		
 		Map<RoomBackingObject, List<OutletBackingObject>> outlets = new HashMap<RoomBackingObject, List<OutletBackingObject>>();

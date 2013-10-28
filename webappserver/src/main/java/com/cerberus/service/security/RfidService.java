@@ -1,13 +1,13 @@
-package com.cerberus.service.outlets;
+package com.cerberus.service.security;
 
 import org.hibernate.criterion.DetachedCriteria;
 
 import com.cerberus.model.account.dao.GeneralProfileDAO;
-import com.cerberus.model.outlets.bean.RfidAuthentication;
-import com.cerberus.model.outlets.bean.RfidTag;
-import com.cerberus.model.outlets.dao.RfidAuthenticationDAO;
-import com.cerberus.model.outlets.dao.RfidTagDAO;
-import com.cerberus.model.outlets.filter.RfidTagFilter;
+import com.cerberus.model.security.bean.RfidAuthentication;
+import com.cerberus.model.security.bean.RfidTag;
+import com.cerberus.model.security.dao.RfidAuthenticationDAO;
+import com.cerberus.model.security.dao.RfidTagDAO;
+import com.cerberus.model.security.filter.RfidTagFilter;
 import com.cerberus.model.usage.dao.ConsumptionProfileDAO;
 
 public class RfidService {
@@ -66,6 +66,8 @@ public class RfidService {
 		rfidAuthenticationDAO.delete(rfidAuthentication);
 	}
 
-
+	public RfidAuthentication getRfidAuthenticationById(Integer id) {
+		return rfidAuthenticationDAO.getById(id);
+	}
 
 }

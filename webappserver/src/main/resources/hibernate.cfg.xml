@@ -29,8 +29,8 @@
         <mapping class="com.cerberus.model.outlets.bean.Outlet"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.OutletOperationMode"></mapping>
         <mapping class="com.cerberus.model.account.bean.PersonalInformation"></mapping>
-        <mapping class="com.cerberus.model.outlets.bean.RfidAuthentication"></mapping>
-        <mapping class="com.cerberus.model.outlets.bean.RfidTag"></mapping>
+        <mapping class="com.cerberus.model.security.bean.RfidAuthentication"></mapping>
+        <mapping class="com.cerberus.model.security.bean.RfidTag"></mapping>
         <mapping class="com.cerberus.model.system.bean.Room"></mapping>
         <mapping class="com.cerberus.model.system.bean.RoomType"></mapping>
         <mapping class="com.cerberus.model.system.bean.UserSystemView"></mapping>

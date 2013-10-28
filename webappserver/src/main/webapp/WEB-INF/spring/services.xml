@@ -9,7 +9,7 @@
 	<bean id="accountService" class="com.cerberus.service.account.AccountService" scope="prototype"></bean>
 	<bean id="consumptionService" class="com.cerberus.service.usage.ConsumptionService" scope="prototype"></bean>
 	<bean id="outletService" class="com.cerberus.service.outlets.OutletService" scope="prototype"></bean>
-	<bean id="rfidService" class="com.cerberus.service.outlets.RfidService" scope="prototype"></bean>
+	<bean id="rfidService" class="com.cerberus.service.security.RfidService" scope="prototype"></bean>
 	<bean id="schedulingService" class="com.cerberus.service.schedules.SchedulingService" scope="prototype"></bean>
 	<bean id="statisticService" class="com.cerberus.service.usage.StatisticService" scope="prototype"></bean>
 	<bean id="systemService" class="com.cerberus.service.system.SystemService" scope="prototype"></bean>

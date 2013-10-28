@@ -66,14 +66,14 @@
 					</ul>
 				</div>
 
-				<!-- view outlets -->
+				<!-- view rfid tag -->
 				
 				<div class="row-fluid">
 					<div class="box span12">
 						<div class="box-header well">
 							<h2>
 								<i class="icon-list-alt"></i>
-								View Outlet ${outlet.id}
+								View RFID Tag ${outlet.id}
 							</h2>
 							<div class="box-icon">
 								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>

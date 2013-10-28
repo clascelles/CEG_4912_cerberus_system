@@ -139,6 +139,12 @@ public class User implements Serializable {
 	public String getFullName() {
 		return information.getFirstName() + " " + information.getLastName();
 	}
+	
+	@Transient
+	public boolean isSysAdmin() {
+		return (type.getId() == UserType.SYSTEM_ADMINISTRATOR_ID
+				|| type.getId() == UserType.SYSTEM_OWNER_ID);
+	}
 
 	// @ManyToOne(fetch = FetchType.LAZY)
 	// @JoinColumn(name="LAST_UPDATED_USER_ID", nullable=true)

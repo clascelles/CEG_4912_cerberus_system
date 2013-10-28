@@ -22,15 +22,12 @@ public class UsageController extends CerberusController {
 	@RequestMapping(value=CerberusConstants.USAGE_VIEW, method=RequestMethod.GET)
 	public String getLoginPage(Model model)	{
 		
-		//Get the User object from the "bin"
-		User user = getUser();
-		
-		//This is our Login Security. I know, not that great but good enough for a site that will never be published.
+		User user = getUser();		
 		if(user == null){
 			return CerberusConstants.REDIRECT;
-		}
-		
+		}		s
 		initTopBar(model, user);
+		s
 		
 		UsageWorkflow usageWorkflow = CerberusApplicationContext.getWorkflows().getUsageWorkflow();
 		

@@ -1,9 +1,9 @@
-package com.cerberus.model.outlets.filter;
+package com.cerberus.model.security.filter;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.cerberus.model.outlets.bean.RfidTag;
+import com.cerberus.model.security.bean.RfidTag;
 
 public class RfidTagFilter {
 
@@ -11,5 +11,5 @@ public class RfidTagFilter {
 		return DetachedCriteria.forClass(RfidTag.class).
 				add(Restrictions.like("number", number));
 	}
-	
+
 }

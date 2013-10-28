@@ -1,47 +1,36 @@
-package com.cerberus.module.outlets.controllers;
-
-import java.util.List;
+package com.cerberus.module.security.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.message.CerberusLogger;
 import com.cerberus.model.account.bean.User;
-import com.cerberus.model.outlets.bean.Outlet;
-import com.cerberus.model.outlets.bean.OutletOperationMode;
-import com.cerberus.model.outlets.bean.Socket;
-import com.cerberus.module.account.backingobjects.RoomBackingObject;
-import com.cerberus.module.account.backingobjects.UserBackingObjectFactory;
 import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
-import com.cerberus.module.outlets.backingobjects.OutletBackingObject;
-import com.cerberus.module.outlets.backingobjects.OutletBackingObjectFactory;
-import com.cerberus.module.outlets.backingobjects.OutletOperationModeBackingObjectFactory;
-import com.cerberus.module.outlets.backingobjects.SocketBackingObjectFactory;
-import com.cerberus.module.outlets.workflows.OutletWorkflow;
-import com.cerberus.module.system.workflows.SystemWorkflow;
 
+// TODO: TODO!!
 
 @Controller
-public class OutletController extends CerberusController {
+public class SecurityController extends CerberusController {
 
-	@RequestMapping(value=CerberusConstants.OUTLETS_MAPPING, method=RequestMethod.GET)
-	public String getOutletsPage(Model model)	{
+	@RequestMapping(value=CerberusConstants.SECURITY_MAPPING, method=RequestMethod.GET)
+	public String getSecurityPage(Model model)	{
 
-		User user = getUser();		
+		User user = getUser();
 
 		if(user == null){
 			return CerberusConstants.REDIRECT;
-		}		
+		}
 
 		initTopBar(model, user);
 
+		//TODO: Get RFID list from system associated with user
+
 		//Get the outlet list for the current user.
+		/*
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 		List<OutletBackingObject> outletBackingObjects = OutletBackingObjectFactory.INSTANCE.getBackingObjects(outletWorkflow.getOutletFromUser(user));
 		model.addAttribute(CerberusConstants.USER_OUTLETS, outletBackingObjects);
@@ -52,23 +41,27 @@ public class OutletController extends CerberusController {
 
 		OutletBackingObject newOutlet = OutletBackingObjectFactory.INSTANCE.getBackingObject(user);
 		model.addAttribute(CerberusConstants.NEW_OUTLET, newOutlet);
+		*/
 
-		CerberusLogger.get(CerberusConstants.OUTLETS_VIEW);
+		CerberusLogger.get(CerberusConstants.SECURITY_VIEW);
 
-		return CerberusConstants.OUTLETS_VIEW;
+		return CerberusConstants.SECURITY_VIEW;
 	}
 
-	@RequestMapping(value=CerberusConstants.VIEW_OUTLET_MAPPING, method=RequestMethod.GET)
-	public String getViewOutletPage(Model model, @RequestParam(value = "id") Integer id)	{
+	@RequestMapping(value=CerberusConstants.VIEW_RFID_MAPPING, method=RequestMethod.GET)
+	public String getViewRfidPage(Model model, @RequestParam(value = "id") Integer id)	{
 
-		User user = getUser();		
+		User user = getUser();
 
 		if(user == null){
 			return CerberusConstants.REDIRECT;
-		}		
+		}
 
 		initTopBar(model, user);
 
+		// TODO: Get RFID from passed ID
+
+		/*
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 		Outlet outlet = outletWorkflow.getOutletById(id);
 		model.addAttribute(CerberusConstants.OUTLET, OutletBackingObjectFactory.INSTANCE.getBackingObject(outlet));
@@ -79,14 +72,18 @@ public class OutletController extends CerberusController {
 		model.addAttribute(CerberusConstants.MODES, OutletOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(modes));
 
 		model.addAttribute(CerberusConstants.USER, UserBackingObjectFactory.INSTANCE.getBackingObject(user));
+		*/
 
-		CerberusLogger.get(CerberusConstants.VIEW_OUTLET_VIEW);
+		CerberusLogger.get(CerberusConstants.VIEW_RFID_VIEW);
 
-		return CerberusConstants.VIEW_OUTLET_VIEW;
+		return CerberusConstants.VIEW_RFID_VIEW;
 	}
 
-	@RequestMapping(value=CerberusConstants.OUTLETS_MAPPING, method=RequestMethod.POST)
-	public String postOutletsPage(Model model, @ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet)	{
+	// TODO: Create POST methods for security and view RFID pages!
+
+	/*
+	@RequestMapping(value=CerberusConstants.SECURITY_MAPPING, method=RequestMethod.POST)
+	public String postSecurityPage(Model model, @ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet)	{
 		CerberusLogger.post(CerberusConstants.OUTLETS_VIEW);
 
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
@@ -102,18 +99,20 @@ public class OutletController extends CerberusController {
 		Socket socketB = Socket.create(outlet, Socket.BOTTOM, Socket.getNewSerial());
 		outletWorkflow.insertSocket(socketB);
 
-		return getOutletsPage(model);
+		return getSecurityPage(model);
 	}
 
-	@RequestMapping(value=CerberusConstants.VIEW_OUTLET_MAPPING, method=RequestMethod.POST)
-	public String postViewOutletsPage(Model model, @ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet)	{
+	@RequestMapping(value=CerberusConstants.VIEW_RFID_MAPPING, method=RequestMethod.POST)
+	public String postViewRfidPage(Model model, @ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet)	{
 		CerberusLogger.post(CerberusConstants.VIEW_OUTLET_VIEW);
 
 		//Add the outlet
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 		outletWorkflow.updateOutletOperationMode(newOutlet);
 
-		return getViewOutletPage(model, newOutlet.getId());
+		return getViewRfidPage(model, newOutlet.getId());
 	}
+
+	*/
 
 }

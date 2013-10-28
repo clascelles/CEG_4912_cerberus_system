@@ -1,16 +1,16 @@
 package com.cerberus.module.generic.workflows;
 
 import org.apache.log4j.Logger;
+
 import com.cerberus.service.pool.ServiceFactory;
 import com.cerberus.service.pool.ServiceFactoryPool;
-import com.cerberus.service.system.SystemService;
 
 public abstract class Workflow {
 
 	//Get Logger
 	private final static Logger LOGGER = Logger.getLogger(Workflow.class);
-	
-	protected static ServiceFactory serviceFactory = borrowServiceFactory();	
+
+	protected static ServiceFactory serviceFactory = borrowServiceFactory();
 
 	//Method used by the constructor to get the Service Factory
 	protected static ServiceFactory borrowServiceFactory(){
@@ -32,7 +32,7 @@ public abstract class Workflow {
 			LOGGER.error("ERROR Returning Service Factory");
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

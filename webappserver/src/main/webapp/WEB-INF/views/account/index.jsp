@@ -81,7 +81,7 @@
 									<div class="row-fluid">
 										<div class="span6">
 											<div class="control-group">
-												<label class="control-label">Username</label>
+												<label class="control-label">Username:</label>
 												<div class="controls">
 													<input class="input-xlarge" name="username" type="text" value="${userBackingObject.username}">
 												</div>

@@ -6,9 +6,9 @@ import com.cerberus.daemon.message.Message;
 import com.cerberus.daemon.message.RFIDAuthRequestMessage;
 import com.cerberus.daemon.message.WrongMessageException;
 import com.cerberus.model.account.bean.User;
-import com.cerberus.model.outlets.bean.RfidAuthentication;
-import com.cerberus.model.outlets.bean.RfidTag;
 import com.cerberus.model.outlets.bean.Socket;
+import com.cerberus.model.security.bean.RfidAuthentication;
+import com.cerberus.model.security.bean.RfidTag;
 import com.cerberus.service.pool.ServiceFactory;
 
 public class RFIDAuthRequestWorkflow extends MessageWorkflow{
@@ -24,7 +24,7 @@ public class RFIDAuthRequestWorkflow extends MessageWorkflow{
 	}
 
 	@Override
-	public boolean handleReceivedMessage(Message receivedMessage) throws WrongMessageException {
+	public boolean handleMessage(Message receivedMessage) throws WrongMessageException {
 
 		// Create new Current data structure
 		RFIDAuthRequestMessage requestMessage;
@@ -49,12 +49,6 @@ public class RFIDAuthRequestWorkflow extends MessageWorkflow{
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	public boolean handleSendingMessage(Message sendingMessage) throws WrongMessageException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

@@ -12,11 +12,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_TYPE")
 public class UserType implements Serializable{
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final Integer SYSTEM_ADMINISTRATOR_ID = 1;
+	public static final Integer SYSTEM_OWNER_ID = 2;
+	public static final Integer CONSUMER_ID = 3;	
 	
 	private Integer id;
 	private String name;
