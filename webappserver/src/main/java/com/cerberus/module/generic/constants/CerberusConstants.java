@@ -54,6 +54,8 @@ public class CerberusConstants {
 	public static final String OUTLET = "outlet";
 	public static final String SOCKETS = "sockets";
 	public static final String OUTLETS = "outlets";
+	public static final String RFID_TAGS = "rfidTags";
+	public static final String RFID_TAG = "rfidTag";
 	public static final String MODES = "modes";
 	public static final String USER = "user";
 	public static final String SYSTEM_SETTINGS = "systemSettings";

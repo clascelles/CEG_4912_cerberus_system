@@ -31,6 +31,7 @@
         <mapping class="com.cerberus.model.account.bean.PersonalInformation"></mapping>
         <mapping class="com.cerberus.model.security.bean.RfidAuthentication"></mapping>
         <mapping class="com.cerberus.model.security.bean.RfidTag"></mapping>
+        <mapping class="com.cerberus.model.security.bean.RfidTagView"></mapping>
         <mapping class="com.cerberus.model.system.bean.Room"></mapping>
         <mapping class="com.cerberus.model.system.bean.RoomType"></mapping>
         <mapping class="com.cerberus.model.system.bean.UserSystemView"></mapping>

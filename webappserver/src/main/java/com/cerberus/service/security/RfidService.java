@@ -1,27 +1,30 @@
 package com.cerberus.service.security;
 
+import java.util.List;
+
 import org.hibernate.criterion.DetachedCriteria;
 
-import com.cerberus.model.account.dao.GeneralProfileDAO;
 import com.cerberus.model.security.bean.RfidAuthentication;
 import com.cerberus.model.security.bean.RfidTag;
+import com.cerberus.model.security.bean.RfidTagView;
 import com.cerberus.model.security.dao.RfidAuthenticationDAO;
 import com.cerberus.model.security.dao.RfidTagDAO;
+import com.cerberus.model.security.dao.RfidTagViewDAO;
 import com.cerberus.model.security.filter.RfidTagFilter;
-import com.cerberus.model.usage.dao.ConsumptionProfileDAO;
+import com.cerberus.model.system.dao.UserSystemViewDAO;
 
 public class RfidService {
 
 	RfidTagDAO rfidTagDAO;
-	ConsumptionProfileDAO consumptionProfileDAO;
-	GeneralProfileDAO generalProfileDAO;
+	RfidTagViewDAO rfidTagViewDAO;
 	RfidAuthenticationDAO rfidAuthenticationDAO;
+	UserSystemViewDAO userSystemViewDAO;
 
 	public RfidService(){
 		rfidTagDAO = new RfidTagDAO();
-		consumptionProfileDAO = new ConsumptionProfileDAO();
-		generalProfileDAO = new GeneralProfileDAO();
+		rfidTagViewDAO = new RfidTagViewDAO();
 		rfidAuthenticationDAO = new RfidAuthenticationDAO();
+		userSystemViewDAO = new UserSystemViewDAO();
 	}
 
 	//***************************************************
@@ -68,6 +71,18 @@ public class RfidService {
 
 	public RfidAuthentication getRfidAuthenticationById(Integer id) {
 		return rfidAuthenticationDAO.getById(id);
+	}
+
+	//***************************************************
+	//RFID TAG VIEW
+	//***************************************************
+
+	public RfidTagView getRfidTagViewById(Integer id) {
+		return rfidTagViewDAO.getById(id);
+	}
+
+	public List<RfidTagView> getRfidTagViewsByUser(Integer userId) {
+		return rfidTagViewDAO.getByUserId(userId);
 	}
 
 }

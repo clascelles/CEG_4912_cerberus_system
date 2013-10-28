@@ -27,6 +27,7 @@ public class RfidAuthentication implements Serializable{
 	Integer id;
 	Integer rfidTagId;
 	User owner;
+	Integer permission;
 
 	public RfidAuthentication(){
 		super();
@@ -65,10 +66,18 @@ public class RfidAuthentication implements Serializable{
 		this.owner = owner;
 	}
 
+	@Column(name="PERMISSION", nullable=false)
+	public Integer getPermission() {
+		return permission;
+	}
+	public void setPermission(Integer permission) {
+		this.permission = permission;
+	}
+
 	@Override
 	public String toString() {
 		return "RfidAuthentication [id=" + id + ", rfidTagId=" + rfidTagId
-				+ ", owner=" + owner + "]";
+				+ ", owner=" + owner + ", permission=" + permission + "]";
 	}
 
 

@@ -10,11 +10,13 @@ import com.cerberus.model.system.bean.Room;
 import com.cerberus.model.system.bean.RoomType;
 import com.cerberus.module.generic.backingobjects.BackingObjectFactory;
 import com.cerberus.module.generic.workflows.Workflows;
+import com.cerberus.module.outlets.workflows.OutletWorkflow;
+import com.cerberus.module.system.workflows.SystemWorkflow;
 
 public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, OutletBackingObject> {
-	
+
 	public static OutletBackingObjectFactory INSTANCE = new OutletBackingObjectFactory();
-		
+
 	public OutletBackingObject getBackingObject(User user) {
 		OutletBackingObject backingObject = new OutletBackingObject();
 		return backingObject;
@@ -35,55 +37,50 @@ public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, Out
 	@Override
 	public Outlet bind(OutletBackingObject backingObject, User user) {
 		Workflows workflows = CerberusApplicationContext.getWorkflows();
-		
-		Outlet outlet;
-		
+		OutletWorkflow outletWorkflow = workflows.getOutletWorkflow();
+		SystemWorkflow systemWorkflow = workflows.getSystemWorkflow();
+
+		Outlet outlet = new Outlet();
+
 		if(backingObject.getId() != null) {
-			outlet = workflows.getOutletWorkflow().getOutletById(backingObject.getId());
-			if(outlet == null) {
-				outlet = new Outlet();
-				outlet.setId(backingObject.getId());			
-			}			
-		} else {
-			outlet = new Outlet();
-			outlet.setId(backingObject.getId());
+			outlet = outletWorkflow.getOutletById(backingObject.getId());
 		}
-		
+
 		if(backingObject.getModeId() != null) {
-			outlet.setMode(workflows.getOutletWorkflow().getOutletOperationModeById(backingObject.getModeId()));			
+			outlet.setMode(outletWorkflow.getOutletOperationModeById(backingObject.getModeId()));
 		} else {
-			outlet.setMode(workflows.getOutletWorkflow().getOutletOperationModeById(OutletOperationMode.DISABLED));
+			outlet.setMode(outletWorkflow.getOutletOperationModeById(OutletOperationMode.DISABLED));
 		}
-		
+
 		if(backingObject.getRoomId() != null) {
-			outlet.setRoom(workflows.getSystemWorkflow().getRoomById(backingObject.getRoomId()));			
+			outlet.setRoom(systemWorkflow.getRoomById(backingObject.getRoomId()));
 		} else {
-			List<Room> kitchens = workflows.getSystemWorkflow().getRoomsByRoomTypeId(RoomType.KITCHEN);
+			List<Room> kitchens = systemWorkflow.getRoomsByRoomTypeId(RoomType.KITCHEN);
 			if(!kitchens.isEmpty()) {
 				outlet.setRoom(kitchens.get(0));
 			} else {
-				List<Room> foyers = workflows.getSystemWorkflow().getRoomsByRoomTypeId(RoomType.FOYER);
+				List<Room> foyers = systemWorkflow.getRoomsByRoomTypeId(RoomType.FOYER);
 				if(!foyers.isEmpty()) {
 					outlet.setRoom(foyers.get(0));
 				} else {
-					List<Room> bedrooms = workflows.getSystemWorkflow().getRoomsByRoomTypeId(RoomType.BEDROOM);
+					List<Room> bedrooms = systemWorkflow.getRoomsByRoomTypeId(RoomType.BEDROOM);
 					if(!bedrooms.isEmpty()) {
 						outlet.setRoom(bedrooms.get(0));
 					} else {
-						List<Room> bathrooms = workflows.getSystemWorkflow().getRoomsByRoomTypeId(RoomType.BATHROOM);
+						List<Room> bathrooms = systemWorkflow.getRoomsByRoomTypeId(RoomType.BATHROOM);
 						if(!bathrooms.isEmpty()) {
 							outlet.setRoom(bathrooms.get(0));
 						}
 					}
 				}
-			}			
+			}
 		}
-		
+
 		if(backingObject.getSerialNumber() != null) {
-			outlet.setSerialNumber(backingObject.getSerialNumber());			
+			outlet.setSerialNumber(backingObject.getSerialNumber());
 		}
-		
+
 		return outlet;
 	}
-	
+
 }
