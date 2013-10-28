@@ -1,28 +1,35 @@
 package com.cerberus.service.schedules;
 
-import com.cerberus.model.outlets.bean.SocketOperationMode;
-import com.cerberus.model.outlets.dao.SocketOperationModeDAO;
+import java.util.List;
+
+import com.cerberus.model.schedules.bean.ScheduledEvent;
+import com.cerberus.model.schedules.dao.ScheduledEventDAO;
+import com.cerberus.model.schedules.filter.ScheduledEventFilter;
 
 public class SchedulingService {
-	private SocketOperationModeDAO socketOperationModeDAO;
+	private ScheduledEventDAO scheduledEventDAO;
 	
 	public SchedulingService(){
-		socketOperationModeDAO = new SocketOperationModeDAO();
+		scheduledEventDAO = new ScheduledEventDAO();
 	}
 	
 	//***************************************************
-	//Outlet
+	//ScheduledEvent
 	//***************************************************
 	
-	public Integer insertSocketOperationMode(SocketOperationMode socketOperationMode){
-		return socketOperationModeDAO.save(socketOperationMode);
+	public Integer insertScheduledEvent(ScheduledEvent scheduledEvent){
+		return scheduledEventDAO.save(scheduledEvent);
 	}
 	
-	public SocketOperationMode updateSocketOperationMode(SocketOperationMode socketOperationMode){
-		return socketOperationModeDAO.merge(socketOperationMode);
+	public ScheduledEvent updateScheduledEvent(ScheduledEvent scheduledEvent){
+		return scheduledEventDAO.merge(scheduledEvent);
 	}
 	
-	public void deleteSocketOperationMode(SocketOperationMode socketOperationMode){
-		socketOperationModeDAO.delete(socketOperationMode);
+	public void deleteSocketOperationMode(ScheduledEvent scheduledEvent){
+		scheduledEventDAO.delete(scheduledEvent);
+	}
+
+	public List<ScheduledEvent> getScheduledEventBySocketId(Integer socketId) {
+		return scheduledEventDAO.getAllByFilter(ScheduledEventFilter.getBySocketId(socketId));		
 	}
 }

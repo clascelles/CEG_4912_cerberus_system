@@ -34,6 +34,10 @@
 	<script src='/webappserver/resources/js/fullcalendar.min.js'></script>
 	<!-- data table plugin -->
 	<script src='/webappserver/resources/js/jquery.dataTables.min.js'></script>
+	<!-- date time range picker -->
+	<script src='/webappserver/resources/js/daterangepicker.js'></script>
+	<script src='/webappserver/resources/js/moment.js'></script>
+	<script src='/webappserver/resources/js/moment.min.js'></script>
 
 	<!-- chart libraries start -->
 	<script src="/webappserver/resources/js/excanvas.js"></script>

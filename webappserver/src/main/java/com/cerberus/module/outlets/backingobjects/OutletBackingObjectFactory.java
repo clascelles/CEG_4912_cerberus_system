@@ -15,6 +15,7 @@ public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, Out
 	
 	public static OutletBackingObjectFactory INSTANCE = new OutletBackingObjectFactory();
 		
+	@Override
 	public OutletBackingObject getBackingObject(User user) {
 		OutletBackingObject backingObject = new OutletBackingObject();
 		return backingObject;

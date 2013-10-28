@@ -121,6 +121,30 @@ public class OutletWorkflow extends Workflow {
 
 		return sockets;
 	}
+	
+	public List<Socket> getSocketsByUser(User user) {
+		OutletService outletService = serviceFactory.getOutletService();
+		
+		List<Outlet> outlets = getOutletFromUser(user);
+		List<Socket> sockets = new ArrayList<Socket>();
+		
+		for(Outlet outlet : outlets) {
+			sockets.addAll(outletService.getSocketsByOutlet(outlet.getId()));
+		}
+
+		this.returnServiceFactory();
+
+		return sockets;
+	}
+
+	public List<SocketOperationMode> getSocketOperationModes() {
+		OutletService outletService = serviceFactory.getOutletService();
+		List<SocketOperationMode> socketOperationModes = outletService.getSocketOperationModes();
+
+		this.returnServiceFactory();
+
+		return socketOperationModes;
+	}
 
 	public List<Socket> getAllSockets() {
 		OutletService outletService = serviceFactory.getOutletService();
@@ -142,7 +166,7 @@ public class OutletWorkflow extends Workflow {
 
 	public SocketOperationMode getSocketModeById(Integer id) {
 		OutletService outletService = serviceFactory.getOutletService();
-		SocketOperationMode mode = outletService.getModeById(id);
+		SocketOperationMode mode = outletService.getSocketOperationModeById(id);
 
 		this.returnServiceFactory();
 

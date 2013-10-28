@@ -137,8 +137,12 @@ public class OutletService {
 		socketOperationModeDAO.delete(socketOperationMode);
 	}
 
-	public SocketOperationMode getModeById(Integer id) {
+	public SocketOperationMode getSocketOperationModeById(Integer id) {
 		return socketOperationModeDAO.getById(id);
+	}
+	
+	public List<SocketOperationMode> getSocketOperationModes() {
+		return socketOperationModeDAO.getAll();
 	}
 
 	//***************************************************

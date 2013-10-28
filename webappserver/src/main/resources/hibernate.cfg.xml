@@ -35,8 +35,7 @@
         <mapping class="com.cerberus.model.system.bean.RoomType"></mapping>
         <mapping class="com.cerberus.model.usage.bean.Rule"></mapping>
         <mapping class="com.cerberus.model.usage.bean.RuleTipXref"></mapping>
-        <mapping class="com.cerberus.model.schedules.bean.ScheduleEndMode"></mapping>
-        <mapping class="com.cerberus.model.schedules.bean.ScheduleStartMode"></mapping>
+        <mapping class="com.cerberus.model.schedules.bean.ScheduledEvent"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.Socket"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.SocketAssignment"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.SocketOperationMode"></mapping>

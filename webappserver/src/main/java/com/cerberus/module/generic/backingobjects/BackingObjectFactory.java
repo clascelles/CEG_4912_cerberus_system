@@ -19,6 +19,8 @@ public abstract class BackingObjectFactory<T, S extends BackingObject<T>> {
 		return backingObjects;
 	}
 	
+	public abstract S getBackingObject(User user);
+	
 	public abstract S getBackingObject(T object);
 	
 	public abstract T bind(S backingObject, User user);

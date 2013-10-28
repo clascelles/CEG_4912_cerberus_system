@@ -12,6 +12,11 @@ public class SocketBackingObjectFactory extends BackingObjectFactory<Socket, Soc
 	public static SocketBackingObjectFactory INSTANCE = new SocketBackingObjectFactory();
 	
 	public static final String UNASSIGNED = "-unassigned-";
+
+	@Override
+	public SocketBackingObject getBackingObject(User user) {
+		return new SocketBackingObject();
+	}
 	
 	@Override
 	public SocketBackingObject getBackingObject(Socket socket) {

@@ -53,5 +53,7 @@ public class CerberusConstants {
 	public static final String SYSTEM_SETTINGS = "systemSettings";
 	public static final String USERS_LIST = "usersList";	
 	public static final String IS_SYS_ADMIN = "isSysAdmin";
+	public static final String SCHEDULED_EVENT = "scheduledEvent";
+	public static final String SCHEDULED_EVENTS = "scheduledEvents";	
 	
 }

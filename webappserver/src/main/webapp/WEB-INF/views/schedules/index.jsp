@@ -65,16 +65,83 @@
 				</div>
 
 				<div class="row-fluid">
-					<div class="box span12">
+					<div class="box span6">
 						<div class="box-header well">
 							<h2>
-								<i class="icon-time"></i> Schedule
+								<i class="icon-time"></i> Add Event
 							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
 						</div>
 						<div class="box-content">							
-							<form id="getOutletSchedules" class="form-horizontal" method="post">
+							<form id="addEvent" class="form-horizontal" method="post">
 						  		<fieldset>
 									<div class="control-group">
+										<label class="control-label" for="eventDuration">Schedule duration:</label>
+									    <div class="controls">
+									    	<div class="input-prepend">
+									    	<span class="add-on"><i class="icon-calendar"></i></span><input type="text" name="eventDuration" id="eventDuration" value="${scheduledEvent.eventDuration}"/>
+									    	</div>
+										</div>
+								    </div>
+									<div class="control-group">
+										<label class="control-label" for="outletId">Outlet</label>
+										<div class="controls">
+											<select data-placeholder="Select Outlet" id="outletId" data-rel="chosen">
+												<option value=""></option>											
+												<c:forEach items="${rooms}" var="room">		  			
+													<optgroup label="${room.key.name}">
+														<c:forEach items="${room.value}" var="outlet">
+														  <option value="${outlet.id}">${outlet.id}</option>
+														</c:forEach>
+													</optgroup>
+										  		</c:forEach>
+									  		</select>									  		
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" for="socketId">Socket</label>
+										<div class="controls">
+											<select data-placeholder="Your Outlet" id="socketId" data-rel="chosen">
+												<option value="0">A</option>
+												<option value="1">B</option>
+									  		</select>								  		
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" for="startModeId">Operation Mode</label>
+										<div class="controls">
+											<select data-placeholder="Select Operation Mode" id="startModeId" data-rel="chosen">
+												<option value=""></option>											
+												<c:forEach items="${modes}" var="mode">	
+													  <option value="${mode.id}">${mode.name}</option>
+										  		</c:forEach>
+									  		</select>								  		
+										</div>
+									</div>
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary" name="addEvent">Add</button>
+									</div>
+						  		</fieldset>
+						  	</form>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+					
+					<div class="box span6">
+						<div class="box-header well">
+							<h2>
+								<i class="icon-time"></i> Existing Events
+							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
+						</div>
+						<div class="box-content">							
+							<form id="listEvents" class="form-horizontal" method="post">
+						  		<fieldset>
+									<%-- <div class="control-group">
 										<label class="control-label">Outlet</label>
 										<div class="controls">
 											<select data-placeholder="Your Outlet" id="selectError2" data-rel="chosen">
@@ -88,7 +155,7 @@
 										  		</c:forEach>
 									  		</select>									  		
 										</div>
-									</div>
+									</div> --%>
 									<!-- <div class="form-actions">
 										<button type="submit" class="btn btn-primary" name="add">Add</button>
 										<button type="reset" class="btn" name="reset">Clear</button>
@@ -126,11 +193,17 @@
 
 	</div>
 	<!--/.fluid-container-->
-
+	
 	<!-- external javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<%@include file="\WEB-INF\views\main\javascript.jsp" %>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+		  $('#eventDuration').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' });
+		});
+	</script>    
 	
 </body>
 </html>

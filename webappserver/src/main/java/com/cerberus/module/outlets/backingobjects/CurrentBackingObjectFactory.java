@@ -8,8 +8,9 @@ public class CurrentBackingObjectFactory extends BackingObjectFactory<Current, C
 	
 	public static CurrentBackingObjectFactory INSTANCE = new CurrentBackingObjectFactory();
 		
-	public OutletBackingObject getBackingObject(User user) {
-		OutletBackingObject backingObject = new OutletBackingObject();
+	@Override
+	public CurrentBackingObject getBackingObject(User user) {
+		CurrentBackingObject backingObject = new CurrentBackingObject();
 		return backingObject;
 	}
 
@@ -42,6 +43,5 @@ public class CurrentBackingObjectFactory extends BackingObjectFactory<Current, C
 	//Temporary helper
 	public static String getRandomInRange(int max, int min) {
 		return String.valueOf(min + (int)(Math.random() * ((max - min + 1))));
-	}
-	
+	}	
 }

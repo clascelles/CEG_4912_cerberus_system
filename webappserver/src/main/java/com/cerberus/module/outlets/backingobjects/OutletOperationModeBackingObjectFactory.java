@@ -7,12 +7,12 @@ import com.cerberus.module.generic.backingobjects.BackingObjectFactory;
 public class OutletOperationModeBackingObjectFactory extends BackingObjectFactory<OutletOperationMode, OutletOperationModeBackingObject> {
 	
 	public static OutletOperationModeBackingObjectFactory INSTANCE = new OutletOperationModeBackingObjectFactory();
-		
-	public OutletBackingObject getBackingObject(User user) {
-		OutletBackingObject backingObject = new OutletBackingObject();
-		return backingObject;
-	}
 
+	@Override
+	public OutletOperationModeBackingObject getBackingObject(User user) {
+		return new OutletOperationModeBackingObject();
+	}
+	
 	@Override
 	public OutletOperationModeBackingObject getBackingObject(OutletOperationMode mode) {
 		OutletOperationModeBackingObject backingObject = new OutletOperationModeBackingObject();
@@ -27,5 +27,4 @@ public class OutletOperationModeBackingObjectFactory extends BackingObjectFactor
 		
 		return null;
 	}
-	
 }
