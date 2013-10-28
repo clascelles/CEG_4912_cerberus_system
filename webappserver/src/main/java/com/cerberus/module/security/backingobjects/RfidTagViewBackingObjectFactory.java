@@ -51,4 +51,10 @@ public class RfidTagViewBackingObjectFactory extends BackingObjectFactory<RfidTa
 		return tag;
 	}
 
+	@Override
+	public RfidTagViewBackingObject getBackingObject(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
