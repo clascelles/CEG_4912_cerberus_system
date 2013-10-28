@@ -165,7 +165,7 @@ public class SecurityWorkflow extends Workflow {
 
 	public SocketOperationMode getSocketModeById(Integer id) {
 		OutletService outletService = serviceFactory.getOutletService();
-		SocketOperationMode mode = outletService.getModeById(id);
+		SocketOperationMode mode = outletService.getSocketOperationModeById(id);
 
 		this.returnServiceFactory();
 

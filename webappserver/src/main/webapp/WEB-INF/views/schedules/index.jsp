@@ -78,17 +78,24 @@
 							<form id="addEvent" class="form-horizontal" method="post">
 						  		<fieldset>
 									<div class="control-group">
-										<label class="control-label" for="eventDuration">Schedule duration:</label>
+										<label class="control-label" for="time">Event Time:</label>
+									    <div class="controls">
+									    	<div class="input-prepend">
+									    	<span class="add-on"><i class="icon-calendar"></i></span><input type="text" name="time" id="time" readonly value="${scheduledEvent.time}"/>
+									    	</div>
+										</div>
+									
+										<%-- <label class="control-label" for="eventDuration">Schedule duration:</label>
 									    <div class="controls">
 									    	<div class="input-prepend">
 									    	<span class="add-on"><i class="icon-calendar"></i></span><input type="text" name="eventDuration" id="eventDuration" value="${scheduledEvent.eventDuration}"/>
 									    	</div>
-										</div>
+										</div> --%>
 								    </div>
 									<div class="control-group">
 										<label class="control-label" for="outletId">Outlet</label>
 										<div class="controls">
-											<select data-placeholder="Select Outlet" id="outletId" data-rel="chosen">
+											<select data-placeholder="Select Outlet" name="outletId" data-rel="chosen">
 												<option value=""></option>											
 												<c:forEach items="${rooms}" var="room">		  			
 													<optgroup label="${room.key.name}">
@@ -103,16 +110,16 @@
 									<div class="control-group">
 										<label class="control-label" for="socketId">Socket</label>
 										<div class="controls">
-											<select data-placeholder="Your Outlet" id="socketId" data-rel="chosen">
+											<select data-placeholder="Your Socket" name="socketId" data-rel="chosen">
 												<option value="0">A</option>
 												<option value="1">B</option>
 									  		</select>								  		
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label" for="startModeId">Operation Mode</label>
+										<label class="control-label" for="modeId">Operation Mode</label>
 										<div class="controls">
-											<select data-placeholder="Select Operation Mode" id="startModeId" data-rel="chosen">
+											<select data-placeholder="Select Operation Mode" name="modeId" data-rel="chosen">
 												<option value=""></option>											
 												<c:forEach items="${modes}" var="mode">	
 													  <option value="${mode.id}">${mode.name}</option>
@@ -201,6 +208,7 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
+		  $("#time").datetimepicker({format: 'mm/dd/yyyy hh:ii'});
 		  $('#eventDuration').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' });
 		});
 	</script>    

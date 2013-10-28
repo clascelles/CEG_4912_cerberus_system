@@ -21,8 +21,7 @@ public class ScheduledEventBackingObjectFactory
 	public ScheduledEventBackingObject getBackingObject(User user) {
 		ScheduledEventBackingObject backingObject = new ScheduledEventBackingObject();
 		
-		backingObject.setStartModeId(SocketOperationMode.DISABLED);
-		backingObject.setEndModeId(SocketOperationMode.MONITORING);
+		backingObject.setModeId(SocketOperationMode.DISABLED);
 		backingObject.setUser(user);
 		
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
@@ -35,8 +34,8 @@ public class ScheduledEventBackingObjectFactory
 		}		
 		
 		Date start = new Date();
-		Date end = new Date(start.getTime() + 60*60*1000);
-		backingObject.setEventDuration(start, end);
+		/*Date end = new Date(start.getTime() + 60*60*1000);*/
+		backingObject.setTime(start);
 		
 		return backingObject;
 	}
@@ -45,11 +44,10 @@ public class ScheduledEventBackingObjectFactory
 	public ScheduledEventBackingObject getBackingObject(ScheduledEvent object) {
 		ScheduledEventBackingObject backingObject = new ScheduledEventBackingObject();
 		
-		backingObject.setStartMode(object.getStartMode());
-		backingObject.setEndMode(object.getEndMode());
+		backingObject.setMode(object.getMode());
 		backingObject.setSocket(object.getSocket());
 		backingObject.setUser(object.getUser());
-		backingObject.setEventDuration(object.getStartTime(), object.getEndTime());
+		backingObject.setTime(object.getTime());
 		
 		return backingObject;
 	}
@@ -57,16 +55,13 @@ public class ScheduledEventBackingObjectFactory
 	@Override
 	public ScheduledEvent bind(ScheduledEventBackingObject backingObject,
 			User user) {
-		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 
 		ScheduledEvent event = new ScheduledEvent();
 		
-		event.setStartMode(outletWorkflow.getSocketModeById(backingObject.getStartModeId()));
-		event.setEndMode(outletWorkflow.getSocketModeById(backingObject.getEndModeId()));
-		event.setSocket(outletWorkflow.getSocketById(backingObject.getSocketId()));
+		event.setMode(backingObject.getMode());
+		event.setSocket(backingObject.getSocket());
 		event.setUser(user);		
-		event.setStartTime(backingObject.getStartTime());
-		event.setEndTime(backingObject.getEndTime());
+		event.setTime(ScheduledEventBackingObject.parseDate(backingObject.getTime()));
 
 		return event;
 	}

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.message.CerberusLogger;
 import com.cerberus.model.account.bean.User;
+import com.cerberus.model.schedules.bean.Schedule;
 import com.cerberus.model.schedules.bean.ScheduledEvent;
 import com.cerberus.model.system.bean.Room;
 import com.cerberus.module.account.backingobjects.RoomBackingObject;
@@ -23,6 +24,8 @@ import com.cerberus.module.outlets.backingobjects.OutletBackingObject;
 import com.cerberus.module.outlets.backingobjects.OutletBackingObjectFactory;
 import com.cerberus.module.outlets.backingobjects.SocketOperationModeBackingObjectFactory;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
+import com.cerberus.module.schedules.backingobjects.ScheduleBackingObject;
+import com.cerberus.module.schedules.backingobjects.ScheduleBackingObjectFactory;
 import com.cerberus.module.schedules.backingobjects.ScheduledEventBackingObject;
 import com.cerberus.module.schedules.backingobjects.ScheduledEventBackingObjectFactory;
 import com.cerberus.module.schedules.workflows.ScheduleWorkflow;
@@ -32,7 +35,7 @@ import com.cerberus.module.system.workflows.SystemWorkflow;
 public class ScheduleController extends CerberusController {
 	
 	@RequestMapping(value=CerberusConstants.SCHEDULES_MAPPING, method=RequestMethod.GET)
-	public String getLoginPage(Model model)	{
+	public String getSchedulesPage(Model model)	{
 		
 		User user = getUser();		
 		if(user == null){
@@ -61,6 +64,9 @@ public class ScheduleController extends CerberusController {
 		model.addAttribute(CerberusConstants.SCHEDULED_EVENT, 
 				ScheduledEventBackingObjectFactory.INSTANCE.getBackingObject(user));
 		
+		model.addAttribute(CerberusConstants.SCHEDULE, 
+				ScheduleBackingObjectFactory.INSTANCE.getBackingObject(user));
+		
 		List<ScheduledEvent> events = scheduleWorkflow.getScheduledEventsForUser(user);
 		model.addAttribute(CerberusConstants.SCHEDULED_EVENTS, 
 				ScheduledEventBackingObjectFactory.INSTANCE.getBackingObjects(events));
@@ -69,7 +75,7 @@ public class ScheduleController extends CerberusController {
 	}
 	
 	@RequestMapping(value=CerberusConstants.SCHEDULES_MAPPING, method=RequestMethod.POST, params="addEvent")
-	public String addNewScheduledEvent(Model model,
+	public String addNewEvent(Model model,
 			@ModelAttribute(CerberusConstants.SCHEDULED_EVENT) ScheduledEventBackingObject backingObject)	{
 		CerberusLogger.post(CerberusConstants.SCHEDULES_VIEW);
 
@@ -78,6 +84,20 @@ public class ScheduleController extends CerberusController {
 		
 		ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
 		scheduleWorkflow.insertScheduledEvent(event);
+		
+		return CerberusConstants.SCHEDULES_VIEW;	
+	}
+	
+	@RequestMapping(value=CerberusConstants.SCHEDULES_MAPPING, method=RequestMethod.POST, params="addSchedule")
+	public String addNewSchedule(Model model,
+			@ModelAttribute(CerberusConstants.SCHEDULE) ScheduleBackingObject backingObject)	{
+		CerberusLogger.post(CerberusConstants.SCHEDULES_VIEW);
+
+		User user = getUser();
+		Schedule schedule = ScheduleBackingObjectFactory.INSTANCE.bind(backingObject, user);
+		
+		ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
+		scheduleWorkflow.insertSchedule(schedule);
 		
 		return CerberusConstants.SCHEDULES_VIEW;	
 	}

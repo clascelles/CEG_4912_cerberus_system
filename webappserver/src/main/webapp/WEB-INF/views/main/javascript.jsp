@@ -34,6 +34,8 @@
 	<script src='/webappserver/resources/js/fullcalendar.min.js'></script>
 	<!-- data table plugin -->
 	<script src='/webappserver/resources/js/jquery.dataTables.min.js'></script>
+	<!-- datetime picker -->	
+	<script src='/webappserver/resources/js/bootstrap-datetimepicker.js'></script>
 	<!-- date time range picker -->
 	<script src='/webappserver/resources/js/daterangepicker.js'></script>
 	<script src='/webappserver/resources/js/moment.js'></script>

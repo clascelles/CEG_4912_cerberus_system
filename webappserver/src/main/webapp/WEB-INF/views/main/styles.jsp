@@ -24,6 +24,7 @@
 	<link href='/webappserver/resources/css/opa-icons.css' rel='stylesheet'>
 	<link href='/webappserver/resources/css/uploadify.css' rel='stylesheet'>
 	<link href='/webappserver/resources/css/daterangepicker-bs3.css' rel='stylesheet'>
+	<link href='/webappserver/resources/css/bootstrap-datetimepicker.css' rel='stylesheet'>
 
 	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>

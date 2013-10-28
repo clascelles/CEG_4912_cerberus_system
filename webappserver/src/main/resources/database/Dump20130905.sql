@@ -465,6 +465,67 @@ LOCK TABLES `rule_tip_xref` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `schedule`
+--
+
+DROP TABLE IF EXISTS `schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schedule` (
+  `ID` int(11) NOT NULL,
+  `START_EVENT_ID` int(11) NOT NULL,
+  `END_EVENT_ID` int(11) NOT NULL,
+  `SOCKET_ID` int(11) NOT NULL,
+  `USER_ID` int(11) NOT NULL,
+  `RECURRENCE_ID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `START_EVENT_ID_idx` (`START_EVENT_ID`),
+  KEY `END_EVENT_ID_idx` (`END_EVENT_ID`),
+  KEY `SOCKET_ID_idx` (`SOCKET_ID`),
+  KEY `USER_ID_idx` (`USER_ID`),
+  KEY `RECURRENCE_ID_idx` (`RECURRENCE_ID`),
+  CONSTRAINT `START_EVENT_ID` FOREIGN KEY (`START_EVENT_ID`) REFERENCES `scheduled_event` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `END_EVENT_ID` FOREIGN KEY (`END_EVENT_ID`) REFERENCES `scheduled_event` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `SOCKET_ID` FOREIGN KEY (`SOCKET_ID`) REFERENCES `socket` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `USER_ID` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `RECURRENCE_ID` FOREIGN KEY (`RECURRENCE_ID`) REFERENCES `schedule_recurrence` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schedule`
+--
+
+LOCK TABLES `schedule` WRITE;
+/*!40000 ALTER TABLE `schedule` DISABLE KEYS */;
+/*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `schedule_recurrence`
+--
+
+DROP TABLE IF EXISTS `schedule_recurrence`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schedule_recurrence` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NAME` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schedule_recurrence`
+--
+
+LOCK TABLES `schedule_recurrence` WRITE;
+/*!40000 ALTER TABLE `schedule_recurrence` DISABLE KEYS */;
+INSERT INTO `schedule_recurrence` VALUES (1,'Once'),(2,'Hourly'),(3,'Daily'),(4,'Weekly'),(5,'Bi-Weekly'),(6,'Monthly'),(7,'Yearly');
+/*!40000 ALTER TABLE `schedule_recurrence` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `scheduled_event`
 --
 
@@ -473,22 +534,18 @@ DROP TABLE IF EXISTS `scheduled_event`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `scheduled_event` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `SCHEDULE_END_MODE_ID` int(11) NOT NULL,
-  `SCHEDULE_START_MODE_ID` int(11) NOT NULL,
+  `SCHEDULE_MODE_ID` int(11) NOT NULL,
   `SOCKET_ID` int(11) NOT NULL,
   `USERS_ID` int(11) NOT NULL,
-  `START_TIME` time DEFAULT NULL,
-  `END_TIME` time DEFAULT NULL,
+  `EVENT_TIME` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `SCHEDULED_EVENT_FKIndex1` (`USERS_ID`),
   KEY `SCHEDULED_EVENT_FKIndex2` (`SOCKET_ID`),
-  KEY `SCHEDULED_EVENT_FKIndex3` (`SCHEDULE_START_MODE_ID`),
-  KEY `SCHEDULED_EVENT_FKIndex4` (`SCHEDULE_END_MODE_ID`),
+  KEY `SCHEDULED_EVENT_FKIndex3` (`SCHEDULE_MODE_ID`),
   CONSTRAINT `fk_?0A5185F2?CAED?41C8?9B0A?6E94C01D710B?` FOREIGN KEY (`USERS_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_?1D49F5A7?D149?4ACB?9C8D?B8DE2C97CA6A?` FOREIGN KEY (`SCHEDULE_END_MODE_ID`) REFERENCES `socket_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_?2E6ACAC5?E156?416D?A13F?735E87ADB060?` FOREIGN KEY (`SCHEDULE_START_MODE_ID`) REFERENCES `socket_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_?1D49F5A7?D149?4ACB?9C8D?B8DE2C97CA6A?` FOREIGN KEY (`SCHEDULE_MODE_ID`) REFERENCES `socket_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?C343C72D?38FA?408C?AFF7?D7F371EDABC7?` FOREIGN KEY (`SOCKET_ID`) REFERENCES `socket` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

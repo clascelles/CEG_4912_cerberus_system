@@ -11,5 +11,10 @@ public class ScheduledEventFilter {
 		return DetachedCriteria.forClass(ScheduledEvent.class).
 				add(Restrictions.eq("socket.id", socketId));
 	}
+
+	public static DetachedCriteria getByUserId(Integer userId){
+		return DetachedCriteria.forClass(ScheduledEvent.class).
+				add(Restrictions.eq("user.id", userId));
+	}
 	
 }

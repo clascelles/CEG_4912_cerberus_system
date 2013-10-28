@@ -1,80 +1,64 @@
 package com.cerberus.module.schedules.backingobjects;
 
 import java.util.Date;
+import java.util.List;
 
+import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
+import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
 import com.cerberus.model.schedules.bean.ScheduledEvent;
 import com.cerberus.module.generic.backingobjects.BackingObject;
+import com.cerberus.module.outlets.workflows.OutletWorkflow;
 
 public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 
-	private SocketOperationMode startMode;
-	private Integer startModeId;
-	private SocketOperationMode endMode;
-	private Integer endModeId;
+	private SocketOperationMode mode;
+	private Integer modeId;
 	private Integer outletId;
 	private Socket socket;
 	private Integer socketId;
 	private User user;
 	private Integer userId;
-	private String eventDuration;
+	private String time;
 	
 	public ScheduledEventBackingObject() {}
 	
-	public ScheduledEventBackingObject(SocketOperationMode startMode,
-			Integer startModeId, SocketOperationMode endMode,
-			Integer endModeId, Integer outletId, Socket socket, 
+	public ScheduledEventBackingObject(SocketOperationMode mode,
+			Integer outletId, Socket socket, 
 			Integer socketId, User user, Integer userId, 
-			Date startTime, Date endTime) {
+			String time) {
 		super();
-		this.startMode = startMode;
-		this.startModeId = startModeId;
-		this.endMode = endMode;
-		this.endModeId = endModeId;
 		this.outletId = outletId;
 		this.socket = socket;
 		this.socketId = socketId;
 		this.user = user;
 		this.userId = userId;
-		setEventDuration(startTime, endTime);
-	}
-
-	public SocketOperationMode getStartMode() {
-		return startMode;
-	}
-
-	public void setStartMode(SocketOperationMode startMode) {
-		this.startMode = startMode;
-		this.startModeId = startMode.getId();
-	}
-
-	public Integer getStartModeId() {
-		return startModeId;
+		this.time = time;
 	}
 	
-	public void setStartModeId(Integer startModeId) {
-		this.startModeId = startModeId;
+	public SocketOperationMode getMode() {
+		if(mode != null) {
+			return mode;
+		}
+		
+		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
+		return outletWorkflow.getSocketModeById(modeId);	
 	}
 
-	public SocketOperationMode getEndMode() {
-		return endMode;
+	public void setMode(SocketOperationMode mode) {
+		this.mode = mode;
 	}
 
-	public void setEndMode(SocketOperationMode endMode) {
-		this.endMode = endMode;
-		this.endModeId = endMode.getId();
+	public Integer getModeId() {
+		return modeId;
 	}
 
-	public Integer getEndModeId() {
-		return endModeId;
+	public void setModeId(Integer modeId) {
+		this.modeId = modeId;
 	}
-	
-	public void setEndModeId(Integer endModeId) {
-		this.endModeId = endModeId;
-	}
-	
+
 	public Integer getOutletId() {
 		return outletId;
 	}
@@ -84,7 +68,14 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 	}
 
 	public Socket getSocket() {
-		return socket;
+		if(socket != null) {
+			return socket;
+		}
+		
+		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
+		Outlet outlet = outletWorkflow.getOutletById(outletId);
+		List<Socket> sockets = outletWorkflow.getSocketsByOutlet(outlet);
+		return (!sockets.isEmpty()) ? sockets.get(socketId) : null;		
 	}
 
 	public void setSocket(Socket socket) {
@@ -93,7 +84,8 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 	}
 
 	public Integer getSocketId() {
-		return socketId;
+		Socket socket = getSocket();
+		return (socket != null) ? socket.getId() : null;
 	}
 	
 	public void setSocketId(Integer socketId) {
@@ -117,52 +109,31 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 		this.userId = userId;
 	}
 	
-	public String getEventDuration() {
-		return eventDuration;
-	}
-	
-	public void setEventDuration(Date startTime, Date endTime) {
-		this.eventDuration = datesToRange(startTime, endTime);
+	public String getTime() {
+		return time;
 	}
 
-	public void setEventDuration(String eventDuration) {
-		this.eventDuration = eventDuration;
+	public void setTime(Date time) {
+		setTime(formatDate(time));
 	}
 	
-	public Date getStartTime() {
-		return rangeToDates(eventDuration)[0];
-	}
-	
-	public Date getEndTime() {
-		return rangeToDates(eventDuration)[1];
-	}
-
-	public static String datesToRange(Date startTime, Date endTime) {
-		String range = "";
-		
-		range += formatDate(startTime) + " - " + formatDate(endTime);
-		
-		return range;
-	}
-	
-	public static Date[] rangeToDates(String range) {
-		Date[] dates = new Date[2];
-		
-		dates[0] = parseDate(range.substring(0, 16));
-		dates[1] = parseDate(range.substring(19, 35));
-		
-		return dates;
+	public void setTime(String time) {
+		this.time = time;
 	}
 	
 	public static Date parseDate(String formatted) {
 		Date date = new Date();
 		
 		date.setMonth(Integer.parseInt(formatted.substring(0, 2)));
-		date.setDate(Integer.parseInt(formatted.substring(3, 5)));
-		date.setYear(Integer.parseInt(formatted.substring(6, 10)));
+		Integer day = Integer.parseInt(formatted.substring(3, 5));
+		date.setDate(day);
+		Integer year = Integer.parseInt(formatted.substring(6, 10));
+		date.setYear(year - 1900);
 
-		date.setHours(Integer.parseInt(formatted.substring(11, 13)));
-		date.setMinutes(Integer.parseInt(formatted.substring(14, 16)));
+		Integer hours = Integer.parseInt(formatted.substring(11, 13));
+		date.setHours(hours);
+		Integer minutes = Integer.parseInt(formatted.substring(14, 16));
+		date.setMinutes(minutes);
 		
 		return date;
 	}
