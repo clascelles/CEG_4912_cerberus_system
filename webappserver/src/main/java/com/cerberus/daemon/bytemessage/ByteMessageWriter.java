@@ -20,7 +20,6 @@ public class ByteMessageWriter {
 		this.timestampHandler = new ByteTimestampHandler();
 	}
 
-	@SuppressWarnings("restriction")
 	public byte[] write(Message message) throws IllegalArgumentException {
 		messageBuffer.clear();
 

@@ -9,38 +9,35 @@ import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
-import com.cerberus.module.outlets.workflows.OutletWorkflow;
-import com.cerberus.module.overview.backingobjects.TopBarBackingObject;
+import com.cerberus.module.usage.constants.UsageConstants;
+import com.cerberus.module.usage.workflows.UsageWorkflow;
 
 @Controller
 public class UsageController extends CerberusController {
 
-	private static final String TOP_BAR_BACKING_OBJECT = "topBarBackingObject";
-	
-	@RequestMapping(value="/usage/index", method=RequestMethod.GET)
+	@RequestMapping(value=CerberusConstants.USAGE_VIEW, method=RequestMethod.GET)
 	public String getLoginPage(Model model)	{
-		
-		User user = getUser();		
+
+		User user = getUser();
 		if(user == null){
 			return CerberusConstants.REDIRECT;
-		}		
+		}
 		initTopBar(model, user);
-		
-		TopBarBackingObject topBarBackingObject = new TopBarBackingObject();
-		topBarBackingObject.setName(user.getInformation().getFirstName() + " " + user.getInformation().getLastName());
-		
-		model.addAttribute(TOP_BAR_BACKING_OBJECT, topBarBackingObject);
-		
-		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
-		
-		
+
+		UsageWorkflow usageWorkflow = CerberusApplicationContext.getWorkflows().getUsageWorkflow();
+
+		//Get current comsumption per hour for the last 24 hours.
+		Integer[] currentHourList = usageWorkflow.getCurrentByHourForLast24h(user);
+
+		model.addAttribute(UsageConstants.CURRENT_HOUR_LIST, currentHourList);
+
 		return "usage/index";
 	}
-	
+
 	@RequestMapping(value="/usage/index", method=RequestMethod.POST)
 	public String post(Model model)	{
 		return null;
-		
+
 	}
 
 }

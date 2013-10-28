@@ -33,8 +33,10 @@
         <mapping class="com.cerberus.model.security.bean.RfidTag"></mapping>
         <mapping class="com.cerberus.model.system.bean.Room"></mapping>
         <mapping class="com.cerberus.model.system.bean.RoomType"></mapping>
+        <mapping class="com.cerberus.model.system.bean.UserSystemView"></mapping>
         <mapping class="com.cerberus.model.usage.bean.Rule"></mapping>
-        <mapping class="com.cerberus.model.usage.bean.RuleTipXref"></mapping>
+        <mapping class="com.cerberus.model.usage.bean.RuleTipXref"></mapping>        
+        <mapping class="com.cerberus.model.usage.bean.CurrentHourView"></mapping>
         <mapping class="com.cerberus.model.schedules.bean.ScheduledEvent"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.Socket"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.SocketAssignment"></mapping>
