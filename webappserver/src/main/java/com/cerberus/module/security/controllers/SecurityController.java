@@ -1,15 +1,22 @@
 package com.cerberus.module.security.controllers;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.message.CerberusLogger;
 import com.cerberus.model.account.bean.User;
+import com.cerberus.model.security.bean.RfidTagView;
 import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
+import com.cerberus.module.security.backingobjects.RfidTagViewBackingObject;
+import com.cerberus.module.security.backingobjects.RfidTagViewBackingObjectFactory;
+import com.cerberus.module.security.workflows.SecurityWorkflow;
 
 // TODO: TODO!!
 
@@ -27,21 +34,11 @@ public class SecurityController extends CerberusController {
 
 		initTopBar(model, user);
 
-		//TODO: Get RFID list from system associated with user
+		SecurityWorkflow securityWorkflow = CerberusApplicationContext.getWorkflows().getSecurityWorkflow();
+		List<RfidTagView> rfidTagsFromSystem = securityWorkflow.getRfidTagsFromSystem(user.getLogin().getSystem());
+		List<RfidTagViewBackingObject> tags = RfidTagViewBackingObjectFactory.INSTANCE.getBackingObjects(rfidTagsFromSystem);
 
-		//Get the outlet list for the current user.
-		/*
-		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
-		List<OutletBackingObject> outletBackingObjects = OutletBackingObjectFactory.INSTANCE.getBackingObjects(outletWorkflow.getOutletFromUser(user));
-		model.addAttribute(CerberusConstants.USER_OUTLETS, outletBackingObjects);
-
-		SystemWorkflow systemWorkflow = CerberusApplicationContext.getWorkflows().getSystemWorkflow();
-		List<RoomBackingObject> rooms = systemWorkflow.getRoomBackingObjects(user);
-		model.addAttribute(CerberusConstants.ROOMS, rooms);
-
-		OutletBackingObject newOutlet = OutletBackingObjectFactory.INSTANCE.getBackingObject(user);
-		model.addAttribute(CerberusConstants.NEW_OUTLET, newOutlet);
-		*/
+		model.addAttribute(CerberusConstants.RFID_TAGS, tags);
 
 		CerberusLogger.get(CerberusConstants.SECURITY_VIEW);
 
@@ -59,8 +56,7 @@ public class SecurityController extends CerberusController {
 
 		initTopBar(model, user);
 
-		// TODO: Get RFID from passed ID
-
+		// TODO: TODO!
 		/*
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 		Outlet outlet = outletWorkflow.getOutletById(id);

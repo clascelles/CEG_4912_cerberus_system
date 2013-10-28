@@ -80,21 +80,19 @@
 						  	<table class="table table-striped table-bordered bootstrap-datatable datatable">
 							  <thead>
 								  <tr>
-									  <th>ID</th>
-									  <th>Room</th>
-									  <th>Operation Mode</th>
-									  <th>Serial Number</th>
-									  <th>Action</th>
+									  <th>Tag ID</th>
+									  <th>Tag Number</th>
+									  <th>Tag Description</th>
+									  <th>Tag Permission</th>
 								  </tr>
 							  </thead>   
 							  <tbody>
-							  	<c:forEach items="${userOutlets}" var="item">
+							  	<c:forEach items="${rfidTags}" var="item">
 							  		<tr>
 							  			<td>${item.id}</td>
-							  			<td>${item.roomName}</td>
-							  			<td>${item.modeName}</td>
-							  			<td>${item.serialNumber}</td>
-							  			<td><a class="btn btn-primary" href="/webappserver/outlets/view?id=${item.id}"><i class="icon-zoom-in icon-white"></i>View</a></td>
+							  			<td>${item.number}</td>
+							  			<td>${item.description}</td>
+							  			<td>${item.permission}</td>
 							  		</tr>
 								</c:forEach>
 							  </tbody>
@@ -117,30 +115,9 @@
 							</div>
 						</div>
 						<div class="box-content">
-						  	<form id="addOutlet" class="form-horizontal" method="post">
-						  		<fieldset>
-									<div class="control-group">
-										<label class="control-label">Serial Number</label>
-										<div class="controls">
-											<input class="input-xlarge" name="serialNumber" type="text">
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label">Room</label>
-										<div class="controls">
-										  	<select name="roomId" data-rel="chosen">
-										  		<c:forEach items="${rooms}" var="room">
-													<option value="${room.typeId}">${room.name}</option>
-												</c:forEach>
-											</select>
-										</div>
-									</div>
-									<div class="form-actions">
-										<button type="submit" class="btn btn-primary" name="add">Add</button>
-										<button type="reset" class="btn" name="reset">Clear</button>
-									</div>
-						  		</fieldset>
-						  	</form>						  								
+						  	<i class="icon-info"></i> Simply enable your new RFID tag by placing it near one of your outlets!
+						  	<p></p>
+						  	<i class="icon-excl"></i> Don't forget to set the permissions for your newly added RFID! 						  								
 							<div class="clearfix"></div>
 						</div>
 					</div>
