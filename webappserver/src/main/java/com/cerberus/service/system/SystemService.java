@@ -5,22 +5,27 @@ import java.util.List;
 import com.cerberus.model.system.bean.Room;
 import com.cerberus.model.system.bean.RoomType;
 import com.cerberus.model.system.bean.CerberusSystem;
+import com.cerberus.model.system.bean.UserSystemView;
 import com.cerberus.model.system.dao.RoomDAO;
 import com.cerberus.model.system.dao.RoomTypeDAO;
 import com.cerberus.model.system.dao.SystemDAO;
+import com.cerberus.model.system.dao.UserSystemViewDAO;
 import com.cerberus.model.system.filter.RoomFilter;
 import com.cerberus.model.system.filter.RoomTypeFilter;
+import com.cerberus.model.system.filter.UserSystemViewFilter;
 
 public class SystemService {
 	
 	RoomDAO roomDAO;
 	RoomTypeDAO roomTypeDAO;
 	SystemDAO systemDAO;
+	UserSystemViewDAO userSystemViewDAO;
 	
 	public SystemService(){
 		roomDAO = new RoomDAO();
 		roomTypeDAO = new RoomTypeDAO();
 		systemDAO = new SystemDAO();
+		userSystemViewDAO = new UserSystemViewDAO();
 	}
 	
 	//***************************************************
@@ -98,5 +103,18 @@ public class SystemService {
 	public CerberusSystem getSystemById(Integer id) {
 		return systemDAO.getById(id);
 	}
+	
+	//***************************************************
+	//User/System View
+	//***************************************************
+	
+	public Integer getSystemIdByUserId(Integer userId){
+		return userSystemViewDAO.getByFilter(UserSystemViewFilter.getByUserId(userId)).getSystemId();
+	}
+	
+	public Integer getUserIdBySystemId(Integer systemId){
+		return userSystemViewDAO.getByFilter(UserSystemViewFilter.getBySystemId(systemId)).getUserId();
+	}
+	
 
 }
