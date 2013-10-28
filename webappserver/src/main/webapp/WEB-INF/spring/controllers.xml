@@ -28,6 +28,9 @@
 	<bean id="scheduleController" class="com.cerberus.module.schedules.controllers.ScheduleController">
 		<property name="bin" ref="bin"></property>
 	</bean>
+	<bean id="securityController" class="com.cerberus.module.security.controllers.SecurityController">
+		<property name="bin" ref="bin"></property>
+	</bean>
 	<bean id="systemController" class="com.cerberus.module.system.controllers.SystemController">
 		<property name="bin" ref="bin"></property>
 	</bean>

@@ -70,5 +70,4 @@ public class RfidService {
 		return rfidAuthenticationDAO.getById(id);
 	}
 
-
 }
