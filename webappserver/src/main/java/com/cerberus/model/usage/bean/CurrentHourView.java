@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import com.cerberus.model.outlets.bean.Outlet;
 
 @Entity
-@Table(name = "CURRENT_HOUR_VIEW_2")
+@Table(name = "CURRENT_HOUR_VIEW")
 public class CurrentHourView implements Serializable{
 
 	/**
