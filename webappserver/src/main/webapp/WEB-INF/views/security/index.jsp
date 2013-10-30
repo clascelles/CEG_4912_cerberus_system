@@ -84,6 +84,7 @@
 									  <th>Tag Number</th>
 									  <th>Tag Description</th>
 									  <th>Tag Permission</th>
+									  <th>Action</th>
 								  </tr>
 							  </thead>   
 							  <tbody>
@@ -93,6 +94,7 @@
 							  			<td>${item.number}</td>
 							  			<td>${item.description}</td>
 							  			<td>${item.permission}</td>
+							  			<td><a class="btn btn-primary" href="/webappserver/security/view?id=${item.id}"><i class="icon-zoom-in icon-white"></i>View</a></td>
 							  		</tr>
 								</c:forEach>
 							  </tbody>
@@ -154,10 +156,6 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<%@include file="\WEB-INF\views\main\javascript.jsp" %>
-	
-	<script>
-		$('reset').click(function() { document.getElementById('serialNumber').value = ''; });
-	</script>
 	
 </body>
 </html>

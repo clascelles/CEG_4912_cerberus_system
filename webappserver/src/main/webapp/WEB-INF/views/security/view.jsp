@@ -60,9 +60,9 @@
 
 				<div>
 					<ul class="breadcrumb">
-						<li><a href="/webappserver/outlets/index">Outlets</a></li>
-						<li><span>></span></li>
-						<li><a href="#">View Outlet</a></li>
+						<li><a href="/webappserver/security/index">Security</a></li>
+						<li><span></span></li>
+						<li><a href="#">View RFID Tag</a></li>
 					</ul>
 				</div>
 
@@ -73,42 +73,41 @@
 						<div class="box-header well">
 							<h2>
 								<i class="icon-list-alt"></i>
-								View RFID Tag ${outlet.id}
+								View RFID Tag ${rfidTag.id}
 							</h2>
 							<div class="box-icon">
 								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
 							</div>
 						</div>
 						<div class="box-content">						  	
-						  	<form id="modifyOutlet" class="form-horizontal" method="post">						  		
+						  	<form id="modifyRfidTag" class="form-horizontal" method="post">						  		
 						  		<fieldset>
 									<div class="row-fluid">
 										<div class="span2">
-									  		<span><b>Serial Number</b></span>
+									  		<span><b>Tag Number</b></span>
 										</div>
 										<div class="span2">
-									  		<span>${outlet.serialNumber}</span>
-										</div>
-									</div>
-									
-									<div class="row-fluid">
-										<div class="span2">
-									  		<span><b>Room</b></span>
-										</div>
-										<div class="span2">
-									  		<span>${outlet.roomName}</span>
+									  		<span>${rfidTag.number}</span>
 										</div>
 									</div>
 									
-									<div class="row-fluid">
+									<div class="row-fluid" style="padding-bottom:5px">
 										<div class="span2">
-									  		<span><b>Operation Mode</b></span>
+									  		<span><b>Tag Description</b></span>
+										</div>
+										<div class="span2">
+									  		<input type="text" name="description" value="${rfidTag.description}">
+										</div>
+									</div>
+									
+									<div class="row-fluid" style="padding-bottom:5px">
+										<div class="span2">
+									  		<span><b>Tag Permission</b></span>
 										</div>
 										<div class="span2">
 							  				<select name="modeId" data-rel="chosen" <c:if test="${!isSysAdmin}">disabled</c:if>>
-										  		<c:forEach items="${modes}" var="mode">
-													<option value="${mode.id}" <c:if test="${mode.id == outlet.modeId}">selected</c:if>>${mode.name}</option>												
-												</c:forEach>
+										  		<option value="0" <c:if test="${!rfidTagAllowed}">selected</c:if> >DENIED</option>
+										  		<option value="1" <c:if test="${rfidTagAllowed}">selected</c:if> >ALLOWED</option>
 											</select>	
 										</div>							
 									</div>			
@@ -122,95 +121,6 @@
 					</div>
 				</div>				  
 						  	
-			  	<c:forEach items="${sockets}" var="socket">					  	
-				  	<form id="modifySocket" class="form-horizontal" method="post">						  		
-				  		<fieldset>
-							<div class="row-fluid">
-								<div class="box span12">
-									<div class="box-header well">
-										<h2>
-											<i class="icon-film"></i> Socket ${socket.position}
-										</h2>
-										<div class="box-icon">
-											<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-										</div>
-									</div>
-									<div class="box-content">
-										<div class="span5">
-											<div class="row-fluid">
-												<div class="span4"><b>Consumer</b></div>
-												<c:choose>
-												    <c:when test="${socket.connectedUserId == -1}">											    
-									  					<select name="connectedUserId" data-rel="chosen" disabled>
-															<option value="-1" selected>Unassigned</option>
-															<option value="${user.id}">Me</option>
-														</select>
-												    </c:when>
-												      
-											        <c:when test="${socket.connectedUserId == user.id}">									    
-									  					<select name="connectedUserId" data-rel="chosen" disabled>
-															<option value="-1">Unassigned</option>
-															<option value="${user.id}" selected>Me</option>
-														</select>
-												    </c:when>
-												
-												    <c:otherwise>							    
-									  					<select name="connectedUserId" data-rel="chosen" disabled <%-- <c:if test="${!user.sysAdmin}">disabled</c:if> --%>>
-															<option value="${socket.connectedUserId}">${socket.connectedUsername}</option>
-															<option value="-1">Unassigned</option>
-														</select>
-												    </c:otherwise>
-												</c:choose>
-											</div>
-											
-											<div class="row-fluid">
-												<div class="span4"><b>Status</b></div>
-												<div class="span4">${socket.statusName}</div>
-											</div>
-											
-											<div class="row-fluid">
-												<div class="span4"><b>Power Usage</b></div>
-												<div class="span4">
-													<span id="usage${socket.position}">${socket.powerUsage}</span>
-												</div>
-											</div>
-											
-											<div class="row-fluid">
-												<div class="span4"><b>Time Connected</b></div>
-												<div class="span4">
-													<span id="timeConnected${socket.position}">${socket.timeConnected}</span>
-												</div>
-											</div>
-											
-											<div class="row-fluid">
-												<div class="span4"><b>Connected Utility</b></div>
-												<div class="span4">
-													<span id="utility${socket.position}">${socket.connectedUtilityName}</span>
-												</div>
-											</div>
-											
-											<div class="row-fluid">
-												<div class="span4"><b>Serial Number</b></div>
-												<div class="span4">${socket.serialNumber}</div>
-											</div>
-										</div>
-										
-										<div class="span7">
-											<div class="box-content">
-												<div id="socket${socket.position}" style="height:160px;"></div>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-										<!-- <div class="form-actions">
-											<button type="submit" class="btn btn-primary" name="update">Update</button>
-										</div>	 -->
-									</div>						
-								</div>
-							</div>
-						</fieldset>
-					</form>
-				</c:forEach>
-			  	
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -243,7 +153,6 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<%@include file="\WEB-INF\views\main\javascript.jsp" %>
-	<script src="/webappserver/resources/js/viewOutlets.js"></script>
 	
 </body>
 </html>

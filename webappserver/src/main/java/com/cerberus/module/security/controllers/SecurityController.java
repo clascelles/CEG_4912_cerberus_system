@@ -16,6 +16,7 @@ import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
 import com.cerberus.module.security.backingobjects.RfidTagViewBackingObject;
 import com.cerberus.module.security.backingobjects.RfidTagViewBackingObjectFactory;
+import com.cerberus.module.security.constants.RfidPermission;
 import com.cerberus.module.security.workflows.SecurityWorkflow;
 
 // TODO: TODO!!
@@ -56,19 +57,15 @@ public class SecurityController extends CerberusController {
 
 		initTopBar(model, user);
 
-		// TODO: TODO!
-		/*
-		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
-		Outlet outlet = outletWorkflow.getOutletById(id);
-		model.addAttribute(CerberusConstants.OUTLET, OutletBackingObjectFactory.INSTANCE.getBackingObject(outlet));
+		SecurityWorkflow securityWorkflow = CerberusApplicationContext.getWorkflows().getSecurityWorkflow();
+		RfidTagView rfidTag = securityWorkflow.getRfidTagViewById(id);
+		RfidTagViewBackingObject rfidTagBO = RfidTagViewBackingObjectFactory.INSTANCE.getBackingObject(rfidTag);
 
-		model.addAttribute(CerberusConstants.SOCKETS, SocketBackingObjectFactory.INSTANCE.getBackingObjects(outletWorkflow.getSocketsByOutlet(outlet)));
+		model.addAttribute(CerberusConstants.RFID_TAG, rfidTagBO);
 
-		List<OutletOperationMode> modes = outletWorkflow.getOutletOperationModes();
-		model.addAttribute(CerberusConstants.MODES, OutletOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(modes));
+		boolean isAllowed = (rfidTagBO.getPermission() == RfidPermission.ALLOWED);
 
-		model.addAttribute(CerberusConstants.USER, UserBackingObjectFactory.INSTANCE.getBackingObject(user));
-		*/
+		model.addAttribute("rfidTagAllowed", isAllowed);
 
 		CerberusLogger.get(CerberusConstants.VIEW_RFID_VIEW);
 
