@@ -12,6 +12,11 @@ public class RfidTagViewBackingObjectFactory extends BackingObjectFactory<RfidTa
 	public static RfidTagViewBackingObjectFactory INSTANCE = new RfidTagViewBackingObjectFactory();
 
 	@Override
+	public RfidTagViewBackingObject getBackingObject(User user) {
+		return new RfidTagViewBackingObject();
+	}
+
+	@Override
 	public RfidTagViewBackingObject getBackingObject(RfidTagView tag) {
 		RfidTagViewBackingObject backingObject = new RfidTagViewBackingObject();
 		backingObject.setId(tag.getId());
@@ -36,10 +41,6 @@ public class RfidTagViewBackingObjectFactory extends BackingObjectFactory<RfidTa
 			tag = securityWorkflow.getRfidTagViewById(backingObject.getId());
 		}
 
-		if(backingObject.getNumber() != null) {
-			tag.setNumber(backingObject.getNumber());
-		}
-
 		if(backingObject.getDescription() != null) {
 			tag.setDescription(backingObject.getDescription());
 		}
@@ -49,12 +50,6 @@ public class RfidTagViewBackingObjectFactory extends BackingObjectFactory<RfidTa
 		}
 
 		return tag;
-	}
-
-	@Override
-	public RfidTagViewBackingObject getBackingObject(User user) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

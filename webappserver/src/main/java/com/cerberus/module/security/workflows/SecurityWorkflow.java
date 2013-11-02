@@ -42,4 +42,10 @@ public class SecurityWorkflow extends Workflow {
 	}
 
 
+	public void updateRfidTagView(RfidTagView rfidTag) {
+		RfidService rfidService = serviceFactory.getRfidService();
+		rfidService.updateRfidTagView(rfidTag);
+	}
+
+
 }

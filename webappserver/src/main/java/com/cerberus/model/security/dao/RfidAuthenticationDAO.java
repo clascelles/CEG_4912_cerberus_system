@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cerberus.model.generic.dao.GenericDAO;
 import com.cerberus.model.security.bean.RfidAuthentication;
+import com.cerberus.model.security.filter.RfidAuthenticationFilter;
 
 public class RfidAuthenticationDAO extends GenericDAO<RfidAuthentication, Integer> {
 
@@ -15,6 +16,10 @@ public class RfidAuthenticationDAO extends GenericDAO<RfidAuthentication, Intege
 	/***/
 	public List<RfidAuthentication> getAll(){
 		return getAll(RfidAuthentication.class);
+	}
+
+	public RfidAuthentication getByRfidTagId(Integer rfidTagId) {
+		return getByFilter(RfidAuthenticationFilter.getRfidAuthenticationByRfidTagId(rfidTagId));
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,8 +19,6 @@ import com.cerberus.module.security.backingobjects.RfidTagViewBackingObject;
 import com.cerberus.module.security.backingobjects.RfidTagViewBackingObjectFactory;
 import com.cerberus.module.security.constants.RfidPermission;
 import com.cerberus.module.security.workflows.SecurityWorkflow;
-
-// TODO: TODO!!
 
 @Controller
 public class SecurityController extends CerberusController {
@@ -63,49 +62,24 @@ public class SecurityController extends CerberusController {
 
 		model.addAttribute(CerberusConstants.RFID_TAG, rfidTagBO);
 
-		boolean isAllowed = (rfidTagBO.getPermission() == RfidPermission.ALLOWED);
-
-		model.addAttribute("rfidTagAllowed", isAllowed);
+		model.addAttribute("denied", RfidPermission.DENIED);
+		model.addAttribute("allowed", RfidPermission.ALLOWED);
 
 		CerberusLogger.get(CerberusConstants.VIEW_RFID_VIEW);
 
 		return CerberusConstants.VIEW_RFID_VIEW;
 	}
 
-	// TODO: Create POST methods for security and view RFID pages!
-
-	/*
-	@RequestMapping(value=CerberusConstants.SECURITY_MAPPING, method=RequestMethod.POST)
-	public String postSecurityPage(Model model, @ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet)	{
-		CerberusLogger.post(CerberusConstants.OUTLETS_VIEW);
-
-		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
-
-		//Add the outlet
-		Outlet outlet = OutletBackingObjectFactory.INSTANCE.bind(newOutlet, getUser());
-		outletWorkflow.insertOutlet(outlet);
-
-		//Add the two sockets
-		Socket socketA = Socket.create(outlet, Socket.TOP, Socket.getNewSerial());
-		outletWorkflow.insertSocket(socketA);
-
-		Socket socketB = Socket.create(outlet, Socket.BOTTOM, Socket.getNewSerial());
-		outletWorkflow.insertSocket(socketB);
-
-		return getSecurityPage(model);
-	}
-
 	@RequestMapping(value=CerberusConstants.VIEW_RFID_MAPPING, method=RequestMethod.POST)
-	public String postViewRfidPage(Model model, @ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet)	{
-		CerberusLogger.post(CerberusConstants.VIEW_OUTLET_VIEW);
+	public String postViewRfidPage(Model model, @ModelAttribute(CerberusConstants.RFID_TAG) RfidTagViewBackingObject rfidTag)	{
+		CerberusLogger.post(CerberusConstants.VIEW_RFID_VIEW);
 
-		//Add the outlet
-		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
-		outletWorkflow.updateOutletOperationMode(newOutlet);
+		//Update the rfid tag
+		SecurityWorkflow securityWorkflow = CerberusApplicationContext.getWorkflows().getSecurityWorkflow();
+		RfidTagView newRfidTagView = RfidTagViewBackingObjectFactory.INSTANCE.bind(rfidTag, getUser());
+		securityWorkflow.updateRfidTagView(newRfidTagView);
 
-		return getViewRfidPage(model, newOutlet.getId());
+		return getViewRfidPage(model, rfidTag.getId());
 	}
-
-	*/
 
 }
