@@ -33,10 +33,11 @@ public class RfidAuthentication implements Serializable{
 		super();
 	}
 
-	public RfidAuthentication(Integer rfidTagId, User owner) {
+	public RfidAuthentication(Integer rfidTagId, User owner, Integer permission) {
 		super();
 		this.rfidTagId = rfidTagId;
 		this.owner = owner;
+		this.permission = permission;
 	}
 
 	@Id
