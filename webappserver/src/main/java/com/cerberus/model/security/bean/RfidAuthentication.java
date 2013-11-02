@@ -58,7 +58,7 @@ public class RfidAuthentication implements Serializable{
 	}
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="USER_ID", nullable=false)
+	@JoinColumn(name="USERS_ID", nullable=false)
 	public User getOwner() {
 		return owner;
 	}
