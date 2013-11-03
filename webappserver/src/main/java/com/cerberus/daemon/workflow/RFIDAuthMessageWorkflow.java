@@ -85,7 +85,7 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 
 		if(auth == null) {
 			// Rfid was never authenticated before
-			auth = new RfidAuthentication(rfidTag.getId(), user, RfidPermission.UNKNOWN.getIntValue());
+			auth = new RfidAuthentication(rfidTag.getId(), user, RfidPermission.UNSET.getIntValue());
 			try {
 				rfidService.insertRfidAuthentication(auth);
 			} catch(Exception e) {

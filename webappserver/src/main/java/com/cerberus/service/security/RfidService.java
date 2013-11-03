@@ -98,7 +98,7 @@ public class RfidService {
 			rfidTag.setDescription(rfidTagView.getDescription());
 		}
 
-		if(rfidTagView.getPermission() != null && rfidTagView.getPermission() != RfidPermission.UNKNOWN.getIntValue()) {
+		if(rfidTagView.getPermission() != null && rfidTagView.getPermission() != RfidPermission.UNSET.getIntValue()) {
 			rfidAuth.setPermission(rfidTagView.getPermission());
 		}
 
