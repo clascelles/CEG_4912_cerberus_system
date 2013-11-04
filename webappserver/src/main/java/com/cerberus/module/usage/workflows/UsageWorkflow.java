@@ -1,7 +1,5 @@
 package com.cerberus.module.usage.workflows;
 
-import java.util.ArrayList;
-
 import java.util.List;
 
 import com.cerberus.model.account.bean.User;
@@ -43,7 +41,7 @@ public class UsageWorkflow extends Workflow {
 			currentHourList[index] = current;
 		}
 
-		return currentHourList;	
+		return currentHourList;
 	}
 
 }

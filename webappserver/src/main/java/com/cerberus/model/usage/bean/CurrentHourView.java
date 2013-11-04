@@ -2,42 +2,33 @@ package com.cerberus.model.usage.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.cerberus.model.outlets.bean.Outlet;
 
 @Entity
 @Table(name = "CURRENT_HOUR_VIEW")
 public class CurrentHourView implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	Integer id;
 	Date timestampHour;
 	Integer systemId;
 	Integer currentHour;
 	Integer hour;
-	
-	
+
+
 	public CurrentHourView() {
 		super();
 	}
-	
+
 	public CurrentHourView(Date timestampHour, Integer systemId,
 			Integer currentHour) {
 		super();
@@ -54,7 +45,7 @@ public class CurrentHourView implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	@Column(name="TIMESTAMP_HOUR", nullable=false, updatable=false, insertable=false)
 	public Date getTimestampHour() {
 		return timestampHour;

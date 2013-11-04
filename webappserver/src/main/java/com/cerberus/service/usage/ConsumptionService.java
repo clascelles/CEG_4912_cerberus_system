@@ -1,6 +1,5 @@
 package com.cerberus.service.usage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.cerberus.model.outlets.bean.Current;
@@ -11,8 +10,8 @@ import com.cerberus.model.usage.filter.CurrentHourViewFilter;
 
 public class ConsumptionService {
 
-	private CurrentDAO currentDAO;
-	private CurrentHourViewDAO currentHourViewDAO;
+	private final CurrentDAO currentDAO;
+	private final CurrentHourViewDAO currentHourViewDAO;
 
 	public ConsumptionService (){
 		currentDAO = new CurrentDAO();
@@ -25,7 +24,7 @@ public class ConsumptionService {
 	//*************************************************
 
 	public Integer insertCurrent(Current current){
-		return currentDAO.save(current);	
+		return currentDAO.save(current);
 	}
 
 	public Current updateCurrent(Current current){
@@ -45,7 +44,7 @@ public class ConsumptionService {
 	//*************************************************
 
 	public List<CurrentHourView> getCurrentHourForLast24h(Integer systemId){
-		
+
 		//Should never be more then 24 item in this list.
 		return currentHourViewDAO.getAllByFilter(CurrentHourViewFilter.getByLast24Hours(systemId));
 
