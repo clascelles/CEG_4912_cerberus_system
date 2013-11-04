@@ -1,5 +1,6 @@
 package com.cerberus.service.security;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -11,7 +12,8 @@ import com.cerberus.model.security.dao.RfidAuthenticationDAO;
 import com.cerberus.model.security.dao.RfidTagDAO;
 import com.cerberus.model.security.dao.RfidTagViewDAO;
 import com.cerberus.model.security.filter.RfidTagFilter;
-import com.cerberus.model.system.dao.UserSystemViewDAO;
+import com.cerberus.model.usage.bean.ConsumptionProfile;
+import com.cerberus.model.usage.dao.ConsumptionProfileDAO;
 import com.cerberus.module.security.constants.RfidPermission;
 
 public class RfidService {
@@ -19,13 +21,13 @@ public class RfidService {
 	RfidTagDAO rfidTagDAO;
 	RfidTagViewDAO rfidTagViewDAO;
 	RfidAuthenticationDAO rfidAuthenticationDAO;
-	UserSystemViewDAO userSystemViewDAO;
+	ConsumptionProfileDAO profileDAO;
 
 	public RfidService(){
 		rfidTagDAO = new RfidTagDAO();
 		rfidTagViewDAO = new RfidTagViewDAO();
 		rfidAuthenticationDAO = new RfidAuthenticationDAO();
-		userSystemViewDAO = new UserSystemViewDAO();
+		profileDAO = new ConsumptionProfileDAO();
 	}
 
 	//***************************************************
@@ -79,6 +81,29 @@ public class RfidService {
 	}
 
 	//***************************************************
+	//CONSUMPTION PROFILE
+	//***************************************************
+
+	public ConsumptionProfile getProfileById(Integer id) {
+		return profileDAO.getById(id);
+	}
+
+	public ConsumptionProfile getProfileByName(String name) {
+		return profileDAO.getByName(name);
+	}
+
+	public List<String> getAllProfileNames() {
+		List<String> profileNames = new ArrayList<String>();
+		List<ConsumptionProfile> allProfiles = profileDAO.getAll();
+
+		for (ConsumptionProfile profile : allProfiles) {
+			profileNames.add(profile.getName());
+		}
+
+		return profileNames;
+	}
+
+	//***************************************************
 	//RFID TAG VIEW
 	//***************************************************
 
@@ -94,12 +119,16 @@ public class RfidService {
 		RfidTag rfidTag = getRfidTagById(rfidTagView.getId());
 		RfidAuthentication rfidAuth = getRfidAuthenticationByRfidTagId(rfidTag.getId());
 
-		if(rfidTagView.getDescription() != null) {
-			rfidTag.setDescription(rfidTagView.getDescription());
+		if(rfidTagView.getName() != null) {
+			rfidTag.setTagName(rfidTagView.getName());
 		}
 
 		if(rfidTagView.getPermission() != null && rfidTagView.getPermission() != RfidPermission.UNSET.getIntValue()) {
 			rfidAuth.setPermission(rfidTagView.getPermission());
+		}
+
+		if(rfidTagView.getProfileName() != null) {
+			rfidTag.setProfile(getProfileByName(rfidTagView.getProfileName()));
 		}
 
 		updateRfigTag(rfidTag);

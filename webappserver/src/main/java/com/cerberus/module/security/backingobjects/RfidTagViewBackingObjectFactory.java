@@ -21,7 +21,8 @@ public class RfidTagViewBackingObjectFactory extends BackingObjectFactory<RfidTa
 		RfidTagViewBackingObject backingObject = new RfidTagViewBackingObject();
 		backingObject.setId(tag.getId());
 		backingObject.setNumber(tag.getNumber());
-		backingObject.setDescription(tag.getDescription());
+		backingObject.setName(tag.getName());
+		backingObject.setProfile(tag.getProfileName());
 		backingObject.setPermission(RfidPermission.fromIntValue(tag.getPermission()));
 
 		return backingObject;
@@ -41,8 +42,12 @@ public class RfidTagViewBackingObjectFactory extends BackingObjectFactory<RfidTa
 			tag = securityWorkflow.getRfidTagViewById(backingObject.getId());
 		}
 
-		if(backingObject.getDescription() != null) {
-			tag.setDescription(backingObject.getDescription());
+		if(backingObject.getName() != null) {
+			tag.setName(backingObject.getName());
+		}
+
+		if(backingObject.getProfile() != null) {
+			tag.setProfileName(backingObject.getProfile());
 		}
 
 		if(backingObject.getPermission() != null) {

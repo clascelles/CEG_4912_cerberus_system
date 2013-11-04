@@ -8,7 +8,8 @@ public class RfidTagViewBackingObject extends BackingObject<RfidTagView> {
 
 	private Integer id;
 	private String 	number;
-	private String description;
+	private String name;
+	private String profile;
 	private RfidPermission permission;
 
 	public Integer getId() {
@@ -27,12 +28,20 @@ public class RfidTagViewBackingObject extends BackingObject<RfidTagView> {
 		this.number = number;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getName() {
+		return name;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
 	}
 
 	public RfidPermission getPermission() {

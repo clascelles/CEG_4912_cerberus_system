@@ -24,7 +24,6 @@
         <mapping class="com.cerberus.model.usage.bean.ConsumptionProfile"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.Current"></mapping>
         <mapping class="com.cerberus.model.usage.bean.Event"></mapping>
-        <mapping class="com.cerberus.model.account.bean.GeneralProfile"></mapping>
         <mapping class="com.cerberus.model.account.bean.Login"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.Outlet"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.OutletOperationMode"></mapping>

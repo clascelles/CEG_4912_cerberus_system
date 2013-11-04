@@ -60,7 +60,10 @@ public class SecurityController extends CerberusController {
 		RfidTagView rfidTag = securityWorkflow.getRfidTagViewById(id);
 		RfidTagViewBackingObject rfidTagBO = RfidTagViewBackingObjectFactory.INSTANCE.getBackingObject(rfidTag);
 
+		List<String> profileNames = securityWorkflow.getAllProfileNames();
+
 		model.addAttribute(CerberusConstants.RFID_TAG, rfidTagBO);
+		model.addAttribute("profiles", profileNames);
 
 		model.addAttribute("denied", RfidPermission.DENIED);
 		model.addAttribute("allowed", RfidPermission.ALLOWED);

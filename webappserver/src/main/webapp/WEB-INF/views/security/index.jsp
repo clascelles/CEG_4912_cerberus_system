@@ -82,7 +82,8 @@
 								  <tr>
 									  <th>Tag ID</th>
 									  <th>Tag Number</th>
-									  <th>Tag Description</th>
+									  <th>Tag Name</th>
+									  <th>Associated Profile</th>
 									  <th>Tag Permission</th>
 									  <th>Action</th>
 								  </tr>
@@ -92,7 +93,8 @@
 							  		<tr>
 							  			<td>${item.id}</td>
 							  			<td>${item.number}</td>
-							  			<td>${item.description}</td>
+							  			<td>${item.name}</td>
+							  			<td>${item.profile}</td>
 							  			<td>${item.permission}</td>
 							  			<td><a class="btn btn-primary" href="/webappserver/security/view?id=${item.id}"><i class="icon-zoom-in icon-white"></i>View</a></td>
 							  		</tr>

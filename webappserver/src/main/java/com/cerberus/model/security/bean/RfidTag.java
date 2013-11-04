@@ -4,10 +4,15 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cerberus.model.usage.bean.ConsumptionProfile;
 
 @Entity
 @Table(name = "RFID_TAG")
@@ -20,17 +25,19 @@ public class RfidTag implements Serializable{
 
 
 	Integer id;
+	ConsumptionProfile profile;
 	String number;
-	String description;
+	String tagName;
 
 	public RfidTag(){
 		super();
 	}
 
-	public RfidTag(String number, String description) {
+	public RfidTag(String number, String tagName, ConsumptionProfile profile) {
 		super();
 		this.number = number;
-		this.description = description;
+		this.tagName = tagName;
+		this.profile = profile;
 	}
 
 	@Id
@@ -43,27 +50,35 @@ public class RfidTag implements Serializable{
 		this.id = id;
 	}
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="PROFILE_ID", nullable=false)
+	public ConsumptionProfile getProfile() {
+		return profile;
+	}
+	public void setProfile(ConsumptionProfile profile) {
+		this.profile = profile;
+	}
+
 	@Column(name="NUMBER", nullable=false)
 	public String getNumber() {
 		return number;
 	}
-
 	public void setNumber(String number) {
 		this.number = number;
 	}
 
-	@Column(name="DESCRIPTION", nullable=false)
-	public String getDescription() {
-		return description;
+	@Column(name="TAG_NAME", nullable=false)
+	public String getTagName() {
+		return tagName;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
 	}
 
 	@Override
 	public String toString() {
 		return "RfidTag [id=" + id + ", number=" + number + ", description="
-				+ description + "]";
+				+ tagName + "]";
 	}
 
 
