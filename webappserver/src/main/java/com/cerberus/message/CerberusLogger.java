@@ -8,7 +8,7 @@ public class CerberusLogger {
 	private static final String POST = "POST: ";	
 	private static final String UPDATE = "UPDATING: ";	
 	private static final String RESETTING_PASSWORD = "Resetting password for user: ";
-	
+	private static final String ERROR = "ERROR: ";	
 	
 	public static void get(String view) {
 		printDebugMessage(GET + view);
@@ -30,6 +30,10 @@ public class CerberusLogger {
 		if(DEBUG_MODE) {
 			System.out.println(message);
 		}		
+	}
+	
+	public static void printErrorMessage(String message) {
+		System.out.println(ERROR + message);
 	}
 	
 }

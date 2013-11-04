@@ -44,6 +44,7 @@ public class ScheduledEventBackingObjectFactory
 	public ScheduledEventBackingObject getBackingObject(ScheduledEvent object) {
 		ScheduledEventBackingObject backingObject = new ScheduledEventBackingObject();
 		
+		backingObject.setId(object.getId());
 		backingObject.setMode(object.getMode());
 		backingObject.setSocket(object.getSocket());
 		backingObject.setUser(object.getUser());
@@ -64,5 +65,20 @@ public class ScheduledEventBackingObjectFactory
 		event.setTime(ScheduledEventBackingObject.parseDate(backingObject.getTime()));
 
 		return event;
+	}
+
+	@Override
+	public boolean isValid(ScheduledEventBackingObject backingObject) {
+		boolean dateValid = true;
+		try {
+			ScheduledEventBackingObject.parseDate(backingObject.getTime());
+		} catch (NumberFormatException e) {
+			dateValid = false;
+		}
+		
+		return (dateValid 
+				&& backingObject.getOutletId() != null
+				&& backingObject.getSocketId() != null
+				&& backingObject.getUserId() != null);
 	}
 }

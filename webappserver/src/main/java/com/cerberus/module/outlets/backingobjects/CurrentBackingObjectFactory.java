@@ -43,5 +43,11 @@ public class CurrentBackingObjectFactory extends BackingObjectFactory<Current, C
 	//Temporary helper
 	public static String getRandomInRange(int max, int min) {
 		return String.valueOf(min + (int)(Math.random() * ((max - min + 1))));
+	}
+
+	@Override
+	public boolean isValid(CurrentBackingObject backingObject) {
+		// TODO Auto-generated method stub
+		return false;
 	}	
 }

@@ -84,4 +84,10 @@ public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, Out
 		return outlet;
 	}
 
+	@Override
+	public boolean isValid(OutletBackingObject backingObject) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

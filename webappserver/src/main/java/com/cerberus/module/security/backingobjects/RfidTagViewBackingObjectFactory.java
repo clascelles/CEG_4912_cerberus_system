@@ -57,4 +57,10 @@ public class RfidTagViewBackingObjectFactory extends BackingObjectFactory<RfidTa
 		return null;
 	}
 
+	@Override
+	public boolean isValid(RfidTagViewBackingObject backingObject) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

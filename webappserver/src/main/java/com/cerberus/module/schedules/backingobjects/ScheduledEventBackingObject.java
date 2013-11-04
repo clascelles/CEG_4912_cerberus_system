@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
+import com.cerberus.message.CerberusLogger;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.Socket;
@@ -14,6 +15,7 @@ import com.cerberus.module.outlets.workflows.OutletWorkflow;
 
 public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 
+	private Integer id;
 	private SocketOperationMode mode;
 	private Integer modeId;
 	private Integer outletId;
@@ -25,17 +27,27 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 	
 	public ScheduledEventBackingObject() {}
 	
-	public ScheduledEventBackingObject(SocketOperationMode mode,
+	public ScheduledEventBackingObject(Integer id,
+			SocketOperationMode mode,
 			Integer outletId, Socket socket, 
 			Integer socketId, User user, Integer userId, 
 			String time) {
 		super();
+		this.id = id;
 		this.outletId = outletId;
 		this.socket = socket;
 		this.socketId = socketId;
 		this.user = user;
 		this.userId = userId;
 		this.time = time;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	public SocketOperationMode getMode() {
@@ -49,6 +61,7 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 
 	public void setMode(SocketOperationMode mode) {
 		this.mode = mode;
+		this.modeId = mode.getId();
 	}
 
 	public Integer getModeId() {
@@ -124,16 +137,23 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 	public static Date parseDate(String formatted) {
 		Date date = new Date();
 		
-		date.setMonth(Integer.parseInt(formatted.substring(0, 2)));
-		Integer day = Integer.parseInt(formatted.substring(3, 5));
-		date.setDate(day);
-		Integer year = Integer.parseInt(formatted.substring(6, 10));
-		date.setYear(year - 1900);
+		try {
+			Integer month = Integer.parseInt(formatted.substring(0, 2)) - 1;
+			date.setMonth(month);
+			Integer day = Integer.parseInt(formatted.substring(3, 5));
+			date.setDate(day);
+			Integer year = Integer.parseInt(formatted.substring(6, 10));
+			date.setYear(year - 1900);
 
-		Integer hours = Integer.parseInt(formatted.substring(11, 13));
-		date.setHours(hours);
-		Integer minutes = Integer.parseInt(formatted.substring(14, 16));
-		date.setMinutes(minutes);
+			Integer hours = Integer.parseInt(formatted.substring(11, 13));
+			date.setHours(hours);
+			Integer minutes = Integer.parseInt(formatted.substring(14, 16));
+			date.setMinutes(minutes);
+		} catch (NumberFormatException e) {
+			CerberusLogger.printErrorMessage("Parsing date failed, number format exception");
+		} catch (NullPointerException e) {
+			CerberusLogger.printErrorMessage("Parsing date failed, null pointer exception");
+		}
 		
 		return date;
 	}

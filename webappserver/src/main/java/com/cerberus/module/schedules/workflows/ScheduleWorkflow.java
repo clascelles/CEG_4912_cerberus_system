@@ -1,6 +1,7 @@
 package com.cerberus.module.schedules.workflows;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
@@ -25,6 +26,11 @@ public class ScheduleWorkflow extends Workflow {
 		this.returnServiceFactory();
 	}
 	
+	public void removeScheduledEvent(ScheduledEvent event) {
+		serviceFactory.getSchedulingService().deleteScheduledEvent(event);
+		this.returnServiceFactory();		
+	}
+	
 	public void insertSchedule(Schedule schedule) {
 		serviceFactory.getSchedulingService().insertSchedule(schedule);
 		this.returnServiceFactory();
@@ -33,6 +39,20 @@ public class ScheduleWorkflow extends Workflow {
 	public void updatedSchedule(Schedule schedule) {
 		serviceFactory.getSchedulingService().updateSchedule(schedule);
 		this.returnServiceFactory();
+	}
+	
+	public List<ScheduledEvent> getScheduledEventsForSocket(Integer socketId){
+		SchedulingService scheduleService = serviceFactory.getSchedulingService();
+		
+		List<ScheduledEvent> events = new ArrayList<ScheduledEvent>();
+		List<ScheduledEvent> socketEvents = scheduleService.getScheduledEventBySocketId(socketId);
+		if(socketEvents != null && !socketEvents.isEmpty()) {
+			events.addAll(socketEvents);				
+		}
+
+		this.returnServiceFactory();
+
+		return events;
 	}
 	
 	public List<ScheduledEvent> getScheduledEventsForUser(User user){
@@ -53,6 +73,20 @@ public class ScheduleWorkflow extends Workflow {
 		this.returnServiceFactory();
 
 		return events;
+	}
+	
+	// this method deletes all existing scheduled events with
+	// a timestamp which comes before now
+	public void cleanUserScheduledEvents(User user) {
+		List<ScheduledEvent> events = getScheduledEventsForUser(user);
+		
+		Date currentDate = new Date();
+		
+		for(ScheduledEvent event : events) {
+			if(event.getTime().before(currentDate)) {
+				removeScheduledEvent(event);
+			}
+		}
 	}
 	
 	public List<Schedule> getSchedulesForUser(User user){

@@ -58,5 +58,11 @@ public class SocketBackingObjectFactory extends BackingObjectFactory<Socket, Soc
 		
 		return socket;
 	}
+
+	@Override
+	public boolean isValid(SocketBackingObject backingObject) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

@@ -1,0 +1,105 @@
+package com.cerberus.module.security.workflows;
+
+import java.util.List;
+
+import com.cerberus.model.security.bean.RfidTag;
+import com.cerberus.model.security.bean.RfidTagView;
+import com.cerberus.model.system.bean.CerberusSystem;
+import com.cerberus.module.generic.workflows.Workflow;
+import com.cerberus.service.security.RfidService;
+import com.cerberus.service.system.SystemService;
+
+public class SecurityWorkflow extends Workflow {
+
+	public List<RfidTagView> getRfidTagsFromSystem(CerberusSystem system) {
+		SystemService systemService = serviceFactory.getSystemService();
+		RfidService rfidService = serviceFactory.getRfidService();
+
+		Integer sysOwnerId = systemService.getSysOwnerOfSystem(system.getId());
+		List<RfidTagView> rfidTagViews = rfidService.getRfidTagViewsByUser(sysOwnerId);
+
+		this.returnServiceFactory();
+
+		return rfidTagViews;
+	}
+
+
+	public void insertRfidTag(RfidTag rfidTag) {
+		serviceFactory.getRfidService().insertRfidTag(rfidTag);
+		this.returnServiceFactory();
+	}
+
+	public void updateRfidTag(RfidTag rfidTag) {
+		serviceFactory.getRfidService().updateRfigTag(rfidTag);
+		this.returnServiceFactory();
+	}
+
+	public RfidTagView getRfidTagViewById(Integer id) {
+		RfidTagView view = serviceFactory.getRfidService().getRfidTagViewById(id);
+		this.returnServiceFactory();
+
+		return view;
+	}
+
+
+<<<<<<< HEAD
+	public void insertSocket(Socket socket) {
+		serviceFactory.getOutletService().insertSocket(socket);
+	}
+
+	public List<Socket> getSocketsByOutlet(Outlet outlet) {
+		OutletService outletService = serviceFactory.getOutletService();
+		List<Socket> sockets = outletService.getSocketsByOutlet(outlet.getId());
+
+		this.returnServiceFactory();
+
+		return sockets;
+	}
+
+	public List<Socket> getAllSockets() {
+		OutletService outletService = serviceFactory.getOutletService();
+		List<Socket> sockets = outletService.getAllSockets();
+
+		this.returnServiceFactory();
+
+		return sockets;
+	}
+
+	public Socket getSocketById(Integer id) {
+		OutletService outletService = serviceFactory.getOutletService();
+		Socket socket = outletService.getSocketBySocketId(id);
+
+		this.returnServiceFactory();
+
+		return socket;
+	}
+
+	public SocketOperationMode getSocketModeById(Integer id) {
+		OutletService outletService = serviceFactory.getOutletService();
+		SocketOperationMode mode = outletService.getSocketOperationModeById(id);
+
+		this.returnServiceFactory();
+
+		return mode;
+	}
+
+	public SocketOperationStatus getSocketStatusById(Integer id) {
+		OutletService outletService = serviceFactory.getOutletService();
+		SocketOperationStatus status = outletService.getStatusById(id);
+
+		this.returnServiceFactory();
+
+		return status;
+	}
+
+	public SocketAssignment getSocketAssignmentBySocketId(Integer id) {
+		OutletService outletService = serviceFactory.getOutletService();
+		SocketAssignment assignment = outletService.getSocketAssignmentBySocketId(id);
+
+		this.returnServiceFactory();
+
+		return assignment;
+	}
+=======
+>>>>>>> origin/develop
+}

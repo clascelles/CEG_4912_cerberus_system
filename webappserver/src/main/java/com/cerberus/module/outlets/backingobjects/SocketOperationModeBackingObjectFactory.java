@@ -20,7 +20,7 @@ public class SocketOperationModeBackingObjectFactory
 		SocketOperationModeBackingObject backingObject = new SocketOperationModeBackingObject();
 		
 		backingObject.setId(object.getId());
-		backingObject.setName(object.getMode().getName());
+		backingObject.setName(object.getDescription());
 		
 		return backingObject;
 	}
@@ -30,6 +30,12 @@ public class SocketOperationModeBackingObjectFactory
 			SocketOperationModeBackingObject backingObject, User user) {
 		//unused
 		return null;
+	}
+
+	//shouldn't need to validate these - they don't get updated
+	@Override
+	public boolean isValid(SocketOperationModeBackingObject backingObject) {
+		return false;
 	}
 
 }

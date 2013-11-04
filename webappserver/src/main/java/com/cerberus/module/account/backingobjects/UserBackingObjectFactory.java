@@ -48,4 +48,10 @@ public class UserBackingObjectFactory extends BackingObjectFactory<User, UserBac
 		return user;
 	}
 
+	@Override
+	public boolean isValid(UserBackingObject backingObject) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

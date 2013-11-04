@@ -27,4 +27,10 @@ public class OutletOperationModeBackingObjectFactory extends BackingObjectFactor
 		
 		return null;
 	}
+
+	@Override
+	public boolean isValid(OutletOperationModeBackingObject backingObject) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

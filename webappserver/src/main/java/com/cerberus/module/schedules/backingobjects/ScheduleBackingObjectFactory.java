@@ -57,4 +57,10 @@ public class ScheduleBackingObjectFactory
 
 		return event;
 	}
+
+	@Override
+	public boolean isValid(ScheduleBackingObject backingObject) {
+		return (ScheduledEventBackingObjectFactory.INSTANCE.isValid(backingObject.getStartEvent())
+				&& ScheduledEventBackingObjectFactory.INSTANCE.isValid(backingObject.getEndEvent()));
+	}
 }

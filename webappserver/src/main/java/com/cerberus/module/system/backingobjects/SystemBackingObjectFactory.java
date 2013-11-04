@@ -55,5 +55,11 @@ public class SystemBackingObjectFactory extends BackingObjectFactory<CerberusSys
 		
 		return system;
 	}
+
+	@Override
+	public boolean isValid(SystemBackingObject backingObject) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

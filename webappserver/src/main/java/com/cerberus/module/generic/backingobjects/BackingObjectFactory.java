@@ -25,4 +25,6 @@ public abstract class BackingObjectFactory<T, S extends BackingObject<T>> {
 	
 	public abstract T bind(S backingObject, User user);
 	
+	public abstract boolean isValid(S backingObject);
+	
 }
