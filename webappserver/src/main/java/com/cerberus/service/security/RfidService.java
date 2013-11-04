@@ -12,6 +12,7 @@ import com.cerberus.model.security.dao.RfidTagDAO;
 import com.cerberus.model.security.dao.RfidTagViewDAO;
 import com.cerberus.model.security.filter.RfidTagFilter;
 import com.cerberus.model.system.dao.UserSystemViewDAO;
+import com.cerberus.module.security.constants.RfidPermission;
 
 public class RfidService {
 
@@ -73,6 +74,10 @@ public class RfidService {
 		return rfidAuthenticationDAO.getById(id);
 	}
 
+	public RfidAuthentication getRfidAuthenticationByRfidTagId(Integer rfidTagId) {
+		return rfidAuthenticationDAO.getByRfidTagId(rfidTagId);
+	}
+
 	//***************************************************
 	//RFID TAG VIEW
 	//***************************************************
@@ -85,4 +90,19 @@ public class RfidService {
 		return rfidTagViewDAO.getByUserId(userId);
 	}
 
+	public void updateRfidTagView(RfidTagView rfidTagView) {
+		RfidTag rfidTag = getRfidTagById(rfidTagView.getId());
+		RfidAuthentication rfidAuth = getRfidAuthenticationByRfidTagId(rfidTag.getId());
+
+		if(rfidTagView.getDescription() != null) {
+			rfidTag.setDescription(rfidTagView.getDescription());
+		}
+
+		if(rfidTagView.getPermission() != null && rfidTagView.getPermission() != RfidPermission.UNSET.getIntValue()) {
+			rfidAuth.setPermission(rfidTagView.getPermission());
+		}
+
+		updateRfigTag(rfidTag);
+		updateRfidAuthentication(rfidAuth);
+	}
 }

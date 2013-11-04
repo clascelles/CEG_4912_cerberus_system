@@ -105,9 +105,9 @@
 									  		<span><b>Tag Permission</b></span>
 										</div>
 										<div class="span2">
-							  				<select name="modeId" data-rel="chosen" <c:if test="${!isSysAdmin}">disabled</c:if>>
-										  		<option value="0" <c:if test="${!rfidTagAllowed}">selected</c:if> >DENIED</option>
-										  		<option value="1" <c:if test="${rfidTagAllowed}">selected</c:if> >ALLOWED</option>
+							  				<select name="permission" data-rel="chosen" <c:if test="${!isSysAdmin}">disabled</c:if>>
+										  		<option value="${denied}" <c:if test="${rfidTag.permission == denied}">selected</c:if> >${denied}</option>
+										  		<option value="${allowed}" <c:if test="${rfidTag.permission == allowed}">selected</c:if> >${allowed}</option>
 											</select>	
 										</div>							
 									</div>			

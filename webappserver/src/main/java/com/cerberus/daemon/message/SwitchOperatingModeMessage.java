@@ -26,7 +26,7 @@ public class SwitchOperatingModeMessage extends Message {
 
 	@Override
 	public MessageWorkflow getWorkflow() {
-		// TODO Create workflow for this message
+		// Should never receive this kind of message
 		return null;
 	}
 

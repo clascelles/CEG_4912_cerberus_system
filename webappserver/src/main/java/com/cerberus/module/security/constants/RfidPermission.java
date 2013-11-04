@@ -2,7 +2,7 @@ package com.cerberus.module.security.constants;
 
 public enum RfidPermission {
 
-	DENIED(0), ALLOWED(1), UNKNOWN(2);
+	DENIED(0), ALLOWED(1), UNSET(2);
 
 	private final int permission;
 

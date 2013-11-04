@@ -2,6 +2,7 @@ package com.cerberus.daemon.message;
 
 import com.cerberus.daemon.constants.MessageType;
 import com.cerberus.daemon.workflow.MessageWorkflow;
+import com.cerberus.daemon.workflow.RFIDAuthMessageWorkflow;
 
 public class RFIDAuthResponseMessage extends Message {
 
@@ -18,8 +19,7 @@ public class RFIDAuthResponseMessage extends Message {
 
 	@Override
 	public MessageWorkflow getWorkflow() {
-		// TODO Create workflow for this message
-		return null;
+		return new RFIDAuthMessageWorkflow();
 	}
 
 }

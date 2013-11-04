@@ -33,10 +33,11 @@ public class RfidAuthentication implements Serializable{
 		super();
 	}
 
-	public RfidAuthentication(Integer rfidTagId, User owner) {
+	public RfidAuthentication(Integer rfidTagId, User owner, Integer permission) {
 		super();
 		this.rfidTagId = rfidTagId;
 		this.owner = owner;
+		this.permission = permission;
 	}
 
 	@Id
@@ -58,7 +59,7 @@ public class RfidAuthentication implements Serializable{
 	}
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="USER_ID", nullable=false)
+	@JoinColumn(name="USERS_ID", nullable=false)
 	public User getOwner() {
 		return owner;
 	}
