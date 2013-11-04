@@ -55,13 +55,10 @@ DROP TABLE IF EXISTS `consumption_profile`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `consumption_profile` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `RFID_TAG_ID` int(11) NOT NULL,
+  `PROFILE_NAME` text NOT NULL,
   `AVERAGE_HOURLY_CONSUMPTION` int(11) DEFAULT NULL,
-  `INSTANTANEOUS_CONSUMPTION` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `CONSUMPTION_PROFILE_FKIndex1` (`RFID_TAG_ID`),
-  CONSTRAINT `fk_?2373581E?4EE3?407D?8B8A?CBE2D572DC28?` FOREIGN KEY (`RFID_TAG_ID`) REFERENCES `rfid_tag` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,6 +67,7 @@ CREATE TABLE `consumption_profile` (
 
 LOCK TABLES `consumption_profile` WRITE;
 /*!40000 ALTER TABLE `consumption_profile` DISABLE KEYS */;
+INSERT INTO `consumption_profile` VALUES (1,'Kitchen Appliance',NULL),(2,'Electronic Device',NULL),(3,'Home Appliance',NULL),(4,'Clothes Dryer',85),(5,'Freezer',147),(6,'Range (Oven)',22),(7,'Air Conditioner (12 000 BTU)',300),(8,'Computer (With monitor and printer)',30),(9,'Ceiling Fan',12),(10,'Hair Dryer',10),(11,'Portable Heater',60),(12,'Microwave Oven',17),(13,'Toaster',5),(14,'Clothes Iron',5),(15,'Satellite Dish (Including receiver)',66),(16,'Refrigerator',150),(17,'Dishwasher',30),(18,'Laptop',15),(19,'Clothes Washer',10);
 /*!40000 ALTER TABLE `consumption_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,33 +191,6 @@ LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
 INSERT INTO `event` VALUES (1,'Connection Opened','Connection Opened'),(2,'Connection Closed','Connection Closed'),(3,'Connection Binded','Connection Binded'),(4,'Intermitent Connection','Intermitent Connection'),(5,'Could not find Connection','Could not find Connection');
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `general_profile`
---
-
-DROP TABLE IF EXISTS `general_profile`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `general_profile` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `TYPE_OF_DEVICE` tinytext,
-  `CONSUMPTION_RANGE` int(11) DEFAULT NULL,
-  `AVERAGE_HOURLY_CONSUMPTION` int(11) DEFAULT NULL,
-  `INSTANTANEOUS_CONSUMPTION` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 PACK_KEYS=0;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `general_profile`
---
-
-LOCK TABLES `general_profile` WRITE;
-/*!40000 ALTER TABLE `general_profile` DISABLE KEYS */;
-INSERT INTO `general_profile` VALUES (1,'Very large appliance',4,6,6),(2,'Large appliance',3,5,5),(3,'Medium appliance',3,4,4),(4,'Small appliance',2,3,3),(5,'Very small appliance',1,2,2);
-/*!40000 ALTER TABLE `general_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -363,7 +334,7 @@ CREATE TABLE `rfid_authentication` (
 
 LOCK TABLES `rfid_authentication` WRITE;
 /*!40000 ALTER TABLE `rfid_authentication` DISABLE KEYS */;
-INSERT INTO `rfid_authentication` VALUES (1,1,2,0),(2,2,2,0),(3,3,2,1),(4,4,2,1),(5,5,2,1),(6,6,2,2),(7,7,2,0),(8,8,2,2),(9,9,2,2),(10,10,2,2);
+INSERT INTO `rfid_authentication` VALUES (1,1,2,1),(2,2,2,0),(3,3,2,1),(4,4,2,1),(5,5,2,1),(6,6,2,2),(7,7,2,0),(8,8,2,2),(9,9,2,2),(10,10,2,1);
 /*!40000 ALTER TABLE `rfid_authentication` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,8 +347,9 @@ DROP TABLE IF EXISTS `rfid_tag`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rfid_tag` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `PROFILE_ID` int(11) DEFAULT NULL,
   `NUMBER` varchar(10) NOT NULL,
-  `DESCRIPTION` text,
+  `TAG_NAME` text,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `NUMBER_UNIQUE` (`NUMBER`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 PACK_KEYS=0;
@@ -389,7 +361,7 @@ CREATE TABLE `rfid_tag` (
 
 LOCK TABLES `rfid_tag` WRITE;
 /*!40000 ALTER TABLE `rfid_tag` DISABLE KEYS */;
-INSERT INTO `rfid_tag` VALUES (1,'356AC37692','Toaster'),(2,'6538B2349D','Laptop'),(3,'845A3F5673','Kettle'),(4,'761239DCF1','Television'),(5,'628D23A853','Computer'),(6,'3849C32683','Light'),(7,'22568A5638','Phone Charger'),(8,'7538632468','Vaccum'),(9,'AA3578B34F','Radio'),(10,'479A347B31','Alarm Clock');
+INSERT INTO `rfid_tag` VALUES (1,13,'356AC37692','Kitchen toaster'),(2,18,'6538B2349D','Laptop'),(3,1,'845A3F5673','Kettle'),(4,2,'761239DCF1','Television'),(5,8,'628D23A853','Computer'),(6,NULL,'3849C32683','Light'),(7,2,'22568A5638','Phone Charger'),(8,3,'7538632468','Vaccum'),(9,2,'AA3578B34F','Radio'),(10,2,'479A347B31','Alarm Clock');
 /*!40000 ALTER TABLE `rfid_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -404,7 +376,8 @@ SET character_set_client = utf8;
 /*!50001 CREATE TABLE `rfid_tag_view` (
   `RFID_ID` tinyint NOT NULL,
   `RFID_NUMBER` tinyint NOT NULL,
-  `RFID_DESC` tinyint NOT NULL,
+  `RFID_NAME` tinyint NOT NULL,
+  `PROFILE_NAME` tinyint NOT NULL,
   `USER_ID` tinyint NOT NULL,
   `RFID_PERMISSION` tinyint NOT NULL
 ) ENGINE=MyISAM */;
@@ -535,11 +508,11 @@ CREATE TABLE `schedule` (
   KEY `SOCKET_ID_idx` (`SOCKET_ID`),
   KEY `USER_ID_idx` (`USER_ID`),
   KEY `RECURRENCE_ID_idx` (`RECURRENCE_ID`),
-  CONSTRAINT `START_EVENT_ID` FOREIGN KEY (`START_EVENT_ID`) REFERENCES `scheduled_event` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `END_EVENT_ID` FOREIGN KEY (`END_EVENT_ID`) REFERENCES `scheduled_event` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `RECURRENCE_ID` FOREIGN KEY (`RECURRENCE_ID`) REFERENCES `schedule_recurrence` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `SOCKET_ID` FOREIGN KEY (`SOCKET_ID`) REFERENCES `socket` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `USER_ID` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `RECURRENCE_ID` FOREIGN KEY (`RECURRENCE_ID`) REFERENCES `schedule_recurrence` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `START_EVENT_ID` FOREIGN KEY (`START_EVENT_ID`) REFERENCES `scheduled_event` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `USER_ID` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -553,6 +526,31 @@ LOCK TABLES `schedule` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `schedule_end_mode`
+--
+
+DROP TABLE IF EXISTS `schedule_end_mode`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schedule_end_mode` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SOCKET_OPERATION_MODE_ID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `SCHEDULE_END_MODE_FKIndex1` (`SOCKET_OPERATION_MODE_ID`),
+  CONSTRAINT `fk_?EDE32FA4?0D2A?4AA0?AAD5?F117E91A7CAC?` FOREIGN KEY (`SOCKET_OPERATION_MODE_ID`) REFERENCES `socket_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schedule_end_mode`
+--
+
+LOCK TABLES `schedule_end_mode` WRITE;
+/*!40000 ALTER TABLE `schedule_end_mode` DISABLE KEYS */;
+/*!40000 ALTER TABLE `schedule_end_mode` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `schedule_recurrence`
 --
 
@@ -561,7 +559,7 @@ DROP TABLE IF EXISTS `schedule_recurrence`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `schedule_recurrence` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `NAME` VARCHAR(45) NOT NULL,
+  `NAME` varchar(45) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -574,6 +572,31 @@ LOCK TABLES `schedule_recurrence` WRITE;
 /*!40000 ALTER TABLE `schedule_recurrence` DISABLE KEYS */;
 INSERT INTO `schedule_recurrence` VALUES (1,'Once'),(2,'Hourly'),(3,'Daily'),(4,'Weekly'),(5,'Bi-Weekly'),(6,'Monthly'),(7,'Yearly');
 /*!40000 ALTER TABLE `schedule_recurrence` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `schedule_start_mode`
+--
+
+DROP TABLE IF EXISTS `schedule_start_mode`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schedule_start_mode` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SOCKET_OPERATION_MODE_ID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `SCHEDULE_START_MODE_FKIndex1` (`SOCKET_OPERATION_MODE_ID`),
+  CONSTRAINT `fk_?7E3A34D7?58D7?4D66?9717?4B01DDEC431B?` FOREIGN KEY (`SOCKET_OPERATION_MODE_ID`) REFERENCES `socket_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schedule_start_mode`
+--
+
+LOCK TABLES `schedule_start_mode` WRITE;
+/*!40000 ALTER TABLE `schedule_start_mode` DISABLE KEYS */;
+/*!40000 ALTER TABLE `schedule_start_mode` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -596,7 +619,7 @@ CREATE TABLE `scheduled_event` (
   CONSTRAINT `fk_?0A5185F2?CAED?41C8?9B0A?6E94C01D710B?` FOREIGN KEY (`USERS_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?1D49F5A7?D149?4ACB?9C8D?B8DE2C97CA6A?` FOREIGN KEY (`SCHEDULE_MODE_ID`) REFERENCES `socket_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?C343C72D?38FA?408C?AFF7?D7F371EDABC7?` FOREIGN KEY (`SOCKET_ID`) REFERENCES `socket` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -930,7 +953,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `rfid_tag_view` AS (select `rfid_tag`.`ID` AS `RFID_ID`,`rfid_tag`.`NUMBER` AS `RFID_NUMBER`,`rfid_tag`.`DESCRIPTION` AS `RFID_DESC`,`rfid_authentication`.`USERS_ID` AS `USER_ID`,`rfid_authentication`.`PERMISSION` AS `RFID_PERMISSION` from (`rfid_tag` join `rfid_authentication` on((`rfid_authentication`.`RFID_TAG_ID` = `rfid_tag`.`ID`)))) */;
+/*!50001 VIEW `rfid_tag_view` AS (select `rfid_tag`.`ID` AS `RFID_ID`,`rfid_tag`.`NUMBER` AS `RFID_NUMBER`,`rfid_tag`.`TAG_NAME` AS `RFID_NAME`,`consumption_profile`.`PROFILE_NAME` AS `PROFILE_NAME`,`rfid_authentication`.`USERS_ID` AS `USER_ID`,`rfid_authentication`.`PERMISSION` AS `RFID_PERMISSION` from ((`rfid_tag` join `rfid_authentication` on((`rfid_authentication`.`RFID_TAG_ID` = `rfid_tag`.`ID`))) join `consumption_profile` on((`consumption_profile`.`ID` = `rfid_tag`.`PROFILE_ID`)))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -963,4 +986,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-28 14:57:28
+-- Dump completed on 2013-11-04 12:32:15
