@@ -21,7 +21,7 @@ public class GenericDAO<T, ID extends Serializable> {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	//@Resource(name = "sessionFactory")
-	private final SessionFactory sessionFactory;
+	protected final SessionFactory sessionFactory;
 
 	public GenericDAO(){
 		this.sessionFactory = HibernateUtil.getSessionFactory();
