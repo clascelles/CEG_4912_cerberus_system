@@ -18,35 +18,6 @@ USE `cerberus`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `connection_event`
---
-
-DROP TABLE IF EXISTS `connection_event`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `connection_event` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `OUTLET_ID` int(11) NOT NULL,
-  `EVENT_ID` int(11) NOT NULL,
-  `TIMESTAMP` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `CONNECTION_EVENT_FKIndex1` (`EVENT_ID`),
-  KEY `CONNECTION_EVENT_FKIndex2` (`OUTLET_ID`),
-  CONSTRAINT `fk_?0905D9E0?F215?41D3?9D86?75BC8BF3A8A4?` FOREIGN KEY (`OUTLET_ID`) REFERENCES `outlet` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_?3AD07AA9?3F08?406A?AA34?C28B9486A2BB?` FOREIGN KEY (`EVENT_ID`) REFERENCES `event` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `connection_event`
---
-
-LOCK TABLES `connection_event` WRITE;
-/*!40000 ALTER TABLE `connection_event` DISABLE KEYS */;
-/*!40000 ALTER TABLE `connection_event` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `consumption_profile`
 --
 
@@ -191,6 +162,35 @@ LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
 INSERT INTO `event` VALUES (1,'Connection Opened','Connection Opened'),(2,'Connection Closed','Connection Closed'),(3,'Connection Binded','Connection Binded'),(4,'Intermitent Connection','Intermitent Connection'),(5,'Could not find Connection','Could not find Connection');
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `event_record`
+--
+
+DROP TABLE IF EXISTS `event_record`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `event_record` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `OUTLET_ID` int(11) NOT NULL,
+  `EVENT_ID` int(11) NOT NULL,
+  `TIMESTAMP` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `CONNECTION_EVENT_FKIndex1` (`EVENT_ID`),
+  KEY `CONNECTION_EVENT_FKIndex2` (`OUTLET_ID`),
+  CONSTRAINT `fk_?0905D9E0?F215?41D3?9D86?75BC8BF3A8A4?` FOREIGN KEY (`OUTLET_ID`) REFERENCES `outlet` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_?3AD07AA9?3F08?406A?AA34?C28B9486A2BB?` FOREIGN KEY (`EVENT_ID`) REFERENCES `event` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `event_record`
+--
+
+LOCK TABLES `event_record` WRITE;
+/*!40000 ALTER TABLE `event_record` DISABLE KEYS */;
+/*!40000 ALTER TABLE `event_record` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -986,4 +986,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-04 12:32:15
+-- Dump completed on 2013-11-06 11:36:00

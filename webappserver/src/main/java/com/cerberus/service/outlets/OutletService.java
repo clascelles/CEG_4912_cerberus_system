@@ -18,15 +18,15 @@ import com.cerberus.model.outlets.filter.OutletFilter;
 import com.cerberus.model.outlets.filter.OutletOperationModeFilter;
 import com.cerberus.model.outlets.filter.SocketAssignmentFilter;
 import com.cerberus.model.outlets.filter.SocketFilter;
-import com.cerberus.model.usage.bean.ConnectionEvent;
 import com.cerberus.model.usage.bean.Event;
-import com.cerberus.model.usage.dao.ConnectionEventDAO;
+import com.cerberus.model.usage.bean.EventRecord;
 import com.cerberus.model.usage.dao.EventDAO;
+import com.cerberus.model.usage.dao.EventRecordDAO;
 
 public class OutletService {
 
 	private final OutletDAO outletDAO;
-	private final ConnectionEventDAO connectionEventDAO;
+	private final EventRecordDAO eventRecordDAO;
 	private final EventDAO eventDAO;
 	private final SocketOperationStatusDAO socketOperationStatusDAO;
 	private final SocketOperationModeDAO socketOperationModeDAO;
@@ -36,7 +36,7 @@ public class OutletService {
 
 	public OutletService(){
 		outletDAO = new OutletDAO();
-		connectionEventDAO = new ConnectionEventDAO();
+		eventRecordDAO = new EventRecordDAO();
 		eventDAO = new EventDAO();
 		socketOperationStatusDAO = new SocketOperationStatusDAO();
 		socketOperationModeDAO = new SocketOperationModeDAO();
@@ -64,25 +64,25 @@ public class OutletService {
 	public Outlet getOutletById(Integer id) {
 		return outletDAO.getById(id);
 	}
-	
+
 	public List<Outlet> getOutletsByRoomId(Integer roomId) {
-		return outletDAO.getAllByFilter(OutletFilter.getByRoomId(roomId));		
+		return outletDAO.getAllByFilter(OutletFilter.getByRoomId(roomId));
 	}
 
 	//***************************************************
-	//ConnectionEvent
+	//EventRecord
 	//***************************************************
 
-	public Integer insertConnectionEvent(ConnectionEvent connectionEvent){
-		return connectionEventDAO.save(connectionEvent);
+	public Integer insertEventRecord(EventRecord eventRecord){
+		return eventRecordDAO.save(eventRecord);
 	}
 
-	public ConnectionEvent updateConnectionEvent(ConnectionEvent connectionEvent){
-		return connectionEventDAO.merge(connectionEvent);
+	public EventRecord updateEventRecord(EventRecord eventRecord){
+		return eventRecordDAO.merge(eventRecord);
 	}
 
-	public void deleteConnectionEvent(ConnectionEvent connectionEvent){
-		connectionEventDAO.delete(connectionEvent);
+	public void deleteEventRecord(EventRecord eventRecord){
+		eventRecordDAO.delete(eventRecord);
 	}
 
 	//***************************************************
@@ -140,7 +140,7 @@ public class OutletService {
 	public SocketOperationMode getSocketOperationModeById(Integer id) {
 		return socketOperationModeDAO.getById(id);
 	}
-	
+
 	public List<SocketOperationMode> getSocketOperationModes() {
 		return socketOperationModeDAO.getAll();
 	}
@@ -205,7 +205,7 @@ public class OutletService {
 	public OutletOperationMode getOutletOperationModeById(Integer id) {
 		return outletOperationModeDAO.getByFilter(OutletOperationModeFilter.getById(id));
 	}
-	
+
 	public List<OutletOperationMode> getOutletOperationModes() {
 		return outletOperationModeDAO.getAll();
 	}
