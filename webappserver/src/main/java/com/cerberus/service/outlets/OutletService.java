@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.OutletOperationMode;
+import com.cerberus.model.outlets.bean.OutletSystemView;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketAssignment;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
 import com.cerberus.model.outlets.bean.SocketOperationStatus;
 import com.cerberus.model.outlets.dao.OutletDAO;
 import com.cerberus.model.outlets.dao.OutletOperationModeDAO;
+import com.cerberus.model.outlets.dao.OutletSystemViewDAO;
 import com.cerberus.model.outlets.dao.SocketAssignmentDAO;
 import com.cerberus.model.outlets.dao.SocketDAO;
 import com.cerberus.model.outlets.dao.SocketOperationModeDAO;
@@ -22,6 +24,7 @@ import com.cerberus.model.outlets.filter.SocketFilter;
 public class OutletService {
 
 	private final OutletDAO outletDAO;
+	private final OutletSystemViewDAO outletSystemViewDAO;
 	private final SocketOperationStatusDAO socketOperationStatusDAO;
 	private final SocketOperationModeDAO socketOperationModeDAO;
 	private final SocketDAO socketDAO;
@@ -30,6 +33,7 @@ public class OutletService {
 
 	public OutletService(){
 		outletDAO = new OutletDAO();
+		outletSystemViewDAO = new OutletSystemViewDAO();
 		socketOperationStatusDAO = new SocketOperationStatusDAO();
 		socketOperationModeDAO = new SocketOperationModeDAO();
 		socketDAO = new SocketDAO();
@@ -59,6 +63,14 @@ public class OutletService {
 
 	public List<Outlet> getOutletsByRoomId(Integer roomId) {
 		return outletDAO.getAllByFilter(OutletFilter.getByRoomId(roomId));
+	}
+
+	//***************************************************
+	//OutletSystemView
+	//***************************************************
+
+	public List<OutletSystemView> getOutletsBySystemId(Integer systemId) {
+		return outletSystemViewDAO.getBySystemId(systemId);
 	}
 
 	//***************************************************

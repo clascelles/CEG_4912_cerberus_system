@@ -1,5 +1,7 @@
 package com.cerberus.service.system;
 
+import java.util.List;
+
 import com.cerberus.model.usage.bean.Event;
 import com.cerberus.model.usage.bean.EventRecord;
 import com.cerberus.model.usage.dao.EventDAO;
@@ -31,20 +33,16 @@ public class EventService {
 		eventRecordDAO.delete(eventRecord);
 	}
 
+	public List<EventRecord> getAllEventRecordsByOutletId(Integer outletId) {
+		return eventRecordDAO.getByOutletId(outletId);
+	}
+
 	//***************************************************
 	//Event
 	//***************************************************
 
-	public Integer insertEvent(Event event){
-		return eventDAO.save(event);
-	}
-
-	public Event updateEvent(Event event){
-		return eventDAO.merge(event);
-	}
-
-	public void deleteEvent(Event event){
-		eventDAO.delete(event);
+	public List<Event> getAllEvents() {
+		return eventDAO.getAll();
 	}
 
 }

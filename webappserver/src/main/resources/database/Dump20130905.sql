@@ -85,6 +85,7 @@ DROP TABLE IF EXISTS `current_day_view`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `current_day_view` (
+  `ID` tinyint NOT NULL,
   `TIMESTAMP_DAY` tinyint NOT NULL,
   `DAY` tinyint NOT NULL,
   `SYSTEM_ID` tinyint NOT NULL,
@@ -177,8 +178,8 @@ CREATE TABLE `event_record` (
   `EVENT_ID` int(11) NOT NULL,
   `TIMESTAMP` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `CONNECTION_EVENT_FKIndex1` (`EVENT_ID`),
-  KEY `CONNECTION_EVENT_FKIndex2` (`OUTLET_ID`),
+  KEY `EVENT_RECORD_FKIndex1` (`EVENT_ID`),
+  KEY `EVENT_RECORD_FKIndex2` (`OUTLET_ID`),
   CONSTRAINT `fk_?0905D9E0?F215?41D3?9D86?75BC8BF3A8A4?` FOREIGN KEY (`OUTLET_ID`) REFERENCES `outlet` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?3AD07AA9?3F08?406A?AA34?C28B9486A2BB?` FOREIGN KEY (`EVENT_ID`) REFERENCES `event` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
@@ -282,6 +283,20 @@ INSERT INTO `outlet_operation_mode` VALUES (1,'Enabled'),(2,'Disabled'),(3,'Moni
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `outlet_system_view`
+--
+
+DROP TABLE IF EXISTS `outlet_system_view`;
+/*!50001 DROP VIEW IF EXISTS `outlet_system_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `outlet_system_view` (
+  `OUTLET_ID` tinyint NOT NULL,
+  `SYSTEM_ID` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `personal_information`
 --
 
@@ -334,7 +349,7 @@ CREATE TABLE `rfid_authentication` (
 
 LOCK TABLES `rfid_authentication` WRITE;
 /*!40000 ALTER TABLE `rfid_authentication` DISABLE KEYS */;
-INSERT INTO `rfid_authentication` VALUES (1,1,2,1),(2,2,2,0),(3,3,2,1),(4,4,2,1),(5,5,2,1),(6,6,2,2),(7,7,2,0),(8,8,2,2),(9,9,2,2),(10,10,2,1);
+INSERT INTO `rfid_authentication` VALUES (1,1,2,0),(2,2,2,0),(3,3,2,1),(4,4,2,1),(5,5,2,1),(6,6,2,2),(7,7,2,0),(8,8,2,2),(9,9,2,2),(10,10,2,1);
 /*!40000 ALTER TABLE `rfid_authentication` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -915,7 +930,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `current_day_view` AS select date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%Y-%m-%d') AS `TIMESTAMP_DAY`,date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%d') AS `DAY`,`current_hour_view`.`SYSTEM_ID` AS `SYSTEM_ID`,(sum(`current_hour_view`.`CURRENT_HOUR_KWH`) / 24) AS `CURRENT_DAY_KWH` from `current_hour_view` group by `TIMESTAMP_DAY`,`current_hour_view`.`SYSTEM_ID` */;
+/*!50001 VIEW `current_day_view` AS select `current_hour_view`.`ID` AS `ID`,date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%Y-%m-%d') AS `TIMESTAMP_DAY`,date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%d') AS `DAY`,`current_hour_view`.`SYSTEM_ID` AS `SYSTEM_ID`,(sum(`current_hour_view`.`CURRENT_HOUR_KWH`) / 24) AS `CURRENT_DAY_KWH` from `current_hour_view` group by `TIMESTAMP_DAY`,`current_hour_view`.`SYSTEM_ID` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -935,6 +950,25 @@ UNLOCK TABLES;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `current_hour_view` AS select `current`.`ID` AS `ID`,date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current`.`TIMESTAMP`,'%H') AS `HOUR`,(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) AS `SYSTEM_ID`,((sum(`current`.`CURRENT`) * 30) / 1000) AS `CURRENT_HOUR_KWH` from `current` group by `TIMESTAMP_HOUR`,`SYSTEM_ID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `outlet_system_view`
+--
+
+/*!50001 DROP TABLE IF EXISTS `outlet_system_view`*/;
+/*!50001 DROP VIEW IF EXISTS `outlet_system_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `outlet_system_view` AS select `outlet`.`ID` AS `OUTLET_ID`,`room`.`SYSTEM_ID` AS `SYSTEM_ID` from (`outlet` join `room` on((`room`.`ID` = `outlet`.`ROOM_ID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -986,4 +1020,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-06 11:36:00
+-- Dump completed on 2013-11-06 12:40:19
