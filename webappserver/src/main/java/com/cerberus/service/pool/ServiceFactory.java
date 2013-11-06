@@ -5,6 +5,7 @@ import com.cerberus.service.account.UserService;
 import com.cerberus.service.outlets.OutletService;
 import com.cerberus.service.schedules.SchedulingService;
 import com.cerberus.service.security.RfidService;
+import com.cerberus.service.system.EventService;
 import com.cerberus.service.system.SystemService;
 import com.cerberus.service.usage.ConsumptionService;
 import com.cerberus.service.usage.StatisticService;
@@ -18,6 +19,7 @@ public class ServiceFactory {
 	private SchedulingService schedulingService;
 	private StatisticService statisticService;
 	private SystemService systemService;
+	private EventService eventService;
 	private UserService userService;
 
 	public ServiceFactory(){
@@ -28,12 +30,13 @@ public class ServiceFactory {
 		schedulingService = new SchedulingService();
 		statisticService = new StatisticService();
 		systemService = new SystemService();
+		eventService = new EventService();
 		userService = new UserService();
 	}
 
 	public ServiceFactory(AccountService accountService, ConsumptionService consumptionService, OutletService outletService,
 			RfidService rfidService, SchedulingService schedulingService, StatisticService statisticService, SystemService systemService,
-			UserService userService){
+			EventService eventService, UserService userService){
 		this.accountService = accountService;
 		this.consumptionService = consumptionService;
 		this.outletService = outletService;
@@ -41,6 +44,7 @@ public class ServiceFactory {
 		this.schedulingService = schedulingService;
 		this.statisticService = statisticService;
 		this.systemService = systemService;
+		this.eventService = eventService;
 		this.userService = userService;
 	}
 
@@ -98,6 +102,14 @@ public class ServiceFactory {
 
 	public void setSystemService(SystemService systemService) {
 		this.systemService = systemService;
+	}
+
+	public EventService getEventService() {
+		return eventService;
+	}
+
+	public void setEventService(EventService eventService) {
+		this.eventService = eventService;
 	}
 
 	public UserService getUserService() {

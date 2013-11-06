@@ -1,4 +1,4 @@
-package com.cerberus.model.usage.bean;
+package com.cerberus.model.system.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

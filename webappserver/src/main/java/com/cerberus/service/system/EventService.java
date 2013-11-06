@@ -2,10 +2,10 @@ package com.cerberus.service.system;
 
 import java.util.List;
 
-import com.cerberus.model.usage.bean.Event;
-import com.cerberus.model.usage.bean.EventRecord;
-import com.cerberus.model.usage.dao.EventDAO;
-import com.cerberus.model.usage.dao.EventRecordDAO;
+import com.cerberus.model.system.bean.Event;
+import com.cerberus.model.system.bean.EventRecord;
+import com.cerberus.model.system.dao.EventDAO;
+import com.cerberus.model.system.dao.EventRecordDAO;
 
 public class EventService {
 
@@ -40,6 +40,10 @@ public class EventService {
 	//***************************************************
 	//Event
 	//***************************************************
+
+	public Event getEventById(Integer id) {
+		return eventDAO.getById(id);
+	}
 
 	public List<Event> getAllEvents() {
 		return eventDAO.getAll();

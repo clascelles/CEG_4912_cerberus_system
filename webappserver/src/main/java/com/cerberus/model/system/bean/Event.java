@@ -1,4 +1,4 @@
-package com.cerberus.model.usage.bean;
+package com.cerberus.model.system.bean;
 
 import java.io.Serializable;
 
@@ -13,16 +13,12 @@ import javax.persistence.Table;
 @Table(name = "EVENT")
 public class Event implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	Integer id;
 	String name;
 	String description;
-		
+
 	public Event() {
 		super();
 	}
@@ -30,7 +26,7 @@ public class Event implements Serializable{
 		super();
 		this.name = name;
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -40,7 +36,7 @@ public class Event implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	@Column(name="EVENT_NAME", nullable=false)
 	public String getName() {
 		return name;
@@ -48,7 +44,7 @@ public class Event implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Column(name="EVENT_DESCRIPTION", nullable=false)
 	public String getDescription() {
 		return description;
@@ -60,5 +56,5 @@ public class Event implements Serializable{
 	public String toString() {
 		return "Event [id=" + id + ", name=" + name + ", description="
 				+ description + "]";
-	}		
+	}
 }
