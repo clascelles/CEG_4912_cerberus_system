@@ -18,16 +18,10 @@ import com.cerberus.model.outlets.filter.OutletFilter;
 import com.cerberus.model.outlets.filter.OutletOperationModeFilter;
 import com.cerberus.model.outlets.filter.SocketAssignmentFilter;
 import com.cerberus.model.outlets.filter.SocketFilter;
-import com.cerberus.model.usage.bean.Event;
-import com.cerberus.model.usage.bean.EventRecord;
-import com.cerberus.model.usage.dao.EventDAO;
-import com.cerberus.model.usage.dao.EventRecordDAO;
 
 public class OutletService {
 
 	private final OutletDAO outletDAO;
-	private final EventRecordDAO eventRecordDAO;
-	private final EventDAO eventDAO;
 	private final SocketOperationStatusDAO socketOperationStatusDAO;
 	private final SocketOperationModeDAO socketOperationModeDAO;
 	private final SocketDAO socketDAO;
@@ -36,8 +30,6 @@ public class OutletService {
 
 	public OutletService(){
 		outletDAO = new OutletDAO();
-		eventRecordDAO = new EventRecordDAO();
-		eventDAO = new EventDAO();
 		socketOperationStatusDAO = new SocketOperationStatusDAO();
 		socketOperationModeDAO = new SocketOperationModeDAO();
 		socketDAO = new SocketDAO();
@@ -67,38 +59,6 @@ public class OutletService {
 
 	public List<Outlet> getOutletsByRoomId(Integer roomId) {
 		return outletDAO.getAllByFilter(OutletFilter.getByRoomId(roomId));
-	}
-
-	//***************************************************
-	//EventRecord
-	//***************************************************
-
-	public Integer insertEventRecord(EventRecord eventRecord){
-		return eventRecordDAO.save(eventRecord);
-	}
-
-	public EventRecord updateEventRecord(EventRecord eventRecord){
-		return eventRecordDAO.merge(eventRecord);
-	}
-
-	public void deleteEventRecord(EventRecord eventRecord){
-		eventRecordDAO.delete(eventRecord);
-	}
-
-	//***************************************************
-	//Event
-	//***************************************************
-
-	public Integer insertEvent(Event event){
-		return eventDAO.save(event);
-	}
-
-	public Event updateEvent(Event event){
-		return eventDAO.merge(event);
-	}
-
-	public void deleteEvent(Event event){
-		eventDAO.delete(event);
 	}
 
 	//***************************************************
