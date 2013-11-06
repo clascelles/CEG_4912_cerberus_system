@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cerberus.frameworks.logging.CerberusLogger;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
-import com.cerberus.message.CerberusLogger;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.security.bean.RfidTagView;
 import com.cerberus.module.generic.constants.CerberusConstants;

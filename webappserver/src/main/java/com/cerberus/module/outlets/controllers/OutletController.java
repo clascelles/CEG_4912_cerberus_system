@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cerberus.frameworks.logging.CerberusLogger;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
-import com.cerberus.message.CerberusLogger;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.OutletOperationMode;
@@ -33,11 +33,11 @@ public class OutletController extends CerberusController {
 	@RequestMapping(value=CerberusConstants.OUTLETS_MAPPING, method=RequestMethod.GET)
 	public String getOutletsPage(Model model)	{
 
-		User user = getUser();		
+		User user = getUser();
 
 		if(user == null){
 			return CerberusConstants.REDIRECT;
-		}		
+		}
 
 		initTopBar(model, user);
 
@@ -61,11 +61,11 @@ public class OutletController extends CerberusController {
 	@RequestMapping(value=CerberusConstants.VIEW_OUTLET_MAPPING, method=RequestMethod.GET)
 	public String getViewOutletPage(Model model, @RequestParam(value = "id") Integer id)	{
 
-		User user = getUser();		
+		User user = getUser();
 
 		if(user == null){
 			return CerberusConstants.REDIRECT;
-		}		
+		}
 
 		initTopBar(model, user);
 

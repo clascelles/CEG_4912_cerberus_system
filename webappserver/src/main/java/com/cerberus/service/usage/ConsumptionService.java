@@ -1,6 +1,5 @@
 package com.cerberus.service.usage;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class ConsumptionService {
 
 	private final CurrentDAO currentDAO;
 	private final CurrentHourViewDAO currentHourViewDAO;
-	private CurrentDayViewDAO currentDayViewDAO;
+	private final CurrentDayViewDAO currentDayViewDAO;
 
 	public ConsumptionService (){
 		currentDAO = new CurrentDAO();
@@ -56,13 +55,13 @@ public class ConsumptionService {
 		return currentHourViewDAO.getAllByFilter(CurrentHourViewFilter.getByThisDay(systemId, selectedDate));
 
 	}
-	
+
 	//*************************************************
 	//CURRENT DAY
 	//*************************************************
 
 	public List<CurrentDayView> getCurrentDayForMonth(Integer systemId, Date selectedDate){
-		
+
 		return currentDayViewDAO.getAllByFilter(CurrentDayViewFilter.getByThisMonth(systemId, selectedDate));
 
 	}
