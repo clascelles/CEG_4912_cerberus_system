@@ -82,7 +82,7 @@ public class SecurityController extends CerberusController {
 		RfidTagView newRfidTagView = RfidTagViewBackingObjectFactory.INSTANCE.bind(rfidTag, getUser());
 		securityWorkflow.updateRfidTagView(newRfidTagView);
 
-		return getViewRfidPage(model, rfidTag.getId());
+		return getSecurityPage(model);
 	}
 
 }
