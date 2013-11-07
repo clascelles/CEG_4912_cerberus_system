@@ -60,22 +60,24 @@
 
 				<div>
 					<ul class="breadcrumb">
-						<li><a href="#">Schedule</a></li>
+						<li><a href="/webappserver/schedules/index">Schedule</a></li>
+						<li><span>></span></li>
+						<li><a href="#">Edit Event</a></li>
 					</ul>
 				</div>
 
 				<div class="row-fluid">
-					<div class="box span6">
+					<div class="box span12">
 						<div class="box-header well">
 							<h2>
-								<i class="icon-time"></i> Add Event
+								<i class="icon-wrench"></i> Edit Event
 							</h2>
 							<div class="box-icon">
 								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
 							</div>
 						</div>
 						<div class="box-content">							
-							<form id="addEvent" class="form-horizontal" method="post">
+							<form id="editEvent" class="form-horizontal" method="post">
 						  		<fieldset>
 									<div class="control-group">
 										<label class="control-label" for="time">Event Time:</label>
@@ -100,7 +102,7 @@
 												<c:forEach items="${rooms}" var="room">		  			
 													<optgroup label="${room.key.name}">
 														<c:forEach items="${room.value}" var="outlet">
-														  <option value="${outlet.id}">${outlet.id}</option>
+														  <option value="${outlet.id}" <c:if test="${scheduledEvent.outletId == outlet.id}">selected</c:if>>${outlet.id}</option>
 														</c:forEach>
 													</optgroup>
 										  		</c:forEach>
@@ -124,60 +126,13 @@
 											<select data-placeholder="Select Operation Mode" name="modeId" data-rel="chosen">
 												<option value=""></option>											
 												<c:forEach items="${modes}" var="mode">	
-													  <option value="${mode.id}">${mode.name}</option>
+													  <option value="${mode.id}" <c:if test="${scheduledEvent.modeId == mode.id}">selected</c:if>>${mode.name}</option>
 										  		</c:forEach>
 									  		</select>								  		
 										</div>
 									</div>
 									<div class="form-actions">
-										<button type="submit" class="btn btn-primary" name="addEvent">Add</button>
-									</div>
-						  		</fieldset>
-						  	</form>
-							<div class="clearfix"></div>
-						</div>
-					</div>
-					
-					<div class="box span6">
-						<div class="box-header well">
-							<h2>
-								<i class="icon-list-alt"></i> Existing Events
-							</h2>
-							<div class="box-icon">
-								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-							</div>
-						</div>
-						<div class="box-content">							
-							<form id="listEvents" class="form-horizontal" method="post">
-						  		<fieldset>									
-									<div class="control-group">
-										<label class="control-label" for="outletId">Outlet</label>
-										<div class="controls">
-											<select data-placeholder="Select Outlet" name="outletId" data-rel="chosen" id="viewOutletId">
-												<option value=""></option>											
-												<c:forEach items="${rooms}" var="room">		  			
-													<optgroup label="${room.key.name}">
-														<c:forEach items="${room.value}" var="outlet">
-														  <option value="${outlet.id}">${outlet.id}</option>
-														</c:forEach>
-													</optgroup>
-										  		</c:forEach>
-									  		</select>									  		
-										</div>
-									</div>
-									<div id="viewSocketId">
-										<div class="control-group">
-											<label class="control-label" for="socketPosition">Socket</label>
-											<div class="controls">
-												<select data-placeholder="Your Socket" name="socketPosition" data-rel="chosen">
-													<option value="0" <c:if test="${scheduledEvent.socketPosition == 0}">selected</c:if>>A</option>
-													<option value="1" <c:if test="${scheduledEvent.socketPosition == 1}">selected</c:if>>B</option>
-										  		</select>								  		
-											</div>
-										</div>
-									</div>
-									<div class="form-actions">
-										<button type="submit" class="btn btn-primary" name="viewExistingSchedules" id="viewExistingSchedules">View Events</button>
+										<button type="submit" class="btn btn-primary" name="editEvent">Edit</button>
 									</div>
 						  		</fieldset>
 						  	</form>
@@ -185,50 +140,6 @@
 						</div>
 					</div>
 				</div>
-				<c:if test="${scheduledEvents != null}">
-					<div class="row-fluid">
-					<div class="box span12">
-						<div class="box-header well">
-							<h2>
-								<i class="icon-search"></i> Socket ${socket.id} Events
-							</h2>
-							<div class="box-icon">
-								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-							</div>
-						</div>
-						<div class="box-content">							
-							<form id="listEvents" class="form-horizontal" method="post">
-						  		<table class="table table-striped table-bordered bootstrap-datatable datatable">
-								  <thead>
-									  <tr>
-										  <th>Event Timestamp</th>
-										  <th>Socket Operation Mode</th>
-										  <th>Action</th>
-									  </tr>
-								  </thead>   
-								  <tbody>
-								  	<c:forEach items="${scheduledEvents}" var="item">
-								  		<tr>
-								  			<td><span>${item.time}</span><%-- <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span><input type="text" name="time" id="time${item.id}" readonly value="${item.time}"/></div> --%></td>
-								  			<td><span>${item.mode.description}</span>
-									  			<%-- <select data-placeholder="Select Operation Mode" name="modeId" data-rel="chosen">
-													<option value=""></option>											
-													<c:forEach items="${modes}" var="mode">	
-														  <option value="${mode.id}" <c:if test="${mode.id == item.modeId}">selected</c:if>>${mode.name}</option>
-											  		</c:forEach>
-										  		</select> --%>
-									  		</td>
-								  			<td><a class="btn btn-primary" href="/webappserver/schedules/edit?id=${item.id}"><i class="icon-pencil icon-white"></i>Edit</a></td>
-								  		</tr>
-									</c:forEach>
-								  </tbody>
-							    </table>		
-						  	</form>
-							<div class="clearfix"></div>
-						</div>
-					</div>
-				</div>
-				</c:if>
 			</div>
 		</div>
 
@@ -263,40 +174,7 @@
 	<%@include file="\WEB-INF\views\main\javascript.jsp" %>
 	
 	<script type="text/javascript">
-		$(document).ready(function() {
-			
-		 var outletChanged = function() {
-			 var index = $("#outletId").val();
-			  if(typeof index === 'undefined' || index == 0) {
-			  		$('#socketInput').hide();
-		   		}
-		    	else {
-			  		$('#socketInput').show();
-		    	}
-	    	};
-	    	
-    	var viewOutletChanged = function() {
-			 var index = $("#viewOutletId").val();
-			  if(typeof index === 'undefined' || index == 0) {
-			  		$('#viewSocketId').hide();
-		   		}
-		    	else {
-			  		$('#viewSocketId').show();
-		    	}
-	    	};
-			
-		  $('#outletId').change(function() {
-			  outletChanged();
-		  });
-		  
-		  outletChanged();		
-			
-		  $('#viewOutletId').change(function() {
-			  viewOutletChanged();
-		  });
-		  
-		  viewOutletChanged();	 
-		  
+		$(document).ready(function() {		  
 		  $("#time").datetimepicker({format: 'mm/dd/yyyy hh:ii'});
 		  $('#eventDuration').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' });
 		});

@@ -21,7 +21,7 @@ public class ScheduleWorkflow extends Workflow {
 		this.returnServiceFactory();
 	}
 
-	public void updatedScheduledEvent(ScheduledEvent event) {
+	public void updateScheduledEvent(ScheduledEvent event) {
 		serviceFactory.getSchedulingService().updateScheduledEvent(event);
 		this.returnServiceFactory();
 	}
@@ -39,6 +39,16 @@ public class ScheduleWorkflow extends Workflow {
 	public void updatedSchedule(Schedule schedule) {
 		serviceFactory.getSchedulingService().updateSchedule(schedule);
 		this.returnServiceFactory();
+	}
+	
+	public ScheduledEvent getScheduledEventById(Integer id){
+		SchedulingService scheduleService = serviceFactory.getSchedulingService();
+		
+		ScheduledEvent event = scheduleService.getScheduledEventById(id);
+
+		this.returnServiceFactory();
+
+		return event;
 	}
 	
 	public List<ScheduledEvent> getScheduledEventsForSocket(Integer socketId){
@@ -81,6 +91,7 @@ public class ScheduleWorkflow extends Workflow {
 		List<ScheduledEvent> events = getScheduledEventsForUser(user);
 		
 		Date currentDate = new Date();
+		currentDate.setTime(currentDate.getTime() - 24*60*60*1000); //delete events older than one day ago
 		
 		for(ScheduledEvent event : events) {
 			if(event.getTime().before(currentDate)) {

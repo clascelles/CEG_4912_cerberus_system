@@ -37,6 +37,10 @@ public class SchedulingService {
 	public void deleteScheduledEvent(ScheduledEvent scheduledEvent){
 		scheduledEventDAO.delete(scheduledEvent);
 	}
+	
+	public ScheduledEvent getScheduledEventById(Integer id) {
+		return scheduledEventDAO.getById(id);
+	}
 
 	public List<ScheduledEvent> getScheduledEventBySocketId(Integer socketId) {
 		return scheduledEventDAO.getAllByFilter(ScheduledEventFilter.getBySocketId(socketId));		

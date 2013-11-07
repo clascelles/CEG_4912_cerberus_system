@@ -21,6 +21,7 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 	private Integer outletId;
 	private Socket socket;
 	private Integer socketId;
+	private Integer socketPosition;
 	private User user;
 	private Integer userId;
 	private String time;
@@ -30,13 +31,15 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 	public ScheduledEventBackingObject(Integer id,
 			SocketOperationMode mode,
 			Integer outletId, Socket socket, 
-			Integer socketId, User user, Integer userId, 
+			Integer socketId, Integer socketPosition,
+			User user, Integer userId, 
 			String time) {
 		super();
 		this.id = id;
 		this.outletId = outletId;
 		this.socket = socket;
 		this.socketId = socketId;
+		this.socketPosition = socketPosition;
 		this.user = user;
 		this.userId = userId;
 		this.time = time;
@@ -102,6 +105,14 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 	
 	public void setSocketId(Integer socketId) {
 		this.socketId = socketId;
+	}
+	
+	public Integer getSocketPosition() {
+		return socketPosition;
+	}
+
+	public void setSocketPosition(Integer socketPosition) {
+		this.socketPosition = socketPosition;
 	}
 
 	public User getUser() {
@@ -175,4 +186,13 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 	public static String padNumeral(int number) {
 		return (number < 10) ? "0" + number : "" + number;
 	}
+
+	@Override
+	public String toString() {
+		return "ScheduledEventBackingObject [id=" + id + ", mode=" + mode
+				+ ", modeId=" + modeId + ", outletId=" + outletId + ", socket="
+				+ socket + ", socketId=" + socketId + ", socketPosition="
+				+ socketPosition + ", user=" + user + ", userId=" + userId
+				+ ", time=" + time + "]";
+	}	
 }

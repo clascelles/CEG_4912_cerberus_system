@@ -10,6 +10,7 @@ public class CerberusConstants {
 	public static final String REDIRECT = "redirect:/";
 	public static final String INDEX = "index";
 	public static final String VIEW = "view";
+	public static final String EDIT = "edit";
 
 	public static final String ACCOUNT_MODULE = "account";
 	public static final String ACCOUNT_VIEW = ACCOUNT_MODULE + SEPARATOR + INDEX;
@@ -28,6 +29,9 @@ public class CerberusConstants {
 	public static final String SCHEDULES_MODULE = "schedules";
 	public static final String SCHEDULES_VIEW = SCHEDULES_MODULE + SEPARATOR + INDEX;
 	public static final String SCHEDULES_MAPPING = SEPARATOR + SCHEDULES_VIEW;
+
+	public static final String EDIT_SCHEDULES_VIEW = SCHEDULES_MODULE + SEPARATOR + EDIT;
+	public static final String EDIT_SCHEDULES_MAPPING = SEPARATOR + EDIT_SCHEDULES_VIEW;
 
 	public static final String SECURITY_MODULE = "security";
 	public static final String SECURITY_VIEW = SECURITY_MODULE + SEPARATOR + INDEX;
@@ -52,6 +56,7 @@ public class CerberusConstants {
 	public static final String ROOMS = "rooms";
 	public static final String NEW_OUTLET = "newOutlet";
 	public static final String OUTLET = "outlet";
+	public static final String SOCKET = "socket";
 	public static final String SOCKETS = "sockets";
 	public static final String OUTLETS = "outlets";
 	public static final String RFID_TAGS = "rfidTags";
@@ -63,6 +68,6 @@ public class CerberusConstants {
 	public static final String IS_SYS_ADMIN = "isSysAdmin";
 	public static final String SCHEDULED_EVENT = "scheduledEvent";
 	public static final String SCHEDULE = "schedule";
-	public static final String SCHEDULED_EVENTS = "scheduledEvents";	
+	public static final String SCHEDULED_EVENTS = "scheduledEvents";
 
 }

@@ -130,7 +130,7 @@
 										<div class="controls">
 										  	<select name="roomId" data-rel="chosen">
 										  		<c:forEach items="${rooms}" var="room">
-													<option value="${room.typeId}">${room.name}</option>
+													<option value="${room.id}">${room.name}</option>
 												</c:forEach>
 											</select>
 										</div>
