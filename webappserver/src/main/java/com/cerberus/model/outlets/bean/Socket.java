@@ -121,7 +121,7 @@ public class Socket implements Serializable {
 
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 
-		socket.setMode(outletWorkflow.getSocketModeById(SocketOperationMode.DISABLED));
+		socket.setMode(outletWorkflow.getSocketModeById(SocketOperationMode.DEFAULT_ID));
 		socket.setOutlet(outlet);
 		socket.setPosition(position);
 		socket.setStatus(outletWorkflow.getSocketStatusById(SocketOperationStatus.DISABLED));

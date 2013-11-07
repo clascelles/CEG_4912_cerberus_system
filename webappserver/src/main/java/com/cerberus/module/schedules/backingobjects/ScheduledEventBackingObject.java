@@ -3,8 +3,8 @@ package com.cerberus.module.schedules.backingobjects;
 import java.util.Date;
 import java.util.List;
 
+import com.cerberus.frameworks.logging.CerberusLogger;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
-import com.cerberus.message.CerberusLogger;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.Socket;

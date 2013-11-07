@@ -14,6 +14,8 @@ import com.cerberus.daemon.message.WrongMessageException;
 import com.cerberus.daemon.response.MessageResponse;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.account.bean.UserType;
+import com.cerberus.model.outlets.bean.Outlet;
+import com.cerberus.model.outlets.bean.OutletOperationMode;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
 import com.cerberus.model.security.bean.RfidAuthentication;
@@ -98,12 +100,13 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 			isAllowed = (auth.getPermission() == RfidPermission.ALLOWED.getIntValue());
 		}
 
-		// Update socket's operation mode to authentication
-		socket.setMode(outletService.getSocketOperationModeById(SocketOperationMode.AUTHENTICATION));
+		// Update outlet's operation mode to restricted
+		Outlet outlet = socket.getOutlet();
+		outlet.setMode(outletService.getOutletOperationModeById(OutletOperationMode.RESTRICTED));
 		try {
-			outletService.updateSocket(socket);
+			outletService.updateOutlet(outlet);
 		} catch(Exception e) {
-			LOGGER.error("Failed to update socket after receiving an rfid request message. Socket: " + socket);
+			LOGGER.error("Failed to update outlet after receiving an rfid request message. Outlet: " + outlet);
 			return false;
 		}
 

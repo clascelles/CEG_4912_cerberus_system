@@ -50,7 +50,7 @@ public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, Out
 		if(backingObject.getModeId() != null) {
 			outlet.setMode(outletWorkflow.getOutletOperationModeById(backingObject.getModeId()));
 		} else {
-			outlet.setMode(outletWorkflow.getOutletOperationModeById(OutletOperationMode.DISABLED));
+			outlet.setMode(outletWorkflow.getOutletOperationModeById(OutletOperationMode.MONITORING));
 		}
 
 		if(backingObject.getRoomId() != null) {

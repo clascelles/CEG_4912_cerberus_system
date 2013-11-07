@@ -18,11 +18,9 @@ public class OutletOperationMode implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public static final Integer ENABLED = 1;
-	public static final Integer DISABLED = 2;
-	public static final Integer MONITORING = 3;
-	public static final Integer CHILD_SAFETY = 4;
-	public static final Integer AUTHENTICATION = 5;	
+	public static final Integer MONITORING = 1;
+	public static final Integer SAFETY = 2;
+	public static final Integer RESTRICTED = 3;	
 	
 	Integer id;
 	String name;
