@@ -81,8 +81,10 @@ public class ScheduleController extends CerberusController {
 			@ModelAttribute(CerberusConstants.SCHEDULED_EVENT) ScheduledEventBackingObject backingObject)	{
 		CerberusLogger.post(CerberusConstants.SCHEDULES_VIEW);
 
-		if(ScheduledEventBackingObjectFactory.INSTANCE.isValid(backingObject)) {	
-			User user = getUser();
+		User user = getUser();	
+		backingObject.setUserId(user.getId());
+		
+		if(ScheduledEventBackingObjectFactory.INSTANCE.isValid(backingObject)) {
 			ScheduledEvent event = ScheduledEventBackingObjectFactory.INSTANCE.bind(backingObject, user);
 			
 			ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();

@@ -2,7 +2,7 @@ package com.cerberus.daemon.constants;
 
 public enum SocketOperatingMode {
 
-	ON(1), OFF(2), MONITORING(3), SAFETY(4), RESTRICTED(5);
+	ON(2), OFF(1), NORMAL(4), MONITORING(32), SAFETY(16), RESTRICTED(8);
 
 	private final int opMode;
 
@@ -15,10 +15,19 @@ public enum SocketOperatingMode {
 	}
 
 	public static SocketOperatingMode fromIntValue(int opModeValue) {
-		for (SocketOperatingMode opMode : SocketOperatingMode.values()) {
-			if (opModeValue == opMode.getIntValue()) {
-				return opMode;
-			}
+		switch(opModeValue){
+		case 1:
+		   return SocketOperatingMode.ON;
+		case 2:
+		   return SocketOperatingMode.OFF;
+		case 3:
+		   return SocketOperatingMode.NORMAL;
+		case 4:
+		   return SocketOperatingMode.MONITORING;
+		case 5:
+		   return SocketOperatingMode.SAFETY;
+		case 6:
+		   return SocketOperatingMode.RESTRICTED;
 		}
 		return null;
 	}

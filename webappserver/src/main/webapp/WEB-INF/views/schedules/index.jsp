@@ -129,12 +129,6 @@
 									  		</select>								  		
 										</div>
 									</div>
-									<div class="control-group">
-										<label class="control-label" for="userId">User ID</label>
-										<div class="controls">
-												<input class="input-large" name="userId" type="text" value="${scheduledEvent.userId}" disabled>								  		
-										</div>
-									</div>
 									<div class="form-actions">
 										<button type="submit" class="btn btn-primary" name="addEvent">Add</button>
 									</div>

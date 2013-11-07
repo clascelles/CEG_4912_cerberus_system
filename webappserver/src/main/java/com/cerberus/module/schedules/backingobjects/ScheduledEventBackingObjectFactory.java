@@ -21,7 +21,7 @@ public class ScheduledEventBackingObjectFactory
 	public ScheduledEventBackingObject getBackingObject(User user) {
 		ScheduledEventBackingObject backingObject = new ScheduledEventBackingObject();
 		
-		backingObject.setModeId(SocketOperationMode.DISABLED);
+		backingObject.setModeId(SocketOperationMode.MANUAL_OFF_ID);
 		backingObject.setUser(user);
 		
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
@@ -59,8 +59,13 @@ public class ScheduledEventBackingObjectFactory
 
 		ScheduledEvent event = new ScheduledEvent();
 		
-		event.setMode(backingObject.getMode());
-		event.setSocket(backingObject.getSocket());
+		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
+		
+		
+		event.setMode(outletWorkflow.getSocketModeById(backingObject.getModeId()));
+		Outlet outlet = outletWorkflow.getOutletById(backingObject.getOutletId());
+		List<Socket> sockets = outletWorkflow.getSocketsByOutlet(outlet);
+		event.setSocket(sockets.get(backingObject.getSocketId()));
 		event.setUser(user);		
 		event.setTime(ScheduledEventBackingObject.parseDate(backingObject.getTime()));
 
