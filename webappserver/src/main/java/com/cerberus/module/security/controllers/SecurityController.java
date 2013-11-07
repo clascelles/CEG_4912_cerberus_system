@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cerberus.frameworks.logging.CerberusLogger;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
-import com.cerberus.message.CerberusLogger;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.security.bean.RfidTagView;
 import com.cerberus.module.generic.constants.CerberusConstants;
@@ -60,7 +60,10 @@ public class SecurityController extends CerberusController {
 		RfidTagView rfidTag = securityWorkflow.getRfidTagViewById(id);
 		RfidTagViewBackingObject rfidTagBO = RfidTagViewBackingObjectFactory.INSTANCE.getBackingObject(rfidTag);
 
+		List<String> profileNames = securityWorkflow.getAllProfileNames();
+
 		model.addAttribute(CerberusConstants.RFID_TAG, rfidTagBO);
+		model.addAttribute("profiles", profileNames);
 
 		model.addAttribute("denied", RfidPermission.DENIED);
 		model.addAttribute("allowed", RfidPermission.ALLOWED);
@@ -79,7 +82,7 @@ public class SecurityController extends CerberusController {
 		RfidTagView newRfidTagView = RfidTagViewBackingObjectFactory.INSTANCE.bind(rfidTag, getUser());
 		securityWorkflow.updateRfidTagView(newRfidTagView);
 
-		return getViewRfidPage(model, rfidTag.getId());
+		return getSecurityPage(model);
 	}
 
 }

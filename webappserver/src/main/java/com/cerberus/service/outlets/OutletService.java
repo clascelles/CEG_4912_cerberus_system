@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.OutletOperationMode;
+import com.cerberus.model.outlets.bean.OutletSystemView;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketAssignment;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
 import com.cerberus.model.outlets.bean.SocketOperationStatus;
 import com.cerberus.model.outlets.dao.OutletDAO;
 import com.cerberus.model.outlets.dao.OutletOperationModeDAO;
+import com.cerberus.model.outlets.dao.OutletSystemViewDAO;
 import com.cerberus.model.outlets.dao.SocketAssignmentDAO;
 import com.cerberus.model.outlets.dao.SocketDAO;
 import com.cerberus.model.outlets.dao.SocketOperationModeDAO;
@@ -18,16 +20,11 @@ import com.cerberus.model.outlets.filter.OutletFilter;
 import com.cerberus.model.outlets.filter.OutletOperationModeFilter;
 import com.cerberus.model.outlets.filter.SocketAssignmentFilter;
 import com.cerberus.model.outlets.filter.SocketFilter;
-import com.cerberus.model.usage.bean.ConnectionEvent;
-import com.cerberus.model.usage.bean.Event;
-import com.cerberus.model.usage.dao.ConnectionEventDAO;
-import com.cerberus.model.usage.dao.EventDAO;
 
 public class OutletService {
 
 	private final OutletDAO outletDAO;
-	private final ConnectionEventDAO connectionEventDAO;
-	private final EventDAO eventDAO;
+	private final OutletSystemViewDAO outletSystemViewDAO;
 	private final SocketOperationStatusDAO socketOperationStatusDAO;
 	private final SocketOperationModeDAO socketOperationModeDAO;
 	private final SocketDAO socketDAO;
@@ -36,8 +33,7 @@ public class OutletService {
 
 	public OutletService(){
 		outletDAO = new OutletDAO();
-		connectionEventDAO = new ConnectionEventDAO();
-		eventDAO = new EventDAO();
+		outletSystemViewDAO = new OutletSystemViewDAO();
 		socketOperationStatusDAO = new SocketOperationStatusDAO();
 		socketOperationModeDAO = new SocketOperationModeDAO();
 		socketDAO = new SocketDAO();
@@ -64,41 +60,17 @@ public class OutletService {
 	public Outlet getOutletById(Integer id) {
 		return outletDAO.getById(id);
 	}
-	
+
 	public List<Outlet> getOutletsByRoomId(Integer roomId) {
-		return outletDAO.getAllByFilter(OutletFilter.getByRoomId(roomId));		
+		return outletDAO.getAllByFilter(OutletFilter.getByRoomId(roomId));
 	}
 
 	//***************************************************
-	//ConnectionEvent
+	//OutletSystemView
 	//***************************************************
 
-	public Integer insertConnectionEvent(ConnectionEvent connectionEvent){
-		return connectionEventDAO.save(connectionEvent);
-	}
-
-	public ConnectionEvent updateConnectionEvent(ConnectionEvent connectionEvent){
-		return connectionEventDAO.merge(connectionEvent);
-	}
-
-	public void deleteConnectionEvent(ConnectionEvent connectionEvent){
-		connectionEventDAO.delete(connectionEvent);
-	}
-
-	//***************************************************
-	//Event
-	//***************************************************
-
-	public Integer insertEvent(Event event){
-		return eventDAO.save(event);
-	}
-
-	public Event updateEvent(Event event){
-		return eventDAO.merge(event);
-	}
-
-	public void deleteEvent(Event event){
-		eventDAO.delete(event);
+	public List<OutletSystemView> getOutletsBySystemId(Integer systemId) {
+		return outletSystemViewDAO.getBySystemId(systemId);
 	}
 
 	//***************************************************
@@ -140,7 +112,7 @@ public class OutletService {
 	public SocketOperationMode getSocketOperationModeById(Integer id) {
 		return socketOperationModeDAO.getById(id);
 	}
-	
+
 	public List<SocketOperationMode> getSocketOperationModes() {
 		return socketOperationModeDAO.getAll();
 	}
@@ -205,7 +177,7 @@ public class OutletService {
 	public OutletOperationMode getOutletOperationModeById(Integer id) {
 		return outletOperationModeDAO.getByFilter(OutletOperationModeFilter.getById(id));
 	}
-	
+
 	public List<OutletOperationMode> getOutletOperationModes() {
 		return outletOperationModeDAO.getAll();
 	}

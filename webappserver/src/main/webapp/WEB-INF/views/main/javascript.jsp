@@ -1,7 +1,10 @@
 <!-- jQuery -->
+
 	<script src="/webappserver/resources/js/jquery-1.7.2.min.js"></script>
 	<!-- jQuery UI -->
+
 	<script src="/webappserver/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
+
 	<!-- transition / effect library -->
 	<script src="/webappserver/resources/js/bootstrap-transition.js"></script>
 	<!-- alert enhancer library -->
@@ -47,7 +50,10 @@
 	<script src="/webappserver/resources/js/jquery.flot.pie.min.js"></script>
 	<script src="/webappserver/resources/js/jquery.flot.stack.js"></script>
 	<script src="/webappserver/resources/js/jquery.flot.resize.min.js"></script>
+	<script src="/webappserver/resources/js/jquery.flot.axislabels.js"></script>
 	<!-- chart libraries end -->
+
+	
 
 	<!-- select or dropdown enhancer -->
 	<script src="/webappserver/resources/js/jquery.chosen.min.js"></script>
@@ -73,5 +79,10 @@
 	<script src="/webappserver/resources/js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="/webappserver/resources/js/charisma.js"></script>
+	<script src="/webappserver/resources/js/usageGraph.js"></script>
+	<script src="/webappserver/resources/js/bootstrap-datepicker.js"></script>
+	
+	
+	
 	
 		

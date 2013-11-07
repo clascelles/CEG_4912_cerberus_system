@@ -19,7 +19,8 @@ public class RfidTagView implements Serializable{
 
 	Integer id;
 	String number;
-	String description;
+	String name;
+	String profileName;
 	Integer user;
 	Integer permission;
 
@@ -28,11 +29,12 @@ public class RfidTagView implements Serializable{
 		super();
 	}
 
-	public RfidTagView(Integer id, String number, String description, Integer user, Integer permission) {
+	public RfidTagView(Integer id, String number, String name, String profileName, Integer user, Integer permission) {
 		super();
 		this.id = id;
 		this.number = number;
-		this.description = description;
+		this.name = name;
+		this.profileName = profileName;
 		this.user = user;
 		this.permission = permission;
 	}
@@ -54,12 +56,20 @@ public class RfidTagView implements Serializable{
 		this.number = number;
 	}
 
-	@Column(name="RFID_DESC", nullable=false, updatable=false, insertable=false)
-	public String getDescription() {
-		return description;
+	@Column(name="RFID_NAME", nullable=false, updatable=false, insertable=false)
+	public String getName() {
+		return name;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Column(name="PROFILE_NAME", nullable=false, updatable=false, insertable=false)
+	public String getProfileName() {
+		return profileName;
+	}
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
 	}
 
 	@Column(name="USER_ID", nullable=false, updatable=false, insertable=false)
@@ -80,8 +90,9 @@ public class RfidTagView implements Serializable{
 
 	@Override
 	public String toString() {
-		return "RfidTagView [id=" + id + ", number=" + number + ", description="
-				+ description + ", owner=" + user + ", permission=" + permission + "]";
+		return "RfidTagView [id=" + id + ", number=" + number + ", name="
+				+ name + ", profile name=" + profileName + ", owner=" + user + ", permission=" +
+				permission + "]";
 	}
 
 

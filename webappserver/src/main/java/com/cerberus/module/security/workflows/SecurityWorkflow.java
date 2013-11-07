@@ -41,11 +41,13 @@ public class SecurityWorkflow extends Workflow {
 		return view;
 	}
 
-
 	public void updateRfidTagView(RfidTagView rfidTag) {
 		RfidService rfidService = serviceFactory.getRfidService();
 		rfidService.updateRfidTagView(rfidTag);
 	}
 
+	public List<String> getAllProfileNames() {
+		return serviceFactory.getRfidService().getAllProfileNames();
+	}
 
 }

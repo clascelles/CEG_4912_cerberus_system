@@ -15,30 +15,30 @@ import javax.persistence.Table;
 import com.cerberus.model.outlets.bean.Outlet;
 
 @Entity
-@Table(name = "CONNECTION_EVENT")
-public class ConnectionEvent implements Serializable{
+@Table(name = "EVENT_RECORD")
+public class EventRecord implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	Integer id;
 	Outlet outlet;
 	Event event;
 	Timestamp timestamp;
-	
-	public ConnectionEvent() {
+
+	public EventRecord() {
 		super();
 	}
 
-	public ConnectionEvent(Outlet outlet, Event event,Timestamp timestamp) {
+	public EventRecord(Outlet outlet, Event event,Timestamp timestamp) {
 		super();
 		this.outlet = outlet;
 		this.event = event;
 		this.timestamp = timestamp;
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", nullable=false)
@@ -48,7 +48,7 @@ public class ConnectionEvent implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	@ManyToOne()
 	@JoinColumn(name="OUTLET_ID", nullable=false)
 	public Outlet getOutlet() {
@@ -57,7 +57,7 @@ public class ConnectionEvent implements Serializable{
 	public void setOutlet(Outlet outlet) {
 		this.outlet = outlet;
 	}
-	
+
 	@ManyToOne()
 	@JoinColumn(name="EVENT_ID", nullable=false)
 	public Event getEvent() {
@@ -65,8 +65,8 @@ public class ConnectionEvent implements Serializable{
 	}
 	public void setEvent(Event event) {
 		this.event = event;
-	}	
-	
+	}
+
 	@Column(name="TIMESTAMP", nullable=false)
 	public Timestamp getTimestamp() {
 		return timestamp;
@@ -79,5 +79,5 @@ public class ConnectionEvent implements Serializable{
 	public String toString() {
 		return "ConnectionEvent [id=" + id + ", outlet=" + outlet + ", event="
 				+ event + ", timestamp=" + timestamp + "]";
-	}	
+	}
 }

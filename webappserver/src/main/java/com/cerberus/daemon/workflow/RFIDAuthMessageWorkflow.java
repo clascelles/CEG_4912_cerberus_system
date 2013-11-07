@@ -71,7 +71,7 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 
 		if(rfidTag == null) {
 			// New RFID Tag, create it and store it
-			rfidTag = new RfidTag(requestMessage.getRfidNumber(), null);
+			rfidTag = new RfidTag(requestMessage.getRfidNumber(), null, null);
 			try {
 				rfidService.insertRfidTag(rfidTag);
 			} catch(Exception e) {

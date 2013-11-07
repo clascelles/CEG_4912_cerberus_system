@@ -28,6 +28,29 @@
 
 	<!-- The fav icon -->
 	<link rel="shortcut icon" href="/webappserver/resources/img/favicon.png">
+	
+	<!-- This script is used to structure the values from Java in a proper array for the graphs -->
+	<script type="text/javascript">
+		var graphValues = '<c:out value="${currentList}"/>';
+		var graphValuesArray = graphValues.split(",");
+		
+		var minX = '<c:out value="${usageOptions.minimumXAxisValue}"/>';
+		var maxX = '<c:out value="${usageOptions.maximumXAxisValue}"/>';
+		var minY = '<c:out value="${usageOptions.minimumYAxisValue}"/>';
+		var maxY = '<c:out value="${usageOptions.maximumYAxisValue}"/>';
+		
+		var xLabel = '<c:out value="${usageOptions.xaxisLabel}"/>';
+		
+		var dataValues = [];
+		var offset = parseInt(minX);
+		for(var i=0; i<graphValuesArray.length; i++){
+			dataValues.push([i+offset, graphValuesArray[i]]);
+		}
+		
+		
+		
+		
+	</script>
 		
 </head>
 
@@ -65,20 +88,72 @@
 				</div>
 
 				<div class="row-fluid">
-					<div class="box">
-					<div class="box-header well">
-						<h2><i class="icon-list-alt"></i> Chart with points</h2>
-						<div class="box-icon">
-							<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-							<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+					<div class="box span12">
+						<div class="box-header well">
+							<h2>
+								<i class="icon-time"></i> Usage Options
+							</h2>
+						</div>
+						<div class="box-content">
+							<form id="getGraphInformation" class="form-horizontal"	method="post">
+								<fieldset>
+									<div class="control-group">
+										<label class="control-label">Time Span</label>
+										<div class="controls">
+											<select id="selectGranularity"
+												data-rel="chosen" name="timeSpan">
+												<option value="1" <c:if test='${usageOptions.timeSpan == 1}'>selected="selected"</c:if>>Day</option>
+												<option value="2" <c:if test='${usageOptions.timeSpan == 2}'>selected="selected"</c:if>>Month</option>
+											</select>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Date</label>
+										<div class="controls">
+											
+											<div class="input-append date" id="datepickerUsageDay" data-date="${usageOptions.getDateFormated()}" style="display: inline;">
+												<input id="dayDate" class="span2" size="100" type="text" value="${usageOptions.getDateFormated()}"> <span class="add-on"><i class="icon-th"></i></span>
+											</div>
+											
+											<div class="input-append date" id="datepickerUsageMonth" data-date="${usageOptions.getDateFormated()}" style="display: none;">
+												<input id="monthDate" class="span2" size="100" type="text" value="${usageOptions.getDateFormated()}"> <span class="add-on"><i class="icon-th"></i></span>
+											</div>
+											
+											<input type="hidden" name="selectedDate" id="datePicked" value=""/>
+										</div>
+									</div>
+								</fieldset>
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary" name="generateGraph" id="generateGraph" onClick="updateDate()">Generate Graph</button>
+									</div>
+							</form>
+							<div class="clearfix"></div>
 						</div>
 					</div>
-					<div class="box-content">
-						<div id="sincos"  class="center" style="height:300px" ></div>
-						<p id="hoverdata">Mouse position at (<span id="x">0</span>, <span id="y">0</span>). <span id="clickdata"></span></p>
-					</div>
 				</div>
+
+
+				<div class="row-fluid">
+					<div class="box">
+						<div class="box-header well">
+
+
+							<h2>
+								<i class="icon-list-alt"></i> Electricity Consumption Graph
+							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-setting btn-round"><i
+									class="icon-cog"></i></a> <a href="#"
+									class="btn btn-minimize btn-round"><i
+									class="icon-chevron-up"></i></a> <a href="#"
+									class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+							</div>
+						</div>
+						<div class="box-content"><div><p align="center"><c:out value="${usageOptions.chartTitle}"/></p></div>
+							<div id="usageGraph" class="center" style="height: 300px"></div>
+							
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -101,17 +176,90 @@
 		</div>
 
 		<footer>
-			<p class="pull-left">&copy; Cerberus Technologies 2013 </p>
-			<p class="pull-right">Powered by: <a href="http://usman.it/free-responsive-admin-template">Charisma</a>	</p>
+			<p class="pull-left">&copy; Cerberus Technologies 2013</p>
+			<p class="pull-right">
+				Powered by: <a href="http://usman.it/free-responsive-admin-template">Charisma</a>
+			</p>
 		</footer>
 
 	</div>
 	<!--/.fluid-container-->
 
+	
+
 	<!-- external javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
+	
 	<%@include file="\WEB-INF\views\main\javascript.jsp" %>
+	<script type="text/javascript">
+	
+	
+	
+	$(document).ready(function(){
+		
+		initDatePicker();
+		$('#selectGranularity').change(changeGranularity);
+		
+		function initDatePicker(){
+			
+			
+		$('#datepickerUsageDay').datepicker({
+			format: "mm/dd/yyyy",
+		    todayBtn: "linked",
+		    autoclose: true,
+		    defaultDate: $('#dayDate').val()
+	    });
+		
+		$('#datepickerUsageMonth').datepicker({
+			format: "mm/dd/yyyy",
+			minViewMode: 1,
+		    todayBtn: "linked",
+		    autoclose: true,
+		    defaultDate: $('#monthDate').val()
+		});
+		
+		changeGranularity();
+
+
+		}
+		
+		function changeGranularity(){
+			switch($('#selectGranularity').val()){
+			case '1':
+				$('#datepickerUsageDay').css({ display: "inline"});
+				$('#datepickerUsageMonth').css({ display: "none"});
+				break;
+			case '2':
+				$('#datepickerUsageDay').css({ display: "none"});
+				$('#datepickerUsageMonth').css({ display: "inline"});
+				break;
+			default:
+				//Do nothing
+				break;
+			}
+			
+		}
+		
+		
+		
+	});
+	
+	function updateDate(){
+		
+		switch(document.getElementById('selectGranularity').value){
+		case '1':
+			document.getElementById('datePicked').value = document.getElementById('dayDate').value;
+			break;
+		case '2':
+			document.getElementById('datePicked').value = document.getElementById('monthDate').value;
+			break;
+		}
+		
+	}
+	
+	</script>
+
 	
 </body>
 </html>

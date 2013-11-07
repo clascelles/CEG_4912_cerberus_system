@@ -1,44 +1,35 @@
 package com.cerberus.model.usage.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.cerberus.model.outlets.bean.Outlet;
 
 @Entity
 @Table(name = "CURRENT_HOUR_VIEW")
 public class CurrentHourView implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	Integer id;
-	Date timestampHour;
+	Timestamp timestampHour;
 	Integer systemId;
-	Integer currentHour;
+	double currentHour;
 	Integer hour;
-	
-	
+
+
 	public CurrentHourView() {
 		super();
 	}
-	
-	public CurrentHourView(Date timestampHour, Integer systemId,
+
+	public CurrentHourView(Timestamp timestampHour, Integer systemId,
 			Integer currentHour) {
 		super();
 		this.timestampHour = timestampHour;
@@ -54,13 +45,13 @@ public class CurrentHourView implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	@Column(name="TIMESTAMP_HOUR", nullable=false, updatable=false, insertable=false)
-	public Date getTimestampHour() {
+	public Timestamp getTimestampHour() {
 		return timestampHour;
 	}
 
-	public void setTimestampHour(Date timestampHour) {
+	public void setTimestampHour(Timestamp timestampHour) {
 		this.timestampHour = timestampHour;
 	}
 
@@ -74,11 +65,11 @@ public class CurrentHourView implements Serializable{
 	}
 
 	@Column(name="CURRENT_HOUR_KWH", nullable=false, updatable=false, insertable=false)
-	public Integer getCurrentHour() {
+	public double getCurrentHour() {
 		return currentHour;
 	}
 
-	public void setCurrentHour(Integer currentHour) {
+	public void setCurrentHour(double currentHour) {
 		this.currentHour = currentHour;
 	}
 

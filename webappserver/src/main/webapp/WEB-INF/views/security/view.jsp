@@ -93,10 +93,23 @@
 									
 									<div class="row-fluid" style="padding-bottom:5px">
 										<div class="span2">
-									  		<span><b>Tag Description</b></span>
+									  		<span><b>Tag Name</b></span>
 										</div>
 										<div class="span2">
-									  		<input type="text" name="description" value="${rfidTag.description}">
+									  		<input type="text" name="description" value="${rfidTag.name}">
+										</div>
+									</div>
+									
+									<div class="row-fluid" style="padding-bottom:5px">
+										<div class="span2">
+									  		<span><b>Associated Profile</b></span>
+										</div>
+										<div class="span2">
+									  		<select name="profile" data-rel="chosen">
+									  			<c:forEach items="${profiles}" var="profile">
+									  				<option value="${profile}" <c:if test="${rfidTag.profile == profile}">selected</c:if>>${profile}</option>
+									  			</c:forEach>
+									  		</select>
 										</div>
 									</div>
 									
