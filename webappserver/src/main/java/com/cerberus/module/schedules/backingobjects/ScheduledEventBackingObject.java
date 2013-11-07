@@ -97,8 +97,7 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 	}
 
 	public Integer getSocketId() {
-		Socket socket = getSocket();
-		return (socket != null) ? socket.getId() : null;
+		return socketId;
 	}
 	
 	public void setSocketId(Integer socketId) {

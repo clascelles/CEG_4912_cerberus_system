@@ -34,7 +34,7 @@ public class ScheduledEventBackingObjectFactory
 		}		
 		
 		Date start = new Date();
-		/*Date end = new Date(start.getTime() + 60*60*1000);*/
+		start.setTime(start.getTime() + 60*60*1000); // an hour from now
 		backingObject.setTime(start);
 		
 		return backingObject;
