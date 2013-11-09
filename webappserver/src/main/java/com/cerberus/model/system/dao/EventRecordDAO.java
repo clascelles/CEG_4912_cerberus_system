@@ -1,10 +1,10 @@
-package com.cerberus.model.usage.dao;
+package com.cerberus.model.system.dao;
 
 import java.util.List;
 
 import com.cerberus.model.generic.dao.GenericDAO;
-import com.cerberus.model.usage.bean.EventRecord;
-import com.cerberus.model.usage.filter.EventRecordFilter;
+import com.cerberus.model.system.bean.EventRecord;
+import com.cerberus.model.system.filter.EventRecordFilter;
 
 public class EventRecordDAO extends GenericDAO<EventRecord, Integer> {
 

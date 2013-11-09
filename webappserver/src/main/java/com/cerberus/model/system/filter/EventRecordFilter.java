@@ -1,9 +1,9 @@
-package com.cerberus.model.usage.filter;
+package com.cerberus.model.system.filter;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
-import com.cerberus.model.usage.bean.EventRecord;
+import com.cerberus.model.system.bean.EventRecord;
 
 public class EventRecordFilter {
 

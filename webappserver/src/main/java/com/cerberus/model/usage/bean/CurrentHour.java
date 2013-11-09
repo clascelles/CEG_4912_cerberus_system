@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -31,10 +30,9 @@ public class CurrentHour implements Serializable {
 	}
 
 	
-	public CurrentHour(Integer id, Integer userId, Integer socketId,
+	public CurrentHour(Integer userId, Integer socketId,
 			Timestamp timestamp, Integer currentHour) {
 		super();
-		this.id = id;
 		this.userId = userId;
 		this.socketId = socketId;
 		this.timestamp = timestamp;
@@ -53,21 +51,21 @@ public class CurrentHour implements Serializable {
 		this.id = id;
 	}
 
-	@JoinColumn(name="USERS_ID", nullable=false)
+	@Column(name="USERS_ID", nullable=false)
 	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUser(Integer userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-	@JoinColumn(name="SOCKET_ID", nullable=false)
-	public Integer getSocket() {
+	@Column(name="SOCKET_ID", nullable=false)
+	public Integer getSocketId() {
 		return socketId;
 	}
 
-	public void setSocket(Integer socketId) {
+	public void setSocketId(Integer socketId) {
 		this.socketId = socketId;
 	}
 
@@ -85,7 +83,7 @@ public class CurrentHour implements Serializable {
 		return currentHour;
 	}
 
-	public void setCurrent(Integer currentHour) {
+	public void setCurrentHour(Integer currentHour) {
 		this.currentHour = currentHour;
 	}
 

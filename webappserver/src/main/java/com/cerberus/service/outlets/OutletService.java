@@ -73,6 +73,10 @@ public class OutletService {
 		return outletSystemViewDAO.getBySystemId(systemId);
 	}
 
+	public Integer getSystemIdFromOutlet(Integer outletId) {
+		return outletSystemViewDAO.getById(outletId).getSystemId();
+	}
+
 	//***************************************************
 	//SocketOperationStatus
 	//***************************************************

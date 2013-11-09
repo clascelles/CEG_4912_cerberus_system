@@ -1,5 +1,6 @@
 package com.cerberus.service.usage;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import com.cerberus.model.outlets.dao.CurrentDAO;
 import com.cerberus.model.usage.bean.CurrentDayView;
 import com.cerberus.model.usage.bean.CurrentHourView;
 import com.cerberus.model.usage.dao.CurrentDayViewDAO;
+import com.cerberus.model.usage.dao.CurrentHourDAO;
 import com.cerberus.model.usage.dao.CurrentHourViewDAO;
 import com.cerberus.model.usage.filter.CurrentDayViewFilter;
 import com.cerberus.model.usage.filter.CurrentHourViewFilter;
@@ -17,11 +19,13 @@ public class ConsumptionService {
 	private final CurrentDAO currentDAO;
 	private final CurrentHourViewDAO currentHourViewDAO;
 	private final CurrentDayViewDAO currentDayViewDAO;
+	private final CurrentHourDAO currentHourDAO;
 
 	public ConsumptionService (){
 		currentDAO = new CurrentDAO();
 		currentHourViewDAO = new CurrentHourViewDAO();
 		currentDayViewDAO = new CurrentDayViewDAO();
+		currentHourDAO = new CurrentHourDAO();
 		//Add all the necessary DAOs here
 	}
 
@@ -65,5 +69,14 @@ public class ConsumptionService {
 		return currentDayViewDAO.getAllByFilter(CurrentDayViewFilter.getByThisMonth(systemId, selectedDate));
 
 	}
+	
+	//*************************************************
+	//AGGREGATION OF CURRENT
+	//*************************************************
+
+	public void updateCurrentHour(Date filterDate){
+		currentHourDAO.updateCurrentHour(new Timestamp(filterDate.getTime()));
+	}
+	
 
 }
