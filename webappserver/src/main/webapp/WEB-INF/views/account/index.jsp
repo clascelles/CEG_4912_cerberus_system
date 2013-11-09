@@ -65,7 +65,7 @@
 				</div>
 
 				<div class="row-fluid">
-					<div class="box span12">
+					<div class="box span6">
 						<div class="box-header well">
 							<h2>
 								<i class="icon-user"></i> Profile
@@ -76,46 +76,38 @@
 						</div>
 						<div class="box-content">
 							<form id="editProfile" class="form-horizontal" method="post">
-						  		<fieldset>
-						  			
-									<div class="row-fluid">
-										<div class="span6">
-											<div class="control-group">
-												<label class="control-label">Username:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="username" type="text" value="${userBackingObject.username}">
-												</div>
-											</div>
-											
-											<div class="control-group">
-												<label class="control-label">First Name:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="firstName" type="text" value="${userBackingObject.firstName}">
-												</div>
-											</div>
-											
-											<div class="control-group">
-												<label class="control-label">Last Name:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="lastName" type="text" value="${userBackingObject.lastName}">
-												</div>
-											</div>
+						  		<fieldset>						
+									<div class="control-group">
+										<label class="control-label">Username:</label>
+										<div class="controls">
+											<input class="input-xlarge" name="username" type="text" value="${userBackingObject.username}">
 										</div>
-												  			
-										<div class="span6">
-											<div class="control-group">
-												<label class="control-label">Phone Number:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="phoneNumber" type="text" value="${userBackingObject.phoneNumber}">
-												</div>
-											</div>
-											
-											<div class="control-group">
-												<label class="control-label">Address:</label>
-												<div class="controls">
-													<input class="input-xlarge" name="address" type="text" value="${userBackingObject.address}">
-												</div>
-											</div>
+									</div>
+									
+									<div class="control-group">
+										<label class="control-label">First Name:</label>
+										<div class="controls">
+											<input class="input-xlarge" name="firstName" type="text" value="${userBackingObject.firstName}">
+										</div>
+									</div>
+									
+									<div class="control-group">
+										<label class="control-label">Last Name:</label>
+										<div class="controls">
+											<input class="input-xlarge" name="lastName" type="text" value="${userBackingObject.lastName}">
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Phone Number:</label>
+										<div class="controls">
+											<input class="input-xlarge" name="phoneNumber" type="text" value="${userBackingObject.phoneNumber}">
+										</div>
+									</div>
+									
+									<div class="control-group">
+										<label class="control-label">Address:</label>
+										<div class="controls">
+											<input class="input-xlarge" name="address" type="text" value="${userBackingObject.address}">
 										</div>
 									</div>
 									<div class="form-actions">
@@ -127,10 +119,7 @@
 							<div class="clearfix"></div>
 						</div>
 					</div>
-				</div>
-				
-				<div class="row-fluid">
-					<div class="box span12">
+					<div class="box span6">
 						<div class="box-header well">
 							<h2>
 								<i class="icon-user"></i> Password Management
