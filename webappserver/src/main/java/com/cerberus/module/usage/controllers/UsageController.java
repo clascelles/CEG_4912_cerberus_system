@@ -22,9 +22,6 @@ public class UsageController extends CerberusController {
 
 	@RequestMapping(value=CerberusConstants.USAGE_VIEW, method=RequestMethod.GET)
 	public String getUsagePage(Model model)	{
-
-		UsageWorkflow usageWorkflow = CerberusApplicationContext.getWorkflows().getUsageWorkflow();
-		usageWorkflow.updateCurrentHour();
 		
 		return buildUsagePage(model, new UsageBackingObject());
 	}
