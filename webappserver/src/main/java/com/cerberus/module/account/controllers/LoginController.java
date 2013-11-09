@@ -1,5 +1,7 @@
 package com.cerberus.module.account.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,7 +56,8 @@ public class LoginController extends CerberusController {
 			final RedirectAttributes redirectAttrs,
 			//Add all the model attributes in a neat list here. 
 			@ModelAttribute (LOGIN_BACKING_OBJECT) LoginBackingObject loginBackingObject,			
-			BindingResult result) {
+			BindingResult result,
+			HttpServletRequest request) {
 		
 		//Check for error binding the model attributes to their respective objects
 		if (result.hasErrors()) {
@@ -84,7 +87,8 @@ public class LoginController extends CerberusController {
 		User user = accountWorkflow.getUserByLogin(userLogin);
 		
 		//Add the User object to the "bin" to keep it and share it between controllers.
-		bin.put("user", user);
+		//bin.put("user", user);
+		request.getSession().setAttribute("user", user);
 		
 		//Could have used the addFlashAttribute so that it would survive the next redirect, but not the best way for the
 		//user variable because you would have to add it to the model in the GET method, and pull it again in the POST, etc.
@@ -95,10 +99,10 @@ public class LoginController extends CerberusController {
 	}
 	
 	@RequestMapping(value="logout", method=RequestMethod.GET)
-	public String logout(Model model) {
+	public String logout(Model model, HttpServletRequest request) {
 		
 		//Remove all the information from the bin
-		bin.clear();		
+		request.getSession().removeAttribute("user");	
 		
 		return "redirect:/";
 	}

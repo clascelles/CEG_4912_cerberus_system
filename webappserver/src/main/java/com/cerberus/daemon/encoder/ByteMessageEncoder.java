@@ -24,7 +24,6 @@ public class ByteMessageEncoder implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
-	@Override
 	public void run() {
 
 		StopWatch stopwatch = new Log4JStopWatch("ByteMessageEncoder.run");
@@ -40,10 +39,10 @@ public class ByteMessageEncoder implements Runnable {
 				byte[] encodedMessage = writer.write(message);
 
 				//For debugging purposes only
-				//for(int i=0; i<encodedMessage.length; i++){
-				//	System.out.print(String.format("%02x ",  encodedMessage[i]));
-				//}
-				//System.out.println();
+				for(int i=0; i<encodedMessage.length; i++){
+					System.out.print(String.format("%02x ",  encodedMessage[i]));
+				}
+				System.out.println();
 
 				channel.write(ChannelBuffers.wrappedBuffer(encodedMessage));
 

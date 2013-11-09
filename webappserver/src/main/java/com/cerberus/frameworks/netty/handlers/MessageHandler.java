@@ -81,16 +81,16 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 		Channel channel = e.getChannel();
 		
 		//For debugging purposes only
-		//for(int i=0; i<message.length; i++){
-		//	System.out.print(String.format("%02x ",  message[i]));
-		//}
-		//System.out.println();
+		for(int i=0; i<message.length; i++){
+			System.out.print(String.format("%02x ",  message[i]));
+		}
+		System.out.println();
 
 		if (message[0] == MessageType.INIT.getIntValue()){
 			ChannelOutletBinding.addChannelToGroup(channel);
 			ChannelOutletBinding.bindOutletSerialNumberWithChannelId(new String(new ByteMessage(message).getOutletId()), channel.getId());
 		}else{
-
+/*
 			//Add a task to the Decoder Thread Pool.
 			ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
 			MessageContainer messageContainer = new MessageContainer(channel, message);
@@ -99,7 +99,7 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 			Runnable decoderTask = new ByteMessageDecoder(messageContainer);
 
 			executor.execute(decoderTask);	
-
+*/
 		}
 
 		stopwatch.stop();

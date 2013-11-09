@@ -2,6 +2,9 @@ package com.cerberus.module.outlets.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,9 +34,9 @@ import com.cerberus.module.system.workflows.SystemWorkflow;
 public class OutletController extends CerberusController {
 
 	@RequestMapping(value=CerberusConstants.OUTLETS_MAPPING, method=RequestMethod.GET)
-	public String getOutletsPage(Model model)	{
+	public String getOutletsPage(Model model, HttpServletRequest request)	{
 
-		User user = getUser();
+		User user = (User) request.getSession().getAttribute("user");
 
 		if(user == null){
 			return CerberusConstants.REDIRECT;
@@ -59,9 +62,9 @@ public class OutletController extends CerberusController {
 	}
 
 	@RequestMapping(value=CerberusConstants.VIEW_OUTLET_MAPPING, method=RequestMethod.GET)
-	public String getViewOutletPage(Model model, @RequestParam(value = "id") Integer id)	{
+	public String getViewOutletPage(Model model, @RequestParam(value = "id") Integer id, HttpServletRequest request)	{
 
-		User user = getUser();
+		User user = (User) request.getSession().getAttribute("user");
 
 		if(user == null){
 			return CerberusConstants.REDIRECT;
@@ -86,13 +89,14 @@ public class OutletController extends CerberusController {
 	}
 
 	@RequestMapping(value=CerberusConstants.OUTLETS_MAPPING, method=RequestMethod.POST)
-	public String postOutletsPage(Model model, @ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet)	{
+	public String postOutletsPage(Model model, @ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet, HttpServletRequest request)	{
 		CerberusLogger.post(CerberusConstants.OUTLETS_VIEW);
 
+		User user = (User) request.getSession().getAttribute("user");
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 
 		//Add the outlet
-		Outlet outlet = OutletBackingObjectFactory.INSTANCE.bind(newOutlet, getUser());
+		Outlet outlet = OutletBackingObjectFactory.INSTANCE.bind(newOutlet, user);
 		outletWorkflow.insertOutlet(outlet);
 
 		//Add the two sockets
@@ -102,18 +106,18 @@ public class OutletController extends CerberusController {
 		Socket socketB = Socket.create(outlet, Socket.BOTTOM);
 		outletWorkflow.insertSocket(socketB);
 
-		return getOutletsPage(model);
+		return getOutletsPage(model, request);
 	}
 
 	@RequestMapping(value=CerberusConstants.VIEW_OUTLET_MAPPING, method=RequestMethod.POST)
-	public String postViewOutletsPage(Model model, @ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet)	{
+	public String postViewOutletsPage(Model model, @ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet, HttpServletRequest request)	{
 		CerberusLogger.post(CerberusConstants.VIEW_OUTLET_VIEW);
 
 		//Add the outlet
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 		outletWorkflow.updateOutletOperationMode(newOutlet);
 
-		return getViewOutletPage(model, newOutlet.getId());
+		return getViewOutletPage(model, newOutlet.getId(), request);
 	}
 
 }

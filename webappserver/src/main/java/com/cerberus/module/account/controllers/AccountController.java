@@ -1,5 +1,7 @@
 package com.cerberus.module.account.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,9 +26,10 @@ public class AccountController extends CerberusController {
 	private static final String USER_BACKING_OBJECT = "userBackingObject";
 
 	@RequestMapping(value="/account/index", method=RequestMethod.GET)
-	public String getProfilePage(Model model)	{
+	public String getProfilePage(HttpServletRequest request, Model model)	{
 
-		User user = getUser();
+	
+		User user = getUser(request);
 		if(user == null){
 			return CerberusConstants.REDIRECT;
 		}
@@ -45,15 +48,16 @@ public class AccountController extends CerberusController {
 	}
 
 	@RequestMapping(value=CerberusConstants.ACCOUNT_MAPPING, method=RequestMethod.POST)
-	public String post(Model model, @ModelAttribute(USER_BACKING_OBJECT) UserBackingObject userBackingObject)	{
+	public String post(Model model, @ModelAttribute(USER_BACKING_OBJECT) UserBackingObject userBackingObject, HttpServletRequest request)	{
 		CerberusLogger.post(CerberusConstants.ACCOUNT_VIEW);
 
-		User updated = UserBackingObjectFactory.INSTANCE.bind(userBackingObject, getUser());
+		User sessionUser = getUser(request);
+		User updated = UserBackingObjectFactory.INSTANCE.bind(userBackingObject, sessionUser);
 
 		AccountWorkflow accountWorkflow = CerberusApplicationContext.getWorkflows().getAccountWorkflow();
 		accountWorkflow.updateLogin(updated.getLogin());
 		accountWorkflow.updatePersonalInformation(updated.getInformation());
 
-		return getProfilePage(model);
+		return getProfilePage(request, model);
 	}
 }

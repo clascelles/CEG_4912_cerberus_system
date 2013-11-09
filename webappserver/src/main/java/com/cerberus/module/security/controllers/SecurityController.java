@@ -2,6 +2,8 @@ package com.cerberus.module.security.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,9 +26,9 @@ import com.cerberus.module.security.workflows.SecurityWorkflow;
 public class SecurityController extends CerberusController {
 
 	@RequestMapping(value=CerberusConstants.SECURITY_MAPPING, method=RequestMethod.GET)
-	public String getSecurityPage(Model model)	{
+	public String getSecurityPage(Model model, HttpServletRequest request)	{
 
-		User user = getUser();
+		User user = getUser(request);
 
 		if(user == null){
 			return CerberusConstants.REDIRECT;
@@ -46,9 +48,9 @@ public class SecurityController extends CerberusController {
 	}
 
 	@RequestMapping(value=CerberusConstants.VIEW_RFID_MAPPING, method=RequestMethod.GET)
-	public String getViewRfidPage(Model model, @RequestParam(value = "id") Integer id)	{
+	public String getViewRfidPage(Model model, @RequestParam(value = "id") Integer id, HttpServletRequest request)	{
 
-		User user = getUser();
+		User user = getUser(request);
 
 		if(user == null){
 			return CerberusConstants.REDIRECT;
@@ -74,15 +76,15 @@ public class SecurityController extends CerberusController {
 	}
 
 	@RequestMapping(value=CerberusConstants.VIEW_RFID_MAPPING, method=RequestMethod.POST)
-	public String postViewRfidPage(Model model, @ModelAttribute(CerberusConstants.RFID_TAG) RfidTagViewBackingObject rfidTag)	{
+	public String postViewRfidPage(Model model, @ModelAttribute(CerberusConstants.RFID_TAG) RfidTagViewBackingObject rfidTag, HttpServletRequest request)	{
 		CerberusLogger.post(CerberusConstants.VIEW_RFID_VIEW);
 
 		//Update the rfid tag
 		SecurityWorkflow securityWorkflow = CerberusApplicationContext.getWorkflows().getSecurityWorkflow();
-		RfidTagView newRfidTagView = RfidTagViewBackingObjectFactory.INSTANCE.bind(rfidTag, getUser());
+		RfidTagView newRfidTagView = RfidTagViewBackingObjectFactory.INSTANCE.bind(rfidTag, getUser(request));
 		securityWorkflow.updateRfidTagView(newRfidTagView);
 
-		return getSecurityPage(model);
+		return getSecurityPage(model, request);
 	}
 
 }

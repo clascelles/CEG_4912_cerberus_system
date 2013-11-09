@@ -17,6 +17,14 @@ public class ChannelOutletBinding {
 	public static int getChannelId(String outletSerialNumber){
 		return map.get(outletSerialNumber);
 	}
+	
+	public static boolean isChannelBinded(String outletSerialNumber){
+		if (map.get(outletSerialNumber) != null){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 	public static void bindOutletSerialNumberWithChannelId(String outletSerialNumber, Integer channelId){
 		map.put(outletSerialNumber, channelId);

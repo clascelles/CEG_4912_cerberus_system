@@ -23,7 +23,6 @@ public class MessageResponse implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
-	@Override
 	public void run() {
 
 		StopWatch stopwatch = new Log4JStopWatch("ResponseLogic.run");

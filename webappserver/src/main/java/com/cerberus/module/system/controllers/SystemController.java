@@ -2,6 +2,8 @@ package com.cerberus.module.system.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,10 +31,10 @@ import com.cerberus.module.system.workflows.SystemWorkflow;
 public class SystemController extends CerberusController {
 
 	@RequestMapping(value=CerberusConstants.SYSTEM_MAPPING, method=RequestMethod.GET)
-	public String getSystemPage(Model model)	{
+	public String getSystemPage(Model model, HttpServletRequest request)	{
 
 		//Get the User object from the "bin"
-		User user = getUser();
+		User user = getUser(request);
 
 		//This is our Login Security. I know, not that great but good enough for a site that will never be published.
 		if(user == null){
@@ -58,9 +60,9 @@ public class SystemController extends CerberusController {
 	}
 
 	@RequestMapping(value=CerberusConstants.SYSTEM_USER_MAPPING, method=RequestMethod.GET)
-	public String getViewUserPage(Model model, @RequestParam(value = "id") Integer id)	{
+	public String getViewUserPage(Model model, @RequestParam(value = "id") Integer id, HttpServletRequest request)	{
 
-		User user = getUser();
+		User user = getUser(request);
 		if(user == null){
 			return CerberusConstants.REDIRECT;
 		}
@@ -78,27 +80,27 @@ public class SystemController extends CerberusController {
 
 	@RequestMapping(value=CerberusConstants.SYSTEM_MAPPING, method=RequestMethod.POST, params="submit")
 	public String submitSystemChanges(Model model,
-			@ModelAttribute(CerberusConstants.SYSTEM_SETTINGS) SystemBackingObject systemBackingObject)	{
+			@ModelAttribute(CerberusConstants.SYSTEM_SETTINGS) SystemBackingObject systemBackingObject, HttpServletRequest request)	{
 		CerberusLogger.post(CerberusConstants.SYSTEM_VIEW);
 
-		User user = getUser();
+		User user = getUser(request);
 
 		SystemWorkflow systemWorkflow = CerberusApplicationContext.getWorkflows().getSystemWorkflow();
 		systemWorkflow.updateSystem(SystemBackingObjectFactory.INSTANCE.bind(systemBackingObject, user));
 
-		return getSystemPage(model);
+		return getSystemPage(model,request);
 	}
 
 	@RequestMapping(value=CerberusConstants.SYSTEM_MAPPING, method=RequestMethod.POST, params="resetSettings")
 	public String resetSystemChanges(Model model,
-			@ModelAttribute(CerberusConstants.SYSTEM_SETTINGS) SystemBackingObject systemBackingObject)	{
-		return getSystemPage(model);
+			@ModelAttribute(CerberusConstants.SYSTEM_SETTINGS) SystemBackingObject systemBackingObject,  HttpServletRequest request)	{
+		return getSystemPage(model, request);
 	}
 
 	@RequestMapping(value=CerberusConstants.SYSTEM_USER_MAPPING, method=RequestMethod.POST, params="submit")
 	public String submitUserChanges(Model model,
 			@RequestParam(value = "id") Integer id,
-			@ModelAttribute(CerberusConstants.USER) UserBackingObject userBackingObject)	{
+			@ModelAttribute(CerberusConstants.USER) UserBackingObject userBackingObject,  HttpServletRequest request)	{
 		CerberusLogger.post(CerberusConstants.SYSTEM_USER_VIEW);
 
 		User editedUser = CerberusApplicationContext.getWorkflows().getAccountWorkflow().getUserById(id);
@@ -109,13 +111,13 @@ public class SystemController extends CerberusController {
 		accountWorkflow.updateLogin(updated.getLogin());
 		accountWorkflow.updatePersonalInformation(updated.getInformation());
 
-		return getViewUserPage(model, id);
+		return getViewUserPage(model, id, request);
 	}
 
 	@RequestMapping(value=CerberusConstants.SYSTEM_USER_MAPPING, method=RequestMethod.POST, params="reset")
 	public String resetPassword(Model model,
 			@RequestParam(value = "id") Integer id,
-			@ModelAttribute(CerberusConstants.USER) UserBackingObject userBackingObject)	{
+			@ModelAttribute(CerberusConstants.USER) UserBackingObject userBackingObject,  HttpServletRequest request)	{
 		CerberusLogger.post(CerberusConstants.SYSTEM_USER_VIEW);
 
 		User editedUser = CerberusApplicationContext.getWorkflows().getAccountWorkflow().getUserById(id);
@@ -124,7 +126,7 @@ public class SystemController extends CerberusController {
 		editedUser = accountWorkflow.resetUserPassword(editedUser);
 		accountWorkflow.updateLogin(editedUser.getLogin());
 
-		return getViewUserPage(model, id);
+		return getViewUserPage(model, id, request);
 	}
 
 }

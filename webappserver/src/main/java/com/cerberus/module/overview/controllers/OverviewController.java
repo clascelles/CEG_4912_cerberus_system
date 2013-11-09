@@ -1,5 +1,7 @@
 package com.cerberus.module.overview.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +19,12 @@ public class OverviewController extends CerberusController {
 	private static final String TOP_BAR_BACKING_OBJECT = "topBarBackingObject";
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String getLoginPage(Model model)
+	public String getLoginPage(Model model, HttpServletRequest request)
 			//This is how you can retrieve the object from the redirectAttrs.addFlashAttribute() method. It behaves exactly
 			//like a model attribute at this point.
 			//@ModelAttribute("user") User user 
 	{		
-		User user = getUser();		
+		User user = getUser(request);
 		if(user == null){
 			return CerberusConstants.REDIRECT;
 		}		

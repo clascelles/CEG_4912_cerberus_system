@@ -2,6 +2,8 @@ package com.cerberus.module.usage.controllers;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,21 +23,21 @@ import com.cerberus.module.usage.workflows.UsageWorkflow;
 public class UsageController extends CerberusController {
 
 	@RequestMapping(value=CerberusConstants.USAGE_VIEW, method=RequestMethod.GET)
-	public String getUsagePage(Model model)	{
+	public String getUsagePage(Model model,  HttpServletRequest request)	{
 		
-		return buildUsagePage(model, new UsageBackingObject());
+		return buildUsagePage(model, new UsageBackingObject(), request);
 	}
 
 	@RequestMapping(value=CerberusConstants.USAGE_VIEW, method=RequestMethod.POST)
-	public String postUsageOptions(Model model, @ModelAttribute(UsageConstants.USAGE_OPTIONS) UsageBackingObject usageOptions)	{
+	public String postUsageOptions(Model model, @ModelAttribute(UsageConstants.USAGE_OPTIONS) UsageBackingObject usageOptions,  HttpServletRequest request)	{
 
-		return buildUsagePage(model, usageOptions);
+		return buildUsagePage(model, usageOptions, request);
 
 	}
 
-	private String buildUsagePage(Model model, UsageBackingObject usageOptions){
+	private String buildUsagePage(Model model, UsageBackingObject usageOptions,  HttpServletRequest request){
 
-		User user = getUser();
+		User user = getUser(request);
 
 		if(user == null){
 			return CerberusConstants.REDIRECT;
