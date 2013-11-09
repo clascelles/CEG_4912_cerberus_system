@@ -8,48 +8,56 @@
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 
-	<bean id="startServerTask" class="com.cerberus.frameworks.quartz.CerberusServerBootstrap" />
-
 	<!-- Spring Quartz -->
+	
+	<!-- START DAEMON SERVER -->
 	<bean name="startDaemonServerJob" class="org.springframework.scheduling.quartz.JobDetailBean">
-
 		<property name="jobClass" value="com.cerberus.frameworks.quartz.StartDaemonServerJob" />
-
-		<property name="jobDataAsMap">
-			<map>
-				<entry key="startServerTask" value-ref="startServerTask" />
-			</map>
-		</property>
-
+	</bean>
+	
+	<!-- START DATA AGGREGATION TASK -->
+	<bean name="dataAggregationJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.cerberus.frameworks.quartz.DataAggregationJob" />
+	</bean>
+	
+	<!-- START EVENT SCHEDULING TASK -->
+	<bean name="eventSchedulingJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.cerberus.frameworks.quartz.EventSchedulingJob" />
 	</bean>
 
-	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
-
+	<!-- Only once all server startup -->
+	<bean id="simpleTriggerDaemon" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<property name="jobDetail" ref="startDaemonServerJob" />
 		<property name="repeatCount" value="0" />
 		<property name="repeatInterval" value="0" />
-
-
 	</bean>
-
-	<!-- Cron Trigger, example -->
-	<!-- <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-
-		<property name="jobDetail" ref="runMeJob" />
-		<property name="cronExpression" value="0/5 * * * * ?" />
-
-	</bean>-->
+	
+	<!-- Every 15 seconds -->
+	<bean id="simpleTriggerData" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="dataAggregationJob" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
+	
+	<!-- Every 15 seconds -->
+	<bean id="simpleTriggerEvent" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="eventSchedulingJob" />
+		<property name="repeatInterval" value="15000" />
+	</bean>
 
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="jobDetails">
 			<list>
 				<ref bean="startDaemonServerJob" />
+				<ref bean="dataAggregationJob" />
+				<ref bean="eventSchedulingJob" />
 			</list>
 		</property>
 
 		<property name="triggers">
 			<list>
-				<ref bean="simpleTrigger" />
+				<ref bean="simpleTriggerDaemon" />
+				<ref bean="simpleTriggerData" />
+				<ref bean="simpleTriggerEvent" />
 			</list>
 		</property>
 	</bean>

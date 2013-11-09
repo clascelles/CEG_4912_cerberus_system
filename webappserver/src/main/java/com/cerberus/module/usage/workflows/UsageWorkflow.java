@@ -61,5 +61,10 @@ public class UsageWorkflow extends Workflow {
 
 		return currentDayList;	
 	}
+	
+	public void updateCurrentHour(){
+		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
+		consumptionService.updateCurrentHour(new Date());
+	}
 
 }

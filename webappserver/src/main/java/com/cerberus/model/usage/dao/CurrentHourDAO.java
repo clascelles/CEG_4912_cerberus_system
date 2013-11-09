@@ -1,5 +1,6 @@
 package com.cerberus.model.usage.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -29,20 +30,20 @@ public class CurrentHourDAO extends GenericDAO<CurrentHour, Integer> {
 		return getAll(CurrentHour.class);
 	}
 	
-	public synchronized boolean updateCurrentHour(){
+	public synchronized boolean updateCurrentHour(Timestamp minDate){
 		Session session = null;
 		Transaction tx = null;
 		boolean success = false;
 
 		try{
-			session = sessionFactory.openSession();
+			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			
 			//Add Custom Query Here
 			Query query = session.createSQLQuery("Select * from Cerberus.Current_Hour")
 					.addEntity(CurrentHour.class);
-			
-			query.executeUpdate();
+			//query.executeUpdate();
+			List<CurrentHour> cur = query.list();
 			session.flush();
 			tx.commit();
 			success = true;
@@ -56,5 +57,6 @@ public class CurrentHourDAO extends GenericDAO<CurrentHour, Integer> {
 
 		return success;
 	}
+	
 
 }

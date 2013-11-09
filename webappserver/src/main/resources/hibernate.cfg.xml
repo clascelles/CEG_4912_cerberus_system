@@ -48,6 +48,7 @@
         <mapping class="com.cerberus.model.account.bean.User"></mapping>
         <mapping class="com.cerberus.model.account.bean.UserSetting"></mapping>
         <mapping class="com.cerberus.model.account.bean.UserType"></mapping>
+        <mapping class="com.cerberus.model.usage.bean.CurrentHour"></mapping>
         
         
     </session-factory>
