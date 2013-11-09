@@ -20,10 +20,8 @@
 		<property name="hibernate.c3p0.idle_test_period">300</property> 
 		<property name="hibernate.c3p0.acquire_increment">1</property>
 
-        <mapping class="com.cerberus.model.usage.bean.EventRecord"></mapping>
         <mapping class="com.cerberus.model.usage.bean.ConsumptionProfile"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.Current"></mapping>
-        <mapping class="com.cerberus.model.usage.bean.Event"></mapping>
         <mapping class="com.cerberus.model.account.bean.Login"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.Outlet"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.OutletOperationMode"></mapping>
@@ -31,6 +29,8 @@
         <mapping class="com.cerberus.model.security.bean.RfidAuthentication"></mapping>
         <mapping class="com.cerberus.model.security.bean.RfidTag"></mapping>
         <mapping class="com.cerberus.model.security.bean.RfidTagView"></mapping>
+        <mapping class="com.cerberus.model.system.bean.Event"></mapping>
+        <mapping class="com.cerberus.model.system.bean.EventRecord"></mapping>
         <mapping class="com.cerberus.model.system.bean.Room"></mapping>
         <mapping class="com.cerberus.model.system.bean.RoomType"></mapping>
         <mapping class="com.cerberus.model.system.bean.UserSystemView"></mapping>

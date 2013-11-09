@@ -1,16 +1,11 @@
 package com.cerberus.daemon.workflow;
 
-import java.sql.Timestamp;
-
 import org.apache.log4j.Logger;
 import org.perf4j.StopWatch;
 import org.perf4j.log4j.Log4JStopWatch;
 
-import com.cerberus.daemon.message.CurrentConsumptionMessage;
 import com.cerberus.daemon.message.Message;
 import com.cerberus.daemon.message.WrongMessageException;
-import com.cerberus.model.outlets.bean.Current;
-import com.cerberus.model.security.bean.RfidTag;
 
 public class CurrentConsumptionWorkflow extends MessageWorkflow {
 
@@ -20,6 +15,7 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 	//private final ServiceFactory serviceFactory;
 
 	public CurrentConsumptionWorkflow() {
+		super(false);
 		//serviceFactory = borrowServiceFactory();
 		//LOGGER.info("[CurrentWorkflow]: Initializing. Borrowing Service Factory from ObjectPool");
 	}
@@ -30,6 +26,7 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 		StopWatch stopwatch = new Log4JStopWatch("CurrentWorkflow.handleReceivedMessage");
 
 		// Create new Current data structure
+		/*
 		CurrentConsumptionMessage currentMessage;
 		if (receivedMessage instanceof CurrentConsumptionMessage) {
 			currentMessage = (CurrentConsumptionMessage) receivedMessage;
@@ -70,6 +67,7 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 		} finally {
 			stopwatch.stop();
 		}
+		*/
 
 		return true;
 	}

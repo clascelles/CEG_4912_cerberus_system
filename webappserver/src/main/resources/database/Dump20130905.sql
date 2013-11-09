@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `cerberus` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cerberus`;
--- MySQL dump 10.13  Distrib 5.6.11, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: cerberus
+-- Host: localhost    Database: cerberus
 -- ------------------------------------------------------
--- Server version	5.5.30
+-- Server version	5.6.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -282,7 +282,7 @@ CREATE TABLE `outlet` (
 
 LOCK TABLES `outlet` WRITE;
 /*!40000 ALTER TABLE `outlet` DISABLE KEYS */;
-INSERT INTO `outlet` VALUES (1,1,21,'0000000001'),(2,1,12,'0000000002'),(3,1,23,'0000000003'),(4,1,14,'0000000004'),(5,1,5,'0000000005'),(6,1,6,'0000000006'),(7,1,27,'0000000007'),(8,1,28,'0000000008'),(9,1,11,'0000000009'),(10,1,11,'0000000010'),(11,1,2,'0000000011'),(12,1,23,'0000000012'),(15,1,21,'0000000033');
+INSERT INTO `outlet` VALUES (1,1,21,'0000000001'),(2,1,12,'0000000002'),(3,1,23,'0000000003'),(4,1,14,'0000000004'),(5,1,5,'0000000005'),(6,1,6,'0000000006'),(7,1,27,'0000000007'),(8,1,28,'0000000008'),(9,1,11,'0000000009'),(10,1,11,'0000000010'),(11,1,2,'0000000011'),(12,1,23,'0000000012'),(13,1,8,'001DC911B00A');
 /*!40000 ALTER TABLE `outlet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -306,7 +306,7 @@ CREATE TABLE `outlet_operation_mode` (
 
 LOCK TABLES `outlet_operation_mode` WRITE;
 /*!40000 ALTER TABLE `outlet_operation_mode` DISABLE KEYS */;
-INSERT INTO `outlet_operation_mode` VALUES (1,'Monitoring'),(2,'Safety'),(3,'Restricted');
+INSERT INTO `outlet_operation_mode` VALUES (1,'Enabled'),(2,'Disabled'),(3,'Monitoring'),(4,'Child Safety'),(5,'Authentication');
 /*!40000 ALTER TABLE `outlet_operation_mode` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -624,17 +624,15 @@ CREATE TABLE `socket` (
   `SOCKET_OPERATION_MODE_ID` int(11) NOT NULL,
   `OUTLET_ID` int(11) NOT NULL,
   `SOCKET_POSITION` tinyint(1) NOT NULL,
-  `SERIAL_NUM` varchar(10) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `OUTLET_ID` (`OUTLET_ID`,`SOCKET_POSITION`),
-  UNIQUE KEY `SERIAL_NUM_UNIQUE` (`SERIAL_NUM`),
   KEY `SOCKET_FKIndex1` (`OUTLET_ID`),
   KEY `SOCKET_FKIndex2` (`SOCKET_OPERATION_MODE_ID`),
   KEY `SOCKET_FKIndex3` (`SOCKET_OPERATION_STATUS_ID`),
   CONSTRAINT `fk_?42C4695B?2ECA?4B8F?9A9C?0B6AC6BB5B03?` FOREIGN KEY (`SOCKET_OPERATION_MODE_ID`) REFERENCES `socket_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?E5A5CFB9?41A8?4166?A790?47FA4AEB7303?` FOREIGN KEY (`SOCKET_OPERATION_STATUS_ID`) REFERENCES `socket_operation_status` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?F61548DC?550F?4EC3?AC6C?5D3F97DA104C?` FOREIGN KEY (`OUTLET_ID`) REFERENCES `outlet` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -643,7 +641,7 @@ CREATE TABLE `socket` (
 
 LOCK TABLES `socket` WRITE;
 /*!40000 ALTER TABLE `socket` DISABLE KEYS */;
-INSERT INTO `socket` VALUES (1,1,1,1,0,'4500006701'),(2,1,3,1,1,'4500006702'),(3,1,1,2,0,'4500006703'),(4,1,1,3,0,'4500006704'),(5,1,2,4,0,'4500006705'),(6,1,3,4,1,'4500006706'),(7,1,1,5,0,'4500006707'),(8,1,1,6,0,'4500006708'),(9,1,3,6,1,'4500006709'),(10,1,3,7,0,'4500006710'),(11,1,3,8,0,'4500006711'),(12,1,1,9,0,'4500006712'),(13,1,3,10,0,'4500006713'),(14,1,2,10,1,'4500006714'),(15,1,3,11,0,'4500006715'),(16,1,3,11,1,'4500006716'),(17,1,3,12,0,'4500006717'),(20,3,3,15,0,'4500006700'),(21,3,3,15,1,'4500006718');
+INSERT INTO `socket` VALUES (1,1,4,1,0),(2,1,3,1,1),(3,1,4,2,0),(4,1,3,3,0),(5,1,2,4,0),(6,1,3,4,1),(7,1,3,5,0),(8,1,4,6,0),(9,1,3,6,1),(10,1,3,7,0),(11,1,3,8,0),(12,1,4,9,0),(13,1,3,10,0),(14,1,2,10,1),(15,1,3,11,0),(16,1,3,11,1),(17,1,3,12,0),(18,3,3,13,0),(19,3,3,13,1);
 /*!40000 ALTER TABLE `socket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -685,6 +683,7 @@ DROP TABLE IF EXISTS `socket_operation_mode`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `socket_operation_mode` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `OUTLET_OPERATION_MODE` int(11) DEFAULT NULL,
   `DESCRIPTION` text,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 PACK_KEYS=0;
@@ -696,7 +695,7 @@ CREATE TABLE `socket_operation_mode` (
 
 LOCK TABLES `socket_operation_mode` WRITE;
 /*!40000 ALTER TABLE `socket_operation_mode` DISABLE KEYS */;
-INSERT INTO `socket_operation_mode` VALUES (1,'On'),(2,'Off'),(3,'Default');
+INSERT INTO `socket_operation_mode` VALUES (1,1,'Disabled'),(2,3,'Monitoring'),(3,5,'Authentication'),(4,4,'Child Safety');
 /*!40000 ALTER TABLE `socket_operation_mode` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -913,7 +912,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `current_hour_view` AS select `current`.`ID` AS `ID`,date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current`.`TIMESTAMP`,'%H') AS `HOUR`,(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) AS `SYSTEM_ID`,((sum(`current`.`CURRENT`) * 30) / 1000) AS `CURRENT_HOUR_KWH` from `current` group by date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H'),(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) */;
+/*!50001 VIEW `current_hour_view` AS select `current`.`ID` AS `ID`,date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current`.`TIMESTAMP`,'%H') AS `HOUR`,(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) AS `SYSTEM_ID`,((sum(`current`.`CURRENT`) * 30) / 1000) AS `CURRENT_HOUR_KWH` from `current` group by `TIMESTAMP_HOUR`,`SYSTEM_ID` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -965,4 +964,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-08 22:09:20
+-- Dump completed on 2013-11-09 11:53:17

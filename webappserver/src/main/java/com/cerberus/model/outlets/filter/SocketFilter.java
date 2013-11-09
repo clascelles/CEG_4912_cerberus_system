@@ -12,12 +12,6 @@ public class SocketFilter {
 				add(Restrictions.eq("id", id));
 	}
 
-	//TODO: Serial number will be removed from Socket. Will have to get serial number from Outlet instead
-	public static DetachedCriteria getBySerialNum(String serialNumber) {
-		return DetachedCriteria.forClass(Socket.class).
-				add(Restrictions.eq("serialNumber", serialNumber));
-	}
-
 	public static DetachedCriteria getByOutletId(Integer outletId){
 		return DetachedCriteria.forClass(Socket.class).
 				add(Restrictions.eq("outlet.id", outletId));

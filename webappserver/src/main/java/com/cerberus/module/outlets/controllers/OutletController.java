@@ -96,10 +96,10 @@ public class OutletController extends CerberusController {
 		outletWorkflow.insertOutlet(outlet);
 
 		//Add the two sockets
-		Socket socketA = Socket.create(outlet, Socket.TOP, Socket.getNewSerial());
+		Socket socketA = Socket.create(outlet, Socket.TOP);
 		outletWorkflow.insertSocket(socketA);
 
-		Socket socketB = Socket.create(outlet, Socket.BOTTOM, Socket.getNewSerial());
+		Socket socketB = Socket.create(outlet, Socket.BOTTOM);
 		outletWorkflow.insertSocket(socketB);
 
 		return getOutletsPage(model);

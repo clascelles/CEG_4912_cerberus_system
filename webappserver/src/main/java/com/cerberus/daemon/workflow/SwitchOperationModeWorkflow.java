@@ -23,6 +23,7 @@ public class SwitchOperationModeWorkflow extends MessageWorkflow {
 	//private final ServiceFactory serviceFactory;
 
 	public SwitchOperationModeWorkflow() {
+		super(false);
 		//serviceFactory = borrowServiceFactory();
 		//LOGGER.info("[CurrentWorkflow]: Initializing. Borrowing Service Factory from ObjectPool");
 	}
