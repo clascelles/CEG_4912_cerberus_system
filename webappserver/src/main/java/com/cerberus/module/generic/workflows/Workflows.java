@@ -6,12 +6,14 @@ import com.cerberus.module.outlets.workflows.OutletWorkflow;
 import com.cerberus.module.overview.workflows.OverviewWorkflow;
 import com.cerberus.module.schedules.workflows.ScheduleWorkflow;
 import com.cerberus.module.security.workflows.SecurityWorkflow;
+import com.cerberus.module.system.workflows.EventWorkflow;
 import com.cerberus.module.system.workflows.SystemWorkflow;
 import com.cerberus.module.usage.workflows.UsageWorkflow;
 
 public class Workflows {
 
 	private AccountWorkflow accountWorkflow;
+	private EventWorkflow eventWorkflow;
 	private OutletWorkflow outletWorkflow;
 	private OverviewWorkflow overviewWorkflow;
 	private ScheduleWorkflow scheduleWorkflow;
@@ -26,6 +28,13 @@ public class Workflows {
 	}
 	public void setAccountWorkflow(AccountWorkflow accountWorkflow) {
 		this.accountWorkflow = accountWorkflow;
+	}
+
+	public EventWorkflow getEventWorkflow() {
+		return eventWorkflow;
+	}
+	public void setEventWorkflow(EventWorkflow eventWorkflow) {
+		this.eventWorkflow = eventWorkflow;
 	}
 
 	public OutletWorkflow getOutletWorkflow() {
