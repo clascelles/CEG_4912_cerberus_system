@@ -17,6 +17,7 @@ public class UserBackingObjectFactory extends BackingObjectFactory<User, UserBac
 		backingObject.setUsername(user.getLogin().getUsername());
 		backingObject.setFirstName(user.getInformation().getFirstName());
 		backingObject.setLastName(user.getInformation().getLastName());
+		backingObject.setFullName(user.getFullName());
 		backingObject.setPhoneNumber(user.getInformation().getPhoneNumber());
 		backingObject.setAddress(user.getInformation().getAddress());				
 		return backingObject;

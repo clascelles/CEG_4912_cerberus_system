@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
@@ -30,21 +31,26 @@ public class ScheduledEvent implements Serializable{
 	Socket socket;
 	User user;
 	Date time;
+	ScheduleRecurrence recurrence;
 	
 	public ScheduledEvent() {}
 	
 	public ScheduledEvent(SocketOperationMode mode, Date time) {
-		this(null, mode, null, null, time);
+		this(null, mode, null, null, time, 
+				CerberusApplicationContext.getWorkflows()
+					.getScheduleWorkflow().getRecurrenceById(ScheduleRecurrence.ONCE_ID));
 	}
 	
 	public ScheduledEvent(Integer id, SocketOperationMode mode,
-			Socket socket, User user, Date time) {
+			Socket socket, User user, Date time, 
+			ScheduleRecurrence recurrence) {
 		super();
 		this.id = id;
 		this.mode = mode;
 		this.socket = socket;
 		this.user = user;
 		this.time = time;
+		this.recurrence = recurrence;
 	}
 	
 	@Id
@@ -95,6 +101,16 @@ public class ScheduledEvent implements Serializable{
 
 	public void setTime(Date time) {
 		this.time = time;
+	}
+
+	@ManyToOne()
+	@JoinColumn(name="RECURRENCE_ID", nullable=false)
+	public ScheduleRecurrence getRecurrence() {
+		return recurrence;
+	}
+
+	public void setRecurrence(ScheduleRecurrence recurrence) {
+		this.recurrence = recurrence;
 	}
 
 	@Override

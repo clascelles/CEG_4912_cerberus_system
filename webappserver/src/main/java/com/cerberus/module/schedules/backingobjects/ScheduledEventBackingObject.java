@@ -5,11 +5,12 @@ import java.util.List;
 
 import com.cerberus.frameworks.logging.CerberusLogger;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
-import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
+import com.cerberus.model.schedules.bean.ScheduleRecurrence;
 import com.cerberus.model.schedules.bean.ScheduledEvent;
+import com.cerberus.module.account.backingobjects.UserBackingObject;
 import com.cerberus.module.generic.backingobjects.BackingObject;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
 
@@ -22,9 +23,11 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 	private Socket socket;
 	private Integer socketId;
 	private Integer socketPosition;
-	private User user;
+	private UserBackingObject user;
 	private Integer userId;
 	private String time;
+	private Integer recurrenceId;
+	private ScheduleRecurrence recurrence;
 	
 	public ScheduledEventBackingObject() {}
 	
@@ -32,8 +35,8 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 			SocketOperationMode mode,
 			Integer outletId, Socket socket, 
 			Integer socketId, Integer socketPosition,
-			User user, Integer userId, 
-			String time) {
+			UserBackingObject user, Integer userId, 
+			String time, ScheduleRecurrence recurrence) {
 		super();
 		this.id = id;
 		this.outletId = outletId;
@@ -43,6 +46,7 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 		this.user = user;
 		this.userId = userId;
 		this.time = time;
+		this.recurrence = recurrence;
 	}
 	
 	public Integer getId() {
@@ -115,11 +119,11 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 		this.socketPosition = socketPosition;
 	}
 
-	public User getUser() {
+	public UserBackingObject getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserBackingObject user) {
 		this.user = user;
 		this.userId = user.getId();
 	}
@@ -144,6 +148,23 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 		this.time = time;
 	}
 	
+	public Integer getRecurrenceId() {
+		return recurrenceId;
+	}
+
+	public void setRecurrenceId(Integer recurrenceId) {
+		this.recurrenceId = recurrenceId;
+	}
+
+	public ScheduleRecurrence getRecurrence() {
+		return recurrence;
+	}
+
+	public void setRecurrence(ScheduleRecurrence recurrence) {
+		this.recurrence = recurrence;
+		this.recurrenceId = recurrence.getId();
+	}
+
 	public static Date parseDate(String formatted) {
 		Date date = new Date();
 		
@@ -159,6 +180,7 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 			date.setHours(hours);
 			Integer minutes = Integer.parseInt(formatted.substring(14, 16));
 			date.setMinutes(minutes);
+			date.setSeconds(0);
 		} catch (NumberFormatException e) {
 			CerberusLogger.printErrorMessage("Parsing date failed, number format exception");
 		} catch (NullPointerException e) {
@@ -193,6 +215,6 @@ public class ScheduledEventBackingObject extends BackingObject<ScheduledEvent> {
 				+ ", modeId=" + modeId + ", outletId=" + outletId + ", socket="
 				+ socket + ", socketId=" + socketId + ", socketPosition="
 				+ socketPosition + ", user=" + user + ", userId=" + userId
-				+ ", time=" + time + "]";
+				+ ", time=" + time + ", recurrence=" + recurrence + "]";
 	}	
 }

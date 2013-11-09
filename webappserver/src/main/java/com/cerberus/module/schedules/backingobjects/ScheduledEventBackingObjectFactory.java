@@ -8,7 +8,9 @@ import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
+import com.cerberus.model.schedules.bean.ScheduleRecurrence;
 import com.cerberus.model.schedules.bean.ScheduledEvent;
+import com.cerberus.module.account.backingobjects.UserBackingObjectFactory;
 import com.cerberus.module.generic.backingobjects.BackingObjectFactory;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
 import com.cerberus.module.schedules.workflows.ScheduleWorkflow;
@@ -23,7 +25,11 @@ public class ScheduledEventBackingObjectFactory
 		ScheduledEventBackingObject backingObject = new ScheduledEventBackingObject();
 		
 		backingObject.setModeId(SocketOperationMode.MANUAL_OFF_ID);
-		backingObject.setUser(user);
+		backingObject.setUser(UserBackingObjectFactory.INSTANCE.getBackingObject(user));
+
+		ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
+		ScheduleRecurrence recurrence = scheduleWorkflow.getRecurrenceById(ScheduleRecurrence.ONCE_ID);
+		backingObject.setRecurrence(recurrence);
 		
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 		List<Outlet> outlets = outletWorkflow.getOutletFromUser(user);
@@ -36,6 +42,7 @@ public class ScheduledEventBackingObjectFactory
 		}		
 		
 		Date start = new Date();
+		start.setSeconds(0);
 		start.setTime(start.getTime() + 60*60*1000); // an hour from now
 		backingObject.setTime(start);
 		
@@ -51,8 +58,9 @@ public class ScheduledEventBackingObjectFactory
 		backingObject.setOutletId(object.getSocket().getOutlet().getId());
 		backingObject.setSocket(object.getSocket());
 		backingObject.setSocketPosition(object.getSocket().getPosition());
-		backingObject.setUser(object.getUser());
+		backingObject.setUser(UserBackingObjectFactory.INSTANCE.getBackingObject(object.getUser()));
 		backingObject.setTime(object.getTime());
+		backingObject.setRecurrence(object.getRecurrence());
 		
 		return backingObject;
 	}
@@ -100,6 +108,13 @@ public class ScheduledEventBackingObjectFactory
 		
 		event.setUser(user);
 		event.setTime(ScheduledEventBackingObject.parseDate(backingObject.getTime()));
+		
+		if(backingObject.getRecurrenceId() != null 
+				||(event.getRecurrence() != null && 
+					backingObject.getRecurrenceId() != event.getRecurrence().getId())) {
+			ScheduleRecurrence recurrence = scheduleWorkflow.getRecurrenceById(backingObject.getRecurrenceId());
+			event.setRecurrence(recurrence);
+		}
 
 		return event;
 	}
@@ -116,6 +131,7 @@ public class ScheduledEventBackingObjectFactory
 		return (dateValid 
 				&& backingObject.getOutletId() != null
 				&& backingObject.getSocketPosition() != null
-				&& backingObject.getUserId() != null);
+				&& backingObject.getUserId() != null
+				&& backingObject.getRecurrenceId() != null);
 	}
 }

@@ -38,6 +38,10 @@ public class SchedulingService {
 		scheduledEventDAO.delete(scheduledEvent);
 	}
 	
+	public List<ScheduledEvent> getScheduledEvents() {
+		return scheduledEventDAO.getAll();		
+	}
+	
 	public ScheduledEvent getScheduledEventById(Integer id) {
 		return scheduledEventDAO.getById(id);
 	}
@@ -72,5 +76,9 @@ public class SchedulingService {
 
 	public ScheduleRecurrence getScheduleRecurrenceById(Integer id) {
 		return scheduleRecurrenceDAO.getById(id);		
+	}
+	
+	public List<ScheduleRecurrence> getScheduleRecurrences() {
+		return scheduleRecurrenceDAO.getAll();
 	}
 }

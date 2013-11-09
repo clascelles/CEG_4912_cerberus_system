@@ -129,6 +129,17 @@
 									  		</select>								  		
 										</div>
 									</div>
+									<div class="control-group">
+										<label class="control-label" for="recurrenceId">Event recurrence</label>
+										<div class="controls">
+											<select data-placeholder="Select Event Recurrence" name="recurrenceId" data-rel="chosen" id="recurrenceId">
+												<option value=""></option>
+												<c:forEach items="${recurrences}" var="recurrence">
+												  <option value="${recurrence.id}">${recurrence.name}</option>
+												</c:forEach>
+									  		</select>									  		
+										</div>
+									</div>
 									<div class="form-actions">
 										<button type="submit" class="btn btn-primary" name="addEvent">Add</button>
 									</div>
@@ -202,7 +213,9 @@
 								  <thead>
 									  <tr>
 										  <th>Event Timestamp</th>
-										  <th>Socket Operation Mode</th>
+										  <th>Operation Mode</th>
+										  <th>Recurrence</th>
+										  <th>Scheduler</th>
 										  <th>Action</th>
 									  </tr>
 								  </thead>   
@@ -211,6 +224,8 @@
 								  		<tr>
 								  			<td><span>${item.time}</span><%-- <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span><input type="text" name="time" id="time${item.id}" readonly value="${item.time}"/></div> --%></td>
 								  			<td><span>${item.mode.description}</span>
+								  			<td><span>${item.recurrence.name}</span>
+								  			<td><span>${item.user.fullName}</span>
 									  			<%-- <select data-placeholder="Select Operation Mode" name="modeId" data-rel="chosen">
 													<option value=""></option>											
 													<c:forEach items="${modes}" var="mode">	
@@ -218,7 +233,10 @@
 											  		</c:forEach>
 										  		</select> --%>
 									  		</td>
-								  			<td><a class="btn btn-primary" href="/webappserver/schedules/edit?id=${item.id}"><i class="icon-pencil icon-white"></i>Edit</a></td>
+								  			<td>
+								  				<a class="btn btn-primary" href="/webappserver/schedules/edit?id=${item.id}"><i class="icon-pencil icon-white"></i></a>
+												<button type="submit" class="btn btn-danger" name="deleteEvent" id="deleteEvent" formaction="/webappserver/schedules/index?id=${item.id}"><i class="icon-remove icon-white"></i></button>
+							  				</td>
 								  		</tr>
 									</c:forEach>
 								  </tbody>

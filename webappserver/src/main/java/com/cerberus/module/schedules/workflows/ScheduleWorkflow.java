@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.cerberus.daemon.scheduling.CerberusScheduler;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Socket;
@@ -22,13 +23,15 @@ public class ScheduleWorkflow extends Workflow {
 	}
 
 	public void updateScheduledEvent(ScheduledEvent event) {
+		CerberusScheduler.unschedule(event);
 		serviceFactory.getSchedulingService().updateScheduledEvent(event);
 		this.returnServiceFactory();
 	}
 	
 	public void removeScheduledEvent(ScheduledEvent event) {
+		CerberusScheduler.unschedule(event);
 		serviceFactory.getSchedulingService().deleteScheduledEvent(event);
-		this.returnServiceFactory();		
+		this.returnServiceFactory();
 	}
 	
 	public void insertSchedule(Schedule schedule) {
@@ -49,6 +52,16 @@ public class ScheduleWorkflow extends Workflow {
 		this.returnServiceFactory();
 
 		return event;
+	}
+	
+	public List<ScheduledEvent> getScheduledEvents(){
+		SchedulingService scheduleService = serviceFactory.getSchedulingService();
+		
+		List<ScheduledEvent> events = scheduleService.getScheduledEvents();
+
+		this.returnServiceFactory();
+		
+		return events;
 	}
 	
 	public List<ScheduledEvent> getScheduledEventsForSocket(Integer socketId){
@@ -85,21 +98,6 @@ public class ScheduleWorkflow extends Workflow {
 		return events;
 	}
 	
-	// this method deletes all existing scheduled events with
-	// a timestamp which comes before now
-	public void cleanUserScheduledEvents(User user) {
-		List<ScheduledEvent> events = getScheduledEventsForUser(user);
-		
-		Date currentDate = new Date();
-		currentDate.setTime(currentDate.getTime() - 24*60*60*1000); //delete events older than one day ago
-		
-		for(ScheduledEvent event : events) {
-			if(event.getTime().before(currentDate)) {
-				removeScheduledEvent(event);
-			}
-		}
-	}
-	
 	public List<Schedule> getSchedulesForUser(User user){
 
 		SchedulingService scheduleService = serviceFactory.getSchedulingService();
@@ -118,6 +116,12 @@ public class ScheduleWorkflow extends Workflow {
 		this.returnServiceFactory();
 
 		return schedules;
+	}
+	
+	public List<ScheduleRecurrence> getRecurrences() {
+		List<ScheduleRecurrence> recurrences = serviceFactory.getSchedulingService().getScheduleRecurrences();
+		this.returnServiceFactory();
+		return recurrences;
 	}
 	
 	public ScheduleRecurrence getRecurrenceById(Integer id) {

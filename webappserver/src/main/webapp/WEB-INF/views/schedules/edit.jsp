@@ -131,8 +131,20 @@
 									  		</select>								  		
 										</div>
 									</div>
+									
+									<div class="control-group">
+										<label class="control-label" for="recurrenceId">Event recurrence</label>
+										<div class="controls">
+											<select data-placeholder="Select Event Recurrence" name="recurrenceId" data-rel="chosen" id="recurrenceId">
+												<option value=""></option>
+												<c:forEach items="${recurrences}" var="recurrence">
+												  <option value="${recurrence.id}" <c:if test="${scheduledEvent.recurrenceId == recurrence.id}">selected</c:if>>${recurrence.name}</option>
+												</c:forEach>
+									  		</select>									  		
+										</div>
+									</div>
 									<div class="form-actions">
-										<button type="submit" class="btn btn-primary" name="editEvent">Edit</button>
+										<button type="submit" class="btn btn-primary" name="editEvent">Save Changes</button>
 									</div>
 						  		</fieldset>
 						  	</form>

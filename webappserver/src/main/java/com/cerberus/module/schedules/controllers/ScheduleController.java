@@ -29,6 +29,7 @@ import com.cerberus.module.outlets.backingobjects.SocketOperationModeBackingObje
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
 import com.cerberus.module.schedules.backingobjects.ScheduleBackingObject;
 import com.cerberus.module.schedules.backingobjects.ScheduleBackingObjectFactory;
+import com.cerberus.module.schedules.backingobjects.ScheduleRecurrenceBackingObjectFactory;
 import com.cerberus.module.schedules.backingobjects.ScheduledEventBackingObject;
 import com.cerberus.module.schedules.backingobjects.ScheduledEventBackingObjectFactory;
 import com.cerberus.module.schedules.workflows.ScheduleWorkflow;
@@ -65,10 +66,9 @@ public class ScheduleController extends CerberusController {
 		}
 
 		ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
-
-		scheduleWorkflow.cleanUserScheduledEvents(user);
 		
 		model.addAttribute(CerberusConstants.MODES, SocketOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(outletWorkflow.getSocketOperationModes()));
+		model.addAttribute(CerberusConstants.SCHEDULE_RECURRENCES, ScheduleRecurrenceBackingObjectFactory.INSTANCE.getBackingObjects(scheduleWorkflow.getRecurrences()));
 		model.addAttribute(CerberusConstants.ROOMS, outlets);//OutletBackingObjectFactory.INSTANCE.getBackingObjects(outletWorkflow.getOutletFromUser(user)));
 
 		model.addAttribute(CerberusConstants.SCHEDULED_EVENT,
@@ -145,6 +145,20 @@ public class ScheduleController extends CerberusController {
 		return getSchedulesPage(model);	
 	}
 	
+	@RequestMapping(value=CerberusConstants.SCHEDULES_MAPPING, method=RequestMethod.POST, params="deleteEvent")
+	public String deleteScheduledEvent(Model model,	@RequestParam(value = "id") Integer id)	{
+
+		ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
+		if(id != null) {
+			ScheduledEvent event = scheduleWorkflow.getScheduledEventById(id);
+			if(event != null) {
+				scheduleWorkflow.removeScheduledEvent(event);			
+			}
+		}
+
+		return getSchedulesPage(model);	
+	}
+	
 	/*
 	 * Edit schedules
 	 */	
@@ -173,11 +187,10 @@ public class ScheduleController extends CerberusController {
 
 		ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
 		
-		scheduleWorkflow.cleanUserScheduledEvents(user);
-		
 		ScheduledEvent event = scheduleWorkflow.getScheduledEventById(id);
 		
 		model.addAttribute(CerberusConstants.MODES, SocketOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(outletWorkflow.getSocketOperationModes()));
+		model.addAttribute(CerberusConstants.SCHEDULE_RECURRENCES, ScheduleRecurrenceBackingObjectFactory.INSTANCE.getBackingObjects(scheduleWorkflow.getRecurrences()));
 		model.addAttribute(CerberusConstants.ROOMS, outlets);
 
 		model.addAttribute(CerberusConstants.SCHEDULED_EVENT,
@@ -211,5 +224,4 @@ public class ScheduleController extends CerberusController {
 
 		return getEditSchedulesPage(model, id);
 	}
-
 }

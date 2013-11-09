@@ -39,6 +39,8 @@
         <mapping class="com.cerberus.model.usage.bean.CurrentHourView"></mapping>
         <mapping class="com.cerberus.model.usage.bean.CurrentDayView"></mapping>
         <mapping class="com.cerberus.model.schedules.bean.ScheduledEvent"></mapping>
+        <mapping class="com.cerberus.model.schedules.bean.Schedule"></mapping>
+        <mapping class="com.cerberus.model.schedules.bean.ScheduleRecurrence"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.Socket"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.SocketAssignment"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.SocketOperationMode"></mapping>

@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
 import com.cerberus.daemon.executor.ServiceBootstrap;
+import com.cerberus.daemon.scheduling.SchedulerBootstrap;
 import com.cerberus.frameworks.netty.CommunicationBootstrap;
 import com.cerberus.frameworks.spring.ServerContext;
 
@@ -32,5 +33,9 @@ public class CerberusServerBootstrap extends Thread {
 		// Netty Communication Bootstrap
 		CommunicationBootstrap communication = new CommunicationBootstrap();
 		communication.start();
+		
+		// Scheduler Bootstrap
+		SchedulerBootstrap scheduler = new SchedulerBootstrap();
+		scheduler.start();
 	}
 }
