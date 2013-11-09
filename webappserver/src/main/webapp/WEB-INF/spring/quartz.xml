@@ -19,11 +19,6 @@
 	<bean name="dataAggregationJob" class="org.springframework.scheduling.quartz.JobDetailBean">
 		<property name="jobClass" value="com.cerberus.frameworks.quartz.DataAggregationJob" />
 	</bean>
-	
-	<!-- START EVENT SCHEDULING TASK -->
-	<bean name="eventSchedulingJob" class="org.springframework.scheduling.quartz.JobDetailBean">
-		<property name="jobClass" value="com.cerberus.frameworks.quartz.EventSchedulingJob" />
-	</bean>
 
 	<!-- Only once all server startup -->
 	<bean id="simpleTriggerDaemon" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
@@ -35,13 +30,6 @@
 	<!-- Every 15 seconds -->
 	<bean id="simpleTriggerData" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<property name="jobDetail" ref="dataAggregationJob" />
-		<property name="repeatCount" value="0" />
-		<property name="repeatInterval" value="0" />
-	</bean>
-	
-	<!-- Every 15 seconds -->
-	<bean id="simpleTriggerEvent" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
-		<property name="jobDetail" ref="eventSchedulingJob" />
 		<property name="repeatCount" value="0" />
 		<property name="repeatInterval" value="0" />
 	</bean>

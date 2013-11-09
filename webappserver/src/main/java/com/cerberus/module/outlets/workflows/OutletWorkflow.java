@@ -114,12 +114,25 @@ public class OutletWorkflow extends Workflow {
 	}
 
 	public List<Socket> getSocketsByOutlet(Outlet outlet) {
+		return getSocketsByOutletId(outlet.getId());
+	}
+	
+	public List<Socket> getSocketsByOutletId(Integer id) {
 		OutletService outletService = serviceFactory.getOutletService();
-		List<Socket> sockets = outletService.getSocketsByOutlet(outlet.getId());
+		List<Socket> sockets = outletService.getSocketsByOutlet(id);
 
 		this.returnServiceFactory();
 
 		return sockets;
+	}
+	
+	public Socket getSocketByOutletAndPosition(Integer outletId, Integer position) {
+		OutletService outletService = serviceFactory.getOutletService();
+		Socket socket = outletService.getSocketFromOutlet(outletId, position);
+
+		this.returnServiceFactory();
+
+		return socket;
 	}
 	
 	public List<Socket> getSocketsByUser(User user) {

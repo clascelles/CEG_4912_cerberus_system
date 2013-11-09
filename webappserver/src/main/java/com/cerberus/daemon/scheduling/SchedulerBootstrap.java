@@ -13,16 +13,6 @@ public class SchedulerBootstrap extends Thread {
 	public void run(){
 		
 		LOGGER.info("Starting Scheduler Initialization Thread");
-		
-		ClassPathResource res = new ClassPathResource("dynamic-jobs.xml");
-        XmlBeanFactory factory = new XmlBeanFactory(res);
-
-        //get the quartzFactory bean
-        Scheduler scheduler = (Scheduler) factory.getBean("scheduler");
-
-        CerberusScheduler cerberusScheduler = new CerberusScheduler();
-        cerberusScheduler.init(scheduler);
-        cerberusScheduler.start();
         
         LOGGER.info("Done Scheduler Bootstrap, ready to schedule events");
 	}

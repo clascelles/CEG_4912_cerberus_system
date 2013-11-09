@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cerberus.frameworks.logging.CerberusLogger;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
+import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.schedules.bean.Schedule;
 import com.cerberus.model.schedules.bean.ScheduledEvent;
 import com.cerberus.model.system.bean.Room;
@@ -37,14 +40,13 @@ import com.cerberus.module.system.workflows.SystemWorkflow;
 
 @Controller
 public class ScheduleController extends CerberusController {
-
 	
 	/*
 	 * Schedules page
 	 */
 	
 	@RequestMapping(value=CerberusConstants.SCHEDULES_MAPPING, method=RequestMethod.GET)
-	public String getSchedulesPage(Model model)	{
+	public String getSchedulesPage(HttpServletRequest request, Model model)	{
 
 		User user = getUser();
 		if(user == null){
@@ -80,12 +82,21 @@ public class ScheduleController extends CerberusController {
 		/*List<ScheduledEvent> events = scheduleWorkflow.getScheduledEventsForUser(user);
 		model.addAttribute(CerberusConstants.SCHEDULED_EVENTS,
 				ScheduledEventBackingObjectFactory.INSTANCE.getBackingObjects(events));*/
+		Integer outletId = (Integer) request.getSession().getAttribute(CerberusConstants.OUTLET_ID);
+		Integer socketPosition = (Integer) request.getSession().getAttribute(CerberusConstants.SOCKET_POSITION);
+		List<ScheduledEventBackingObject> events = (List<ScheduledEventBackingObject>) request.getSession().getAttribute(CerberusConstants.SCHEDULED_EVENTS);
+		
+		if(outletId != null && socketPosition != null && events != null) {
+			model.addAttribute(CerberusConstants.SCHEDULED_EVENTS, events);
+			model.addAttribute(CerberusConstants.OUTLET_ID, outletId);
+			model.addAttribute(CerberusConstants.SOCKET_POSITION, socketPosition);
+		}
 
 		return CerberusConstants.SCHEDULES_VIEW;
 	}
 
 	@RequestMapping(value=CerberusConstants.SCHEDULES_MAPPING, method=RequestMethod.POST, params="addEvent")
-	public String addNewEvent(Model model,
+	public String addNewEvent(HttpServletRequest request, Model model,
 			@ModelAttribute(CerberusConstants.SCHEDULED_EVENT) ScheduledEventBackingObject backingObject)	{
 		CerberusLogger.post(CerberusConstants.SCHEDULES_VIEW);
 
@@ -97,13 +108,15 @@ public class ScheduleController extends CerberusController {
 			
 			ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
 			scheduleWorkflow.insertScheduledEvent(event);
+			
+			refreshVisibleEventList(request, event.getSocket());
 		}
 
-		return getSchedulesPage(model);	
+		return getSchedulesPage(request, model);	
 	}
 
 	@RequestMapping(value=CerberusConstants.SCHEDULES_MAPPING, method=RequestMethod.POST, params="addSchedule")
-	public String addNewSchedule(Model model,
+	public String addNewSchedule(HttpServletRequest request, Model model,
 			@ModelAttribute(CerberusConstants.SCHEDULE) ScheduleBackingObject backingObject)	{
 		CerberusLogger.post(CerberusConstants.SCHEDULES_VIEW);
 
@@ -112,58 +125,66 @@ public class ScheduleController extends CerberusController {
 			Schedule schedule = ScheduleBackingObjectFactory.INSTANCE.bind(backingObject, user);
 			
 			ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
-			scheduleWorkflow.insertSchedule(schedule);			
+			scheduleWorkflow.insertSchedule(schedule);
 		}
 
-		return getSchedulesPage(model);	
+		return getSchedulesPage(request, model);	
 	}
 
 	@RequestMapping(value=CerberusConstants.SCHEDULES_MAPPING, method=RequestMethod.POST, params="viewExistingSchedules")
-	public String viewExistingEvents(Model model,
+	public String viewExistingEvents(HttpServletRequest request, Model model,
 			@ModelAttribute(CerberusConstants.SCHEDULED_EVENT) ScheduledEventBackingObject backingObject)	{
 		CerberusLogger.post(CerberusConstants.SCHEDULES_VIEW);
 					
+		addScheduledEventsToSession(request, model, backingObject);
+		
+		return getSchedulesPage(request, model);	
+	}
+	
+	private void addScheduledEventsToSession(HttpServletRequest request, 
+			Model model, ScheduledEventBackingObject backingObject) {
 		if(backingObject.getOutletId() != null) {			
 			User user = getUser();
 			ScheduledEvent event = ScheduledEventBackingObjectFactory.INSTANCE.bind(backingObject, user);
 			
-			List<ScheduledEventBackingObject> eventBackingObjects = new ArrayList<ScheduledEventBackingObject>();
-			
-			if(event.getSocket() != null) {
-				ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
-				List<ScheduledEvent> events = scheduleWorkflow.getScheduledEventsForSocket(event.getSocket().getId());
-			
-				model.addAttribute(CerberusConstants.SOCKET, SocketBackingObjectFactory.INSTANCE.getBackingObject(event.getSocket()));
-
-				eventBackingObjects = ScheduledEventBackingObjectFactory.INSTANCE.getBackingObjects(events);
-			}
-			
-			model.addAttribute(CerberusConstants.SCHEDULED_EVENTS, eventBackingObjects);	
-			
+			if(event.getSocket() != null) {				
+				model.addAttribute(CerberusConstants.SOCKET, SocketBackingObjectFactory.INSTANCE.getBackingObject(event.getSocket()));		
+				refreshVisibleEventList(request, event.getSocket());
+			}			
 		}
-		
-		return getSchedulesPage(model);	
 	}
 	
 	@RequestMapping(value=CerberusConstants.SCHEDULES_MAPPING, method=RequestMethod.POST, params="deleteEvent")
-	public String deleteScheduledEvent(Model model,	@RequestParam(value = "id") Integer id)	{
+	public String deleteScheduledEvent(HttpServletRequest request, Model model,	
+			@RequestParam(value = "id") Integer id)	{
 
 		ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
 		if(id != null) {
 			ScheduledEvent event = scheduleWorkflow.getScheduledEventById(id);
 			if(event != null) {
-				scheduleWorkflow.removeScheduledEvent(event);			
+				scheduleWorkflow.removeScheduledEvent(event);
+				refreshVisibleEventList(request, event.getSocket());
 			}
 		}
 
-		return getSchedulesPage(model);	
+		return getSchedulesPage(request, model);	
+	}
+	
+	private void refreshVisibleEventList(HttpServletRequest request, Socket socket) {
+		ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
+		List<ScheduledEvent> events = scheduleWorkflow.getScheduledEventsForSocket(socket.getId());
+		List<ScheduledEventBackingObject> eventBackingObjects = ScheduledEventBackingObjectFactory.INSTANCE.getBackingObjects(events);
+		request.getSession().setAttribute(CerberusConstants.SCHEDULED_EVENTS, eventBackingObjects);
+		request.getSession().setAttribute(CerberusConstants.OUTLET_ID, socket.getOutlet().getId());
+		request.getSession().setAttribute(CerberusConstants.SOCKET_POSITION, socket.getPosition());
 	}
 	
 	/*
 	 * Edit schedules
 	 */	
 	@RequestMapping(value=CerberusConstants.EDIT_SCHEDULES_MAPPING, method=RequestMethod.GET)
-	public String getEditSchedulesPage(Model model, @RequestParam(value = "id") Integer id)	{
+	public String getEditSchedulesPage(HttpServletRequest request,
+			Model model, @RequestParam(value = "id") Integer id)	{
 		CerberusLogger.post(CerberusConstants.EDIT_SCHEDULES_VIEW);
 
 		User user = getUser();
@@ -207,7 +228,7 @@ public class ScheduleController extends CerberusController {
 	}
 	
 	@RequestMapping(value=CerberusConstants.EDIT_SCHEDULES_MAPPING, method=RequestMethod.POST, params="editEvent")
-	public String editEvent(Model model, 
+	public String editEvent(HttpServletRequest request, Model model, 
 			@RequestParam(value = "id") Integer id,
 			@ModelAttribute(CerberusConstants.SCHEDULED_EVENT) ScheduledEventBackingObject backingObject)	{
 		CerberusLogger.post(CerberusConstants.EDIT_SCHEDULES_VIEW);
@@ -220,8 +241,9 @@ public class ScheduleController extends CerberusController {
 			
 			ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
 			scheduleWorkflow.updateScheduledEvent(event);
+			refreshVisibleEventList(request, event.getSocket());
 		}
 
-		return getEditSchedulesPage(model, id);
+		return getEditSchedulesPage(request, model, id);
 	}
 }

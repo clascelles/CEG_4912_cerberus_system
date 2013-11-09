@@ -4,9 +4,13 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.Scheduler;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.cerberus.daemon.executor.ServiceBootstrap;
+import com.cerberus.daemon.scheduling.CerberusScheduler;
 import com.cerberus.frameworks.netty.CommunicationBootstrap;
 import com.cerberus.frameworks.spring.ServerContext;
 
@@ -33,7 +37,18 @@ public class StartDaemonServerJob extends QuartzJobBean {
 
 			// Netty Communication Bootstrap
 			CommunicationBootstrap communication = new CommunicationBootstrap();
-			communication.start();	
+			communication.start();
+			
+			//Scheduling Bootstrap
+			ClassPathResource res = new ClassPathResource("dynamic-jobs.xml");
+	        XmlBeanFactory factory = new XmlBeanFactory(res);
+
+	        //get the quartzFactory bean
+	        Scheduler scheduler = (Scheduler) factory.getBean("scheduler");
+
+	        CerberusScheduler cerberusScheduler = new CerberusScheduler();
+	        cerberusScheduler.init(scheduler);
+	        cerberusScheduler.start();
 
 	}
 }

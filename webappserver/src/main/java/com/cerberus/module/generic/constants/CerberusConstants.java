@@ -55,7 +55,9 @@ public class CerberusConstants {
 	public static final String USER_OUTLETS = "userOutlets";
 	public static final String ROOMS = "rooms";
 	public static final String NEW_OUTLET = "newOutlet";
+	public static final String OUTLET_ID = "outletId";
 	public static final String OUTLET = "outlet";
+	public static final String SOCKET_POSITION = "socketPosition";
 	public static final String SOCKET = "socket";
 	public static final String SOCKETS = "sockets";
 	public static final String OUTLETS = "outlets";

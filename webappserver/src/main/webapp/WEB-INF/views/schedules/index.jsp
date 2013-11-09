@@ -112,8 +112,8 @@
 											<label class="control-label" for="socketPosition">Socket</label>
 											<div class="controls">
 												<select data-placeholder="Your Socket" name="socketPosition" data-rel="chosen">
-													<option value="0" <c:if test="${scheduledEvent.socketPosition == 0}">selected</c:if>>A</option>
-													<option value="1" <c:if test="${scheduledEvent.socketPosition == 1}">selected</c:if>>B</option>
+													<option value="0">A</option>
+													<option value="1">B</option>
 										  		</select>								  		
 											</div>
 										</div>
@@ -169,7 +169,7 @@
 												<c:forEach items="${rooms}" var="room">		  			
 													<optgroup label="${room.key.name}">
 														<c:forEach items="${room.value}" var="outlet">
-														  <option value="${outlet.id}">${outlet.id}</option>
+														  <option value="${outlet.id}" <c:if test="${outletId == outlet.id}">selected</c:if>>${outlet.id}</option>
 														</c:forEach>
 													</optgroup>
 										  		</c:forEach>
@@ -181,8 +181,8 @@
 											<label class="control-label" for="socketPosition">Socket</label>
 											<div class="controls">
 												<select data-placeholder="Your Socket" name="socketPosition" data-rel="chosen">
-													<option value="0" <c:if test="${scheduledEvent.socketPosition == 0}">selected</c:if>>A</option>
-													<option value="1" <c:if test="${scheduledEvent.socketPosition == 1}">selected</c:if>>B</option>
+													<option value="0" <c:if test="${socketPosition == 0}">selected</c:if>>A</option>
+													<option value="1" <c:if test="${socketPosition == 1}">selected</c:if>>B</option>
 										  		</select>								  		
 											</div>
 										</div>
