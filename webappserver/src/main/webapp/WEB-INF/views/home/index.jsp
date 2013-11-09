@@ -57,7 +57,6 @@
 			<div id="content" class="span10">
 				<!-- content starts -->
 
-
 				<div>
 					<ul class="breadcrumb">
 						<li><a href="#">Dashboard</a></li>
@@ -65,10 +64,113 @@
 				</div>
 
 				<div class="row-fluid">
+					<a data-rel="tooltip" title="2 sockets allocated today" class="well span3 top-block" href="#">
+						<span><i class="icon32 icon-blue icon-home"></i></span>
+						<div>My Sockets</div>
+						<div>25</div>
+						<span class="notification green">2</span>
+					</a>
+					
+					<a data-rel="tooltip" class="well span3 top-block" href="#">
+						<i class="icon32 icon-color icon-lightbulb"></i>
+						<div>Present Usage</div>
+						<div>15 kWh</div>
+						<!-- <span class="notification green">2</span> -->
+					</a>
+					
+					<a data-rel="tooltip" class="well span3 top-block" href="#">
+						<span class="icon32 icon-blue icon-cart"></span>
+						<div>Cost / Savings</div>
+						<div>$20.46 / $5.09</div>
+						<span class="notification yellow">$0.46 / $0.09</span>
+					</a>
+					
+					<a data-rel="tooltip" title="1 new tip today" class="well span3 top-block" href="#">
+						<i class="icon32 icon-green icon-info"></i>
+						<div>Savings Tip</div>
+						<div>Run dishwasher at night</div>
+						<span class="notification green">1</span>
+					</a>
+				</div>
+					
+				<div class="row-fluid">				
 					<div class="box span12">
 						<div class="box-header well">
 							<h2>
-								Overview
+								Consumption
+							</h2>
+						</div>
+						<div class="box-content">
+							Put consumption graph Here!
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row-fluid">				
+					<div class="box span12">
+						<div class="box-header well">
+							<h2>
+								Information Logs
+							</h2>
+						</div>
+						<div class="box-content">
+							<table>
+								<tr>
+									<td>
+										<span class="label label-info">Info</span>
+									</td>
+									<td>
+										<span>11/9/2013 16:37:15</span>
+									</td>
+									<td>
+										<span>- New Socket 0A1234567 connection online</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span class="label label-warning">Warn</span>
+									</td>
+									<td>
+										<span>11/9/2013 16:37:15</span>
+									</td>
+									<td>
+										<span>- Socket 0A1234567 now allocated to you</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span class="label label-info">Info</span>
+									</td>
+									<td>
+										<span>11/9/2013 16:37:15</span>
+									</td>
+									<td>
+										<span>- Device connected to socket 0A1234567</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span class="label label-important">Error</span>
+									</td>
+									<td>
+										<span>11/9/2013 16:37:15</span>
+									</td>
+									<td>
+										<span>- Socket 0A1234567 connection interrupted</span>
+									</td>
+								</tr>
+							</table>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row-fluid">				
+					<div class="box span12">
+						<div class="box-header well">
+							<h2>
+								Schedules
 							</h2>
 						</div>
 						<div class="box-content">
@@ -85,7 +187,7 @@
 
 		<div class="modal hide fade" id="myModal">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
+				<button type="button" class="close" data-dismiss="modal">Ã</button>
 				<h3>Settings</h3>
 			</div>
 			<div class="modal-body">
