@@ -11,5 +11,10 @@ public class OutletFilter {
 		return DetachedCriteria.forClass(Outlet.class).
 				add(Restrictions.eq("room.id", roomId));
 	}
-	
+
+	public static DetachedCriteria getBySerialNumber(String serialNum){
+		return DetachedCriteria.forClass(Outlet.class).
+				add(Restrictions.eq("serialNumber", serialNum));
+	}
+
 }

@@ -65,6 +65,10 @@ public class OutletService {
 		return outletDAO.getAllByFilter(OutletFilter.getByRoomId(roomId));
 	}
 
+	public Outlet getOutletBySerialNumber(String serialNum) {
+		return outletDAO.getByFilter(OutletFilter.getBySerialNumber(serialNum));
+	}
+
 	//***************************************************
 	//OutletSystemView
 	//***************************************************
@@ -153,9 +157,15 @@ public class OutletService {
 		return socketDAO.getByFilter(SocketFilter.getById(socketId));
 	}
 
-	//TODO: Socket will have to get serial number from Outlet
-	public Socket getSocketBySerialNumber(String serialNumber) {
-		return socketDAO.getByFilter(SocketFilter.getBySerialNum(serialNumber));
+	public Socket getSocketFromOutlet(Integer outletId, Integer pos) {
+		List<Socket> sockets = getSocketsByOutlet(outletId);
+		for(Socket socket : sockets) {
+			if(socket.getPosition() == pos) {
+				return socket;
+			}
+		}
+
+		return null;
 	}
 
 	public SocketAssignment getSocketAssignmentBySocketId(Integer socketId){

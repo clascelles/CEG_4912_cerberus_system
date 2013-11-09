@@ -1,8 +1,6 @@
 package com.cerberus.model.outlets.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,8 +33,6 @@ public class Socket implements Serializable {
 	private SocketOperationMode mode;
 	private Outlet outlet;
 	private Integer position;
-	//TODO: Remove serialNumber in Socket, will be retrieved from Outlet instead
-	private String serialNumber;
 
 	public Socket() {
 		super();
@@ -48,7 +44,6 @@ public class Socket implements Serializable {
 		this.status = status;
 		this.mode = mode;
 		this.outlet = outlet;
-		this.serialNumber = serialNumber;
 	}
 
 	@Id
@@ -99,15 +94,6 @@ public class Socket implements Serializable {
 		this.position = position;
 	}
 
-	@Column(name="SERIAL_NUM", nullable=false)
-	public String getSerialNumber() {
-		return serialNumber;
-	}
-
-	public void setSerialNumber(String serialNumber) {
-		this.serialNumber = serialNumber;
-	}
-
 	@Override
 	public String toString() {
 		return "Socket [id=" + id + ", status=" + status + ", mode=" + mode
@@ -116,7 +102,7 @@ public class Socket implements Serializable {
 
 	//helper
 	@Transient
-	public static Socket create(Outlet outlet, Integer position, String serialNumber) {
+	public static Socket create(Outlet outlet, Integer position) {
 		Socket socket = new Socket();
 
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
@@ -125,27 +111,8 @@ public class Socket implements Serializable {
 		socket.setOutlet(outlet);
 		socket.setPosition(position);
 		socket.setStatus(outletWorkflow.getSocketStatusById(SocketOperationStatus.DISABLED));
-		socket.setSerialNumber(serialNumber);
 
 		return socket;
-	}
-
-	@Transient
-	public static String getNewSerial() {
-		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
-		String serial = "4500006700";
-		List<String> existingSerials = new ArrayList<String>();
-		for(Socket socket : outletWorkflow.getAllSockets()) {
-			existingSerials.add(socket.getSerialNumber());
-		}
-
-		while(existingSerials.contains(serial)) {
-			Long serialValue = Long.parseLong(serial);
-			serialValue++;
-			serial = serialValue.toString();
-		}
-
-		return serial;
 	}
 
 }
