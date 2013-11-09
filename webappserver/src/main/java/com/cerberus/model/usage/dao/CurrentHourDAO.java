@@ -40,7 +40,7 @@ public class CurrentHourDAO extends GenericDAO<CurrentHour, Integer> {
 			tx = session.beginTransaction();
 			
 			//Add Custom Query Here
-			Query query = session.createSQLQuery("insert into cerberus.current_hour select ID, SYSTEM_ID, TIMESTAMP_HOUR, CURRENT_HOUR_KWH from cerberus.current_hour_view where TIMESTAMP_HOUR < :thresholdTimestamp")
+			Query query = session.createSQLQuery("insert into cerberus.current_hour select ID, SYSTEM_ID, TIMESTAMP_HOUR, CURRENT_HOUR_KWH from cerberus.current_view_by_hour where TIMESTAMP_HOUR < :thresholdTimestamp")
 					.addEntity(CurrentHour.class)
 					.setParameter("thresholdTimestamp", minDate);
 			query.executeUpdate();

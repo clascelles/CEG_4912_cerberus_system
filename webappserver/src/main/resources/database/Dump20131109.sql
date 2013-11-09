@@ -138,6 +138,23 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary table structure for view `current_view_by_hour`
+--
+
+DROP TABLE IF EXISTS `current_view_by_hour`;
+/*!50001 DROP VIEW IF EXISTS `current_view_by_hour`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `current_view_by_hour` (
+  `ID` tinyint NOT NULL,
+  `TIMESTAMP_HOUR` tinyint NOT NULL,
+  `HOUR` tinyint NOT NULL,
+  `SYSTEM_ID` tinyint NOT NULL,
+  `CURRENT_HOUR_KWH` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `event`
 --
 
@@ -703,7 +720,7 @@ CREATE TABLE `socket` (
 
 LOCK TABLES `socket` WRITE;
 /*!40000 ALTER TABLE `socket` DISABLE KEYS */;
-INSERT INTO `socket` VALUES (1,1,4,1,0),(2,1,3,1,1),(3,1,4,2,0),(4,1,3,3,0),(5,1,2,4,0),(6,1,3,4,1),(7,1,3,5,0),(8,1,4,6,0),(9,1,3,6,1),(10,1,3,7,0),(11,1,3,8,0),(12,1,4,9,0),(13,1,3,10,0),(14,1,2,10,1),(15,1,3,11,0),(16,1,3,11,1),(17,1,3,12,0);
+INSERT INTO `socket` VALUES (1,1,1,1,0),(2,1,1,1,1),(3,1,1,2,0),(4,1,1,3,0),(5,1,2,4,0),(6,1,1,4,1),(7,1,1,5,0),(8,1,1,6,0),(9,1,1,6,1),(10,1,1,7,0),(11,1,1,8,0),(12,1,1,9,0),(13,1,1,10,0),(14,1,2,10,1),(15,1,1,11,0),(16,1,1,11,1),(17,1,1,12,0);
 /*!40000 ALTER TABLE `socket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -973,7 +990,26 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `current_hour_view` AS select `current`.`ID` AS `ID`,date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current`.`TIMESTAMP`,'%H') AS `HOUR`,(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) AS `SYSTEM_ID`,((sum(`current`.`CURRENT`) * 30) / 1000) AS `CURRENT_HOUR_KWH` from `current` group by `TIMESTAMP_HOUR`,`SYSTEM_ID` union select `current_hour`.`ID` AS `ID`,date_format(`current_hour`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current_hour`.`TIMESTAMP`,'%H') AS `HOUR`,`current_hour`.`SYSTEM_ID` AS `SYSTEM_ID`,`current_hour`.`CURRENT_HOUR` AS `CURRENT_HOUR_KWH` from `current_hour` */;
+/*!50001 VIEW `current_hour_view` AS select `current_view_by_hour`.`ID` AS `ID`,`current_view_by_hour`.`TIMESTAMP_HOUR` AS `TIMESTAMP_HOUR`,`current_view_by_hour`.`HOUR` AS `HOUR`,`current_view_by_hour`.`SYSTEM_ID` AS `SYSTEM_ID`,`current_view_by_hour`.`CURRENT_HOUR_KWH` AS `CURRENT_HOUR_KWH` from `current_view_by_hour` union select `current_hour`.`ID` AS `ID`,date_format(`current_hour`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current_hour`.`TIMESTAMP`,'%H') AS `HOUR`,`current_hour`.`SYSTEM_ID` AS `SYSTEM_ID`,`current_hour`.`CURRENT_HOUR` AS `CURRENT_HOUR_KWH` from `current_hour` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `current_view_by_hour`
+--
+
+/*!50001 DROP TABLE IF EXISTS `current_view_by_hour`*/;
+/*!50001 DROP VIEW IF EXISTS `current_view_by_hour`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `current_view_by_hour` AS select `current`.`ID` AS `ID`,date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current`.`TIMESTAMP`,'%H') AS `HOUR`,(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) AS `SYSTEM_ID`,((sum(`current`.`CURRENT`) * 30) / 1000) AS `CURRENT_HOUR_KWH` from `current` group by `TIMESTAMP_HOUR`,`SYSTEM_ID` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1044,4 +1080,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-09 12:45:47
+-- Dump completed on 2013-11-09 13:53:30
