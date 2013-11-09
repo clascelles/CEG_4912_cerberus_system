@@ -66,7 +66,7 @@
 				
 				<c:if test="${isSysAdmin}">					
 					<div class="row-fluid">
-						<div class="box span12">
+						<div class="box span6">
 							<div class="box-header well">
 								<h2>
 									<i class="icon-wrench"></i> System Settings
@@ -124,10 +124,7 @@
 								<div class="clearfix"></div>
 							</div>
 						</div>
-					</div>
-					
-					<div class="row-fluid">
-						<div class="box span12">
+						<div class="box span6">
 							<div class="box-header well">
 								<h2>
 									<i class="icon-wrench"></i> Security Settings
