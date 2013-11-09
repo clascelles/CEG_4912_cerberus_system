@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import com.cerberus.model.outlets.bean.Current;
 import com.cerberus.model.outlets.dao.CurrentDAO;
 import com.cerberus.model.usage.bean.CurrentDayView;
@@ -48,6 +50,10 @@ public class ConsumptionService {
 	public Current getCurrentById(Integer id){
 		return currentDAO.getById(id);
 	}
+	
+	public boolean deleteCurrentByThreshold(DateTime threshold){
+		return currentDAO.deleteCurrent(new Timestamp(threshold.getMillis()));
+	}
 
 	//*************************************************
 	//CURRENT HOUR
@@ -74,8 +80,8 @@ public class ConsumptionService {
 	//AGGREGATION OF CURRENT
 	//*************************************************
 
-	public void updateCurrentHour(Date filterDate){
-		currentHourDAO.updateCurrentHour(new Timestamp(filterDate.getTime()));
+	public void updateCurrentHour(DateTime threshold){
+		currentHourDAO.updateCurrentHour(new Timestamp(threshold.getMillis()));
 	}
 	
 

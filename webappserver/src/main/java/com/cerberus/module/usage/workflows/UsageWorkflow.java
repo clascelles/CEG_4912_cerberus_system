@@ -3,10 +3,13 @@ package com.cerberus.module.usage.workflows;
 import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.usage.bean.CurrentDayView;
 import com.cerberus.model.usage.bean.CurrentHourView;
 import com.cerberus.module.generic.workflows.Workflow;
+import com.cerberus.module.usage.constants.UsageConstants;
 import com.cerberus.service.system.SystemService;
 import com.cerberus.service.usage.ConsumptionService;
 
@@ -62,9 +65,12 @@ public class UsageWorkflow extends Workflow {
 		return currentDayList;	
 	}
 	
-	public void updateCurrentHour(){
+	public void updateCurrentHour(Date date){
+		DateTime threshold = new DateTime(date.getTime()).minusDays(UsageConstants.KEEP_FOR_DAYS);
 		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
-		consumptionService.updateCurrentHour(new Date());
+		
+		consumptionService.updateCurrentHour(threshold);
+		consumptionService.deleteCurrentByThreshold(threshold);
 	}
 
 }

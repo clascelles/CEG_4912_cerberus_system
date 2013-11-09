@@ -35,7 +35,8 @@
 	<!-- Every 15 seconds -->
 	<bean id="simpleTriggerData" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<property name="jobDetail" ref="dataAggregationJob" />
-		<property name="repeatInterval" value="15000" />
+		<property name="repeatCount" value="0" />
+		<property name="repeatInterval" value="0" />
 	</bean>
 	
 	<!-- Every 15 seconds -->
@@ -50,7 +51,7 @@
 			<list>
 				<ref bean="startDaemonServerJob" />
 				<ref bean="dataAggregationJob" />
-				<ref bean="eventSchedulingJob" />
+				<!-- <ref bean="eventSchedulingJob" />-->
 			</list>
 		</property>
 
@@ -58,7 +59,7 @@
 			<list>
 				<ref bean="simpleTriggerDaemon" />
 				<ref bean="simpleTriggerData" />
-				<ref bean="simpleTriggerEvent" />
+			<!-- <ref bean="simpleTriggerEvent" />-->
 			</list>
 		</property>
 	</bean>
