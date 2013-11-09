@@ -24,7 +24,6 @@ public class ByteMessageDecoder implements Runnable {
 		this.messageContainer = messageContainer;
 	}
 
-	@Override
 	public void run() {
 
 		//Print the message to decode to test the framework
