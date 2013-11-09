@@ -37,7 +37,7 @@ public class MessageProcessor implements Runnable {
 			// TODO: message didn't have the appropriate workflow, wtf happened?
 		}
 
-		if (messageProcessed) {
+		if (messageProcessed && messageWorkflow.isResponding()) {
 			messageWorkflow.returnServiceFactory();
 			ExecutorService executor = ExecutorServiceFactory.getResponseLogicThreadPool();
 			Runnable responseLogicTask = new MessageResponse(messageContainer);

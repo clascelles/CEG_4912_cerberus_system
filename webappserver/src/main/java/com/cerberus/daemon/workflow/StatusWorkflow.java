@@ -13,6 +13,7 @@ public class StatusWorkflow extends MessageWorkflow {
 	//private final ServiceFactory serviceFactory;
 
 	public StatusWorkflow() {
+		super(false); //TODO: Check this
 		//serviceFactory = borrowServiceFactory();
 		//LOGGER.info("[CurrentWorkflow]: Initializing. Borrowing Service Factory from ObjectPool");
 	}

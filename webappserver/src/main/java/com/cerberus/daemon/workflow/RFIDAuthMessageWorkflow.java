@@ -17,7 +17,6 @@ import com.cerberus.model.account.bean.UserType;
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.OutletOperationMode;
 import com.cerberus.model.outlets.bean.Socket;
-import com.cerberus.model.outlets.bean.SocketOperationMode;
 import com.cerberus.model.security.bean.RfidAuthentication;
 import com.cerberus.model.security.bean.RfidTag;
 import com.cerberus.module.security.constants.RfidPermission;
@@ -35,6 +34,7 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 	private final ServiceFactory serviceFactory;
 
 	public RFIDAuthMessageWorkflow() {
+		super(true);
 		serviceFactory = borrowServiceFactory();
 		LOGGER.info("[CurrentWorkflow]: Initializing. Borrowing Service Factory from ObjectPool");
 	}
@@ -54,8 +54,12 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 			throw new WrongMessageException("Wrong message processed by the RFIDAuthMessageWorkflow, "
 					+ "should've been a RFIDAuthRequestMessage, but instead was: " + receivedMessage.getClass());
 		}
+		LOGGER.info("RFID Request being processed: " + requestMessage.toString());
+		LOGGER.info("Request outlet ID: " + requestMessage.getOutletId());
 
-		Socket socket = outletService.getSocketBySerialNumber(requestMessage.getOutletId());
+		Outlet outlet = outletService.getOutletBySerialNumber(requestMessage.getOutletId());
+		Socket socket = outletService.getSocketFromOutlet(outlet.getId(), requestMessage.getSocket());
+		LOGGER.info("Socket: " + socket.toString());
 		User user = userService.getUserBySocketId(socket.getId());
 
 		if(user != null) {
@@ -65,7 +69,7 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 				user = userService.getUserById(systemService.getSysOwnerOfSystem(systemId));
 			}
 		} else {
-			LOGGER.error("No user associated to socket #" + socket.getId() + ", SN " + socket.getSerialNumber());
+			LOGGER.error("No user associated to socket #" + socket.getId() + ", POS " + socket.getPosition());
 			return false;
 		}
 
@@ -101,7 +105,6 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 		}
 
 		// Update outlet's operation mode to restricted
-		Outlet outlet = socket.getOutlet();
 		outlet.setMode(outletService.getOutletOperationModeById(OutletOperationMode.RESTRICTED));
 		try {
 			outletService.updateOutlet(outlet);
