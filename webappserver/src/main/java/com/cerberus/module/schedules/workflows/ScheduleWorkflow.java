@@ -1,7 +1,6 @@
 package com.cerberus.module.schedules.workflows;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.cerberus.daemon.scheduling.CerberusScheduler;

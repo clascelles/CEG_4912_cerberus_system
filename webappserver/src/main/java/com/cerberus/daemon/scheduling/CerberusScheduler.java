@@ -7,7 +7,6 @@ import java.util.List;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.scheduling.quartz.CronTriggerBean;
 import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 
@@ -20,7 +19,6 @@ import com.cerberus.module.schedules.workflows.ScheduleWorkflow;
 public class CerberusScheduler extends Thread {
 	
 	static Scheduler scheduler;
-	static XmlBeanFactory factory;
 	static Integer maxIds = (int) Math.pow(10, 12);
 	static Integer cronId;
 	static List<RecurringEvent> recurringEvents;
@@ -48,11 +46,24 @@ public class CerberusScheduler extends Thread {
 		}
 	}
 	
-	public void init(Scheduler quartzScheduler, XmlBeanFactory factory) {
-		this.scheduler = quartzScheduler;
-		this.factory = factory;
+	public void init(Scheduler quartzScheduler) {
+		scheduler = quartzScheduler;
 		cronId = 0;
 		recurringEvents = new ArrayList<RecurringEvent>();
+		
+		// grab all the scheduled events
+		List<ScheduledEvent> events = getEvents();
+		
+		// filter by only applicable for next minute
+		for(ScheduledEvent event : events) {
+			
+			Date now = new Date();
+			
+			if(event.getTime().before(now) 
+					&& event.getRecurrence().getId() != ScheduleRecurrence.ONCE_ID) {
+				schedule(event);					
+			}
+		}
 		
 		try {      
 	        scheduler.start();
@@ -73,8 +84,7 @@ public class CerberusScheduler extends Thread {
 		// so that we can be processing scheduled events from :00 - :59
 		try {
 			Date startTime = new Date();
-			Integer secondDelay = startTime.getSeconds();			
-			secondDelay = (secondDelay > 0) ? secondDelay-1 : 59;
+			Integer secondDelay = 59 - startTime.getSeconds();
 			sleep(secondDelay*millisInSec);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -95,7 +105,12 @@ public class CerberusScheduler extends Thread {
 					if(event.getTime().after(now) && event.getTime().before(oneMin)) {
 						// schedule a cron job
 						schedule(event);					
-					} else if(event.getTime().before(yesterday) 
+					} else if(getRecurringEvent(event) == null 
+							&& event.getTime().before(now) 
+							&& event.getRecurrence().getId() != ScheduleRecurrence.ONCE_ID) {
+						// schedule the cron job
+						schedule(event);
+					} else if(event.getTime().before(yesterday)
 							&& event.getRecurrence().getId() == ScheduleRecurrence.ONCE_ID) {
 						ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
 						scheduleWorkflow.removeScheduledEvent(event);
@@ -119,7 +134,8 @@ public class CerberusScheduler extends Thread {
 	public static void schedule(ScheduledEvent event) {
 		try {
 		    //get the task bean
-		    ScheduledEventTask scheduleTask = (ScheduledEventTask) factory.getBean("scheduledEventTask");
+		    Integer id = getCronId();
+		    ScheduledEventTask scheduleTask = new ScheduledEventTask();
 		    scheduleTask.init(event);		    
 		    
 		    // create JOB
@@ -130,15 +146,7 @@ public class CerberusScheduler extends Thread {
 		    jobDetail.setConcurrent(false);
 		    jobDetail.afterPropertiesSet();
 
-		    /* SimpleTriggerBean trigger = new SimpleTriggerBean();
-		    trigger.setBeanName("MyTrigger");
-		    trigger.setJobDetail((JobDetail) jobDetail.getObject());
-		    trigger.setRepeatInterval(5000);
-		    trigger.afterPropertiesSet();
-		    */
-
 		    // create CRON Trigger
-		    Integer id = getCronId();
 		    String cronTriggerId = String.format("%012d", id);
 		    
 		    CronTriggerBean cronTrigger = new CronTriggerBean();
@@ -151,8 +159,6 @@ public class CerberusScheduler extends Thread {
 		    if(event.getRecurrence().getId() != ScheduleRecurrence.ONCE_ID) {
 		    	recurringEvents.add(new RecurringEvent(event, jobDetail));
 		    }
-
-		    //scheduler.scheduleJob(jobDetail, cronTrigger);
 
 		    scheduler.scheduleJob((JobDetail) jobDetail.getObject(), cronTrigger);
 		} catch (Exception e) {

@@ -21,7 +21,7 @@ public class SchedulerBootstrap extends Thread {
         Scheduler scheduler = (Scheduler) factory.getBean("scheduler");
 
         CerberusScheduler cerberusScheduler = new CerberusScheduler();
-        cerberusScheduler.init(scheduler, factory);
+        cerberusScheduler.init(scheduler);
         cerberusScheduler.start();
         
         LOGGER.info("Done Scheduler Bootstrap, ready to schedule events");
