@@ -90,7 +90,7 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 			ChannelOutletBinding.addChannelToGroup(channel);
 			ChannelOutletBinding.bindOutletSerialNumberWithChannelId(new String(new ByteMessage(message).getOutletId()), channel.getId());
 		}else{
-/*
+
 			//Add a task to the Decoder Thread Pool.
 			ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
 			MessageContainer messageContainer = new MessageContainer(channel, message);
@@ -99,7 +99,7 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 			Runnable decoderTask = new ByteMessageDecoder(messageContainer);
 
 			executor.execute(decoderTask);	
-*/
+
 		}
 
 		stopwatch.stop();
