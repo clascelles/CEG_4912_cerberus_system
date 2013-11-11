@@ -22,7 +22,6 @@ import com.cerberus.model.security.bean.RfidTag;
 import com.cerberus.module.security.constants.RfidPermission;
 import com.cerberus.service.account.UserService;
 import com.cerberus.service.outlets.OutletService;
-import com.cerberus.service.pool.ServiceFactory;
 import com.cerberus.service.security.RfidService;
 import com.cerberus.service.system.SystemService;
 
@@ -31,12 +30,8 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 	// Get Logger
 	private final static Logger LOGGER = Logger.getLogger(RFIDAuthMessageWorkflow.class);
 
-	private final ServiceFactory serviceFactory;
-
 	public RFIDAuthMessageWorkflow() {
 		super(true);
-		serviceFactory = borrowServiceFactory();
-		LOGGER.info("[CurrentWorkflow]: Initializing. Borrowing Service Factory from ObjectPool");
 	}
 
 	@Override
