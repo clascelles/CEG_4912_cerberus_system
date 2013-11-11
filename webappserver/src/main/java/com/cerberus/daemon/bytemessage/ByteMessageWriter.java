@@ -2,7 +2,8 @@ package com.cerberus.daemon.bytemessage;
 
 import java.nio.ByteBuffer;
 
-import javax.xml.bind.DatatypeConverter;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 
 import com.cerberus.daemon.message.GenericInformationMessage;
 import com.cerberus.daemon.message.Message;
@@ -29,13 +30,20 @@ public class ByteMessageWriter {
 			messageBuffer.put(intToByte(message.getSocket()));
 			messageBuffer.put(timestampHandler.formatTimestamp(message.getTimestamp()));
 			// RFID Number is converted from a String to a hex byte array
-			messageBuffer.put(DatatypeConverter.parseHexBinary(message.getRfidNumber()));
+			byte[] decodedRfid = new byte[5];
+			try {
+				decodedRfid = Hex.decodeHex(message.getRfidNumber().toCharArray());
+			} catch (DecoderException e) {
+				// TODO: Log error!
+				e.printStackTrace();
+			}
+			messageBuffer.put(decodedRfid);
 
 			// Mode and subsequent fields are dependent on message type
 			switch(message.getType()) {
 			case OP_MODE_SWITCH:
 				SwitchOperatingModeMessage switchOp = (SwitchOperatingModeMessage) message;
-				messageBuffer.put(intToByte(switchOp.getOpMode().getIntValue()));
+				messageBuffer.put(intToByte(switchOp.getOpMode()));
 				// Casting power threshold value to use 4 bytes instead of 1
 				messageBuffer.putInt(switchOp.getPowerThreshold());
 				break;
@@ -58,6 +66,8 @@ public class ByteMessageWriter {
 				messageBuffer.put(generic.getInformation().getBytes());
 				break;
 
+			case INIT:
+				break;
 			case CURRENT:
 			case RFID_AUTH_REQ:
 			default:

@@ -2,6 +2,8 @@ package com.cerberus.daemon.bytemessage;
 
 import java.nio.ByteBuffer;
 
+import org.apache.commons.codec.binary.Hex;
+
 import com.cerberus.daemon.constants.MessageType;
 import com.cerberus.daemon.constants.SocketStatus;
 import com.cerberus.daemon.message.CurrentConsumptionMessage;
@@ -24,7 +26,7 @@ public class ByteMessageReader {
 		String outletId = new String(message.getOutletId());
 		int socketId = message.getSocketId();
 		long timestamp = timestampHandler.readTimestamp(message.getTimestamp());
-		String rfid = new String(message.getRfidNumber());
+		String rfid = new String(Hex.encodeHex(message.getRfidNumber()));
 
 		Message readMessage;
 		switch(type) {

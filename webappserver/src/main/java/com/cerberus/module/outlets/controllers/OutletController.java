@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,7 +27,6 @@ import com.cerberus.module.outlets.backingobjects.OutletOperationModeBackingObje
 import com.cerberus.module.outlets.backingobjects.SocketBackingObjectFactory;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
 import com.cerberus.module.system.workflows.SystemWorkflow;
-
 
 @Controller
 public class OutletController extends CerberusController {

@@ -1,22 +1,21 @@
 package com.cerberus.daemon.message;
 
 import com.cerberus.daemon.constants.MessageType;
-import com.cerberus.daemon.constants.SocketOperatingMode;
 import com.cerberus.daemon.workflow.MessageWorkflow;
 
 public class SwitchOperatingModeMessage extends Message {
 
-	private final SocketOperatingMode opMode;
+	private final int opMode;
 	private final int powerThreshold;
 
 	public SwitchOperatingModeMessage(String outletId, int socket, long timestamp, String rfidNumber,
-			SocketOperatingMode opMode, int powerThreshold) {
+			int opMode, int powerThreshold) {
 		super(MessageType.OP_MODE_SWITCH, outletId, socket, timestamp, rfidNumber);
 		this.opMode = opMode;
 		this.powerThreshold = powerThreshold;
 	}
 
-	public SocketOperatingMode getOpMode() {
+	public int getOpMode() {
 		return opMode;
 	}
 
@@ -34,7 +33,7 @@ public class SwitchOperatingModeMessage extends Message {
 	public String toString() {
 		String message = super.toString();
 		message += ":";
-		message += opMode.toString() + ":";
+		message += opMode + ":";
 		message += powerThreshold;
 
 		return message;

@@ -3,7 +3,7 @@ package com.cerberus.module.outlets.workflows;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cerberus.daemon.constants.SocketOperatingMode;
+import com.cerberus.daemon.constants.OperationMode;
 import com.cerberus.daemon.workflow.SwitchOperationModeWorkflow;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
@@ -40,15 +40,17 @@ public class OutletWorkflow extends Workflow {
 				outlet.setMode(getOutletOperationModeById(newOutlet.getModeId()));
 				updateOutlet(outlet);
 
+
 				// Get message workflow
 				SwitchOperationModeWorkflow messageWorkflow = CerberusApplicationContext.getWorkflows().getSwitchOperationModeWorkflow();
+				OperationMode opMode = new OperationMode(newOutlet.getModeId(), 0);
 
 				// TODO: Remove hard-coded values!
 				// Send two messages, one for each socket
-				messageWorkflow.sendMessage(outlet.getSerialNumber(), 0, "F458C7AAE4",
-						SocketOperatingMode.fromIntValue(newOutlet.getModeId()), 1);
-				messageWorkflow.sendMessage(outlet.getSerialNumber(), 1, "F458C7AAE4",
-						SocketOperatingMode.fromIntValue(newOutlet.getModeId()), 1);
+				messageWorkflow.sendMessage(outlet.getSerialNumber(), 0, "0000000000",
+						opMode, 1);
+				messageWorkflow.sendMessage(outlet.getSerialNumber(), 1, "0000000000",
+						opMode, 1);
 			}
 		}
 
@@ -116,7 +118,7 @@ public class OutletWorkflow extends Workflow {
 	public List<Socket> getSocketsByOutlet(Outlet outlet) {
 		return getSocketsByOutletId(outlet.getId());
 	}
-	
+
 	public List<Socket> getSocketsByOutletId(Integer id) {
 		OutletService outletService = serviceFactory.getOutletService();
 		List<Socket> sockets = outletService.getSocketsByOutlet(id);
@@ -125,7 +127,7 @@ public class OutletWorkflow extends Workflow {
 
 		return sockets;
 	}
-	
+
 	public Socket getSocketByOutletAndPosition(Integer outletId, Integer position) {
 		OutletService outletService = serviceFactory.getOutletService();
 		Socket socket = outletService.getSocketFromOutlet(outletId, position);
@@ -134,13 +136,13 @@ public class OutletWorkflow extends Workflow {
 
 		return socket;
 	}
-	
+
 	public List<Socket> getSocketsByUser(User user) {
 		OutletService outletService = serviceFactory.getOutletService();
-		
+
 		List<Outlet> outlets = getOutletFromUser(user);
 		List<Socket> sockets = new ArrayList<Socket>();
-		
+
 		for(Outlet outlet : outlets) {
 			sockets.addAll(outletService.getSocketsByOutlet(outlet.getId()));
 		}

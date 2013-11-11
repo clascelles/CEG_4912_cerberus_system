@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.jboss.netty.channel.Channel;
 import org.joda.time.DateTime;
 
-import com.cerberus.daemon.constants.SocketOperatingMode;
+import com.cerberus.daemon.constants.OperationMode;
 import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.Message;
 import com.cerberus.daemon.message.MessageContainer;
@@ -44,11 +44,11 @@ public class SwitchOperationModeWorkflow extends MessageWorkflow {
 	}
 
 	public boolean sendMessage(String serialNumber, int socket, String rfidNumber,
-			SocketOperatingMode opMode, int powerThreshold) {
+			OperationMode opMode, int powerThreshold) {
 
 		DateTime dt = new DateTime();
 
-		SwitchOperatingModeMessage message = new SwitchOperatingModeMessage(serialNumber, socket, dt.getMillis() / 1000, rfidNumber, opMode, powerThreshold);
+		SwitchOperatingModeMessage message = new SwitchOperatingModeMessage(serialNumber, socket, dt.getMillis() / 1000, rfidNumber, opMode.getOperationMode(), powerThreshold);
 		MessageContainer container = new MessageContainer(null, message);
 
 		ExecutorService executor = ExecutorServiceFactory.getResponseLogicThreadPool();

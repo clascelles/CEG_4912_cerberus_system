@@ -13,10 +13,7 @@ import com.cerberus.daemon.message.RFIDAuthResponseMessage;
 import com.cerberus.daemon.message.WrongMessageException;
 import com.cerberus.daemon.response.MessageResponse;
 import com.cerberus.model.account.bean.User;
-import com.cerberus.model.account.bean.UserType;
 import com.cerberus.model.outlets.bean.Outlet;
-import com.cerberus.model.outlets.bean.OutletOperationMode;
-import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.security.bean.RfidAuthentication;
 import com.cerberus.model.security.bean.RfidTag;
 import com.cerberus.module.security.constants.RfidPermission;
@@ -31,7 +28,7 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 	private final static Logger LOGGER = Logger.getLogger(RFIDAuthMessageWorkflow.class);
 
 	public RFIDAuthMessageWorkflow() {
-		super(true);
+		super(false);
 	}
 
 	@Override
@@ -53,26 +50,22 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 		LOGGER.info("Request outlet ID: " + requestMessage.getOutletId());
 
 		Outlet outlet = outletService.getOutletBySerialNumber(requestMessage.getOutletId());
-		Socket socket = outletService.getSocketFromOutlet(outlet.getId(), requestMessage.getSocket());
-		LOGGER.info("Socket: " + socket.toString());
-		User user = userService.getUserBySocketId(socket.getId());
-
-		if(user != null) {
-			if(user.getType().getId() != UserType.SYSTEM_OWNER_ID) {
-				// RFID Tag are assigned to system owners for now (to be system-wide)
-				Integer systemId = systemService.getSystemIdByUserId(user.getId());
-				user = userService.getUserById(systemService.getSysOwnerOfSystem(systemId));
-			}
-		} else {
-			LOGGER.error("No user associated to socket #" + socket.getId() + ", POS " + socket.getPosition());
+		if(outlet == null) {
+			// New outlet that wasn't added to the system, ignore message
 			return false;
 		}
+
+		LOGGER.info("Outlet: " + outlet.toString());
+
+		// RFID Tag are assigned to system owners for now (to be system-wide)
+		Integer systemId = outletService.getSystemIdFromOutlet(outlet.getId());
+		User sysOwner = userService.getUserById(systemService.getSysOwnerOfSystem(systemId));
 
 		RfidTag rfidTag = rfidService.getRfidTagByNumber(requestMessage.getRfidNumber());
 
 		if(rfidTag == null) {
 			// New RFID Tag, create it and store it
-			rfidTag = new RfidTag(requestMessage.getRfidNumber(), null, null);
+			rfidTag = new RfidTag(requestMessage.getRfidNumber(), "New RFID Tag", null);
 			try {
 				rfidService.insertRfidTag(rfidTag);
 			} catch(Exception e) {
@@ -86,7 +79,7 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 
 		if(auth == null) {
 			// Rfid was never authenticated before
-			auth = new RfidAuthentication(rfidTag.getId(), user, RfidPermission.UNSET.getIntValue());
+			auth = new RfidAuthentication(rfidTag.getId(), sysOwner, RfidPermission.UNSET.getIntValue());
 			try {
 				rfidService.insertRfidAuthentication(auth);
 			} catch(Exception e) {
@@ -99,17 +92,8 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 			isAllowed = (auth.getPermission() == RfidPermission.ALLOWED.getIntValue());
 		}
 
-		// Update outlet's operation mode to restricted
-		outlet.setMode(outletService.getOutletOperationModeById(OutletOperationMode.RESTRICTED));
-		try {
-			outletService.updateOutlet(outlet);
-		} catch(Exception e) {
-			LOGGER.error("Failed to update outlet after receiving an rfid request message. Outlet: " + outlet);
-			return false;
-		}
-
 		// Send response back to client
-		respondMessage(requestMessage.getOutletId(), socket.getId(), rfidTag.getNumber(), isAllowed);
+		respondMessage(requestMessage.getOutletId(), requestMessage.getSocket(), rfidTag.getNumber(), isAllowed);
 
 		return true;
 	}

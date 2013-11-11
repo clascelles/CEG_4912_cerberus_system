@@ -8,9 +8,10 @@ import com.cerberus.module.generic.backingobjects.BackingObjectFactory;
 import com.cerberus.module.generic.workflows.Workflows;
 
 public class SystemBackingObjectFactory extends BackingObjectFactory<CerberusSystem, SystemBackingObject> {
-	
+
 	public static SystemBackingObjectFactory INSTANCE = new SystemBackingObjectFactory();
-		
+
+	@Override
 	public SystemBackingObject getBackingObject(User user) {
 		return getBackingObject(user.getLogin().getSystem());
 	}
@@ -30,29 +31,29 @@ public class SystemBackingObjectFactory extends BackingObjectFactory<CerberusSys
 	@Override
 	public CerberusSystem bind(SystemBackingObject backingObject, User user) {
 		Workflows workflows = CerberusApplicationContext.getWorkflows();
-		
+
 		CerberusSystem system = user.getLogin().getSystem();
-		
+
 		//can't modify the system id
 		//can't modify the name at the moment
-		
+
 		//bind the active attribute
 		system.setSystemActive(backingObject.isSystemActive());
-		
+
 		//bind the default operation mode
 		if (backingObject.getDefaultOutletOperationModeId() != null) {
 			OutletOperationMode mode = workflows.getOutletWorkflow().getOutletOperationModeById(backingObject.getDefaultOutletOperationModeId());
 			system.setDefaultOperationMode(mode);
 		}
-		
+
 		//bind the spike protection attribute
 		system.setSpikeProtection(backingObject.isSpikeProtection());
-		
+
 		//bind the encryption key
 		if(backingObject.getEncryptionKey() != null && !backingObject.getEncryptionKey().isEmpty()) {
 			system.setEncryptionKey(backingObject.getEncryptionKey());
 		}
-		
+
 		return system;
 	}
 
@@ -61,5 +62,5 @@ public class SystemBackingObjectFactory extends BackingObjectFactory<CerberusSys
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 }
