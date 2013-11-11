@@ -22,7 +22,7 @@ import com.cerberus.model.outlets.dao.SocketDAO;
 import com.cerberus.model.outlets.filter.SocketAssignmentFilter;
 
 public class UserService {
-	
+
 	SocketDAO socketDAO;
 	SocketAssignmentDAO socketAssignmentDAO;
 	UserDAO userDAO;
@@ -30,7 +30,7 @@ public class UserService {
 	PersonalInformationDAO personalInformationDAO;
 	UserTypeDAO userTypeDAO;
 	UserSettingDAO userSettingDAO;
-	
+
 	public UserService(){
 		socketDAO = new SocketDAO();
 		socketAssignmentDAO = new SocketAssignmentDAO();
@@ -39,42 +39,45 @@ public class UserService {
 		personalInformationDAO = new PersonalInformationDAO();
 		userTypeDAO = new UserTypeDAO();
 		userSettingDAO = new UserSettingDAO();
-		
-	}
-	
-	public User getUserBySocketId(Integer socketId){
-		
-		SocketAssignment socketAssignment = 
-				socketAssignmentDAO.getByFilter(SocketAssignmentFilter.getBySocketId(socketId));
-		
-		return socketAssignment.getUser();
 
 	}
-	
+
+	public User getUserBySocketId(Integer socketId){
+
+		SocketAssignment socketAssignment =
+				socketAssignmentDAO.getByFilter(SocketAssignmentFilter.getBySocketId(socketId));
+
+		if (socketAssignment != null) {
+			return socketAssignment.getUser();
+		}
+		return null;
+
+	}
+
 	//***************************************************
 	//USER
 	//***************************************************
-	
+
 	public User getUserById(Integer userId){
 		return userDAO.getById(userId);
 	}
-	
+
 	public Integer insertUser(User user){
 		return userDAO.save(user);
 	}
-	
+
 	public User updateUser(User user){
 		return userDAO.merge(user);
 	}
-	
+
 	public void deleteUser(User user){
 		userDAO.delete(user);
 	}
-	
+
 	public List<User> getAllUser() {
 		return userDAO.getAll();
 	}
-	
+
 	public User getUserByLoginId(Integer loginId){
 		return userDAO.getByFilter(UserFilter.getUserByLoginId(loginId));
 	}
@@ -82,19 +85,19 @@ public class UserService {
 	//***************************************************
 	//LOGIN
 	//***************************************************
-	
+
 	public Integer insertLogin(Login login){
 		return loginDAO.save(login);
 	}
-	
+
 	public Login updateLogin(Login login){
 		return loginDAO.merge(login);
 	}
-	
+
 	public void deleteLogin(Login login){
 		loginDAO.delete(login);
 	}
-	
+
 	public Login getLoginById(Integer loginId) {
 		return loginDAO.getById(loginId);
 	}
@@ -102,12 +105,12 @@ public class UserService {
 	public List<Login> getAllLogin() {
 		return loginDAO.getAll();
 	}
-	
+
 	public Login getLoginByUsernameAndPassword(String username, String password){
 		DetachedCriteria criteria = LoginFilter.getLoginByUsernameAndPassword(username, password);
 		return loginDAO.getByFilter(criteria);
 	}
-	
+
 	public List<Login> getLoginsBySystemId(Integer systemId) {
 		return loginDAO.getAllByFilter(LoginFilter.getLoginsBySystemId(systemId));
 	}
@@ -119,16 +122,16 @@ public class UserService {
 	public Integer insertPersonalInformation(PersonalInformation personalInformation){
 		return personalInformationDAO.save(personalInformation);
 	}
-	
+
 	public PersonalInformation updatePersonalInformation(PersonalInformation personalInformation){
 		return personalInformationDAO.merge(personalInformation);
 	}
-	
+
 	public void deletePersonalInformation(PersonalInformation personalInformation){
 		personalInformationDAO.delete(personalInformation);
 	}
-	
-	
+
+
 	//***************************************************
 	//USER TYPE
 	//***************************************************
@@ -136,11 +139,11 @@ public class UserService {
 	public Integer insertUserType(UserType userType) {
 		return userTypeDAO.save(userType);
 	}
-	
+
 	public UserType getUserTypeById(Integer userTypeId){
 		return userTypeDAO.getById(userTypeId);
-	}	
-	
+	}
+
 	public List<UserType> getAllUserTypes() {
 		return userTypeDAO.getAll();
 	}
@@ -148,17 +151,17 @@ public class UserService {
 	//***************************************************
 	//USER SETTING
 	//***************************************************
-	
+
 	public Integer insertUserSetting(UserSetting userSetting){
 		return userSettingDAO.save(userSetting);
 	}
-	
+
 	public UserSetting updateUserSetting(UserSetting userSetting){
 		return userSettingDAO.merge(userSetting);
 	}
-	
+
 	public void deleteUserSetting(UserSetting userSetting){
 		userSettingDAO.delete(userSetting);
 	}
-	
+
 }
