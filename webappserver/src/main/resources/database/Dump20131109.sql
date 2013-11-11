@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `cerberus` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cerberus`;
--- MySQL dump 10.13  Distrib 5.6.11, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
 -- Host: localhost    Database: cerberus
 -- ------------------------------------------------------
--- Server version	5.6.11
+-- Server version	5.6.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1048,7 +1048,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `rfid_tag_view` AS (select `rfid_tag`.`ID` AS `RFID_ID`,`rfid_tag`.`NUMBER` AS `RFID_NUMBER`,`rfid_tag`.`TAG_NAME` AS `RFID_NAME`,`consumption_profile`.`PROFILE_NAME` AS `PROFILE_NAME`,`rfid_authentication`.`USERS_ID` AS `USER_ID`,`rfid_authentication`.`PERMISSION` AS `RFID_PERMISSION` from ((`rfid_tag` join `rfid_authentication` on((`rfid_authentication`.`RFID_TAG_ID` = `rfid_tag`.`ID`))) join `consumption_profile` on((`consumption_profile`.`ID` = `rfid_tag`.`PROFILE_ID`)))) */;
+/*!50001 VIEW `rfid_tag_view` AS (select `rfid_tag`.`ID` AS `RFID_ID`,`rfid_tag`.`NUMBER` AS `RFID_NUMBER`,`rfid_tag`.`TAG_NAME` AS `RFID_NAME`,`consumption_profile`.`PROFILE_NAME` AS `PROFILE_NAME`,`rfid_authentication`.`USERS_ID` AS `USER_ID`,`rfid_authentication`.`PERMISSION` AS `RFID_PERMISSION` from ((`rfid_tag` join `rfid_authentication` on((`rfid_authentication`.`RFID_TAG_ID` = `rfid_tag`.`ID`))) left join `consumption_profile` on((`consumption_profile`.`ID` = `rfid_tag`.`PROFILE_ID`)))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1081,4 +1081,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-11 12:01:07
+-- Dump completed on 2013-11-11 15:13:48
