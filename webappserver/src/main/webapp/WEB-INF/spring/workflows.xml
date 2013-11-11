@@ -17,6 +17,7 @@
 	
 	<!--  Add all the Message Handling Workflows Here -->
 	<bean id="switchOperationModeWorkflow" class="com.cerberus.daemon.workflow.SwitchOperationModeWorkflow" scope="prototype"></bean>
+	<bean id="initializationWorkflow" class="com.cerberus.daemon.workflow.InitializationWorkflow" scope="prototype"></bean>
 	
 	
 	
@@ -31,6 +32,7 @@
 		<property name="systemWorkflow" ref="systemWorkflow"></property>
 		
 		<property name="switchOperationModeWorkflow" ref="switchOperationModeWorkflow"></property>
+		<property name="initializationWorkflow" ref="initializationWorkflow"></property>
 	</bean>
 
 	

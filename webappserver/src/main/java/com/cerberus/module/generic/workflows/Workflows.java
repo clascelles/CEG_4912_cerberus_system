@@ -1,5 +1,6 @@
 package com.cerberus.module.generic.workflows;
 
+import com.cerberus.daemon.workflow.InitializationWorkflow;
 import com.cerberus.daemon.workflow.SwitchOperationModeWorkflow;
 import com.cerberus.module.account.workflows.AccountWorkflow;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
@@ -22,6 +23,7 @@ public class Workflows {
 	private UsageWorkflow usageWorkflow;
 
 	private SwitchOperationModeWorkflow switchOperationModeWorkflow;
+	private InitializationWorkflow initializationWorkflow;
 
 	public AccountWorkflow getAccountWorkflow() {
 		return accountWorkflow;
@@ -86,6 +88,16 @@ public class Workflows {
 			SwitchOperationModeWorkflow switchOperationModeWorkflow) {
 		this.switchOperationModeWorkflow = switchOperationModeWorkflow;
 	}
+	
+	public InitializationWorkflow getInitializationWorkflow() {
+		return initializationWorkflow;
+	}
+	public void setInitializationWorkflow(
+			InitializationWorkflow initializationWorkflow) {
+		this.initializationWorkflow = initializationWorkflow;
+	}
+	
+	
 
 
 
