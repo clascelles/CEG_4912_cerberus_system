@@ -13,29 +13,13 @@
 
 
 	<!-- Initiating all the controllers -->
-	<bean id="loginController" class="com.cerberus.module.account.controllers.LoginController">
-		<property name="bin" ref="bin"></property>
-	</bean>
-	<bean id="accountController" class="com.cerberus.module.account.controllers.AccountController">
-		<property name="bin" ref="bin"></property>
-	</bean>
-	<bean id="overviewController" class="com.cerberus.module.overview.controllers.OverviewController">
-		<property name="bin" ref="bin"></property>
-	</bean>
-	<bean id="outletController" class="com.cerberus.module.outlets.controllers.OutletController">
-		<property name="bin" ref="bin"></property>
-	</bean>
-	<bean id="scheduleController" class="com.cerberus.module.schedules.controllers.ScheduleController">
-		<property name="bin" ref="bin"></property>
-	</bean>
-	<bean id="securityController" class="com.cerberus.module.security.controllers.SecurityController">
-		<property name="bin" ref="bin"></property>
-	</bean>
-	<bean id="systemController" class="com.cerberus.module.system.controllers.SystemController">
-		<property name="bin" ref="bin"></property>
-	</bean>
-	<bean id="usageController" class="com.cerberus.module.usage.controllers.UsageController">
-		<property name="bin" ref="bin"></property>
-	</bean>
+	<bean id="loginController" class="com.cerberus.module.account.controllers.LoginController"></bean>
+	<bean id="accountController" class="com.cerberus.module.account.controllers.AccountController"></bean>
+	<bean id="overviewController" class="com.cerberus.module.overview.controllers.OverviewController"></bean>
+	<bean id="outletController" class="com.cerberus.module.outlets.controllers.OutletController"></bean>
+	<bean id="scheduleController" class="com.cerberus.module.schedules.controllers.ScheduleController"></bean>
+	<bean id="securityController" class="com.cerberus.module.security.controllers.SecurityController"></bean>
+	<bean id="systemController" class="com.cerberus.module.system.controllers.SystemController"></bean>
+	<bean id="usageController" class="com.cerberus.module.usage.controllers.UsageController"></bean>
 	
 </beans>
