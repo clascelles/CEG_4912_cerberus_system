@@ -65,7 +65,7 @@
 				</div>
 
 				<div class="row-fluid">
-					<div class="box span6">
+					<div class="box span6 xl">
 						<div class="box-header well">
 							<h2>
 								<i class="icon-time"></i> Add Event
@@ -149,7 +149,7 @@
 						</div>
 					</div>
 					
-					<div class="box span6">
+					<div class="box span6 xl">
 						<div class="box-header well">
 							<h2>
 								<i class="icon-list-alt"></i> Existing Events

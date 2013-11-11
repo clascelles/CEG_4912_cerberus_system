@@ -121,8 +121,6 @@ float: right;
 width: 80%;
 }
 
-
-
 .box{
 border: 1px solid #DEDEDE;
 border-radius:3px;
@@ -133,7 +131,14 @@ margin-bottom: 10px ;
 box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
 -webkit-box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
 -moz-box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
-min-width:403px;
+}
+
+.input-container{
+	margin-left:0 !important;
+}
+
+.xl{
+	min-width:460px;
 }
 
 .box-header{

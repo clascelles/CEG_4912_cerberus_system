@@ -80,7 +80,7 @@
 							<form id="editProfile" class="form-horizontal" method="post">
 						  		<fieldset>						  			
 									<div class="row-fluid">
-										<div class="span6">
+										<div class="span6 input-container xl">
 											<div class="control-group">
 												<label class="control-label">Username</label>
 												<div class="controls">
@@ -103,7 +103,7 @@
 											</div>
 										</div>
 												  			
-										<div class="span6">											
+										<div class="span6 input-container xl">											
 											<div class="control-group">
 												<label class="control-label">Phone Number:</label>
 												<div class="controls">
