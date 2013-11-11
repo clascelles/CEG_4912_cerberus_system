@@ -5,6 +5,7 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 
 import com.cerberus.daemon.constants.OperationModeUtil;
+import com.cerberus.frameworks.netty.ChannelOutletBinding;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
@@ -41,7 +42,9 @@ public class ScheduledEventTask {
 		System.out.println("Timestamp: " + timestamp);
 		System.out.println("Recurrence level: " + recurrence);
 		
-		sendMessage();
+		if(ChannelOutletBinding.isChannelBinded(socket.getOutlet().getSerialNumber())) {
+			sendMessage();
+		}
 		
 	}
 	
