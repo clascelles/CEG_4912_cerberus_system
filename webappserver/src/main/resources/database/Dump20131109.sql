@@ -678,7 +678,7 @@ CREATE TABLE `scheduled_event` (
   CONSTRAINT `fk_?0A5185F2?CAED?41C8?9B0A?6E94C01D710B?` FOREIGN KEY (`USERS_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?1D49F5A7?D149?4ACB?9C8D?B8DE2C97CA6A?` FOREIGN KEY (`SCHEDULE_MODE_ID`) REFERENCES `socket_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?C343C72D?12FA?564C?AFF7?D7F371EDABC7?` FOREIGN KEY (`SOCKET_ID`) REFERENCES `socket` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -687,6 +687,7 @@ CREATE TABLE `scheduled_event` (
 
 LOCK TABLES `scheduled_event` WRITE;
 /*!40000 ALTER TABLE `scheduled_event` DISABLE KEYS */;
+INSERT INTO `scheduled_event` VALUES (15,1,7,2,'2013-11-11 12:45:01',1);
 /*!40000 ALTER TABLE `scheduled_event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -990,7 +991,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `current_hour_view` AS select `current_view_by_hour`.`ID` AS `ID`,`current_view_by_hour`.`TIMESTAMP_HOUR` AS `TIMESTAMP_HOUR`,`current_view_by_hour`.`HOUR` AS `HOUR`,`current_view_by_hour`.`SYSTEM_ID` AS `SYSTEM_ID`,`current_view_by_hour`.`CURRENT_HOUR_KWH` AS `CURRENT_HOUR_KWH` from `current_view_by_hour` union select `current_hour`.`ID` AS `ID`,date_format(`current_hour`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current_hour`.`TIMESTAMP`,'%H') AS `HOUR`,`current_hour`.`SYSTEM_ID` AS `SYSTEM_ID`,`current_hour`.`CURRENT_HOUR` AS `CURRENT_HOUR_KWH` from `current_hour` */;
+/*!50001 VIEW `current_hour_view` AS select `current_view_by_hour`.`ID` AS `ID`,`current_view_by_hour`.`TIMESTAMP_HOUR` AS `TIMESTAMP_HOUR`,`current_view_by_hour`.`HOUR` AS `HOUR`,`current_view_by_hour`.`SYSTEM_ID` AS `SYSTEM_ID`,`current_view_by_hour`.`CURRENT_HOUR_KWH` AS `CURRENT_HOUR_KWH` from `current_view_by_hour` union select `current_hour`.`ID` AS `ID`,date_format(`current_hour`.`TIMESTAMP`,'%Y-%m-%d %H:00:00') AS `TIMESTAMP_HOUR`,date_format(`current_hour`.`TIMESTAMP`,'%H') AS `HOUR`,`current_hour`.`SYSTEM_ID` AS `SYSTEM_ID`,`current_hour`.`CURRENT_HOUR` AS `CURRENT_HOUR_KWH` from `current_hour` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1080,4 +1081,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-09 13:53:30
+-- Dump completed on 2013-11-11 12:01:07
