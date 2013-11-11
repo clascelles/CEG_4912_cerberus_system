@@ -133,6 +133,7 @@ margin-bottom: 10px ;
 box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
 -webkit-box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
 -moz-box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
+min-width:403px;
 }
 
 .box-header{
@@ -191,7 +192,6 @@ margin-left:-4.5px;
 }
 .box-content{
 padding:10px;
-overflow:hidden;
 }
 
 
