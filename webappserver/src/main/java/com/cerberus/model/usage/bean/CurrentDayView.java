@@ -14,24 +14,24 @@ import javax.persistence.Table;
 public class CurrentDayView implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	Integer id;
 	Timestamp timestampDay;
 	Integer systemId;
 	double currentDay;
 	Integer day;
-	
-	
+
+
 	public CurrentDayView() {
 		super();
 	}
-	
+
 	public CurrentDayView(Timestamp timestampDay, Integer systemId,
-			Integer currentDay) {
+			double currentDay) {
 		super();
 		this.timestampDay = timestampDay;
 		this.systemId = systemId;
@@ -46,7 +46,7 @@ public class CurrentDayView implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	@Column(name="TIMESTAMP_DAY", nullable=false, updatable=false, insertable=false)
 	public Timestamp getTimestampDay() {
 		return timestampDay;

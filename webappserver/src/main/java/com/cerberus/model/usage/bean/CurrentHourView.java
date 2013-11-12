@@ -30,7 +30,7 @@ public class CurrentHourView implements Serializable{
 	}
 
 	public CurrentHourView(Timestamp timestampHour, Integer systemId,
-			Integer currentHour) {
+			double currentHour) {
 		super();
 		this.timestampHour = timestampHour;
 		this.systemId = systemId;

@@ -23,15 +23,15 @@ public class CurrentHour implements Serializable {
 	private Integer userId;
 	private Integer socketId;
 	private Timestamp timestamp;
-	private Integer currentHour;
+	private double currentHour;
 
 	public CurrentHour() {
 		super();
 	}
 
-	
+
 	public CurrentHour(Integer userId, Integer socketId,
-			Timestamp timestamp, Integer currentHour) {
+			Timestamp timestamp, double currentHour) {
 		super();
 		this.userId = userId;
 		this.socketId = socketId;
@@ -79,11 +79,11 @@ public class CurrentHour implements Serializable {
 	}
 
 	@Column(name="CURRENT_HOUR", nullable=false)
-	public Integer getCurrentHour() {
+	public double getCurrentHour() {
 		return currentHour;
 	}
 
-	public void setCurrentHour(Integer currentHour) {
+	public void setCurrentHour(double currentHour) {
 		this.currentHour = currentHour;
 	}
 
@@ -95,5 +95,5 @@ public class CurrentHour implements Serializable {
 				+ currentHour + "]";
 	}
 
-	
+
 }

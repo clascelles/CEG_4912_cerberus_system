@@ -31,9 +31,11 @@ public class ByteMessageReader {
 		Message readMessage;
 		switch(type) {
 		case CURRENT:
-			// TODO: Ugly casting from double to int, will have to figure this out later!
-			double current = ByteBuffer.wrap(message.getCurrent()).getDouble();
-			readMessage = new CurrentConsumptionMessage(outletId, socketId, timestamp, rfid, (int) current);
+			short currentUnit = ByteBuffer.wrap(message.getCurrentUnit()).getShort();
+			short currentDec = ByteBuffer.wrap(message.getCurrentDec()).getShort();
+
+			double current = currentUnit + currentDec * (1/10000);
+			readMessage = new CurrentConsumptionMessage(outletId, socketId, timestamp, rfid, current);
 			break;
 		case RFID_AUTH_REQ:
 			readMessage = new RFIDAuthRequestMessage(outletId, socketId, timestamp, rfid);

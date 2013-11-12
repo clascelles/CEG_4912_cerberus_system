@@ -6,14 +6,14 @@ import com.cerberus.daemon.workflow.MessageWorkflow;
 
 public class CurrentConsumptionMessage extends Message {
 
-	private final int current;
+	private final double current;
 
-	public CurrentConsumptionMessage(String outletId, int socket, long timestamp, String rfidNumber, int current) {
+	public CurrentConsumptionMessage(String outletId, int socket, long timestamp, String rfidNumber, double current) {
 		super(MessageType.CURRENT, outletId, socket, timestamp, rfidNumber);
 		this.current = current;
 	}
 
-	public int getCurrent() {
+	public double getCurrent() {
 		return current;
 	}
 

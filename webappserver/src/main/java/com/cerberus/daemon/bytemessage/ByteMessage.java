@@ -11,7 +11,8 @@ public class ByteMessage {
 	public final static int RFID_LENGTH = 5;
 	public final static int MODE_LENGTH = 1;
 
-	public final static int CURRENT_LENGTH = 8;
+	public final static int CURRENT_UNIT_LENGTH = 2;
+	public final static int CURRENT_DEC_LENGTH = 2;
 
 	private final byte[] rawMessage;
 
@@ -54,9 +55,15 @@ public class ByteMessage {
 		return mode;
 	}
 
-	public byte[] getCurrent() {
+	public byte[] getCurrentUnit() {
 		int offset = TYPE_LENGTH + OUTLET_ID_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH + RFID_LENGTH + MODE_LENGTH;
-		byte[] current = copyByteArray(rawMessage, offset, CURRENT_LENGTH);
+		byte[] current = copyByteArray(rawMessage, offset, CURRENT_UNIT_LENGTH);
+		return current;
+	}
+
+	public byte[] getCurrentDec() {
+		int offset = TYPE_LENGTH + OUTLET_ID_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH + RFID_LENGTH + MODE_LENGTH + CURRENT_UNIT_LENGTH;
+		byte[] current = copyByteArray(rawMessage, offset, CURRENT_DEC_LENGTH);
 		return current;
 	}
 

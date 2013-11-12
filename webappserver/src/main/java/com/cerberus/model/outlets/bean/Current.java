@@ -29,14 +29,14 @@ public class Current implements Serializable {
 	private User user;
 	private Socket socket;
 	private Timestamp timestamp;
-	private Integer current;
+	private double current;
 
 	public Current() {
 		super();
 	}
 
 	public Current(RfidTag rfidTagId, User user, Socket socket,
-			Timestamp timestamp, Integer current) {
+			Timestamp timestamp, double current) {
 		super();
 		this.rfidTagId = rfidTagId;
 		this.user = user;
@@ -96,11 +96,11 @@ public class Current implements Serializable {
 	}
 
 	@Column(name="CURRENT", nullable=false)
-	public Integer getCurrent() {
+	public double getCurrent() {
 		return current;
 	}
 
-	public void setCurrent(Integer current) {
+	public void setCurrent(double current) {
 		this.current = current;
 	}
 
