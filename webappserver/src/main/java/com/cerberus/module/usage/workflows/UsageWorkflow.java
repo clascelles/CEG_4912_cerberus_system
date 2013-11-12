@@ -18,7 +18,7 @@ public class UsageWorkflow extends Workflow {
 	public List<Integer> getCurrentConsumptionForUser(User user){
 
 		//Get the System that the user belongs
-		SystemService systemService = serviceFactory.getSystemService();
+		//SystemService systemService = serviceFactory.getSystemService();
 
 		//ConsumptionService consumptionService = serviceFactory.getConsumptionService();
 		//List<Current> systemCurrentList = consumptionService.getCurrentListBySystemId(system.getId());
@@ -46,7 +46,7 @@ public class UsageWorkflow extends Workflow {
 
 		return currentHourList;
 	}
-	
+
 	public double[] getCurrentByDayForMonth(User user, Date selectedDate, Integer days){
 
 		//Get the System that the user belongs
@@ -62,13 +62,13 @@ public class UsageWorkflow extends Workflow {
 			currentDayList[currentDay.getDay()-1] = currentDay.getCurrentDay();
 		}
 
-		return currentDayList;	
+		return currentDayList;
 	}
-	
+
 	public void updateCurrentHour(Date date){
 		DateTime threshold = new DateTime(date.getTime()).minusDays(UsageConstants.KEEP_FOR_DAYS);
 		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
-		
+
 		consumptionService.updateCurrentHour(threshold);
 		consumptionService.deleteCurrentByThreshold(threshold);
 	}

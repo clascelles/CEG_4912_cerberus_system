@@ -19,13 +19,14 @@ public class StartDaemonServerJob extends QuartzJobBean {
 	private static String SERVER_ROOT;
 	private final static String LOG4J_XML = "WEB-INF\\classes\\log4j.xml";
 	private final static Logger LOGGER = Logger.getLogger(StartDaemonServerJob.class);
-	
+
+	@Override
 	protected void executeInternal(JobExecutionContext context)
 			throws JobExecutionException {
-	
+
 			//Get the Server ROOT directory.
 			SERVER_ROOT = ServerContext.getServerRootUrl();
-			
+
 			DOMConfigurator.configure(SERVER_ROOT + LOG4J_XML);
 
 			LOGGER.info("Bootstrapping the Cerberus server.");
@@ -38,8 +39,9 @@ public class StartDaemonServerJob extends QuartzJobBean {
 			// Netty Communication Bootstrap
 			CommunicationBootstrap communication = new CommunicationBootstrap();
 			communication.start();
-			
+
 			//Scheduling Bootstrap
+			// TODO: Change XmlBeanFactory to use ApplicationContext instead (or JobExecutionContext?)
 			ClassPathResource res = new ClassPathResource("dynamic-jobs.xml");
 	        XmlBeanFactory factory = new XmlBeanFactory(res);
 

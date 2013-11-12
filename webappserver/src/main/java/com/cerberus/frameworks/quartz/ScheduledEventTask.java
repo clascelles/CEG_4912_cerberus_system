@@ -19,6 +19,7 @@ public class ScheduledEventTask {
 	private SocketOperationMode mode;
 	private Date timestamp;
 	private ScheduleRecurrence recurrence;
+
 	private final static Logger LOGGER = Logger.getLogger(ScheduledEventTask.class);
 
 	public ScheduledEventTask() {
@@ -35,15 +36,14 @@ public class ScheduledEventTask {
 
 	public void execute() {
 
-		System.out.println("Running scheduled event task....");
-		System.out.println("Event id: " + eventId);
-		System.out.println("Socket id: " + socket.getId());
-		System.out.println("Socket operation mode id: " + mode.getDescription());
-		System.out.println("Timestamp: " + timestamp);
-		System.out.println("Recurrence level: " + recurrence);
+		LOGGER.debug("Running scheduled event task:");
+		LOGGER.debug("Event id: " + eventId + "Socket id: " + socket.getId() + "Socket operation mode id: "
+					  + mode.getDescription() + "Timestamp: " + timestamp + "Recurrence level: " + recurrence);
 
-		if(ChannelOutletBinding.isChannelBinded(socket.getOutlet().getSerialNumber())) {
-			sendMessage();
+		if(socket != null) {
+			if(ChannelOutletBinding.isChannelBinded(socket.getOutlet().getSerialNumber())) {
+				sendMessage();
+			}
 		}
 
 	}

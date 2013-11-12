@@ -30,6 +30,7 @@ public class InitializationWorkflow extends MessageWorkflow {
 
 	public boolean sendMessage(String serialNumber) {
 
+		LOGGER.debug("Sending acknowledgment message to newly connected outlet: " + serialNumber);
 		DateTime dt = new DateTime();
 
 		InitMessage message = new InitMessage(serialNumber, dt.getMillis() / 1000);
