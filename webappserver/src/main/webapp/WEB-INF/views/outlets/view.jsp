@@ -106,7 +106,7 @@
 										</div>
 										<div class="span2">
 							  				<select name="modeId" data-rel="chosen" <c:if test="${!isSysAdmin}">disabled</c:if>>
-										  		<c:forEach items="${modes}" var="mode">
+										  		<c:forEach items="${outletModes}" var="mode">
 													<option value="${mode.id}" <c:if test="${mode.id == outlet.modeId}">selected</c:if>>${mode.name}</option>												
 												</c:forEach>
 											</select>	
@@ -139,29 +139,44 @@
 										<div class="span5">
 											<div class="row-fluid">
 												<div class="span4"><b>Consumer</b></div>
-												<c:choose>
-												    <c:when test="${socket.connectedUserId == -1}">											    
-									  					<select name="connectedUserId" data-rel="chosen" disabled>
-															<option value="-1" selected>Unassigned</option>
-															<option value="${user.id}">Me</option>
-														</select>
-												    </c:when>
-												      
-											        <c:when test="${socket.connectedUserId == user.id}">									    
-									  					<select name="connectedUserId" data-rel="chosen" disabled>
-															<option value="-1">Unassigned</option>
-															<option value="${user.id}" selected>Me</option>
-														</select>
-												    </c:when>
-												
-												    <c:otherwise>							    
-									  					<select name="connectedUserId" data-rel="chosen" disabled <%-- <c:if test="${!user.sysAdmin}">disabled</c:if> --%>>
-															<option value="${socket.connectedUserId}">${socket.connectedUsername}</option>
-															<option value="-1">Unassigned</option>
-														</select>
-												    </c:otherwise>
-												</c:choose>
+												<div class="span4">
+													<c:choose>
+													    <c:when test="${socket.connectedUserId == -1}">											    
+										  					<select name="connectedUserId" data-rel="chosen" disabled>
+																<option value="-1" selected>Unassigned</option>
+																<option value="${user.id}">Me</option>
+															</select>
+													    </c:when>
+													      
+												        <c:when test="${socket.connectedUserId == user.id}">									    
+										  					<select name="connectedUserId" data-rel="chosen" disabled>
+																<option value="-1">Unassigned</option>
+																<option value="${user.id}" selected>Me</option>
+															</select>
+													    </c:when>
+													
+													    <c:otherwise>							    
+										  					<select name="connectedUserId" data-rel="chosen" disabled <%-- <c:if test="${!user.sysAdmin}">disabled</c:if> --%>>
+																<option value="${socket.connectedUserId}">${socket.connectedUsername}</option>
+																<option value="-1">Unassigned</option>
+															</select>
+													    </c:otherwise>
+													</c:choose>
+												</div>												
 											</div>
+									
+											<div class="row-fluid">
+												<div class="span4">
+											  		<span><b>Operation Mode</b></span>
+												</div>
+												<div class="span4">
+									  				<select name="operationModeId" data-rel="chosen" <c:if test="${!isSysAdmin}">disabled</c:if>>
+												  		<c:forEach items="${socketModes}" var="mode">
+															<option value="${mode.id}" <c:if test="${mode.id == socket.operationModeId}">selected</c:if>>${mode.name}</option>												
+														</c:forEach>
+													</select>	
+												</div>							
+											</div>	
 											
 											<div class="row-fluid">
 												<div class="span4"><b>Status</b></div>

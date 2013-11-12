@@ -1,5 +1,6 @@
 package com.cerberus.module.outlets.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,14 +18,19 @@ import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.OutletOperationMode;
 import com.cerberus.model.outlets.bean.Socket;
+import com.cerberus.model.outlets.bean.SocketOperationMode;
 import com.cerberus.module.account.backingobjects.RoomBackingObject;
 import com.cerberus.module.account.backingobjects.UserBackingObjectFactory;
+import com.cerberus.module.generic.backingobjects.BackingObject;
 import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
 import com.cerberus.module.outlets.backingobjects.OutletBackingObject;
 import com.cerberus.module.outlets.backingobjects.OutletBackingObjectFactory;
+import com.cerberus.module.outlets.backingobjects.OutletOperationModeBackingObject;
 import com.cerberus.module.outlets.backingobjects.OutletOperationModeBackingObjectFactory;
 import com.cerberus.module.outlets.backingobjects.SocketBackingObjectFactory;
+import com.cerberus.module.outlets.backingobjects.SocketOperationModeBackingObject;
+import com.cerberus.module.outlets.backingobjects.SocketOperationModeBackingObjectFactory;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
 import com.cerberus.module.system.workflows.SystemWorkflow;
 
@@ -76,8 +82,14 @@ public class OutletController extends CerberusController {
 
 		model.addAttribute(CerberusConstants.SOCKETS, SocketBackingObjectFactory.INSTANCE.getBackingObjects(outletWorkflow.getSocketsByOutlet(outlet)));
 
-		List<OutletOperationMode> modes = outletWorkflow.getOutletOperationModes();
-		model.addAttribute(CerberusConstants.MODES, OutletOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(modes));
+		List<SocketOperationMode> socketModes = outletWorkflow.getSocketOperationModes();
+		List<OutletOperationMode> outletModes = outletWorkflow.getOutletOperationModes();
+		
+		List<SocketOperationModeBackingObject> outletModeBackingObjects = SocketOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(socketModes);
+		List<OutletOperationModeBackingObject> socketModeBackingObjects = OutletOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(outletModes);
+		
+		model.addAttribute(CerberusConstants.OUTLET_OPERATION_MODES, outletModeBackingObjects);
+		model.addAttribute(CerberusConstants.SOCKET_OPERATION_MODES, socketModeBackingObjects);
 
 		model.addAttribute(CerberusConstants.USER, UserBackingObjectFactory.INSTANCE.getBackingObject(user));
 
