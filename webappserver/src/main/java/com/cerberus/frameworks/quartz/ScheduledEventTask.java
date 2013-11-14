@@ -11,6 +11,7 @@ import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
 import com.cerberus.model.schedules.bean.ScheduleRecurrence;
 import com.cerberus.model.schedules.bean.ScheduledEvent;
+import com.cerberus.module.system.constants.EventType;
 
 public class ScheduledEventTask {
 
@@ -41,8 +42,12 @@ public class ScheduledEventTask {
 					  + mode.getDescription() + "Timestamp: " + timestamp + "Recurrence level: " + recurrence);
 
 		if(socket != null) {
-			if(ChannelOutletBinding.isChannelBinded(socket.getOutlet().getSerialNumber())) {
+			String outletSerialNumber = socket.getOutlet().getSerialNumber();
+			if(ChannelOutletBinding.isChannelBinded(outletSerialNumber)) {
 				sendMessage();
+
+				//Log event
+				CerberusApplicationContext.getWorkflows().getEventWorkflow().logEvent(EventType.SCHEDULED_EVENT_TRIGGERED, outletSerialNumber);
 			}
 		}
 

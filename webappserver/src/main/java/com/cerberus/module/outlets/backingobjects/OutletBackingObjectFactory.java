@@ -79,6 +79,9 @@ public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, Out
 
 		if(backingObject.getSerialNumber() != null) {
 			outlet.setSerialNumber(backingObject.getSerialNumber());
+		} else {
+			// Cannot create outlet without a serial number!
+			return null;
 		}
 
 		return outlet;

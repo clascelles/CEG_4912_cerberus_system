@@ -1,6 +1,5 @@
 package com.cerberus.module.outlets.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,6 @@ import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
 import com.cerberus.module.account.backingobjects.RoomBackingObject;
 import com.cerberus.module.account.backingobjects.UserBackingObjectFactory;
-import com.cerberus.module.generic.backingobjects.BackingObject;
 import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
 import com.cerberus.module.outlets.backingobjects.OutletBackingObject;
@@ -32,6 +30,7 @@ import com.cerberus.module.outlets.backingobjects.SocketBackingObjectFactory;
 import com.cerberus.module.outlets.backingobjects.SocketOperationModeBackingObject;
 import com.cerberus.module.outlets.backingobjects.SocketOperationModeBackingObjectFactory;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
+import com.cerberus.module.system.constants.EventType;
 import com.cerberus.module.system.workflows.SystemWorkflow;
 
 @Controller
@@ -84,10 +83,10 @@ public class OutletController extends CerberusController {
 
 		List<SocketOperationMode> socketModes = outletWorkflow.getSocketOperationModes();
 		List<OutletOperationMode> outletModes = outletWorkflow.getOutletOperationModes();
-		
+
 		List<SocketOperationModeBackingObject> outletModeBackingObjects = SocketOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(socketModes);
 		List<OutletOperationModeBackingObject> socketModeBackingObjects = OutletOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(outletModes);
-		
+
 		model.addAttribute(CerberusConstants.OUTLET_OPERATION_MODES, outletModeBackingObjects);
 		model.addAttribute(CerberusConstants.SOCKET_OPERATION_MODES, socketModeBackingObjects);
 
@@ -107,7 +106,13 @@ public class OutletController extends CerberusController {
 
 		//Add the outlet
 		Outlet outlet = OutletBackingObjectFactory.INSTANCE.bind(newOutlet, user);
-		outletWorkflow.insertOutlet(outlet);
+		if(outlet != null) {
+			if(outletWorkflow.getOutletById(outlet.getId()) == null) {
+				// New outlet, log event!
+				CerberusApplicationContext.getWorkflows().getEventWorkflow().logEvent(EventType.NEW_OUTLET, outlet);
+			}
+			outletWorkflow.insertOutlet(outlet);
+		}
 
 		//Add the two sockets
 		Socket socketA = Socket.create(outlet, Socket.TOP);
