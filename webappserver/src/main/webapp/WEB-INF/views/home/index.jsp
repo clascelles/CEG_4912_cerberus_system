@@ -116,6 +116,33 @@
 						</div>
 						<div class="box-content">
 							<table>
+								<c:forEach items="${events}" var="event">
+								<tr>
+									<td>
+										<c:if test="${event.level == EventLevel.INFO}">
+											<span class="label label-info">Info</span>
+										</c:if>
+										<c:if test="${event.level == EventLevel.ANNOUNCEMENT}">
+											<span class="label label-info">Announcement</span>
+										</c:if>
+										<c:if test="${event.level == EventLevel.WARNING}">
+											<span class="label label-warning">Warn</span>
+										</c:if>
+										<c:if test="${event.level == EventLevel.ERROR}">
+											<span class="label label-important">Error</span>
+										</c:if>
+										<c:if test="${event.level == EventLevel.DEBUG}">
+											<span class="label label-info">Debug</span>
+										</c:if>
+									</td>
+									<td>
+										<span>${event.timestamp}</span>
+									</td>
+									<td>
+										<span>${event.message}</span>
+									</td>
+								</tr>
+								</c:forEach>
 								<tr>
 									<td>
 										<span class="label label-info">Info</span>
