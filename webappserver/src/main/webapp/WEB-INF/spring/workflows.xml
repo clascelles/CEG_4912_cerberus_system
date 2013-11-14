@@ -13,6 +13,7 @@
 	<bean id="scheduleWorkflow" class="com.cerberus.module.schedules.workflows.ScheduleWorkflow" scope="prototype"></bean>
 	<bean id="securityWorkflow" class="com.cerberus.module.security.workflows.SecurityWorkflow" scope="prototype"></bean>
 	<bean id="systemWorkflow" class="com.cerberus.module.system.workflows.SystemWorkflow" scope="prototype"></bean>
+	<bean id="eventWorkflow" class="com.cerberus.module.system.workflows.EventWorkflow" scope="prototype"></bean>
 	
 	
 	<!--  Add all the Message Handling Workflows Here -->
@@ -30,6 +31,7 @@
 		<property name="scheduleWorkflow" ref="scheduleWorkflow"></property>
 		<property name="securityWorkflow" ref="securityWorkflow"></property>
 		<property name="systemWorkflow" ref="systemWorkflow"></property>
+		<property name="eventWorkflow" ref="eventWorkflow"></property>
 		
 		<property name="switchOperationModeWorkflow" ref="switchOperationModeWorkflow"></property>
 		<property name="initializationWorkflow" ref="initializationWorkflow"></property>
