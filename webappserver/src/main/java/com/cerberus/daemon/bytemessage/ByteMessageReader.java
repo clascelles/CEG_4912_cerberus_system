@@ -23,7 +23,7 @@ public class ByteMessageReader {
 		ByteMessage message = new ByteMessage(rawMessage);
 
 		MessageType type = MessageType.fromIntValue(message.getType());
-		String outletId = new String(message.getOutletId());
+		String outletId = new String(message.getOutletSerialNumber());
 		int socketId = message.getSocketId();
 		long timestamp = timestampHandler.readTimestamp(message.getTimestamp());
 		String rfid = new String(Hex.encodeHex(message.getRfidNumber()));

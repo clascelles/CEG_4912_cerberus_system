@@ -5,7 +5,7 @@ public class ByteMessage {
 	public final static int MAX_MESSAGE_LENGTH = 64;
 
 	public final static int TYPE_LENGTH = 1;
-	public final static int OUTLET_ID_LENGTH = 12;
+	public final static int OUTLET_SERIAL_NUM_LENGTH = 12;
 	public final static int SOCKET_ID_LENGTH = 1;
 	public final static int TIMESTAMP_LENGTH = 7;
 	public final static int RFID_LENGTH = 5;
@@ -25,50 +25,50 @@ public class ByteMessage {
 		return type;
 	}
 
-	public byte[] getOutletId() {
+	public byte[] getOutletSerialNumber() {
 		int offset = TYPE_LENGTH;
-		byte[] outletId = copyByteArray(rawMessage, offset, OUTLET_ID_LENGTH);
+		byte[] outletId = copyByteArray(rawMessage, offset, OUTLET_SERIAL_NUM_LENGTH);
 		return outletId;
 	}
 
 	public byte getSocketId() {
-		int offset = TYPE_LENGTH + OUTLET_ID_LENGTH;
+		int offset = TYPE_LENGTH + OUTLET_SERIAL_NUM_LENGTH;
 		byte socketId = rawMessage[offset];
 		return socketId;
 	}
 
 	public byte[] getTimestamp() {
-		int offset = TYPE_LENGTH + OUTLET_ID_LENGTH + SOCKET_ID_LENGTH;
+		int offset = TYPE_LENGTH + OUTLET_SERIAL_NUM_LENGTH + SOCKET_ID_LENGTH;
 		byte[] timestamp = copyByteArray(rawMessage, offset, TIMESTAMP_LENGTH);
 		return timestamp;
 	}
 
 	public byte[] getRfidNumber() {
-		int offset = TYPE_LENGTH + OUTLET_ID_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH;
+		int offset = TYPE_LENGTH + OUTLET_SERIAL_NUM_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH;
 		byte[] rfid = copyByteArray(rawMessage, offset, RFID_LENGTH);
 		return rfid;
 	}
 
 	public byte getMode() {
-		int offset = TYPE_LENGTH + OUTLET_ID_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH + RFID_LENGTH;
+		int offset = TYPE_LENGTH + OUTLET_SERIAL_NUM_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH + RFID_LENGTH;
 		byte mode = rawMessage[offset];
 		return mode;
 	}
 
 	public byte[] getCurrentUnit() {
-		int offset = TYPE_LENGTH + OUTLET_ID_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH + RFID_LENGTH + MODE_LENGTH;
+		int offset = TYPE_LENGTH + OUTLET_SERIAL_NUM_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH + RFID_LENGTH + MODE_LENGTH;
 		byte[] current = copyByteArray(rawMessage, offset, CURRENT_UNIT_LENGTH);
 		return current;
 	}
 
 	public byte[] getCurrentDec() {
-		int offset = TYPE_LENGTH + OUTLET_ID_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH + RFID_LENGTH + MODE_LENGTH + CURRENT_UNIT_LENGTH;
+		int offset = TYPE_LENGTH + OUTLET_SERIAL_NUM_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH + RFID_LENGTH + MODE_LENGTH + CURRENT_UNIT_LENGTH;
 		byte[] current = copyByteArray(rawMessage, offset, CURRENT_DEC_LENGTH);
 		return current;
 	}
 
 	public byte[] getExtraInfo() {
-		int offset = TYPE_LENGTH + OUTLET_ID_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH + RFID_LENGTH + MODE_LENGTH;
+		int offset = TYPE_LENGTH + OUTLET_SERIAL_NUM_LENGTH + SOCKET_ID_LENGTH + TIMESTAMP_LENGTH + RFID_LENGTH + MODE_LENGTH;
 		byte[] info = copyByteArray(rawMessage, offset, MAX_MESSAGE_LENGTH - offset);
 		return info;
 	}

@@ -26,7 +26,7 @@ public class ByteMessageWriter {
 
 		if(message != null) {
 			messageBuffer.put(intToByte(message.getType().getIntValue()));
-			messageBuffer.put(message.getOutletId().getBytes());
+			messageBuffer.put(message.getOutletSerialNumber().getBytes());
 			messageBuffer.put(intToByte(message.getSocket()));
 			messageBuffer.put(timestampHandler.formatTimestamp(message.getTimestamp()));
 			// RFID Number is converted from a String to a hex byte array

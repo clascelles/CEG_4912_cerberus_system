@@ -12,11 +12,13 @@ import com.cerberus.daemon.message.RFIDAuthRequestMessage;
 import com.cerberus.daemon.message.RFIDAuthResponseMessage;
 import com.cerberus.daemon.message.WrongMessageException;
 import com.cerberus.daemon.response.MessageResponse;
+import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.security.bean.RfidAuthentication;
 import com.cerberus.model.security.bean.RfidTag;
 import com.cerberus.module.security.constants.RfidPermission;
+import com.cerberus.module.system.constants.EventType;
 import com.cerberus.service.account.UserService;
 import com.cerberus.service.outlets.OutletService;
 import com.cerberus.service.security.RfidService;
@@ -47,9 +49,9 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 					+ "should've been a RFIDAuthRequestMessage, but instead was: " + receivedMessage.getClass());
 		}
 		LOGGER.info("RFID Request being processed: " + requestMessage.toString());
-		LOGGER.info("Request outlet ID: " + requestMessage.getOutletId());
+		LOGGER.info("Request outlet ID: " + requestMessage.getOutletSerialNumber());
 
-		Outlet outlet = outletService.getOutletBySerialNumber(requestMessage.getOutletId());
+		Outlet outlet = outletService.getOutletBySerialNumber(requestMessage.getOutletSerialNumber());
 		if(outlet == null) {
 			// New outlet that wasn't added to the system, ignore message
 			return false;
@@ -68,6 +70,7 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 			rfidTag = new RfidTag(requestMessage.getRfidNumber(), "New RFID Tag", null);
 			try {
 				rfidService.insertRfidTag(rfidTag);
+				CerberusApplicationContext.getWorkflows().getEventWorkflow().logEvent(EventType.NEW_RFID_TAG, outlet.getId());
 			} catch(Exception e) {
 				LOGGER.error("Failed to insert new Rfid tag from rfid request message: " + requestMessage + "; Rfid Tag: " + rfidTag);
 				return false;
@@ -92,8 +95,14 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 			isAllowed = (auth.getPermission() == RfidPermission.ALLOWED.getIntValue());
 		}
 
+		// Log event
+		if(isAllowed) {
+			CerberusApplicationContext.getWorkflows().getEventWorkflow().logEvent(EventType.RFID_TAG_ALLOWED, outlet.getId());
+		} else {
+			CerberusApplicationContext.getWorkflows().getEventWorkflow().logEvent(EventType.RFID_TAG_DENIED, outlet.getId());
+		}
 		// Send response back to client
-		respondMessage(requestMessage.getOutletId(), requestMessage.getSocket(), rfidTag.getNumber(), isAllowed);
+		respondMessage(requestMessage.getOutletSerialNumber(), requestMessage.getSocket(), rfidTag.getNumber(), isAllowed);
 
 		return true;
 	}

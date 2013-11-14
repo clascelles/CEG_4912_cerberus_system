@@ -48,7 +48,7 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 		current.setCurrent(currentMessage.getCurrent());
 
 		// Get outlet
-		Outlet outlet = outletService.getOutletBySerialNumber(currentMessage.getOutletId());
+		Outlet outlet = outletService.getOutletBySerialNumber(currentMessage.getOutletSerialNumber());
 		if (outlet == null) {
 			// Ignore current message since the outlet is not set in the database
 			return false;

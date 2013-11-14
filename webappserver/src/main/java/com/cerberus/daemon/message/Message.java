@@ -8,14 +8,14 @@ import com.cerberus.daemon.workflow.MessageWorkflow;
 public abstract class Message {
 
 	private final MessageType type;
-	private final String outletId;
+	private final String outletSerialNumber;
 	private final int socket;
 	private final long timestamp;
 	private final String rfidNumber;
 
-	public Message(MessageType type, String outletId, int socket, long timestamp, String rfidNumber) {
+	public Message(MessageType type, String outletSerialNumber, int socket, long timestamp, String rfidNumber) {
 		this.type = type;
-		this.outletId = outletId;
+		this.outletSerialNumber = outletSerialNumber;
 		this.socket = socket;
 		this.timestamp = timestamp;
 		this.rfidNumber = rfidNumber;
@@ -25,8 +25,8 @@ public abstract class Message {
 		return type;
 	}
 
-	public String getOutletId() {
-		return outletId;
+	public String getOutletSerialNumber() {
+		return outletSerialNumber;
 	}
 
 	public int getSocket() {
@@ -50,7 +50,7 @@ public abstract class Message {
 	@Override
 	public String toString() {
 		String message = "";
-		message += outletId + ":";
+		message += outletSerialNumber + ":";
 		message += socket + ":";
 		message += getDateTime().toString() + ":";
 		message += rfidNumber;

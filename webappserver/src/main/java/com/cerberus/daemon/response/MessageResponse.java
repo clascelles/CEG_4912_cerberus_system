@@ -30,8 +30,8 @@ public class MessageResponse implements Runnable {
 
 		// If client channel is null, then find the channel linked to the outletId
 		if(messageContainer.getClientChannel() == null) {
-			String outletId = messageContainer.getMessage().getOutletId();
-			Channel channel = ChannelOutletBinding.getChannelFromGroupByOutlet(messageContainer.getMessage().getOutletId());
+			String outletId = messageContainer.getMessage().getOutletSerialNumber();
+			Channel channel = ChannelOutletBinding.getChannelFromGroupByOutlet(messageContainer.getMessage().getOutletSerialNumber());
 			if(channel != null) {
 				messageContainer.setClientChannel(channel);
 			} else {

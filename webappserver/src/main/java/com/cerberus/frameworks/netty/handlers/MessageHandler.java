@@ -21,6 +21,7 @@ import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.MessageContainer;
 import com.cerberus.frameworks.netty.ChannelOutletBinding;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
+import com.cerberus.module.system.constants.EventType;
 
 public class MessageHandler extends SimpleChannelUpstreamHandler {
 
@@ -40,6 +41,9 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 			throws Exception {
 		LOGGER.info("Channel [" + e.getChannel().getId() + "," + e.getChannel().getRemoteAddress().toString()
 				+ "]: Closed");
+		String outletSerialNumber = ChannelOutletBinding.getOutletSerialNumber(e.getChannel().getId());
+		CerberusApplicationContext.getWorkflows().getEventWorkflow().logEvent(EventType.CONNECTION_LOST, outletSerialNumber);
+
 		super.channelClosed(ctx, e);
 	}
 
@@ -80,7 +84,7 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 
 		byte[] message = ((BigEndianHeapChannelBuffer) e.getMessage()).array();
 		Channel channel = e.getChannel();
-		
+
 		//For debugging purposes only
 		for(int i=0; i<message.length; i++){
 			System.out.print(String.format("%02x ",  message[i]));
@@ -89,12 +93,12 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 
 		if (message[0] == MessageType.INIT.getIntValue()){
 			ChannelOutletBinding.addChannelToGroup(channel);
-			String outletId = new String(new ByteMessage(message).getOutletId());
-			ChannelOutletBinding.bindOutletSerialNumberWithChannelId(outletId, channel.getId());
-			
+			String outletSerialNumber = new String(new ByteMessage(message).getOutletSerialNumber());
+			ChannelOutletBinding.bindOutletSerialNumberWithChannelId(outletSerialNumber, channel.getId());
+
 			//Send an init message back with the correct timestamp.
-			CerberusApplicationContext.getWorkflows().getInitializationWorkflow().sendMessage(outletId);
-			
+			CerberusApplicationContext.getWorkflows().getInitializationWorkflow().sendMessage(outletSerialNumber);
+			CerberusApplicationContext.getWorkflows().getEventWorkflow().logEvent(EventType.CONNECTION_ESTABLISHED, outletSerialNumber);
 		}else{
 
 			//Add a task to the Decoder Thread Pool.
@@ -104,7 +108,7 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 			//Runnable decoderTask = new JsonDecoder(messageContainer);
 			Runnable decoderTask = new ByteMessageDecoder(messageContainer);
 
-			executor.execute(decoderTask);	
+			executor.execute(decoderTask);
 
 		}
 
