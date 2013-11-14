@@ -63,7 +63,7 @@ CREATE TABLE `current` (
   CONSTRAINT `fk_?01A8162B?8EAC?4B02?A493?867D7E7F7719?` FOREIGN KEY (`RFID_TAG_ID`) REFERENCES `rfid_tag` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?620A4C79?2344?4454?B471?0E8D01FE0A66?` FOREIGN KEY (`USERS_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?98F77DA9?88D3?44E2?809F?A02D07A0174E?` FOREIGN KEY (`SOCKET_ID`) REFERENCES `socket` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1227 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,10 +163,13 @@ DROP TABLE IF EXISTS `event`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `event` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `EVENT_NAME` tinytext,
-  `EVENT_DESCRIPTION` tinytext,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+  `EVENT_NAME` tinytext NOT NULL,
+  `EVENT_MESSAGE` text,
+  `EVENT_LEVEL_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `EVENT_LEVEL_ID` (`EVENT_LEVEL_ID`),
+  CONSTRAINT `event_ibfk_1` FOREIGN KEY (`EVENT_LEVEL_ID`) REFERENCES `event_level` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,8 +178,32 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (1,'Connection Opened','Connection Opened'),(2,'Connection Closed','Connection Closed'),(3,'Connection Binded','Connection Binded'),(4,'Intermitent Connection','Intermitent Connection'),(5,'Could not find Connection','Could not find Connection');
+INSERT INTO `event` VALUES (1,'Connection Established','Outlet %s successfully connected',1),(2,'Connection Lost','Outlet %s disconnected',3),(3,'New Outlet','New outlet %s was added to the system',2),(4,'Scheduled Event Triggered','Outlet %s is now in %s mode',1),(5,'Device Plugged','Device %s was plugged in outlet %s',1),(6,'Device Unplugged','Device %s was unplugged from outlet %s',1),(7,'New RFID Tag','A new RFID tag was added to the system',2),(8,'RFID Tag Allowed','Outlet %s allowed an RFID-enabled device',1),(9,'RFID Tag Denied','Outlet %s denied an RFID-enabled device',1);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `event_level`
+--
+
+DROP TABLE IF EXISTS `event_level`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `event_level` (
+  `ID` int(11) NOT NULL,
+  `EVENT_LEVEL` tinytext NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `event_level`
+--
+
+LOCK TABLES `event_level` WRITE;
+/*!40000 ALTER TABLE `event_level` DISABLE KEYS */;
+INSERT INTO `event_level` VALUES (1,'Info'),(2,'Announcement'),(3,'Warning'),(4,'Error'),(5,'Debug');
+/*!40000 ALTER TABLE `event_level` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -310,7 +337,7 @@ CREATE TABLE `outlet_operation_mode` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `NAME` tinytext,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -674,11 +701,11 @@ CREATE TABLE `scheduled_event` (
   KEY `SCHEDULED_EVENT_FKIndex2` (`SOCKET_ID`),
   KEY `SCHEDULED_EVENT_FKIndex3` (`SCHEDULE_MODE_ID`),
   KEY `SCHEDULED_EVENT_FKIndex4` (`RECURRENCE_ID`),
-  CONSTRAINT `fk_?A12CB52D?38FA?408C?AFF7?D7F371EDABC7?` FOREIGN KEY (`RECURRENCE_ID`) REFERENCES `schedule_recurrence` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?0A5185F2?CAED?41C8?9B0A?6E94C01D710B?` FOREIGN KEY (`USERS_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?1D49F5A7?D149?4ACB?9C8D?B8DE2C97CA6A?` FOREIGN KEY (`SCHEDULE_MODE_ID`) REFERENCES `socket_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_?A12CB52D?38FA?408C?AFF7?D7F371EDABC7?` FOREIGN KEY (`RECURRENCE_ID`) REFERENCES `schedule_recurrence` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?C343C72D?12FA?564C?AFF7?D7F371EDABC7?` FOREIGN KEY (`SOCKET_ID`) REFERENCES `socket` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -687,7 +714,6 @@ CREATE TABLE `scheduled_event` (
 
 LOCK TABLES `scheduled_event` WRITE;
 /*!40000 ALTER TABLE `scheduled_event` DISABLE KEYS */;
-INSERT INTO `scheduled_event` VALUES (15,1,7,2,'2013-11-11 12:45:01',1);
 /*!40000 ALTER TABLE `scheduled_event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -765,7 +791,7 @@ CREATE TABLE `socket_operation_mode` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `DESCRIPTION` text,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1081,4 +1107,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-11 21:26:07
+-- Dump completed on 2013-11-13 22:47:34

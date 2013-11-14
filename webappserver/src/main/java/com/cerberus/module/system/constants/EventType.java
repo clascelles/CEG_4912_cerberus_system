@@ -3,11 +3,15 @@ package com.cerberus.module.system.constants;
 public enum EventType {
 
 	// Make sure to update this enum if updating the event database table!
-	CONNECTION_OPENED(1),
-	CONNECTION_CLOSED(2),
-	CONNECTION_BINDED(3),
-	INTERMITTENT_CONNECTION(4),
-	CONNECTION_LOST(5);
+	CONNECTION_ESTABLISHED(1),
+	CONNECTION_LOST(2),
+	NEW_OUTLET(3),
+	SCHEDULED_EVENT_TRIGGERED(4),
+	DEVICE_PLUGGED(5), //TODO: Not implemented
+	DEVICE_UNPLUGGED(6), //TODO: Not implemented (probably never will be)
+	NEW_RFID_TAG(7),
+	RFID_TAG_ALLOWED(8),
+	RFID_TAG_DENIED(9);
 
 	private final Integer typeId;
 

@@ -16,8 +16,9 @@ public class Event implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	Integer id;
+	Integer eventLevel;
 	String name;
-	String description;
+	String message;
 
 	public Event() {
 		super();
@@ -37,6 +38,14 @@ public class Event implements Serializable{
 		this.id = id;
 	}
 
+	@Column(name="EVENT_LEVEL_ID", nullable=false)
+	public Integer getEventLevel() {
+		return eventLevel;
+	}
+	public void setEventLevel(Integer eventLevel) {
+		this.eventLevel = eventLevel;
+	}
+
 	@Column(name="EVENT_NAME", nullable=false)
 	public String getName() {
 		return name;
@@ -45,16 +54,16 @@ public class Event implements Serializable{
 		this.name = name;
 	}
 
-	@Column(name="EVENT_DESCRIPTION", nullable=false)
-	public String getDescription() {
-		return description;
+	@Column(name="EVENT_MESSAGE", nullable=false)
+	public String getMessage() {
+		return message;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", name=" + name + ", description="
-				+ description + "]";
+		return "Event [id=" + id + ", name=" + name + ", message="
+				+ message + "]";
 	}
 }

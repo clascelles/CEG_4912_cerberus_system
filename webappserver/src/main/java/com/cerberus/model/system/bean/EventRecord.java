@@ -8,11 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.cerberus.model.outlets.bean.Outlet;
 
 @Entity
 @Table(name = "EVENT_RECORD")
@@ -24,18 +20,18 @@ public class EventRecord implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	Integer id;
-	Outlet outlet;
-	Event event;
+	Integer outletId;
+	Integer eventId;
 	Timestamp timestamp;
 
 	public EventRecord() {
 		super();
 	}
 
-	public EventRecord(Outlet outlet, Event event,Timestamp timestamp) {
+	public EventRecord(Integer outletId, Integer eventId, Timestamp timestamp) {
 		super();
-		this.outlet = outlet;
-		this.event = event;
+		this.outletId = outletId;
+		this.eventId = eventId;
 		this.timestamp = timestamp;
 	}
 
@@ -49,22 +45,20 @@ public class EventRecord implements Serializable{
 		this.id = id;
 	}
 
-	@ManyToOne()
-	@JoinColumn(name="OUTLET_ID", nullable=false)
-	public Outlet getOutlet() {
-		return outlet;
+	@Column(name="OUTLET_ID", nullable=false)
+	public Integer getOutletId() {
+		return outletId;
 	}
-	public void setOutlet(Outlet outlet) {
-		this.outlet = outlet;
+	public void setOutletId(Integer outletId) {
+		this.outletId = outletId;
 	}
 
-	@ManyToOne()
-	@JoinColumn(name="EVENT_ID", nullable=false)
-	public Event getEvent() {
-		return event;
+	@Column(name="EVENT_ID", nullable=false)
+	public Integer getEventId() {
+		return eventId;
 	}
-	public void setEvent(Event event) {
-		this.event = event;
+	public void setEventId(Integer eventId) {
+		this.eventId = eventId;
 	}
 
 	@Column(name="TIMESTAMP", nullable=false)
@@ -77,7 +71,7 @@ public class EventRecord implements Serializable{
 
 	@Override
 	public String toString() {
-		return "ConnectionEvent [id=" + id + ", outlet=" + outlet + ", event="
-				+ event + ", timestamp=" + timestamp + "]";
+		return "EventRecord [id=" + id + ", outlet=" + outletId + ", event="
+				+ eventId + ", timestamp=" + timestamp + "]";
 	}
 }
