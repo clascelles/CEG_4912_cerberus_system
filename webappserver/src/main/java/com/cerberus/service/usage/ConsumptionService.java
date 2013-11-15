@@ -10,9 +10,11 @@ import com.cerberus.model.outlets.bean.Current;
 import com.cerberus.model.outlets.dao.CurrentDAO;
 import com.cerberus.model.usage.bean.CurrentDayView;
 import com.cerberus.model.usage.bean.CurrentHourView;
+import com.cerberus.model.usage.bean.Tip;
 import com.cerberus.model.usage.dao.CurrentDayViewDAO;
 import com.cerberus.model.usage.dao.CurrentHourDAO;
 import com.cerberus.model.usage.dao.CurrentHourViewDAO;
+import com.cerberus.model.usage.dao.TipDAO;
 import com.cerberus.model.usage.filter.CurrentDayViewFilter;
 import com.cerberus.model.usage.filter.CurrentHourViewFilter;
 
@@ -22,12 +24,14 @@ public class ConsumptionService {
 	private final CurrentHourViewDAO currentHourViewDAO;
 	private final CurrentDayViewDAO currentDayViewDAO;
 	private final CurrentHourDAO currentHourDAO;
+	private final TipDAO tipDAO;
 
 	public ConsumptionService (){
 		currentDAO = new CurrentDAO();
 		currentHourViewDAO = new CurrentHourViewDAO();
 		currentDayViewDAO = new CurrentDayViewDAO();
 		currentHourDAO = new CurrentHourDAO();
+		tipDAO = new TipDAO();
 		//Add all the necessary DAOs here
 	}
 
@@ -84,5 +88,12 @@ public class ConsumptionService {
 		currentHourDAO.updateCurrentHour(new Timestamp(threshold.getMillis()));
 	}
 	
+	//*************************************************
+	//TIPS
+	//*************************************************
+	
+	public List<Tip> getTips(){
+		return tipDAO.getAll();
+	}
 
 }

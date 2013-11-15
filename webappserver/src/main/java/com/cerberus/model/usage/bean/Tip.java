@@ -1,7 +1,7 @@
 package com.cerberus.model.usage.bean;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,14 +27,14 @@ public class Tip implements Serializable{
 	
 	Integer id;
 	String tipName;
-	List<Rule> rules;
+	Set<Rule> rules;
 	
 	public Tip(){
 		super();
 	}
 	
 	
-	public Tip(Integer id, String tipName, List<Rule> rules) {
+	public Tip(Integer id, String tipName, Set<Rule> rules) {
 		super();
 		this.id = id;
 		this.tipName = tipName;
@@ -60,17 +60,17 @@ public class Tip implements Serializable{
 		this.tipName = tipName;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "RuleTipXRef", joinColumns = { 
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "RULE_TIP_XREF", joinColumns = { 
 			@JoinColumn(name = "TIP_ID", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { @JoinColumn(name = "RULE_ID", 
 					nullable = false, updatable = false) })
-	public List<Rule> getRules() {
+	public Set<Rule> getRules() {
 		return rules;
 	}
 
 
-	public void setRules(List<Rule> rules) {
+	public void setRules(Set<Rule> rules) {
 		this.rules = rules;
 	}
 
@@ -82,5 +82,4 @@ public class Tip implements Serializable{
 	}
 
 
-	
 }
