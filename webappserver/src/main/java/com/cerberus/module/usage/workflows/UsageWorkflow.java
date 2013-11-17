@@ -10,6 +10,7 @@ import com.cerberus.model.outlets.bean.Current;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.usage.bean.CurrentDayView;
 import com.cerberus.model.usage.bean.CurrentHourView;
+import com.cerberus.model.usage.bean.Tip;
 import com.cerberus.module.generic.workflows.Workflow;
 import com.cerberus.module.usage.constants.UsageConstants;
 import com.cerberus.service.system.SystemService;
@@ -73,6 +74,11 @@ public class UsageWorkflow extends Workflow {
 
 		consumptionService.updateCurrentHour(threshold);
 		consumptionService.deleteCurrentByThreshold(threshold);
+	}
+	
+	public List<Tip> getTips(){
+		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
+		return cons
 	}
 	
 	public Current getCurrentForSocket(Socket socket) {
