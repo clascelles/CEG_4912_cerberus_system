@@ -78,7 +78,7 @@ public class UsageWorkflow extends Workflow {
 	
 	public List<Tip> getTips(){
 		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
-		return cons
+		return consumptionService.getTips();
 	}
 	
 	public Current getCurrentForSocket(Socket socket) {
