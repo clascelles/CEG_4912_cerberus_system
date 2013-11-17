@@ -11,6 +11,7 @@ public class OutletBackingObject extends BackingObject<Outlet> {
 	private Integer modeId;
 	private String 	modeName;
 	private String serialNumber;
+	private String status;
 
 	public Integer getId() {
 		return id;
@@ -58,6 +59,18 @@ public class OutletBackingObject extends BackingObject<Outlet> {
 
 	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
+	}
+	
+	public void setStatus(Boolean connected) {
+		if(connected) {
+			status = "Connected";
+		} else {
+			status = "Disconnected";
+		}
+	}
+	
+	public String getStatus() {
+		return status;
 	}
 	
 }

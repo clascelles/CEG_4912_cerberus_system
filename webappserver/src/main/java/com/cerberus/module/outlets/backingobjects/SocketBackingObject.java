@@ -1,10 +1,8 @@
 package com.cerberus.module.outlets.backingobjects;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.DateTime;
-
+import com.cerberus.model.outlets.bean.Current;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.module.generic.backingobjects.BackingObject;
 
@@ -19,31 +17,15 @@ public class SocketBackingObject extends BackingObject<Socket> {
 	private String  position;
 	private String 	serialNumber;
 
-	//these should all be realtime, so should be stored/updated somehow else
 	private Integer connectedUserId;
 	private String  connectedUsername;
-	private String  powerUsage = getRandomInRangeString(0,5, false) + " amps";
-	private String	timeConnected = getRandomInRangeString(0,12, false) + ":" + getRandomInRangeString(0,60, true) + ":" + getRandomInRangeString(0,60, true);
-	private String  connectedUtilityName = getRandomUtility();
+	private String  powerUsage;
+	private String	timeConnected;
+	private String  connectedUtilityName;
 
 	//For the current graphs
 	//private
-	//private double[]
-	private final List<CurrentBackingObject> currentLog = new ArrayList<CurrentBackingObject>();
-
-
-	{
-		DateTime dt = new DateTime();
-		int hours = dt.getHourOfDay();
-		int mins = dt.getMinuteOfHour();
-
-		for(int i = 0; i < 20; i++) {
-			int secs = ((i % 2) == 0) ? 0 : 30;
-			int minsOffset = i/2;
-			currentLog.add(CurrentBackingObjectFactory.generateRandomCurrent(hours + ":" + (mins + minsOffset) + ":" + secs));
-		}
-
-	}
+	private double[] currentLog = new double[11];
 
 	public Integer getId() {
 		return id;
@@ -152,34 +134,17 @@ public class SocketBackingObject extends BackingObject<Socket> {
 	public void setPosition(String position) {
 		this.position = position;
 	}
-
-	//Temporary helper methods until we have real data to retrieve from the db
-	public static int getRandomInRange(int max, int min) {
-		return min + (int)(Math.random() * ((max - min + 1)));
-	}
-
-	public static String getRandomInRangeString(int max, int min, boolean pad) {
-		int value = getRandomInRange(min, max);
-		return (value < 10 && pad) ? "0" + String.valueOf(value) : String.valueOf(value);
-	}
-
-	public static String getRandomUtility() {
-		int utilVal = getRandomInRange(0,6);
-
-		if (utilVal == 0) {
-			return "Toaster";
-		} else if (utilVal == 1) {
-			return "Computer";
-		} else if (utilVal == 2) {
-			return "Phone charger";
-		} else if (utilVal == 3) {
-			return "Microwave";
-		} else if (utilVal == 4) {
-			return "Hair dryer";
-		} else if (utilVal == 5) {
-			return "Television";
-		} else {
-			return "Clock radio";
+	
+	public void setCurrentLog(List<Current> currents) {
+		List<Current> toBeUsed = currents.subList(currents.size()-11, currents.size());
+		int i=0;
+		for(Current current : toBeUsed) {
+			currentLog[i] = current.getCurrent();
+			i++;
 		}
+	}
+	
+	public double[] getCurrentLog() {
+		return currentLog;
 	}
 }

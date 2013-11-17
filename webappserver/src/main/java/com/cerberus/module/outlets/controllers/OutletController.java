@@ -26,6 +26,7 @@ import com.cerberus.module.outlets.backingobjects.OutletBackingObject;
 import com.cerberus.module.outlets.backingobjects.OutletBackingObjectFactory;
 import com.cerberus.module.outlets.backingobjects.OutletOperationModeBackingObject;
 import com.cerberus.module.outlets.backingobjects.OutletOperationModeBackingObjectFactory;
+import com.cerberus.module.outlets.backingobjects.SocketBackingObject;
 import com.cerberus.module.outlets.backingobjects.SocketBackingObjectFactory;
 import com.cerberus.module.outlets.backingobjects.SocketOperationModeBackingObject;
 import com.cerberus.module.outlets.backingobjects.SocketOperationModeBackingObjectFactory;
@@ -58,6 +59,10 @@ public class OutletController extends CerberusController {
 
 		OutletBackingObject newOutlet = OutletBackingObjectFactory.INSTANCE.getBackingObject(user);
 		model.addAttribute(CerberusConstants.NEW_OUTLET, newOutlet);
+		
+		SocketBackingObject newSocket = SocketBackingObjectFactory.INSTANCE.getBackingObject(user);
+		model.addAttribute(CerberusConstants.NEW_SOCKET_A, newSocket);
+		model.addAttribute(CerberusConstants.NEW_SOCKET_B, newSocket);
 
 		CerberusLogger.get(CerberusConstants.OUTLETS_VIEW);
 
@@ -133,6 +138,41 @@ public class OutletController extends CerberusController {
 		outletWorkflow.updateOutletOperationMode(newOutlet);
 
 		return getViewOutletPage(model, newOutlet.getId(), request);
+	}
+	
+	@RequestMapping(value=CerberusConstants.VIEW_OUTLET_MAPPING, method=RequestMethod.POST, params="updateSocketA" )
+	public String updateSocketA(Model model, 
+			@ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet,
+			@ModelAttribute(CerberusConstants.NEW_SOCKET_A) OutletBackingObject newSocket,
+			HttpServletRequest request)	{
+		CerberusLogger.post(CerberusConstants.VIEW_OUTLET_VIEW);
+		
+		updateSocketMode(newOutlet.getId(), Socket.TOP, newSocket.getModeId());
+
+		return getViewOutletPage(model, newOutlet.getId(), request);
+	}
+	
+	@RequestMapping(value=CerberusConstants.VIEW_OUTLET_MAPPING, method=RequestMethod.POST, params="updateSocketB" )
+	public String updateSocketB(Model model, 
+			@ModelAttribute(CerberusConstants.NEW_OUTLET) OutletBackingObject newOutlet,
+			@ModelAttribute(CerberusConstants.NEW_SOCKET_B) OutletBackingObject newSocket,
+			HttpServletRequest request)	{
+		CerberusLogger.post(CerberusConstants.VIEW_OUTLET_VIEW);
+
+		updateSocketMode(newOutlet.getId(), Socket.BOTTOM, newSocket.getModeId());
+		
+		return getViewOutletPage(model, newOutlet.getId(), request);
+	}
+	
+	private void updateSocketMode(Integer outletId, Integer socketPos, Integer modeId) {
+		//Update the socket
+		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
+		Socket socket = outletWorkflow.getSocketByOutletAndPosition(outletId, socketPos);
+		if(socket.getMode().getId() != modeId) {
+			socket.setMode(outletWorkflow.getSocketModeById(modeId));
+		}
+		
+		outletWorkflow.updateSocket(socket);
 	}
 
 }

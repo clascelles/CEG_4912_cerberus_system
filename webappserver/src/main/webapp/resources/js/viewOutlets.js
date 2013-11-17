@@ -36,30 +36,6 @@ $(document).ready(function(){
 	}
 	
 	
-	function getUtility(consumption) {
-		if(consumption == 0) {
-			return "None";
-		}
-		if(consumption == 1) {
-			return "Phone charger";
-		}
-		if(consumption == 2) {
-			return "Clock Radio";
-		}
-		if(consumption == 3) {
-			return "Computer";
-		}
-		if(consumption == 4) {
-			return "Toaster";
-		}
-		if(consumption == 5) {
-			return "Hair dryer";
-		}
-
-		return "Television";
-	}
-	
-	
 	// we use an inline data source in the example, usually data would
 	// be fetched from a server
 	var data1 = [];
@@ -91,8 +67,6 @@ $(document).ready(function(){
 			starttime += refreshRate;
 			res.push([starttime, data1[i]]);
 			if(i == totalPoints - 1) {
-				$("#utilityA").text(getUtility(data1[i]));				
-		        $("#usageA").text(data1[i] + " amps");
 	        	socketAHasConnection = (data1[i] != 0);
 			}			
 		}
@@ -129,8 +103,6 @@ $(document).ready(function(){
 			starttime += refreshRate;
 			res.push([starttime, data2[i]]);
 			if(i == totalPoints - 1) {
-				$("#utilityB").text(getUtility(data2[i]));	
-		        $("#usageB").text(data2[i] + " amps");
 	        	socketBHasConnection = (data2[i] != 0);
 			}			
 		}

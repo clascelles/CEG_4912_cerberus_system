@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 
 import com.cerberus.model.outlets.bean.Current;
 import com.cerberus.model.outlets.dao.CurrentDAO;
+import com.cerberus.model.outlets.filter.CurrentFilter;
 import com.cerberus.model.usage.bean.CurrentDayView;
 import com.cerberus.model.usage.bean.CurrentHourView;
 import com.cerberus.model.usage.dao.CurrentDayViewDAO;
@@ -49,6 +50,10 @@ public class ConsumptionService {
 
 	public Current getCurrentById(Integer id){
 		return currentDAO.getById(id);
+	}
+	
+	public List<Current> getCurrentBySocketId(Integer socketId) {
+		return currentDAO.getAllByFilter(CurrentFilter.getBySocketId(socketId));
 	}
 	
 	public boolean deleteCurrentByThreshold(DateTime threshold){

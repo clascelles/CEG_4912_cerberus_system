@@ -102,6 +102,15 @@
 									
 									<div class="row-fluid">
 										<div class="span2">
+									  		<span><b>Status</b></span>
+										</div>
+										<div class="span2">
+									  		<span>${outlet.status}</span>
+										</div>
+									</div>
+									
+									<div class="row-fluid">
+										<div class="span2">
 									  		<span><b>Operation Mode</b></span>
 										</div>
 										<div class="span2">
@@ -137,7 +146,7 @@
 									</div>
 									<div class="box-content">
 										<div class="span5">
-											<div class="row-fluid">
+											<%-- <div class="row-fluid">
 												<div class="span4"><b>Consumer</b></div>
 												<div class="span4">
 													<c:choose>
@@ -156,31 +165,26 @@
 													    </c:when>
 													
 													    <c:otherwise>							    
-										  					<select name="connectedUserId" data-rel="chosen" disabled <%-- <c:if test="${!user.sysAdmin}">disabled</c:if> --%>>
+										  					<select name="connectedUserId" data-rel="chosen" disabled <c:if test="${!user.sysAdmin}">disabled</c:if>>
 																<option value="${socket.connectedUserId}">${socket.connectedUsername}</option>
 																<option value="-1">Unassigned</option>
 															</select>
 													    </c:otherwise>
 													</c:choose>
 												</div>												
-											</div>
+											</div> --%>
 									
 											<div class="row-fluid">
 												<div class="span4">
 											  		<span><b>Operation Mode</b></span>
 												</div>
 												<div class="span4">
-									  				<select name="operationModeId" data-rel="chosen" <c:if test="${!isSysAdmin}">disabled</c:if>>
+									  				<select name="modeId" data-rel="chosen" <c:if test="${!isSysAdmin}">disabled</c:if>>
 												  		<c:forEach items="${socketModes}" var="mode">
 															<option value="${mode.id}" <c:if test="${mode.id == socket.operationModeId}">selected</c:if>>${mode.name}</option>												
 														</c:forEach>
 													</select>	
 												</div>							
-											</div>	
-											
-											<div class="row-fluid">
-												<div class="span4"><b>Status</b></div>
-												<div class="span4">${socket.statusName}</div>
 											</div>
 											
 											<div class="row-fluid">
@@ -190,23 +194,24 @@
 												</div>
 											</div>
 											
-											<div class="row-fluid">
+											<%-- <div class="row-fluid">
 												<div class="span4"><b>Time Connected</b></div>
 												<div class="span4">
 													<span id="timeConnected${socket.position}">${socket.timeConnected}</span>
 												</div>
-											</div>
+											</div> --%>
 											
 											<div class="row-fluid">
 												<div class="span4"><b>Connected Utility</b></div>
 												<div class="span4">
-													<span id="utility${socket.position}">${socket.connectedUtilityName}</span>
+													<span>${socket.connectedUtilityName}</span>
 												</div>
 											</div>
 											
 											<div class="row-fluid">
-												<div class="span4"><b>Serial Number</b></div>
-												<div class="span4">${socket.serialNumber}</div>
+												<div class="form-actions">
+													<button type="submit" class="btn btn-primary" name="updateSocket${socket.position}">Update</button>
+												</div>
 											</div>
 										</div>
 										
@@ -215,10 +220,7 @@
 												<div id="socket${socket.position}" style="height:160px;"></div>
 											</div>
 										</div>
-										<div class="clearfix"></div>
-										<!-- <div class="form-actions">
-											<button type="submit" class="btn btn-primary" name="update">Update</button>
-										</div>	 -->
+										<div class="clearfix"></div>										
 									</div>						
 								</div>
 							</div>

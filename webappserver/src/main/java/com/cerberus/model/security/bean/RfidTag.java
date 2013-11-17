@@ -50,7 +50,7 @@ public class RfidTag implements Serializable{
 		this.id = id;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name="PROFILE_ID", nullable=false)
 	public ConsumptionProfile getProfile() {
 		return profile;

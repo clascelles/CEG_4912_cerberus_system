@@ -15,9 +15,10 @@ public class CurrentBackingObjectFactory extends BackingObjectFactory<Current, C
 	}
 
 	@Override
-	public CurrentBackingObject getBackingObject(Current outlet) {
+	public CurrentBackingObject getBackingObject(Current current) {
 		CurrentBackingObject backingObject = new CurrentBackingObject();
-		//TODO
+		backingObject.setTime(current.getTimestamp().toString());
+		backingObject.setValue(String.valueOf(current.getCurrent()));
 		return backingObject;
 	}
 

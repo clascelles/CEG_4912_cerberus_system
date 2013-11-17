@@ -114,6 +114,12 @@ public class OutletWorkflow extends Workflow {
 	public void insertSocket(Socket socket) {
 		serviceFactory.getOutletService().insertSocket(socket);
 	}
+	
+	public void updateSocket(Socket socket) {
+		OutletService outletService = serviceFactory.getOutletService();
+		outletService.updateSocket(socket);
+		this.returnServiceFactory();		
+	}
 
 	public List<Socket> getSocketsByOutlet(Outlet outlet) {
 		return getSocketsByOutletId(outlet.getId());

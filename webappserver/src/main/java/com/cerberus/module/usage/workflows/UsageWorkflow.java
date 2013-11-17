@@ -6,6 +6,8 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.cerberus.model.account.bean.User;
+import com.cerberus.model.outlets.bean.Current;
+import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.usage.bean.CurrentDayView;
 import com.cerberus.model.usage.bean.CurrentHourView;
 import com.cerberus.module.generic.workflows.Workflow;
@@ -71,6 +73,33 @@ public class UsageWorkflow extends Workflow {
 
 		consumptionService.updateCurrentHour(threshold);
 		consumptionService.deleteCurrentByThreshold(threshold);
+	}
+	
+	public Current getCurrentForSocket(Socket socket) {
+		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
+		List<Current> currents = consumptionService.getCurrentBySocketId(socket.getId());
+		
+		if(currents.isEmpty()) {
+			return null;
+		}
+		
+		Current mostRecent = null;
+		for(Current current : currents) {
+			if((mostRecent == null) 
+				|| (current.getTimestamp().before(mostRecent.getTimestamp()))) {
+				mostRecent = current;
+			}
+		}
+		return mostRecent;
+	}
+	
+	public String getCurrentUsageForSocket(Socket socket) {
+		Current current = getCurrentForSocket(socket);
+		if(current == null) {
+			return "0 kWh";
+		} else {
+			return current.getCurrent() + " kWh";			
+		}
 	}
 
 }

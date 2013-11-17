@@ -2,6 +2,7 @@ package com.cerberus.module.outlets.backingobjects;
 
 import java.util.List;
 
+import com.cerberus.frameworks.netty.ChannelOutletBinding;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Outlet;
@@ -32,6 +33,8 @@ public class OutletBackingObjectFactory extends BackingObjectFactory<Outlet, Out
 		backingObject.setRoomId(outlet.getRoom().getId());
 		backingObject.setRoomName(outlet.getRoom().getName());
 		backingObject.setSerialNumber(outlet.getSerialNumber());
+		backingObject.setStatus(ChannelOutletBinding.isChannelBinded(outlet.getSerialNumber()));
+		
 		return backingObject;
 	}
 

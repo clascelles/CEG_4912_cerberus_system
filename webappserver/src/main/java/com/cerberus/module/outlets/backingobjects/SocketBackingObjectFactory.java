@@ -2,10 +2,13 @@ package com.cerberus.module.outlets.backingobjects;
 
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
+import com.cerberus.model.outlets.bean.Current;
 import com.cerberus.model.outlets.bean.Socket;
-import com.cerberus.model.outlets.bean.SocketAssignment;
+import com.cerberus.model.security.bean.RfidTag;
+import com.cerberus.model.usage.bean.ConsumptionProfile;
 import com.cerberus.module.generic.backingobjects.BackingObjectFactory;
 import com.cerberus.module.outlets.workflows.OutletWorkflow;
+import com.cerberus.module.usage.workflows.UsageWorkflow;
 
 public class SocketBackingObjectFactory extends BackingObjectFactory<Socket, SocketBackingObject> {
 
@@ -20,20 +23,31 @@ public class SocketBackingObjectFactory extends BackingObjectFactory<Socket, Soc
 
 	@Override
 	public SocketBackingObject getBackingObject(Socket socket) {
+		String unavailable = "Unavailable";
 		SocketBackingObject backingObject = new SocketBackingObject();
 		backingObject.setId(socket.getId());
 		backingObject.setOperationModeId(socket.getMode().getId());
 		backingObject.setOperationModeName(socket.getMode().getDescription());
 		backingObject.setOutletId(socket.getOutlet().getId());
 		backingObject.setPosition(socket.getPosition());
-		backingObject.setStatusId(socket.getStatus().getId());
-		backingObject.setStatusName(socket.getStatus().getStatus());
-
-		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
-
-		SocketAssignment assignment = outletWorkflow.getSocketAssignmentBySocketId(socket.getId());
-		backingObject.setConnectedUserId((assignment != null) ? assignment.getUser().getId() : -1);
-		backingObject.setConnectedUsername((assignment != null) ? assignment.getUser().getFullName() : UNASSIGNED);
+		
+		UsageWorkflow usageWorkflow = CerberusApplicationContext.getWorkflows().getUsageWorkflow();
+		backingObject.setPowerUsage(usageWorkflow.getCurrentUsageForSocket(socket));
+		
+		Current current = usageWorkflow.getCurrentForSocket(socket);
+		if(current != null) {
+			RfidTag tag = current.getRfidTagId();
+			if(tag != null) {
+				ConsumptionProfile profile = tag.getProfile();
+				if(profile != null && profile.getName() != null) {
+					backingObject.setConnectedUtilityName(profile.getName());				
+				}
+			}			
+		}
+		
+		if(backingObject.getConnectedUtilityName() == null) {
+			backingObject.setConnectedUtilityName(unavailable);
+		}
 
 		return backingObject;
 	}
@@ -46,11 +60,6 @@ public class SocketBackingObjectFactory extends BackingObjectFactory<Socket, Soc
 		// update operation mode
 		if(!socket.getMode().getId().equals(backingObject.getOperationModeId())) {
 			socket.setMode(outletWorkflow.getSocketModeById(backingObject.getOperationModeId()));
-		}
-
-		// update operation status
-		if(!socket.getStatus().getId().equals(backingObject.getStatusId())) {
-			socket.setStatus(outletWorkflow.getSocketStatusById(backingObject.getStatusId()));
 		}
 
 		// the other attributes (id, position, outlet, serial number) shouldn't be updated
