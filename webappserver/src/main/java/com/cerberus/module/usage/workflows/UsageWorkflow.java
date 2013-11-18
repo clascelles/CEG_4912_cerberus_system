@@ -3,6 +3,7 @@ package com.cerberus.module.usage.workflows;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.joda.time.DateTime;
 
 import com.cerberus.model.account.bean.User;
@@ -10,6 +11,7 @@ import com.cerberus.model.outlets.bean.Current;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.usage.bean.CurrentDayView;
 import com.cerberus.model.usage.bean.CurrentHourView;
+import com.cerberus.model.usage.bean.SystemTip;
 import com.cerberus.model.usage.bean.Tip;
 import com.cerberus.module.generic.workflows.Workflow;
 import com.cerberus.module.usage.constants.UsageConstants;
@@ -17,20 +19,6 @@ import com.cerberus.service.system.SystemService;
 import com.cerberus.service.usage.ConsumptionService;
 
 public class UsageWorkflow extends Workflow {
-
-	public List<Integer> getCurrentConsumptionForUser(User user){
-
-		//Get the System that the user belongs
-		//SystemService systemService = serviceFactory.getSystemService();
-
-		//ConsumptionService consumptionService = serviceFactory.getConsumptionService();
-		//List<Current> systemCurrentList = consumptionService.getCurrentListBySystemId(system.getId());
-
-
-
-		return null;
-
-	}
 
 	public double[] getCurrentByHourForDay(User user, Date selectedDate){
 
@@ -106,6 +94,17 @@ public class UsageWorkflow extends Workflow {
 		} else {
 			return current.getCurrent() + " kWh";			
 		}
+	}
+
+	public List<Integer> matchCurrentUsage(DetachedCriteria criteria) {
+		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
+		return consumptionService.listCurrent(criteria);
+		
+	}
+	
+	public Integer insertSystemTip(SystemTip systemTip){
+		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
+		return consumptionService.insertSystemTip(systemTip);
 	}
 
 }

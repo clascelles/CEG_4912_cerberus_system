@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.springframework.stereotype.Component;
 
 import com.cerberus.frameworks.hibernate.HibernateUtil;
@@ -112,6 +113,27 @@ public class GenericDAO<T, ID extends Serializable> {
 
 		return get;
 	}
+	
+	/***/
+	public Long count(DetachedCriteria criteria){
+		Session session = null;
+		Transaction tx = null;
+		Long count = 0L;
+
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			count = (Long) criteria.getExecutableCriteria(session).setProjection(Projections.rowCount()).uniqueResult();
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+
+		return count;
+	}
 
 	/***/
 	@SuppressWarnings("unchecked")
@@ -183,6 +205,29 @@ public class GenericDAO<T, ID extends Serializable> {
 		Session session = null;
 		Transaction tx = null;
 		List<T> list = null;
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			list = criteria.getExecutableCriteria(session).list();
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+
+		return list;
+	}
+	
+	/***/
+	@SuppressWarnings("unchecked")
+	public List<Integer> getAllIdsByFilter(DetachedCriteria criteria){
+		criteria.setProjection(Projections.property("id"));
+		
+		Session session = null;
+		Transaction tx = null;
+		List<Integer> list = null;
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
