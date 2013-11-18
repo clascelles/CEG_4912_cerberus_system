@@ -87,7 +87,7 @@ public class EventWorkflow extends Workflow {
 		Outlet outlet = outletService.getOutletById(eventRecord.getOutletId());
 		String message = event.getMessage();
 
-		formattedMessage = String.format(message, outlet.getId(), outlet.getMode().toString());
+		formattedMessage = String.format(message, outlet.getId(), outlet.getMode().getName());
 
 		return formattedMessage;
 	}

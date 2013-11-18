@@ -97,8 +97,11 @@
 					<div class="box span12">
 						<div class="box-header well">
 							<h2>
-								Consumption
+								<i class="icon-signal"></i> Consumption
 							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
 						</div>
 						<div class="box-content">
 							Put consumption graph Here!
@@ -111,39 +114,49 @@
 					<div class="box span12">
 						<div class="box-header well">
 							<h2>
-								Information Logs
+								<i class="icon-info-sign"></i> Information Logs
 							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
 						</div>
 						<div class="box-content">
 							<table>
-								<c:forEach items="${events}" var="event">
-								<tr>
-									<td>
-										<!-- Should not use hard-coded numbers here! -->
-										<c:if test="${event.level == 1}">
-											<span class="label label-info">Info</span>
-										</c:if>
-										<c:if test="${event.level == 2}">
-											<span class="label label-info">Announcement</span>
-										</c:if>
-										<c:if test="${event.level == 3}">
-											<span class="label label-warning">Warn</span>
-										</c:if>
-										<c:if test="${event.level == 4}">
-											<span class="label label-important">Error</span>
-										</c:if>
-										<c:if test="${event.level == 5}">
-											<span class="label label-info">Debug</span>
-										</c:if>
-									</td>
-									<td>
-										<span style="padding:2px">${event.timestamp}</span>
-									</td>
-									<td>
-										<span style="padding:2px">- ${event.message}</span>
-									</td>
-								</tr>
-								</c:forEach>
+								<c:choose>
+									<c:when test="${events.size() == 0}">
+										No information available.
+									</c:when>
+									<c:otherwise>
+										<c:forEach items="${events}" var="event">
+										<tr>
+											<td>
+												<!-- Should not use hard-coded numbers here! -->
+												<c:if test="${event.level == 1}">
+													<span class="label label-info">Info</span>
+												</c:if>
+												<c:if test="${event.level == 2}">
+													<span class="label label-info">Info</span>
+												</c:if>
+												<c:if test="${event.level == 3}">
+													<span class="label label-warning">Warn</span>
+												</c:if>
+												<c:if test="${event.level == 4}">
+													<span class="label label-important">Error</span>
+												</c:if>
+												<c:if test="${event.level == 5}">
+													<span class="label label-info">Debug</span>
+												</c:if>
+											</td>
+											<td>
+												<span style="padding:2px">${event.timestamp}</span>
+											</td>
+											<td>
+												<span style="padding:2px">- ${event.message}</span>
+											</td>
+										</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</table>
 							<div class="clearfix"></div>
 						</div>
@@ -154,8 +167,11 @@
 					<div class="box span12">
 						<div class="box-header well">
 							<h2>
-								Schedules
+								<i class="icon-time"></i> Schedules
 							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
 						</div>
 						<div class="box-content">
 							Put Content Here!
