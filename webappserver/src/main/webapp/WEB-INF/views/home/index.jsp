@@ -135,7 +135,7 @@
 													<span class="label label-info">Info</span>
 												</c:if>
 												<c:if test="${event.level == 2}">
-													<span class="label label-info">Announcement</span>
+													<span class="label label-info">Info</span>
 												</c:if>
 												<c:if test="${event.level == 3}">
 													<span class="label label-warning">Warn</span>
