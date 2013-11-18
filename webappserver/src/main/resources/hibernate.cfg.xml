@@ -20,7 +20,6 @@
 		<property name="hibernate.c3p0.idle_test_period">300</property> 
 		<property name="hibernate.c3p0.acquire_increment">1</property>
 
-        <mapping class="com.cerberus.model.usage.bean.ConsumptionProfile"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.Current"></mapping>
         <mapping class="com.cerberus.model.account.bean.Login"></mapping>
         <mapping class="com.cerberus.model.outlets.bean.Outlet"></mapping>
@@ -38,8 +37,11 @@
         <mapping class="com.cerberus.model.system.bean.UserSystemView"></mapping>
         <mapping class="com.cerberus.model.usage.bean.Rule"></mapping>
         <mapping class="com.cerberus.model.usage.bean.RuleTipXref"></mapping>        
+        <mapping class="com.cerberus.model.usage.bean.ConsumptionProfile"></mapping>
+        <mapping class="com.cerberus.model.usage.bean.CurrentHour"></mapping>
         <mapping class="com.cerberus.model.usage.bean.CurrentHourView"></mapping>
         <mapping class="com.cerberus.model.usage.bean.CurrentDayView"></mapping>
+        <mapping class="com.cerberus.model.usage.bean.CurrentSystemView"></mapping>
         <mapping class="com.cerberus.model.schedules.bean.ScheduledEvent"></mapping>
         <mapping class="com.cerberus.model.schedules.bean.Schedule"></mapping>
         <mapping class="com.cerberus.model.schedules.bean.ScheduleRecurrence"></mapping>
@@ -52,7 +54,6 @@
         <mapping class="com.cerberus.model.account.bean.User"></mapping>
         <mapping class="com.cerberus.model.account.bean.UserSetting"></mapping>
         <mapping class="com.cerberus.model.account.bean.UserType"></mapping>
-        <mapping class="com.cerberus.model.usage.bean.CurrentHour"></mapping>
         
         
     </session-factory>
