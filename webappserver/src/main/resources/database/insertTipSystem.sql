@@ -1,0 +1,17 @@
+CREATE  TABLE `cerberus`.`TipSystem` (
+  `ID` INT NOT NULL ,
+  `TIP_ID` INT NOT NULL ,
+  `SYSTEM_ID` INT NOT NULL ,
+  PRIMARY KEY (`ID`) ,
+  INDEX `SYSTEM_ID_idx` (`SYSTEM_ID` ASC) ,
+  INDEX `TIP_ID_idx` (`TIP_ID` ASC) ,
+  CONSTRAINT `TIP_ID`
+    FOREIGN KEY (`TIP_ID` )
+    REFERENCES `cerberus`.`tip` (`ID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `SYSTEM_ID`
+    FOREIGN KEY (`SYSTEM_ID` )
+    REFERENCES `cerberus`.`system` (`ID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

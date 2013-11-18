@@ -46,7 +46,6 @@ public class CurrentDAO extends GenericDAO<Current, Integer> {
 					.setParameter("thresholdTimestamp", minDate);
 			querySetup.executeUpdate();
 			query.executeUpdate();
-			//ist<CurrentHour> cur = query.list();
 			session.flush();
 			tx.commit();
 			success = true;
@@ -60,5 +59,6 @@ public class CurrentDAO extends GenericDAO<Current, Integer> {
 
 		return success;
 	}
+	
 
 }

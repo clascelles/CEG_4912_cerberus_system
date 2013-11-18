@@ -57,7 +57,7 @@ public class Current implements Serializable {
 	}
 
 	@ManyToOne()
-	@JoinColumn(name = "RFID_TAG_ID", nullable = true)
+	@JoinColumn(name = "RFID_TAG_ID", nullable=true)
 	public RfidTag getRfidTagId() {
 		return rfidTagId;
 	}
@@ -67,7 +67,7 @@ public class Current implements Serializable {
 	}
 
 	@ManyToOne()
-	@JoinColumn(name="USERS_ID", nullable=false)
+	@JoinColumn(name="USERS_ID", nullable=true)
 	public User getUser() {
 		return user;
 	}

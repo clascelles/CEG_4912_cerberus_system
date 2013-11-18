@@ -82,6 +82,7 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 
 		if(auth == null) {
 			// Rfid was never authenticated before
+			rfidTag = rfidService.getRfidTagByNumber(requestMessage.getRfidNumber()); // Get the recently inserted RFID tag
 			auth = new RfidAuthentication(rfidTag.getId(), sysOwner, RfidPermission.UNSET.getIntValue());
 			try {
 				rfidService.insertRfidAuthentication(auth);
@@ -109,7 +110,7 @@ public class RFIDAuthMessageWorkflow extends MessageWorkflow {
 
 	private void respondMessage(String outletId, Integer socket, String rfidNumber, boolean isAuthorized) {
 
-		DateTime dt = new DateTime();
+		DateTime dt = DateTime.now();
 		RFIDAuthResponseMessage response = new RFIDAuthResponseMessage(outletId, socket, dt.getMillis() / 1000, rfidNumber, isAuthorized);
 
 		MessageContainer container = new MessageContainer(null, response);

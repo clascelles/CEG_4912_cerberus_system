@@ -15,7 +15,7 @@ public class ByteTimestampHandler {
 
 	public byte[] formatTimestamp(long timestamp) {
 		messageBuffer.clear();
-		DateTime time = new DateTime(timestamp);
+		DateTime time = new DateTime(timestamp*1000);
 
 		messageBuffer.put(formatYear(time.getYear()));
 		messageBuffer.put(intToByte(time.getMonthOfYear()));

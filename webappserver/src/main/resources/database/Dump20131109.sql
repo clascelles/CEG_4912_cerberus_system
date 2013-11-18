@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `cerberus` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cerberus`;
--- MySQL dump 10.13  Distrib 5.6.11, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.11, for Win32 (x86)
 --
--- Host: localhost    Database: cerberus
+-- Host: 127.0.0.1    Database: cerberus
 -- ------------------------------------------------------
--- Server version	5.6.11
+-- Server version	5.5.30
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -63,7 +63,7 @@ CREATE TABLE `current` (
   CONSTRAINT `fk_?620A4C79?2344?4454?B471?0E8D01FE0A66?` FOREIGN KEY (`USERS_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?01A8162B?8EAC?4B02?A493?867D7E7F7719?` FOREIGN KEY (`RFID_TAG_ID`) REFERENCES `rfid_tag` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?98F77DA9?88D3?44E2?809F?A02D07A0174E?` FOREIGN KEY (`SOCKET_ID`) REFERENCES `socket` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,6 +72,7 @@ CREATE TABLE `current` (
 
 LOCK TABLES `current` WRITE;
 /*!40000 ALTER TABLE `current` DISABLE KEYS */;
+INSERT INTO `current` VALUES (1,1,4,10,'2013-11-18 08:00:00',5),(2,1,4,10,'2013-11-18 11:30:00',11);
 /*!40000 ALTER TABLE `current` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,6 +135,20 @@ SET character_set_client = utf8;
   `HOUR` tinyint NOT NULL,
   `SYSTEM_ID` tinyint NOT NULL,
   `CURRENT_HOUR_KWH` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `current_system_view`
+--
+
+DROP TABLE IF EXISTS `current_system_view`;
+/*!50001 DROP VIEW IF EXISTS `current_system_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `current_system_view` (
+  `CURRENT_ID` tinyint NOT NULL,
+  `SYSTEM_ID` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -745,7 +760,7 @@ CREATE TABLE `socket` (
   CONSTRAINT `fk_?42C4695B?2ECA?4B8F?9A9C?0B6AC6BB5B03?` FOREIGN KEY (`SOCKET_OPERATION_MODE_ID`) REFERENCES `socket_operation_mode` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?E5A5CFB9?41A8?4166?A790?47FA4AEB7303?` FOREIGN KEY (`SOCKET_OPERATION_STATUS_ID`) REFERENCES `socket_operation_status` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?F61548DC?550F?4EC3?AC6C?5D3F97DA104C?` FOREIGN KEY (`OUTLET_ID`) REFERENCES `outlet` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -754,7 +769,7 @@ CREATE TABLE `socket` (
 
 LOCK TABLES `socket` WRITE;
 /*!40000 ALTER TABLE `socket` DISABLE KEYS */;
-INSERT INTO `socket` VALUES (1,1,1,1,0),(2,1,1,1,1),(3,1,1,2,0),(4,1,1,3,0),(5,1,2,4,0),(6,1,1,4,1),(7,1,1,5,0),(8,1,1,6,0),(9,1,1,6,1),(10,1,1,7,0),(11,1,1,8,0),(12,1,1,9,0),(13,1,1,10,0),(14,1,2,10,1),(15,1,1,11,0),(16,1,1,11,1),(17,1,1,12,0);
+INSERT INTO `socket` VALUES (1,1,1,1,0),(2,1,1,1,1),(3,1,1,2,0),(4,1,1,3,0),(5,1,2,4,0),(6,1,1,4,1),(7,1,1,5,0),(8,1,1,6,0),(9,1,1,6,1),(10,1,1,7,0),(11,1,1,8,0),(12,1,1,9,0),(13,1,1,10,0),(14,1,2,10,1),(15,1,1,11,0),(16,1,1,11,1),(17,1,1,12,0),(18,1,1,3,1),(19,1,1,7,1),(20,1,1,8,1),(21,1,1,12,1),(22,1,1,2,1),(23,1,1,5,1),(24,1,1,9,1);
 /*!40000 ALTER TABLE `socket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -786,6 +801,23 @@ LOCK TABLES `socket_assignment` WRITE;
 INSERT INTO `socket_assignment` VALUES (1,1,2),(2,2,3),(3,3,4),(4,4,5),(5,5,6),(6,6,2),(7,7,3),(8,8,4),(9,9,5),(10,10,6),(11,11,2),(12,12,3),(13,13,4),(14,14,5),(15,15,6),(16,16,2),(17,17,3);
 /*!40000 ALTER TABLE `socket_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `socket_current_view_by_hour`
+--
+
+DROP TABLE IF EXISTS `socket_current_view_by_hour`;
+/*!50001 DROP VIEW IF EXISTS `socket_current_view_by_hour`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `socket_current_view_by_hour` (
+  `ID` tinyint NOT NULL,
+  `TIMESTAMP_HOUR` tinyint NOT NULL,
+  `HOUR` tinyint NOT NULL,
+  `SOCKET_ID` tinyint NOT NULL,
+  `CURRENT_HOUR_KWH` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `socket_operation_mode`
@@ -1006,7 +1038,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `current_day_view` AS select `current_hour_view`.`ID` AS `ID`,date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%Y-%m-%d') AS `TIMESTAMP_DAY`,date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%d') AS `DAY`,`current_hour_view`.`SYSTEM_ID` AS `SYSTEM_ID`,(sum(`current_hour_view`.`CURRENT_HOUR_KWH`) / 24) AS `CURRENT_DAY_KWH` from `current_hour_view` group by `TIMESTAMP_DAY`,`current_hour_view`.`SYSTEM_ID` */;
+/*!50001 VIEW `current_day_view` AS select `current_hour_view`.`ID` AS `ID`,date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%Y-%m-%d') AS `TIMESTAMP_DAY`,date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%d') AS `DAY`,`current_hour_view`.`SYSTEM_ID` AS `SYSTEM_ID`,(sum(`current_hour_view`.`CURRENT_HOUR_KWH`) / 24) AS `CURRENT_DAY_KWH` from `current_hour_view` group by date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%Y-%m-%d'),`current_hour_view`.`SYSTEM_ID` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1031,6 +1063,25 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `current_system_view`
+--
+
+/*!50001 DROP TABLE IF EXISTS `current_system_view`*/;
+/*!50001 DROP VIEW IF EXISTS `current_system_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `current_system_view` AS select `current`.`ID` AS `CURRENT_ID`,`room`.`SYSTEM_ID` AS `SYSTEM_ID` from (((`current` join `socket` on((`socket`.`ID` = `current`.`SOCKET_ID`))) join `outlet` on((`outlet`.`ID` = `socket`.`OUTLET_ID`))) join `room` on((`room`.`ID` = `outlet`.`ROOM_ID`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `current_view_by_hour`
 --
 
@@ -1044,7 +1095,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `current_view_by_hour` AS select `current`.`ID` AS `ID`,date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current`.`TIMESTAMP`,'%H') AS `HOUR`,(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) AS `SYSTEM_ID`,((sum(`current`.`CURRENT`) * 30) / 1000) AS `CURRENT_HOUR_KWH` from `current` group by `TIMESTAMP_HOUR`,`SYSTEM_ID` */;
+/*!50001 VIEW `current_view_by_hour` AS select `current`.`ID` AS `ID`,date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current`.`TIMESTAMP`,'%H') AS `HOUR`,(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) AS `SYSTEM_ID`,((sum(`current`.`CURRENT`) * 30) / 1000) AS `CURRENT_HOUR_KWH` from `current` group by date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H'),(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1088,6 +1139,25 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `socket_current_view_by_hour`
+--
+
+/*!50001 DROP TABLE IF EXISTS `socket_current_view_by_hour`*/;
+/*!50001 DROP VIEW IF EXISTS `socket_current_view_by_hour`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `socket_current_view_by_hour` AS select `current`.`ID` AS `ID`,date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H:00:00') AS `TIMESTAMP_HOUR`,date_format(`current`.`TIMESTAMP`,'%H') AS `HOUR`,`current`.`SOCKET_ID` AS `SOCKET_ID`,((sum(`current`.`CURRENT`) * 30) / 1000) AS `CURRENT_HOUR_KWH` from `current` group by date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H') */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `user_system_view`
 --
 
@@ -1115,4 +1185,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-15 11:16:17
+-- Dump completed on 2013-11-18 14:19:59
