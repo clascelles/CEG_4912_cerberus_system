@@ -80,6 +80,7 @@
 	<!-- application script for Charisma demo -->
 	<script src="/webappserver/resources/js/charisma.js"></script>
 	<script src="/webappserver/resources/js/usageGraph.js"></script>
+	<script src="/webappserver/resources/js/socketGraph.js"></script>
 	<script src="/webappserver/resources/js/bootstrap-datepicker.js"></script>
 	
 	

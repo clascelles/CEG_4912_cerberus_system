@@ -84,13 +84,27 @@ public class OutletController extends CerberusController {
 		Outlet outlet = outletWorkflow.getOutletById(id);
 		model.addAttribute(CerberusConstants.OUTLET, OutletBackingObjectFactory.INSTANCE.getBackingObject(outlet));
 
-		model.addAttribute(CerberusConstants.SOCKETS, SocketBackingObjectFactory.INSTANCE.getBackingObjects(outletWorkflow.getSocketsByOutlet(outlet)));
+		List<Socket> sockets = outletWorkflow.getSocketsByOutlet(outlet);
+		model.addAttribute(CerberusConstants.SOCKETS, SocketBackingObjectFactory.INSTANCE.getBackingObjects(sockets));
+
+		if(sockets.size() > 0) {
+			if(sockets.size() > 1) {
+				addSocketToModel(model, CerberusConstants.SOCKET_A, sockets.get(0));
+				addSocketToModel(model, CerberusConstants.SOCKET_B, sockets.get(1));				
+			} else {
+				if(sockets.get(0).getPosition() == 0) {
+					addSocketToModel(model, CerberusConstants.SOCKET_A, sockets.get(0));					
+				} else {
+					addSocketToModel(model, CerberusConstants.SOCKET_B, sockets.get(0));					
+				}
+			}			
+		}
 
 		List<SocketOperationMode> socketModes = outletWorkflow.getSocketOperationModes();
 		List<OutletOperationMode> outletModes = outletWorkflow.getOutletOperationModes();
 
-		List<SocketOperationModeBackingObject> outletModeBackingObjects = SocketOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(socketModes);
-		List<OutletOperationModeBackingObject> socketModeBackingObjects = OutletOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(outletModes);
+		List<SocketOperationModeBackingObject> socketModeBackingObjects = SocketOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(socketModes);
+		List<OutletOperationModeBackingObject> outletModeBackingObjects = OutletOperationModeBackingObjectFactory.INSTANCE.getBackingObjects(outletModes);
 
 		model.addAttribute(CerberusConstants.OUTLET_OPERATION_MODES, outletModeBackingObjects);
 		model.addAttribute(CerberusConstants.SOCKET_OPERATION_MODES, socketModeBackingObjects);
@@ -100,6 +114,10 @@ public class OutletController extends CerberusController {
 		CerberusLogger.get(CerberusConstants.VIEW_OUTLET_VIEW);
 
 		return CerberusConstants.VIEW_OUTLET_VIEW;
+	}
+	
+	private void addSocketToModel(Model model, String attributeName, Socket socket) {
+		model.addAttribute(attributeName, SocketBackingObjectFactory.INSTANCE.getBackingObject(socket));		
 	}
 
 	@RequestMapping(value=CerberusConstants.OUTLETS_MAPPING, method=RequestMethod.POST)

@@ -76,7 +76,7 @@ public class UsageController extends CerberusController {
 		return "usage/index";
 	}
 	
-	private String arrayToJavascript(double values[]){
+	public static String arrayToJavascript(double values[]){
 		StringBuilder stringValues = new StringBuilder(150);
 		
 		for(int i=0; i<values.length; i++){
@@ -90,7 +90,7 @@ public class UsageController extends CerberusController {
 		return stringValues.toString();
 	}
 	
-	private Integer maxValue(double values[]){
+	public static Integer maxValue(double values[]){
 		double max = 0.0;
 		
 		for(int i=0; i<values.length; i++){

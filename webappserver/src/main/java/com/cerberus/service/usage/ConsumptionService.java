@@ -11,17 +11,21 @@ import com.cerberus.model.outlets.dao.CurrentDAO;
 import com.cerberus.model.outlets.filter.CurrentFilter;
 import com.cerberus.model.usage.bean.CurrentDayView;
 import com.cerberus.model.usage.bean.CurrentHourView;
+import com.cerberus.model.usage.bean.SocketCurrentHourView;
 import com.cerberus.model.usage.bean.Tip;
 import com.cerberus.model.usage.dao.CurrentDayViewDAO;
 import com.cerberus.model.usage.dao.CurrentHourDAO;
 import com.cerberus.model.usage.dao.CurrentHourViewDAO;
+import com.cerberus.model.usage.dao.SocketCurrentHourViewDAO;
 import com.cerberus.model.usage.dao.TipDAO;
 import com.cerberus.model.usage.filter.CurrentDayViewFilter;
 import com.cerberus.model.usage.filter.CurrentHourViewFilter;
+import com.cerberus.model.usage.filter.SocketCurrentHourViewFilter;
 
 public class ConsumptionService {
 
 	private final CurrentDAO currentDAO;
+	private final SocketCurrentHourViewDAO socketCurrentHourViewDAO;
 	private final CurrentHourViewDAO currentHourViewDAO;
 	private final CurrentDayViewDAO currentDayViewDAO;
 	private final CurrentHourDAO currentHourDAO;
@@ -29,6 +33,7 @@ public class ConsumptionService {
 
 	public ConsumptionService (){
 		currentDAO = new CurrentDAO();
+		socketCurrentHourViewDAO = new SocketCurrentHourViewDAO();
 		currentHourViewDAO = new CurrentHourViewDAO();
 		currentDayViewDAO = new CurrentDayViewDAO();
 		currentHourDAO = new CurrentHourDAO();
@@ -62,6 +67,17 @@ public class ConsumptionService {
 	
 	public boolean deleteCurrentByThreshold(DateTime threshold){
 		return currentDAO.deleteCurrent(new Timestamp(threshold.getMillis()));
+	}
+
+	//*************************************************
+	//SOCKET CURRENT HOUR
+	//*************************************************
+
+	public List<SocketCurrentHourView> getSocketCurrentHourForDay(Integer socketId, Date selectedDate){
+
+		//Should never be more then 24 item in this list.
+		return socketCurrentHourViewDAO.getAllByFilter(SocketCurrentHourViewFilter.getByThisDay(socketId, selectedDate));
+
 	}
 
 	//*************************************************

@@ -1,5 +1,7 @@
 package com.cerberus.module.outlets.backingobjects;
 
+import java.util.Date;
+
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Current;
@@ -33,6 +35,8 @@ public class SocketBackingObjectFactory extends BackingObjectFactory<Socket, Soc
 		
 		UsageWorkflow usageWorkflow = CerberusApplicationContext.getWorkflows().getUsageWorkflow();
 		backingObject.setPowerUsage(usageWorkflow.getCurrentUsageForSocket(socket));
+		
+		backingObject.setCurrentLog(usageWorkflow.getSocketCurrentByHourForDay(socket, new Date()));
 		
 		Current current = usageWorkflow.getCurrentForSocket(socket);
 		if(current != null) {

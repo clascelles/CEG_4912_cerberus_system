@@ -38,6 +38,7 @@
         <mapping class="com.cerberus.model.system.bean.UserSystemView"></mapping>
         <mapping class="com.cerberus.model.usage.bean.Rule"></mapping>
         <mapping class="com.cerberus.model.usage.bean.RuleTipXref"></mapping>        
+        <mapping class="com.cerberus.model.usage.bean.SocketCurrentHourView"></mapping>
         <mapping class="com.cerberus.model.usage.bean.CurrentHourView"></mapping>
         <mapping class="com.cerberus.model.usage.bean.CurrentDayView"></mapping>
         <mapping class="com.cerberus.model.schedules.bean.ScheduledEvent"></mapping>

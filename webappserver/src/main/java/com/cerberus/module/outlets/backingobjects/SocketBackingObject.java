@@ -1,10 +1,8 @@
 package com.cerberus.module.outlets.backingobjects;
 
-import java.util.List;
-
-import com.cerberus.model.outlets.bean.Current;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.module.generic.backingobjects.BackingObject;
+import com.cerberus.module.usage.controllers.UsageController;
 
 public class SocketBackingObject extends BackingObject<Socket> {
 
@@ -23,9 +21,11 @@ public class SocketBackingObject extends BackingObject<Socket> {
 	private String	timeConnected;
 	private String  connectedUtilityName;
 
-	//For the current graphs
-	//private
-	private double[] currentLog = new double[11];
+	private String currentLog;
+	private Integer minX;
+	private Integer maxX;
+	private Integer minY;
+	private Integer maxY;
 
 	public Integer getId() {
 		return id;
@@ -135,16 +135,41 @@ public class SocketBackingObject extends BackingObject<Socket> {
 		this.position = position;
 	}
 	
-	public void setCurrentLog(List<Current> currents) {
+	/*public void setCurrentLog(List<Current> currents) {
 		List<Current> toBeUsed = currents.subList(currents.size()-11, currents.size());
 		int i=0;
 		for(Current current : toBeUsed) {
 			currentLog[i] = current.getCurrent();
 			i++;
 		}
+	}*/
+	
+	public void setCurrentLog(double[] currents) {
+		this.currentLog = UsageController.arrayToJavascript(currents);
+		this.maxY = UsageController.maxValue(currents);
+		this.minY = 0;
+		this.minX = 0;
+		this.maxX = 23;
 	}
 	
-	public double[] getCurrentLog() {
+	public String getCurrentLog() {
 		return currentLog;
 	}
+	
+	public Integer getMaxY() {
+		return maxY;
+	}
+
+	public Integer getMinX() {
+		return minX;
+	}
+
+	public Integer getMaxX() {
+		return maxX;
+	}
+
+	public Integer getMinY() {
+		return minY;
+	}
+	
 }

@@ -28,6 +28,37 @@
 
 	<!-- The fav icon -->
 	<link rel="shortcut icon" href="/webappserver/resources/img/favicon.png">
+	
+	<script type="text/javascript">
+		var graphValuesA = '<c:out value="${socketA.currentLog}"/>';
+		var graphValuesArrayA = graphValuesA.split(",");
+		
+		var minAX = '<c:out value="${socketA.minX}"/>';
+		var maxAX = '<c:out value="${socketA.maxX}"/>';
+		var minAY = '<c:out value="${socketA.minY}"/>';
+		var maxAY = '<c:out value="${socketA.maxY}"/>';
+		
+		var dataValuesA = [];
+		var offsetA = parseInt(minAX);
+		for(var i=0; i<graphValuesArrayA.length; i++){
+			dataValuesA.push([i+offsetA, graphValuesArrayA[i]]);
+		}
+		
+		var graphValuesB = '<c:out value="${socketB.currentLog}"/>';
+		var graphValuesArrayB = graphValuesB.split(",");
+		
+		var minBX = '<c:out value="${socketB.minX}"/>';
+		var maxBX = '<c:out value="${socketB.maxX}"/>';
+		var minBY = '<c:out value="${socketB.minY}"/>';
+		var maxBY = '<c:out value="${socketB.maxY}"/>';
+		
+		var dataValuesB = [];
+		var offsetB = parseInt(minBX);
+		for(var i=0; i<graphValuesArrayB.length; i++){
+			dataValuesB.push([i+offsetB, graphValuesArrayB[i]]);
+		}
+		
+	</script>
 		
 </head>
 
@@ -260,7 +291,6 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<%@include file="\WEB-INF\views\main\javascript.jsp" %>
-	<script src="/webappserver/resources/js/viewOutlets.js"></script>
 	
 </body>
 </html>

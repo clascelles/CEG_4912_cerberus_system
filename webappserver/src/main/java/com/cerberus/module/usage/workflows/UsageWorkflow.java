@@ -10,6 +10,7 @@ import com.cerberus.model.outlets.bean.Current;
 import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.usage.bean.CurrentDayView;
 import com.cerberus.model.usage.bean.CurrentHourView;
+import com.cerberus.model.usage.bean.SocketCurrentHourView;
 import com.cerberus.model.usage.bean.Tip;
 import com.cerberus.module.generic.workflows.Workflow;
 import com.cerberus.module.usage.constants.UsageConstants;
@@ -44,6 +45,20 @@ public class UsageWorkflow extends Workflow {
 
 		//Add the current hour to the list and handle the potential missing values.
 		for(CurrentHourView currentHour: currentHourViewList){
+			currentHourList[currentHour.getHour()] = currentHour.getCurrentHour();
+		}
+
+		return currentHourList;
+	}
+	
+	public double[] getSocketCurrentByHourForDay(Socket socket, Date selectedDate){
+
+		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
+		List<SocketCurrentHourView> currentHourViewList = consumptionService.getSocketCurrentHourForDay(socket.getId(), selectedDate);
+		double[] currentHourList = new double[24];
+
+		//Add the current hour to the list and handle the potential missing values.
+		for(SocketCurrentHourView currentHour: currentHourViewList){
 			currentHourList[currentHour.getHour()] = currentHour.getCurrentHour();
 		}
 
