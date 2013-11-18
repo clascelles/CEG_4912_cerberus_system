@@ -32,7 +32,7 @@ public class SwitchOperationModeWorkflow extends MessageWorkflow {
 	public boolean sendMessage(String serialNumber, int socket, String rfidNumber,
 			OperationMode opMode, int powerThreshold) {
 
-		DateTime dt = new DateTime();
+		DateTime dt = DateTime.now();
 
 		SwitchOperatingModeMessage message = new SwitchOperatingModeMessage(serialNumber, socket, dt.getMillis() / 1000, rfidNumber, opMode.getOperationMode(), powerThreshold);
 		MessageContainer container = new MessageContainer(null, message);
