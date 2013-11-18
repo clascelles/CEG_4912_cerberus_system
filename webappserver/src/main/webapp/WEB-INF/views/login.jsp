@@ -60,20 +60,20 @@
 		
 </head>
 
-<body>
+<body class="login-background-gradient">
 		<div class="container-fluid">
 		<div class="row-fluid">
 		
 			<div class="row-fluid">
-				<div class="span12 center login-header">
-					<h2><fmt:message key="login.title"/></h2>
+				<div class="span12 center">
+					<div style="background-image:url('/webappserver/resources/img/logo-title.png'); width:600px; height:200px; margin:auto; background-position:0px,150px;"></div>
 				</div><!--/span-->
 			</div><!--/row-->
-			
+
 			<div class="row-fluid">
 				<div class="well span5 center login-box">
 					<div class="alert alert-info">
-						<fmt:message key="login.instruction"/>
+						<i class="icon-info-sign"></i> <fmt:message key="login.instruction"/>
 					</div>
 					<form:form class="form-horizontal" modelAttribute="loginBackingObject" action="" method="post">
 						<fieldset>
@@ -93,7 +93,7 @@
 							<div class="clearfix"></div>
 
 							<p class="center span5">
-							<button type="submit" class="btn btn-primary"><fmt:message key="login.button.login"/></button>
+							<button type="submit" class="btn btn-primary"><h2 style="color:#ffffff"><fmt:message key="login.button.login"/></h2></button>
 							</p>
 						</fieldset>
 					</form:form>
