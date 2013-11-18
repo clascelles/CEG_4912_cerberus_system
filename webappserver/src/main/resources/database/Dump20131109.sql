@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `cerberus` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cerberus`;
--- MySQL dump 10.13  Distrib 5.6.11, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
 -- Host: localhost    Database: cerberus
 -- ------------------------------------------------------
--- Server version	5.6.11
+-- Server version	5.6.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -134,6 +134,20 @@ SET character_set_client = utf8;
   `HOUR` tinyint NOT NULL,
   `SYSTEM_ID` tinyint NOT NULL,
   `CURRENT_HOUR_KWH` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `current_system_view`
+--
+
+DROP TABLE IF EXISTS `current_system_view`;
+/*!50001 DROP VIEW IF EXISTS `current_system_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `current_system_view` (
+  `CURRENT_ID` tinyint NOT NULL,
+  `SYSTEM_ID` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -1031,6 +1045,25 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `current_system_view`
+--
+
+/*!50001 DROP TABLE IF EXISTS `current_system_view`*/;
+/*!50001 DROP VIEW IF EXISTS `current_system_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `current_system_view` AS select `current`.`ID` AS `CURRENT_ID`,`room`.`SYSTEM_ID` AS `SYSTEM_ID` from (((`current` join `socket` on((`socket`.`ID` = `current`.`SOCKET_ID`))) join `outlet` on((`outlet`.`ID` = `socket`.`OUTLET_ID`))) join `room` on((`room`.`ID` = `outlet`.`ROOM_ID`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `current_view_by_hour`
 --
 
@@ -1115,4 +1148,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-15 11:16:17
+-- Dump completed on 2013-11-18 12:44:58
