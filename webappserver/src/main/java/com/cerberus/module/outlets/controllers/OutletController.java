@@ -112,11 +112,14 @@ public class OutletController extends CerberusController {
 		//Add the outlet
 		Outlet outlet = OutletBackingObjectFactory.INSTANCE.bind(newOutlet, user);
 		if(outlet != null) {
-			if(outletWorkflow.getOutletById(outlet.getId()) == null) {
+			if(outlet.getId() == null) {
 				// New outlet, log event!
+				outletWorkflow.insertOutlet(outlet);
 				CerberusApplicationContext.getWorkflows().getEventWorkflow().logEvent(EventType.NEW_OUTLET, outlet);
+			} else {
+				// Not a new outlet, do not log event
+				outletWorkflow.insertOutlet(outlet);
 			}
-			outletWorkflow.insertOutlet(outlet);
 		}
 
 		//Add the two sockets

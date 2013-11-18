@@ -119,74 +119,31 @@
 								<c:forEach items="${events}" var="event">
 								<tr>
 									<td>
-										<c:if test="${event.level == EventLevel.INFO}">
+										<!-- Should not use hard-coded numbers here! -->
+										<c:if test="${event.level == 1}">
 											<span class="label label-info">Info</span>
 										</c:if>
-										<c:if test="${event.level == EventLevel.ANNOUNCEMENT}">
+										<c:if test="${event.level == 2}">
 											<span class="label label-info">Announcement</span>
 										</c:if>
-										<c:if test="${event.level == EventLevel.WARNING}">
+										<c:if test="${event.level == 3}">
 											<span class="label label-warning">Warn</span>
 										</c:if>
-										<c:if test="${event.level == EventLevel.ERROR}">
+										<c:if test="${event.level == 4}">
 											<span class="label label-important">Error</span>
 										</c:if>
-										<c:if test="${event.level == EventLevel.DEBUG}">
+										<c:if test="${event.level == 5}">
 											<span class="label label-info">Debug</span>
 										</c:if>
 									</td>
 									<td>
-										<span>${event.timestamp}</span>
+										<span style="padding:2px">${event.timestamp}</span>
 									</td>
 									<td>
-										<span>${event.message}</span>
+										<span style="padding:2px">- ${event.message}</span>
 									</td>
 								</tr>
 								</c:forEach>
-								<tr>
-									<td>
-										<span class="label label-info">Info</span>
-									</td>
-									<td>
-										<span>11/9/2013 16:37:15</span>
-									</td>
-									<td>
-										<span>- New Socket 0A1234567 connection online</span>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="label label-warning">Warn</span>
-									</td>
-									<td>
-										<span>11/9/2013 16:37:15</span>
-									</td>
-									<td>
-										<span>- Socket 0A1234567 now allocated to you</span>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="label label-info">Info</span>
-									</td>
-									<td>
-										<span>11/9/2013 16:37:15</span>
-									</td>
-									<td>
-										<span>- Device connected to socket 0A1234567</span>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span class="label label-important">Error</span>
-									</td>
-									<td>
-										<span>11/9/2013 16:37:15</span>
-									</td>
-									<td>
-										<span>- Socket 0A1234567 connection interrupted</span>
-									</td>
-								</tr>
 							</table>
 							<div class="clearfix"></div>
 						</div>
