@@ -34,7 +34,11 @@ public class ByteMessageReader {
 			short currentUnit = ByteBuffer.wrap(message.getCurrentUnit()).getShort();
 			short currentDec = ByteBuffer.wrap(message.getCurrentDec()).getShort();
 
-			double current = currentUnit + currentDec * (1/10000);
+			double currentUnitDouble = currentUnit;
+			double currentDecDouble = currentDec;
+			double factor = 1.0/10000.0;
+
+			double current = currentUnitDouble + (currentDecDouble * factor);
 			readMessage = new CurrentConsumptionMessage(outletId, socketId, timestamp, rfid, current);
 			break;
 		case RFID_AUTH_REQ:
