@@ -9,12 +9,19 @@ import org.perf4j.log4j.Log4JStopWatch;
 import com.cerberus.daemon.message.CurrentConsumptionMessage;
 import com.cerberus.daemon.message.Message;
 import com.cerberus.daemon.message.WrongMessageException;
+import com.cerberus.frameworks.spring.CerberusApplicationContext;
+import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Current;
 import com.cerberus.model.outlets.bean.Outlet;
 import com.cerberus.model.outlets.bean.Socket;
+import com.cerberus.model.security.bean.RfidAuthentication;
 import com.cerberus.model.security.bean.RfidTag;
+import com.cerberus.module.security.constants.RfidPermission;
+import com.cerberus.module.system.constants.EventType;
+import com.cerberus.service.account.UserService;
 import com.cerberus.service.outlets.OutletService;
 import com.cerberus.service.security.RfidService;
+import com.cerberus.service.system.SystemService;
 
 public class CurrentConsumptionWorkflow extends MessageWorkflow {
 
@@ -30,6 +37,8 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 
 		OutletService outletService = serviceFactory.getOutletService();
 		RfidService rfidService = serviceFactory.getRfidService();
+		SystemService systemService = serviceFactory.getSystemService();
+		UserService userService = serviceFactory.getUserService();
 
 		StopWatch stopwatch = new Log4JStopWatch("CurrentWorkflow.handleReceivedMessage");
 
@@ -69,6 +78,7 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 		//User user = userService.getUserBySocketId(socket.getId());
 
 		// Current values will not be tied to users!
+		// TODO: Refactor this (and database)
 		current.setUser(null);
 
 		// RFID is optional
@@ -76,7 +86,35 @@ public class CurrentConsumptionWorkflow extends MessageWorkflow {
 		if (rfidNumber != null) {
 			// Set RFID Number
 			RfidTag tag = rfidService.getRfidTagByNumber(rfidNumber);
-			current.setRfidTagId(tag);
+			if(tag != null) {
+				current.setRfidTagId(tag);
+			} else if(!rfidNumber.equals("0000000000")) {
+				// New RFID detected!
+
+				tag = new RfidTag(currentMessage.getRfidNumber(), "New RFID Tag", null);
+				try {
+					rfidService.insertRfidTag(tag);
+					CerberusApplicationContext.getWorkflows().getEventWorkflow().logEvent(EventType.NEW_RFID_TAG, outlet.getId());
+				} catch(Exception e) {
+					LOGGER.error("Failed to insert new Rfid tag from rfid request message: " + currentMessage + "; Rfid Tag: " + tag);
+					return false;
+				}
+
+				// Get system owner
+				Integer systemId = outletService.getSystemIdFromOutlet(outlet.getId());
+				User sysOwner = userService.getUserById(systemService.getSysOwnerOfSystem(systemId));
+
+				// Rfid was never authenticated before
+				// Get recently inserted RFID tag
+				tag = rfidService.getRfidTagByNumber(currentMessage.getRfidNumber());
+				RfidAuthentication auth = new RfidAuthentication(tag.getId(), sysOwner, RfidPermission.UNSET.getIntValue());
+				try {
+					rfidService.insertRfidAuthentication(auth);
+				} catch(Exception e) {
+					LOGGER.error("Failed to insert new Rfid authentication from rfid request message: " + currentMessage + "; Rfid Authentication: " + auth);
+					return false;
+				}
+			}
 		} else {
 			current.setRfidTagId(null);
 		}
