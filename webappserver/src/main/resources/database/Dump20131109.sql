@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `cerberus` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cerberus`;
--- MySQL dump 10.13  Distrib 5.6.11, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.11, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: cerberus
+-- Host: localhost    Database: cerberus
 -- ------------------------------------------------------
--- Server version	5.5.30
+-- Server version	5.6.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -589,7 +589,7 @@ CREATE TABLE `rule_tip_xref` (
 
 LOCK TABLES `rule_tip_xref` WRITE;
 /*!40000 ALTER TABLE `rule_tip_xref` DISABLE KEYS */;
-INSERT INTO `rule_tip_xref` VALUES (1,1,1),(2,1,2),(3,1,3);
+INSERT INTO `rule_tip_xref` VALUES (1,1,1);
 /*!40000 ALTER TABLE `rule_tip_xref` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -898,6 +898,33 @@ INSERT INTO `system` VALUES (1,'David\'s System',1,1,1,'1234123412341234'),(2,'C
 UNLOCK TABLES;
 
 --
+-- Table structure for table `system_tip`
+--
+
+DROP TABLE IF EXISTS `system_tip`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `system_tip` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TIP_ID` int(11) NOT NULL,
+  `SYSTEM_ID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `SYSTEM_ID_idx` (`SYSTEM_ID`),
+  KEY `TIP_ID_idx` (`TIP_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `system_tip`
+--
+
+LOCK TABLES `system_tip` WRITE;
+/*!40000 ALTER TABLE `system_tip` DISABLE KEYS */;
+INSERT INTO `system_tip` VALUES (1,1,3);
+/*!40000 ALTER TABLE `system_tip` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tip`
 --
 
@@ -1038,7 +1065,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `current_day_view` AS select `current_hour_view`.`ID` AS `ID`,date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%Y-%m-%d') AS `TIMESTAMP_DAY`,date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%d') AS `DAY`,`current_hour_view`.`SYSTEM_ID` AS `SYSTEM_ID`,(sum(`current_hour_view`.`CURRENT_HOUR_KWH`) / 24) AS `CURRENT_DAY_KWH` from `current_hour_view` group by date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%Y-%m-%d'),`current_hour_view`.`SYSTEM_ID` */;
+/*!50001 VIEW `current_day_view` AS select `current_hour_view`.`ID` AS `ID`,date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%Y-%m-%d') AS `TIMESTAMP_DAY`,date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%d') AS `DAY`,`current_hour_view`.`SYSTEM_ID` AS `SYSTEM_ID`,sum(`current_hour_view`.`CURRENT_HOUR_KWH`) AS `CURRENT_DAY_KWH` from `current_hour_view` group by date_format(`current_hour_view`.`TIMESTAMP_HOUR`,'%Y-%m-%d'),`current_hour_view`.`SYSTEM_ID` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1185,4 +1212,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-18 14:19:59
+-- Dump completed on 2013-11-18 19:55:50
