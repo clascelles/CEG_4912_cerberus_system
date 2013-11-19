@@ -79,9 +79,9 @@ public class UsageWorkflow extends Workflow {
 		consumptionService.deleteCurrentByThreshold(threshold);
 	}
 	
-	public List<Tip> getTips(){
+	public List<Tip> getTipsWithRules(){
 		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
-		return consumptionService.getTips();
+		return consumptionService.getTipsWithRules();
 	}
 	
 	public Current getCurrentForSocket(Socket socket) {
@@ -117,9 +117,14 @@ public class UsageWorkflow extends Workflow {
 		
 	}
 	
-	public Integer insertSystemTip(SystemTip systemTip){
+	public List<Integer> getSystemList(List<Integer> currentList){
 		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
-		return consumptionService.insertSystemTip(systemTip);
+		return consumptionService.getSystemListFromCurrentList(currentList);
+	}
+	
+	public Integer insertSystemTip(Integer tipId, Integer systemId ){
+		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
+		return consumptionService.insertSystemTip(new SystemTip(systemId, tipId));
 	}
 
 }

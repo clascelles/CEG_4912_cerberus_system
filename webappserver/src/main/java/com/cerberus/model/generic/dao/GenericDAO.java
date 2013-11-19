@@ -222,9 +222,7 @@ public class GenericDAO<T, ID extends Serializable> {
 	
 	/***/
 	@SuppressWarnings("unchecked")
-	public List<Integer> getAllIdsByFilter(DetachedCriteria criteria){
-		criteria.setProjection(Projections.property("id"));
-		
+	public List<Integer> getAllIdsByFilter(DetachedCriteria criteria){		
 		Session session = null;
 		Transaction tx = null;
 		List<Integer> list = null;

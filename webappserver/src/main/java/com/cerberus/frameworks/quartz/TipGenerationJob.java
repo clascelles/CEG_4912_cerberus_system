@@ -25,14 +25,17 @@ public class TipGenerationJob extends QuartzJobBean {
 		UsageWorkflow usageWorkflow = CerberusApplicationContext.getWorkflows().getUsageWorkflow();
 		
 		//TODO: Get all the tips objects which have rules
-		List<Tip> tips = usageWorkflow.getTips();
+		List<Tip> tips = usageWorkflow.getTipsWithRules();
 		
 		for(int i=0; i<tips.size(); i++){
-			List<Integer> currentList = TipRuleEngine.applyRules(tips.get(i));
-			System.out.println(currentList.toString());
-			//Match the list to systems
-			//Add the Syste_Tip object for each system
-						
+			Tip tip = tips.get(i);
+			List<Integer> currentList = TipRuleEngine.applyRules(tip);
+			if(currentList.size() > 0){
+				List<Integer> systemList = usageWorkflow.getSystemList(currentList);
+				for(int j=0; j<systemList.size(); j++){
+					usageWorkflow.insertSystemTip(tip.getId(), systemList.get(j));
+				}
+			}
 		}
 		
 		

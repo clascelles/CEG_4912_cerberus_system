@@ -13,8 +13,8 @@ public class CurrentSystemView implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	Integer currentId;
-	Integer systemId;
+	private Integer currentId;
+	private Integer systemId;
 
 	public CurrentSystemView() {
 		super();
@@ -26,6 +26,7 @@ public class CurrentSystemView implements Serializable{
 	}
 
 	@Id
+	@Column(name="CURRENT_ID", nullable=false)
 	public Integer getCurrentId() {
 		return this.currentId;
 	}
@@ -34,7 +35,7 @@ public class CurrentSystemView implements Serializable{
 		this.currentId = currentId;
 	}
 
-	@Column(name="SYSTEM_ID", nullable=false, updatable=false, insertable=false)
+	@Column(name="SYSTEM_ID", nullable=false)
 	public Integer getSystemId() {
 		return this.systemId;
 	}
