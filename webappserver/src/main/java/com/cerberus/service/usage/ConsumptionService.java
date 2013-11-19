@@ -1,7 +1,6 @@
 package com.cerberus.service.usage;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import com.cerberus.model.outlets.filter.CurrentFilter;
 import com.cerberus.model.usage.bean.CurrentDayView;
 import com.cerberus.model.usage.bean.CurrentHourView;
 import com.cerberus.model.usage.bean.SocketCurrentHourView;
-import com.cerberus.model.usage.bean.CurrentSystemView;
 import com.cerberus.model.usage.bean.SystemTip;
 import com.cerberus.model.usage.bean.Tip;
 import com.cerberus.model.usage.dao.CurrentDayViewDAO;
@@ -152,13 +150,7 @@ public class ConsumptionService {
 	//*************************************************
 
 	public List<Integer> getSystemListFromCurrentList (List<Integer> currentList){
-		List<Integer> systemIdList = new ArrayList<Integer>(10);
-		List<Integer> currentSystemViewList = currentSystemViewDAO.getAllIdsByFilter(CurrentSystemViewFilter.getSystemFromCurrentList(currentList));
-		//for(int i=0; i<currentSystemViewList.size(); i++){
-		//	systemIdList.add(currentSystemViewList.get(i).getSystemId());
-		//}
-		//return systemIdList;
-		return currentSystemViewList;
+		return currentSystemViewDAO.getAllIdsByFilter(CurrentSystemViewFilter.getSystemFromCurrentList(currentList));
 	}
 	
 }
