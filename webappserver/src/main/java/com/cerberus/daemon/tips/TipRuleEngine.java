@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.outlets.filter.CurrentFilter;
@@ -42,6 +43,8 @@ public class TipRuleEngine {
 				break;
 			}
 		}
+		
+		criteria.setProjection(Projections.property("id"));
 		
 		//Get the Consumption Service to do the processing
 		UsageWorkflow usageWorkflow = CerberusApplicationContext.getWorkflows().getUsageWorkflow();

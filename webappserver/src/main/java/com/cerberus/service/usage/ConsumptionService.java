@@ -19,11 +19,14 @@ import com.cerberus.model.usage.dao.CurrentDayViewDAO;
 import com.cerberus.model.usage.dao.CurrentHourDAO;
 import com.cerberus.model.usage.dao.CurrentHourViewDAO;
 import com.cerberus.model.usage.dao.SocketCurrentHourViewDAO;
+import com.cerberus.model.usage.dao.CurrentSystemViewDAO;
 import com.cerberus.model.usage.dao.SystemTipDAO;
 import com.cerberus.model.usage.dao.TipDAO;
 import com.cerberus.model.usage.filter.CurrentDayViewFilter;
 import com.cerberus.model.usage.filter.CurrentHourViewFilter;
 import com.cerberus.model.usage.filter.SocketCurrentHourViewFilter;
+import com.cerberus.model.usage.filter.CurrentSystemViewFilter;
+import com.cerberus.model.usage.filter.TipFilter;
 
 public class ConsumptionService {
 
@@ -34,6 +37,7 @@ public class ConsumptionService {
 	private final CurrentHourDAO currentHourDAO;
 	private final TipDAO tipDAO;
 	private final SystemTipDAO systemTipDAO;
+	private final CurrentSystemViewDAO currentSystemViewDAO;
 
 	public ConsumptionService (){
 		currentDAO = new CurrentDAO();
@@ -43,6 +47,7 @@ public class ConsumptionService {
 		currentHourDAO = new CurrentHourDAO();
 		tipDAO = new TipDAO();
 		systemTipDAO = new SystemTipDAO();
+		currentSystemViewDAO = new CurrentSystemViewDAO();
 		//Add all the necessary DAOs here
 	}
 
@@ -127,8 +132,9 @@ public class ConsumptionService {
 	//TIP
 	//*************************************************
 	
-	public List<Tip> getTips(){
-		return tipDAO.getAll();
+	public List<Tip> getTipsWithRules(){
+		
+		return tipDAO.getAllByFilter(TipFilter.getTipsWithRule());
 	}
 	
 	//*************************************************
@@ -137,6 +143,14 @@ public class ConsumptionService {
 
 	public Integer insertSystemTip(SystemTip systemTip){
 		return systemTipDAO.save(systemTip);
+	}
+	
+	//*************************************************
+	//CURRENT_SYSTEM_VIEW
+	//*************************************************
+
+	public List<Integer> getSystemListFromCurrentList (List<Integer> currentList){
+		return currentSystemViewDAO.getAllIdsByFilter(CurrentSystemViewFilter.getSystemFromCurrentList(currentList));
 	}
 	
 }

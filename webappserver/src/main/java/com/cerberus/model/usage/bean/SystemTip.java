@@ -28,9 +28,8 @@ public class SystemTip implements Serializable{
 		super();
 	}
 	
-	public SystemTip(Integer id, Integer systemId, Integer tipId) {
+	public SystemTip(Integer systemId, Integer tipId) {
 		super();
-		this.id = id;
 		this.systemId = systemId;
 		this.tipId = tipId;
 	}
