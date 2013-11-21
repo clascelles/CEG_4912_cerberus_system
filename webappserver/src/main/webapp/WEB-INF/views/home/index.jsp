@@ -173,8 +173,41 @@
 								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
 							</div>
 						</div>
-						<div class="box-content">
-							Put Content Here!
+						<div class="box-content">							
+							<form id="listEvents" class="form-horizontal" method="post">
+						  		<table class="table table-striped table-bordered bootstrap-datatable datatable">
+								  <thead>
+									  <tr>
+										  <th>Event Timestamp</th>
+										  <th>Operation Mode</th>
+										  <th>Recurrence</th>
+										  <th>Scheduler</th>
+										  <th>Action</th>
+									  </tr>
+								  </thead>   
+								  <tbody>
+								  	<c:forEach items="${scheduledEvents}" var="item">
+								  		<tr>
+								  			<td><span>${item.time}</span><%-- <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span><input type="text" name="time" id="time${item.id}" readonly value="${item.time}"/></div> --%></td>
+								  			<td><span>${item.mode.description}</span>
+								  			<td><span>${item.recurrence.name}</span>
+								  			<td><span>${item.user.fullName}</span>
+									  			<%-- <select data-placeholder="Select Operation Mode" name="modeId" data-rel="chosen">
+													<option value=""></option>											
+													<c:forEach items="${modes}" var="mode">	
+														  <option value="${mode.id}" <c:if test="${mode.id == item.modeId}">selected</c:if>>${mode.name}</option>
+											  		</c:forEach>
+										  		</select> --%>
+									  		</td>
+								  			<td>
+								  				<a class="btn btn-primary" href="/webappserver/schedules/edit?id=${item.id}"><i class="icon-pencil icon-white"></i></a>
+												<button type="submit" class="btn btn-danger" name="deleteEvent" id="deleteEvent" formaction="/webappserver/schedules/index?id=${item.id}"><i class="icon-remove icon-white"></i></button>
+							  				</td>
+								  		</tr>
+									</c:forEach>
+								  </tbody>
+							    </table>		
+						  	</form>
 							<div class="clearfix"></div>
 						</div>
 					</div>

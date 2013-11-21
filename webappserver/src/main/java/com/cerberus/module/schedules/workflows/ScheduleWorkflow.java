@@ -1,6 +1,7 @@
 package com.cerberus.module.schedules.workflows;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.cerberus.daemon.scheduling.CerberusScheduler;
@@ -95,6 +96,24 @@ public class ScheduleWorkflow extends Workflow {
 		this.returnServiceFactory();
 
 		return events;
+	}
+	
+	public List<ScheduledEvent> getTodaysScheduledEvents(User user) {
+		List<ScheduledEvent> events = getScheduledEventsForUser(user);
+		
+		long millisInDay = 1000*60*60*24;
+		Date today = new Date();
+		Date thisMorning = new Date(today.getTime() - (today.getTime() % millisInDay));
+		Date tonight = new Date(thisMorning.getTime() + millisInDay);
+		
+		List<ScheduledEvent> todays = new ArrayList<ScheduledEvent>();
+		for(ScheduledEvent e : events) {
+			if(e.getTime().after(thisMorning) && e.getTime().before(tonight)) {
+				todays.add(e);
+			}
+		}
+		
+		return todays;
 	}
 	
 	public List<Schedule> getSchedulesForUser(User user){

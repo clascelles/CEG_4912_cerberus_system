@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
+import com.cerberus.model.schedules.bean.ScheduledEvent;
 import com.cerberus.model.system.bean.EventRecord;
 import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
@@ -18,6 +19,9 @@ import com.cerberus.module.overview.backingobjects.EventBackingObject;
 import com.cerberus.module.overview.backingobjects.EventBackingObjectFactory;
 import com.cerberus.module.overview.backingobjects.TopBarBackingObject;
 import com.cerberus.module.overview.constants.OverviewConstants;
+import com.cerberus.module.schedules.backingobjects.ScheduledEventBackingObject;
+import com.cerberus.module.schedules.backingobjects.ScheduledEventBackingObjectFactory;
+import com.cerberus.module.schedules.workflows.ScheduleWorkflow;
 import com.cerberus.module.system.workflows.EventWorkflow;
 
 @Controller
@@ -48,6 +52,12 @@ public class OverviewController extends CerberusController {
 		List<EventBackingObject> eventsBO = EventBackingObjectFactory.INSTANCE.getBackingObjects(events);
 
 		model.addAttribute(OverviewConstants.EVENTS, eventsBO);
+
+		ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
+		List<ScheduledEvent> schedules = scheduleWorkflow.getTodaysScheduledEvents(user);
+		List<ScheduledEventBackingObject> scheduledEventBackingObjects = ScheduledEventBackingObjectFactory.INSTANCE.getBackingObjects(schedules);
+		
+		model.addAttribute(CerberusConstants.SCHEDULED_EVENTS, scheduledEventBackingObjects);
 
 		return "home/index";
 	}
