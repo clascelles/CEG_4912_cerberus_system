@@ -178,6 +178,7 @@
 						  		<table class="table table-striped table-bordered bootstrap-datatable datatable">
 								  <thead>
 									  <tr>
+										  <th>Socket</th>
 										  <th>Event Timestamp</th>
 										  <th>Operation Mode</th>
 										  <th>Recurrence</th>
@@ -188,6 +189,7 @@
 								  <tbody>
 								  	<c:forEach items="${scheduledEvents}" var="item">
 								  		<tr>
+								  			<td><span>${item.outletId} - <c:choose><c:when test="${item.socketPosition == 0}">A</c:when><c:otherwise>B</c:otherwise></c:choose></span>
 								  			<td><span>${item.time}</span><%-- <div class="input-prepend"><span class="add-on"><i class="icon-calendar"></i></span><input type="text" name="time" id="time${item.id}" readonly value="${item.time}"/></div> --%></td>
 								  			<td><span>${item.mode.description}</span>
 								  			<td><span>${item.recurrence.name}</span>
