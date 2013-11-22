@@ -1,5 +1,6 @@
 package com.cerberus.module.overview.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,16 +14,24 @@ import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.schedules.bean.ScheduledEvent;
 import com.cerberus.model.system.bean.EventRecord;
+import com.cerberus.model.usage.bean.SystemTip;
+import com.cerberus.model.usage.bean.Tip;
 import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
 import com.cerberus.module.overview.backingobjects.EventBackingObject;
 import com.cerberus.module.overview.backingobjects.EventBackingObjectFactory;
+import com.cerberus.module.overview.backingobjects.TipBackingObject;
+import com.cerberus.module.overview.backingobjects.TipBackingObjectFactory;
 import com.cerberus.module.overview.backingobjects.TopBarBackingObject;
 import com.cerberus.module.overview.constants.OverviewConstants;
 import com.cerberus.module.schedules.backingobjects.ScheduledEventBackingObject;
 import com.cerberus.module.schedules.backingobjects.ScheduledEventBackingObjectFactory;
 import com.cerberus.module.schedules.workflows.ScheduleWorkflow;
 import com.cerberus.module.system.workflows.EventWorkflow;
+import com.cerberus.module.usage.backingobjects.UsageBackingObject;
+import com.cerberus.module.usage.constants.UsageConstants;
+import com.cerberus.module.usage.controllers.UsageController;
+import com.cerberus.module.usage.workflows.UsageWorkflow;
 
 @Controller
 @RequestMapping(value="/home/index")
@@ -50,8 +59,26 @@ public class OverviewController extends CerberusController {
 
 		List<EventRecord> events = eventWorkflow.getMostRecentEvents(systemId, 10);
 		List<EventBackingObject> eventsBO = EventBackingObjectFactory.INSTANCE.getBackingObjects(events);
+		
+		UsageWorkflow usageWorkflow = CerberusApplicationContext.getWorkflows().getUsageWorkflow();
+		List<Tip> tips = usageWorkflow.getLatest10Tips(systemId);
+		List<SystemTip> systemTips = usageWorkflow.getLatest10SystemTips(systemId);
+		
+		List<TipBackingObject> tipsBO = TipBackingObjectFactory.INSTANCE.getBackingObjects(tips, systemTips);
 
+		//CONSUMPTION GRAPH
+		UsageBackingObject usageOptions = new UsageBackingObject();
+		double[] currentList = usageWorkflow.getCurrentByHourForDay(user, new Date());
+		
+		usageOptions.setGraphForDay();
+		usageOptions.setMaximumYAxisValue(UsageController.maxValue(currentList));
+		String currentListString = UsageController.arrayToJavascript(currentList);
+		
+		model.addAttribute(UsageConstants.USAGE_OPTIONS, usageOptions);
+		model.addAttribute(UsageConstants.CURRENT_HOUR_LIST, currentListString);
+		
 		model.addAttribute(OverviewConstants.EVENTS, eventsBO);
+		model.addAttribute(OverviewConstants.TIPS, tipsBO);
 
 		ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
 		List<ScheduledEvent> schedules = scheduleWorkflow.getTodaysScheduledEvents(user);

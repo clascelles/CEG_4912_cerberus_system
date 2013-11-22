@@ -222,6 +222,28 @@ public class GenericDAO<T, ID extends Serializable> {
 	
 	/***/
 	@SuppressWarnings("unchecked")
+	public List<T> getAllByFilterWithResultCountLimit(DetachedCriteria criteria, Integer resultLimit){
+		Session session = null;
+		Transaction tx = null;
+		List<T> list = null;
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			list = criteria.getExecutableCriteria(session).setMaxResults(resultLimit).list();
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+
+		return list;
+	}
+	
+	
+	/***/
+	@SuppressWarnings("unchecked")
 	public List<Integer> getAllIdsByFilter(DetachedCriteria criteria){		
 		Session session = null;
 		Transaction tx = null;
@@ -230,6 +252,27 @@ public class GenericDAO<T, ID extends Serializable> {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			list = criteria.getExecutableCriteria(session).list();
+			tx.commit();
+		}catch (RuntimeException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+
+		return list;
+	}
+	
+	/***/
+	@SuppressWarnings("unchecked")
+	public List<Integer> getAllIdsByFilterWithResultCountLimit(DetachedCriteria criteria, Integer resultCountLimit){		
+		Session session = null;
+		Transaction tx = null;
+		List<Integer> list = null;
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			list = criteria.getExecutableCriteria(session).setMaxResults(resultCountLimit).list();
 			tx.commit();
 		}catch (RuntimeException e) {
 			tx.rollback();

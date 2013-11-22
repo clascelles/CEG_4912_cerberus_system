@@ -1,5 +1,6 @@
 package com.cerberus.module.usage.workflows;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -125,6 +126,21 @@ public class UsageWorkflow extends Workflow {
 	public Integer insertSystemTip(Integer tipId, Integer systemId ){
 		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
 		return consumptionService.insertSystemTip(new SystemTip(systemId, tipId));
+	}
+	
+	public List<Tip> getLatest10Tips(Integer systemId){
+		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
+		List<Tip> tips = new ArrayList<Tip>(10);
+		List<Integer> tipIds = consumptionService.getSystemTipIdList(systemId, 10);
+		for(Integer id: tipIds){
+			tips.add(consumptionService.getTipsById(id));
+		}
+		return tips;
+	}
+	
+	public List<SystemTip> getLatest10SystemTips(Integer systemId){
+		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
+		return consumptionService.getSystemTipList(systemId, 10);
 	}
 
 }

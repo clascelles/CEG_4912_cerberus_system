@@ -1,6 +1,8 @@
 package com.cerberus.model.usage.bean;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +24,7 @@ public class SystemTip implements Serializable{
 	Integer id;
 	Integer systemId;
 	Integer tipId;
+	Timestamp timestamp;
 	
 	
 	public SystemTip(){
@@ -32,6 +35,7 @@ public class SystemTip implements Serializable{
 		super();
 		this.systemId = systemId;
 		this.tipId = tipId;
+		this.timestamp = new Timestamp(new Date().getTime());
 	}
 
 
@@ -63,6 +67,16 @@ public class SystemTip implements Serializable{
 	public void setTipId(Integer tipId) {
 		this.tipId = tipId;
 	}
+
+	@Column(name="TIMESTAMP", nullable=false)
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+	
 	
 	
 	

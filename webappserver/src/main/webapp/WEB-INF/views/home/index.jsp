@@ -29,6 +29,25 @@
 	<!-- The fav icon -->
 	<link rel="shortcut icon" href="/webappserver/resources/img/favicon.png">
 		
+	<script type="text/javascript">
+		var graphValues = '<c:out value="${currentList}"/>';
+		var graphValuesArray = graphValues.split(",");
+		
+		var minX = '<c:out value="${usageOptions.minimumXAxisValue}"/>';
+		var maxX = '<c:out value="${usageOptions.maximumXAxisValue}"/>';
+		var minY = '<c:out value="${usageOptions.minimumYAxisValue}"/>';
+		var maxY = '<c:out value="${usageOptions.maximumYAxisValue}"/>';
+		
+		var xLabel = '<c:out value="${usageOptions.xaxisLabel}"/>';
+		
+		var dataValues = [];
+		var offset = parseInt(minX);
+		for(var i=0; i<graphValuesArray.length; i++){
+			dataValues.push([i+offset, graphValuesArray[i]]);
+		}
+
+	</script>
+		
 </head>
 
 <body>
@@ -94,7 +113,7 @@
 				</div>
 					
 				<div class="row-fluid">				
-					<div class="box span12">
+					<div class="box span6 xl ">
 						<div class="box-header well">
 							<h2>
 								<i class="icon-signal"></i> Consumption
@@ -104,14 +123,14 @@
 							</div>
 						</div>
 						<div class="box-content">
-							Put consumption graph Here!
+							<div id="usageGraph" class="center" style="height: 300px"></div>
 							<div class="clearfix"></div>
 						</div>
 					</div>
-				</div>
 				
-				<div class="row-fluid">				
-					<div class="box span12">
+				
+								
+					<div class="box span6 xl">
 						<div class="box-header well">
 							<h2>
 								<i class="icon-info-sign"></i> Information Logs
@@ -163,8 +182,55 @@
 					</div>
 				</div>
 				
-				<div class="row-fluid">				
-					<div class="box span12">
+						<div class="row-fluid">		
+					<div class="box span6 xl">
+						<div class="box-header well">
+							<h2>
+								<i class="icon-info-sign"></i> Latest Tips
+							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
+						</div>
+						<div class="box-content">
+							<table>
+								<c:choose>
+									<c:when test="${tips.size() == 0}">
+										No information available.
+									</c:when>
+									<c:otherwise>
+										<c:forEach items="${tips}" var="tip">
+										<tr>
+											<td>
+												<!-- Should not use hard-coded numbers here! -->
+												<c:if test="${tip.level == 1}">
+													<span class="label label-warning"> New </span>
+												</c:if>
+												<c:if test="${tip.level == 2}">
+													<span class="label label-info">Recent</span>
+												</c:if>
+												<c:if test="${tip.level == 3}">
+													<span class="label label-info">Old</span>
+												</c:if>
+											</td>
+											<td>
+												<span style="padding:2px">${tip.timestamp}</span>
+											</td>
+											<td>
+												<span style="padding:2px">- ${tip.message}</span>
+											</td>
+										</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</table>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				
+				
+							
+					<div class="box span6 xl">
 						<div class="box-header well">
 							<h2>
 								<i class="icon-time"></i> Schedules

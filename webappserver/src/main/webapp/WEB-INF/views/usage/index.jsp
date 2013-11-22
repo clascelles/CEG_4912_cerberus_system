@@ -46,10 +46,7 @@
 		for(var i=0; i<graphValuesArray.length; i++){
 			dataValues.push([i+offset, graphValuesArray[i]]);
 		}
-		
-		
-		
-		
+
 	</script>
 		
 </head>

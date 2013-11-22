@@ -26,6 +26,7 @@ import com.cerberus.model.usage.filter.CurrentDayViewFilter;
 import com.cerberus.model.usage.filter.CurrentHourViewFilter;
 import com.cerberus.model.usage.filter.SocketCurrentHourViewFilter;
 import com.cerberus.model.usage.filter.CurrentSystemViewFilter;
+import com.cerberus.model.usage.filter.SystemTipFilter;
 import com.cerberus.model.usage.filter.TipFilter;
 
 public class ConsumptionService {
@@ -137,12 +138,24 @@ public class ConsumptionService {
 		return tipDAO.getAllByFilter(TipFilter.getTipsWithRule());
 	}
 	
+	public Tip getTipsById(Integer id){
+		return tipDAO.getById(id);
+	}
+	
 	//*************************************************
 	//SYSTEM_TIP
 	//*************************************************
 
 	public Integer insertSystemTip(SystemTip systemTip){
 		return systemTipDAO.save(systemTip);
+	}
+	
+	public List<Integer> getSystemTipIdList(Integer systemId, Integer maxResultCount){
+		return systemTipDAO.getAllIdsByFilterWithResultCountLimit(SystemTipFilter.getTipsIdsForSystem(systemId), maxResultCount);
+	}
+	
+	public List<SystemTip> getSystemTipList(Integer systemId, Integer maxResultCount){
+		return systemTipDAO.getAllByFilterWithResultCountLimit(SystemTipFilter.getTipsForSystem(systemId), maxResultCount);
 	}
 	
 	//*************************************************
