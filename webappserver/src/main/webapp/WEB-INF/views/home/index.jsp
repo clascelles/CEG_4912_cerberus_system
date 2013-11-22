@@ -30,6 +30,8 @@
 	<link rel="shortcut icon" href="/webappserver/resources/img/favicon.png">
 		
 	<script type="text/javascript">
+	
+		//GRAPH 1
 		var graphValues = '<c:out value="${currentList}"/>';
 		var graphValuesArray = graphValues.split(",");
 		
@@ -44,6 +46,23 @@
 		var offset = parseInt(minX);
 		for(var i=0; i<graphValuesArray.length; i++){
 			dataValues.push([i+offset, graphValuesArray[i]]);
+		}
+		
+		//GRAPH 2
+		var graphValues2 = '<c:out value="${currentList2}"/>';
+		var graphValuesArray2 = graphValues2.split(",");
+		
+		var minX2 = '<c:out value="${usageOptions2.minimumXAxisValue}"/>';
+		var maxX2 = '<c:out value="${usageOptions2.maximumXAxisValue}"/>';
+		var minY2 = '<c:out value="${usageOptions2.minimumYAxisValue}"/>';
+		var maxY2 = '<c:out value="${usageOptions2.maximumYAxisValue}"/>';
+		
+		var xLabel2 = '<c:out value="${usageOptions2.xaxisLabel}"/>';
+		
+		var dataValues2 = [];
+		var offset2 = parseInt(minX2);
+		for(var i=0; i<graphValuesArray2.length; i++){
+			dataValues2.push([i+offset2, graphValuesArray2[i]]);
 		}
 
 	</script>
@@ -112,11 +131,11 @@
 					</a>
 				</div>
 					
-				<div class="row-fluid">				
+				 <div class="row-fluid">				
 					<div class="box span6 xl ">
 						<div class="box-header well">
 							<h2>
-								<i class="icon-signal"></i> Consumption
+								<i class="icon-signal"></i> Today's Consumption
 							</h2>
 							<div class="box-icon">
 								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
@@ -127,9 +146,24 @@
 							<div class="clearfix"></div>
 						</div>
 					</div>
+					
+					<div class="box span6 xl ">
+						<div class="box-header well">
+							<h2>
+								<i class="icon-signal"></i> This Month's Consumption
+							</h2>
+							<div class="box-icon">
+								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							</div>
+						</div>
+						<div class="box-content">
+							<div id="usageGraph2" class="center" style="height: 300px"></div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
 				
-				
-								
+					 <div class="row-fluid">			
 					<div class="box span6 xl">
 						<div class="box-header well">
 							<h2>
@@ -180,9 +214,9 @@
 							<div class="clearfix"></div>
 						</div>
 					</div>
-				</div>
 				
-						<div class="row-fluid">		
+				
+							
 					<div class="box span6 xl">
 						<div class="box-header well">
 							<h2>
@@ -227,10 +261,10 @@
 							<div class="clearfix"></div>
 						</div>
 					</div>
+				</div>
 				
-				
-							
-					<div class="box span6 xl">
+					<div class="row-fluid">			
+					<div class="box span12 xl">
 						<div class="box-header well">
 							<h2>
 								<i class="icon-time"></i> Schedules

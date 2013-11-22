@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,7 +67,7 @@ public class OverviewController extends CerberusController {
 		
 		List<TipBackingObject> tipsBO = TipBackingObjectFactory.INSTANCE.getBackingObjects(tips, systemTips);
 
-		//CONSUMPTION GRAPH
+		// DAY CONSUMPTION GRAPH
 		UsageBackingObject usageOptions = new UsageBackingObject();
 		double[] currentList = usageWorkflow.getCurrentByHourForDay(user, new Date());
 		
@@ -76,6 +77,25 @@ public class OverviewController extends CerberusController {
 		
 		model.addAttribute(UsageConstants.USAGE_OPTIONS, usageOptions);
 		model.addAttribute(UsageConstants.CURRENT_HOUR_LIST, currentListString);
+		
+		//MONTH CONSUMPTION GRAPH
+		UsageBackingObject usageOptions2 = new UsageBackingObject();
+		
+		DateTime tempDate = new DateTime();
+		DateTime beginningOfMonth = new DateTime(tempDate.getYear(), tempDate.getMonthOfYear(), 1, 0, 0);
+		usageOptions2.setNumberOfDataPoints(beginningOfMonth.plusMonths(1).minusDays(1).getDayOfMonth());
+		usageOptions2.setGraphForMonth();
+		double[] currentList2 = usageWorkflow.getCurrentByDayForMonth(user, new Date(beginningOfMonth.getMillis()), usageOptions2.getNumberOfDataPoints());
+		
+		usageOptions2.setMaximumYAxisValue(UsageController.maxValue(currentList2));
+		String currentListString2 = UsageController.arrayToJavascript(currentList2);
+		
+		model.addAttribute(UsageConstants.USAGE_OPTIONS_2, usageOptions2);
+		model.addAttribute(UsageConstants.CURRENT_HOUR_LIST_2, currentListString2);
+		
+		
+		
+		
 		
 		model.addAttribute(OverviewConstants.EVENTS, eventsBO);
 		model.addAttribute(OverviewConstants.TIPS, tipsBO);
