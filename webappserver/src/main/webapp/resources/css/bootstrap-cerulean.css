@@ -4213,13 +4213,15 @@ a.badge:hover {
   background-color: #63C0FF;
 }
 .navbar-inner{
-  background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(0,0,0,0.15) 50%, rgba(30,30,30,0) 100%);
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(50%,rgba(0,0,0,0.15)), color-stop(100%,rgba(30,30,30,0)));
-background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.15) 50%,rgba(30,30,30,0) 100%);
-background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.15) 50%,rgba(30,30,30,0) 100%);
-background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.15) 50%,rgba(30,30,30,0) 100%);
-background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.15) 50%,rgba(30,30,30,0) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#001e1e1e',GradientType=0 );
+	background: rgb(140,188,216); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(140,188,216,1) 0%, rgba(88,169,216,1) 33%, rgba(6,109,171,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(140,188,216,1)), color-stop(33%,rgba(88,169,216,1)), color-stop(100%,rgba(6,109,171,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(140,188,216,1) 0%,rgba(88,169,216,1) 33%,rgba(6,109,171,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(140,188,216,1) 0%,rgba(88,169,216,1) 33%,rgba(6,109,171,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(140,188,216,1) 0%,rgba(88,169,216,1) 33%,rgba(6,109,171,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(140,188,216,1) 0%,rgba(88,169,216,1) 33%,rgba(6,109,171,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cbcd8', endColorstr='#066dab',GradientType=0 ); /* IE6-9 */
+
 }
 .navbar .nav li.dropdown.active > .dropdown-toggle,
 .navbar .nav li.dropdown.active.open > .dropdown-toggle {
@@ -4457,14 +4459,14 @@ i[class^="icon-"] {
 }
 
 .login-background-gradient {
-	background: rgb(99,192,255); /* Old browsers */
-	background: -moz-linear-gradient(top,  rgba(99,192,255,1) 1%, rgba(28,164,255,1) 99%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(99,192,255,1)), color-stop(99%,rgba(28,164,255,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(99,192,255,1) 1%,rgba(28,164,255,1) 99%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(99,192,255,1) 1%,rgba(28,164,255,1) 99%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(99,192,255,1) 1%,rgba(28,164,255,1) 99%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgba(99,192,255,1) 1%,rgba(28,164,255,1) 99%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63c0ff', endColorstr='#1ca4ff',GradientType=0 ); /* IE6-9 */
+	background: rgb(140,188,216); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(140,188,216,1) 0%, rgba(88,169,216,1) 33%, rgba(6,109,171,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(140,188,216,1)), color-stop(33%,rgba(88,169,216,1)), color-stop(100%,rgba(6,109,171,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(140,188,216,1) 0%,rgba(88,169,216,1) 33%,rgba(6,109,171,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(140,188,216,1) 0%,rgba(88,169,216,1) 33%,rgba(6,109,171,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(140,188,216,1) 0%,rgba(88,169,216,1) 33%,rgba(6,109,171,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(140,188,216,1) 0%,rgba(88,169,216,1) 33%,rgba(6,109,171,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cbcd8', endColorstr='#066dab',GradientType=0 ); /* IE6-9 */
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	height: 100%;
