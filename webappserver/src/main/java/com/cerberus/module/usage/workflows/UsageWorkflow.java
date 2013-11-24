@@ -85,6 +85,11 @@ public class UsageWorkflow extends Workflow {
 		return consumptionService.getTipsWithRules();
 	}
 	
+	public List<Tip> getTipsWithoutRules(){
+		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
+		return consumptionService.getTipsWithoutRules();
+	}
+	
 	public Current getCurrentForSocket(Socket socket) {
 		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
 		List<Current> currents = consumptionService.getCurrentBySocketId(socket.getId());
@@ -141,6 +146,10 @@ public class UsageWorkflow extends Workflow {
 	public List<SystemTip> getLatest10SystemTips(Integer systemId){
 		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
 		return consumptionService.getSystemTipList(systemId, 10);
+	}
+	
+	public List<Integer> getSystemIds(){
+		return serviceFactory.getSystemService().getAllSystemIds();
 	}
 
 }

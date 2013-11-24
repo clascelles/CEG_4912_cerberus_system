@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -60,11 +60,12 @@ public class Tip implements Serializable{
 		this.tipName = tipName;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "RULE_TIP_XREF", joinColumns = { 
-			@JoinColumn(name = "TIP_ID", nullable = false, updatable = false) }, 
+			@JoinColumn(name = "TIP_ID",  nullable = false, updatable = false) },
 			inverseJoinColumns = { @JoinColumn(name = "RULE_ID", 
-					nullable = false, updatable = false) })
+				nullable = false, updatable = false) })
+	
 	public Set<Rule> getRules() {
 		return rules;
 	}

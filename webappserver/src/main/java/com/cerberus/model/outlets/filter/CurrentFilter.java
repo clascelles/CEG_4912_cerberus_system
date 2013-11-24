@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
 
 import com.cerberus.model.outlets.bean.Current;
 
@@ -32,12 +33,17 @@ public class CurrentFilter {
 	}
 	
 	public static DetachedCriteria addTimeRestriction(DetachedCriteria criteria, String operator, Time time){
+		DateTime today = new DateTime();
+		DateTime timeDate = new DateTime(time.getTime());
+		today.minus(today.getMillisOfDay()).plus(timeDate.getMillisOfDay());		
+		
+		
 		if(operator.equals("<")){
-			return criteria.add(Restrictions.lt("timestamp", time));
+			return criteria.add(Restrictions.lt("timestamp", today));
 		}else if(operator.equals(">")){
-			return criteria.add(Restrictions.gt("timestamp", time));
+			return criteria.add(Restrictions.gt("timestamp", today));
 		}else if(operator.equals("=")){
-			return criteria.add(Restrictions.eq("timestamp", time));
+			return criteria.add(Restrictions.eq("timestamp", today));
 		}else{
 			return criteria;
 		}

@@ -1,5 +1,6 @@
 package com.cerberus.frameworks.quartz;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -24,9 +25,10 @@ public class TipGenerationJob extends QuartzJobBean {
 		
 		UsageWorkflow usageWorkflow = CerberusApplicationContext.getWorkflows().getUsageWorkflow();
 		
-		//TODO: Get all the tips objects which have rules
-		List<Tip> tips = usageWorkflow.getTipsWithRules();
+		List<Tip> tips = new ArrayList<Tip>(25);
 		
+		//Apply the tip rules for every system
+		tips = usageWorkflow.getTipsWithRules();
 		for(int i=0; i<tips.size(); i++){
 			Tip tip = tips.get(i);
 			List<Integer> currentList = TipRuleEngine.applyRules(tip);
@@ -36,6 +38,14 @@ public class TipGenerationJob extends QuartzJobBean {
 					usageWorkflow.insertSystemTip(tip.getId(), systemList.get(j));
 				}
 			}
+		}
+		
+		//Add randomly a tip to a system
+		tips = usageWorkflow.getTipsWithoutRules();
+		List<Integer> systemIds = usageWorkflow.getSystemIds();
+		for(int i=0; i<tips.size(); i++){
+			int randSystem = (int) (Math.random() * (double) systemIds.size());
+			usageWorkflow.insertSystemTip(tips.get(i).getId(), systemIds.get(randSystem));
 		}
 		
 		

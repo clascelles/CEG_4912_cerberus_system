@@ -134,8 +134,11 @@ public class ConsumptionService {
 	//*************************************************
 	
 	public List<Tip> getTipsWithRules(){
-		
 		return tipDAO.getAllByFilter(TipFilter.getTipsWithRule());
+	}
+	
+	public List<Tip> getTipsWithoutRules(){
+		return tipDAO.getAllByFilter(TipFilter.getTipsWithoutRule());
 	}
 	
 	public Tip getTipsById(Integer id){
