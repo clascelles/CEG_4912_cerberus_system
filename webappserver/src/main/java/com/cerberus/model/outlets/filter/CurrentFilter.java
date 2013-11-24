@@ -1,6 +1,7 @@
 package com.cerberus.model.outlets.filter;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -35,15 +36,16 @@ public class CurrentFilter {
 	public static DetachedCriteria addTimeRestriction(DetachedCriteria criteria, String operator, Time time){
 		DateTime today = new DateTime();
 		DateTime timeDate = new DateTime(time.getTime());
-		today.minus(today.getMillisOfDay()).plus(timeDate.getMillisOfDay());		
+		today.minus(today.getMillisOfDay()).plus(timeDate.getMillisOfDay());
+		Timestamp timestamp = new Timestamp(today.getMillis());
 		
 		
 		if(operator.equals("<")){
-			return criteria.add(Restrictions.lt("timestamp", today));
+			return criteria.add(Restrictions.lt("timestamp", timestamp));
 		}else if(operator.equals(">")){
-			return criteria.add(Restrictions.gt("timestamp", today));
+			return criteria.add(Restrictions.gt("timestamp", timestamp));
 		}else if(operator.equals("=")){
-			return criteria.add(Restrictions.eq("timestamp", today));
+			return criteria.add(Restrictions.eq("timestamp", timestamp));
 		}else{
 			return criteria;
 		}
