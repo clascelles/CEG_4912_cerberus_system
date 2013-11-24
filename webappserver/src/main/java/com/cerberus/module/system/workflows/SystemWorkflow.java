@@ -10,6 +10,7 @@ import com.cerberus.model.system.bean.RoomType;
 import com.cerberus.module.account.backingobjects.RoomBackingObject;
 import com.cerberus.module.account.backingobjects.RoomBackingObjectFactory;
 import com.cerberus.module.generic.workflows.Workflow;
+import com.cerberus.service.outlets.OutletService;
 import com.cerberus.service.system.SystemService;
 
 public class SystemWorkflow extends Workflow {
@@ -92,4 +93,18 @@ public class SystemWorkflow extends Workflow {
 		
 		this.returnServiceFactory();
 	}
+	
+	public byte[] getEncryptionKeyForOutlet(Integer outletId){
+		OutletService outletService = serviceFactory.getOutletService();
+		SystemService systemService = serviceFactory.getSystemService();
+		
+		Integer systemId = outletService.getSystemIdFromOutlet(outletId);
+		CerberusSystem system = systemService.getSystemById(systemId);
+		
+		byte[] encryptionKey = new byte[16];
+		encryptionKey = system.getEncryptionKey().getBytes();
+		return encryptionKey;
+		
+	}
+	
 }

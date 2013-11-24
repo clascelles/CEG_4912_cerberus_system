@@ -12,6 +12,9 @@ import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.Message;
 import com.cerberus.daemon.message.MessageContainer;
 import com.cerberus.daemon.processing.MessageProcessor;
+import com.cerberus.frameworks.netty.ChannelOutletBinding;
+import com.cerberus.frameworks.spring.CerberusApplicationContext;
+import com.cerberus.module.system.workflows.SystemWorkflow;
 
 public class ByteMessageDecoder implements Runnable {
 
@@ -28,10 +31,9 @@ public class ByteMessageDecoder implements Runnable {
 
 		//Print the message to decode to test the framework
 		StopWatch stopwatch = new Log4JStopWatch("ByteMessageDecoder.run");
-		LOGGER.debug("[Decoder]: " + messageContainer.getRawMessage());
-
+		LOGGER.debug("[Decoder]: " + messageContainer.getRawMessage());		
+		
 		ExecutorService executor = ExecutorServiceFactory.getPersistenceLogicThreadPool();
-
 		ByteMessageReader reader = ByteMessageHandlerFactory.getReader();
 		try {
 			Message message = reader.read(messageContainer.getRawMessage());

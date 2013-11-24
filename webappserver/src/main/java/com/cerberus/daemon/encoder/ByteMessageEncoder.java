@@ -10,6 +10,11 @@ import com.cerberus.daemon.bytemessage.ByteMessageHandlerFactory;
 import com.cerberus.daemon.bytemessage.ByteMessageWriter;
 import com.cerberus.daemon.message.Message;
 import com.cerberus.daemon.message.MessageContainer;
+import com.cerberus.frameworks.netty.ChannelOutletBinding;
+import com.cerberus.frameworks.spring.CerberusApplicationContext;
+import com.cerberus.model.outlets.bean.Outlet;
+import com.cerberus.module.outlets.workflows.OutletWorkflow;
+import com.cerberus.module.system.workflows.SystemWorkflow;
 
 public class ByteMessageEncoder implements Runnable {
 
@@ -37,14 +42,31 @@ public class ByteMessageEncoder implements Runnable {
 		//if (channel.isOpen()) {
 			try {
 				byte[] encodedMessage = writer.write(message);
+				
+				//Encryption
+				SystemWorkflow systemWorkflow = CerberusApplicationContext.getWorkflows().getSystemWorkflow();
+				OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
+				Outlet outlet = outletWorkflow.getOutletFromSerialNumber(ChannelOutletBinding.getOutletSerialNumber(channel.getId()));
+				byte[] encryptionKey = systemWorkflow.getEncryptionKeyForOutlet(outlet.getId());
 
+				byte[] encryptedMsg = new byte[16];
+				encryptedMsg = Encryption.encrypt(encryptionKey, encodedMessage);
+				
+				
 				//For debugging purposes only
 				for(int i=0; i<encodedMessage.length; i++){
 					System.out.print(String.format("%02x ",  encodedMessage[i]));
 				}
 				System.out.println();
+				
+				//For debugging purposes only
+				for(int i=0; i<encryptedMsg.length; i++){
+					System.out.print(String.format("%02x ",  encryptedMsg[i]));
+				}
+				System.out.println();
 
-				channel.write(ChannelBuffers.wrappedBuffer(encodedMessage));
+
+				channel.write(ChannelBuffers.wrappedBuffer(encryptedMsg));
 
 				// Could use ChannelFuture to ensure the message has been
 				// sent...

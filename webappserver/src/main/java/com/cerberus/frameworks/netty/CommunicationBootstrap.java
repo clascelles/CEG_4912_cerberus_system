@@ -14,7 +14,7 @@ public class CommunicationBootstrap extends Thread{
 	private final static Logger LOGGER = Logger.getLogger(CommunicationBootstrap.class);
 
 	// Should be moved to somewhere else for configuration
-	private final static String NETTY_HOST = "localhost";
+	private final static String NETTY_HOST = "192.168.1.101";
 	private final static int NETTY_PORT = 7896;
 
 	//This runs when the thread is started

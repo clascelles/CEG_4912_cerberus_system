@@ -31,6 +31,10 @@ public class OutletWorkflow extends Workflow {
 		serviceFactory.getOutletService().updateOutlet(outlet);
 		this.returnServiceFactory();
 	}
+	
+	public Outlet getOutletFromSerialNumber(String serialNumber){
+		return serviceFactory.getOutletService().getOutletBySerialNumber(serialNumber);
+	}
 
 	public void updateOutletOperationMode(OutletBackingObject newOutlet) {
 		Outlet outlet = getOutletById(newOutlet.getId());

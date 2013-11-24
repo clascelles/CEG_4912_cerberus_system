@@ -23,6 +23,10 @@ public class ChannelOutletBinding {
 		return invertMap.get(channelId);
 	}
 
+	public static boolean isChannelBinded(Integer channelId){
+		return invertMap.get(channelId) != null;
+	}
+	
 	public static boolean isChannelBinded(String outletSerialNumber){
 		if (map.get(outletSerialNumber) != null){
 			return true;

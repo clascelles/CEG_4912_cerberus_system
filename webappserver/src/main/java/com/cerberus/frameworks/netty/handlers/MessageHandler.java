@@ -17,11 +17,15 @@ import org.perf4j.log4j.Log4JStopWatch;
 import com.cerberus.daemon.bytemessage.ByteMessage;
 import com.cerberus.daemon.constants.MessageType;
 import com.cerberus.daemon.decoder.ByteMessageDecoder;
+import com.cerberus.daemon.encoder.Encryption;
 import com.cerberus.daemon.executor.ExecutorServiceFactory;
 import com.cerberus.daemon.message.MessageContainer;
 import com.cerberus.frameworks.netty.ChannelOutletBinding;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
+import com.cerberus.model.outlets.bean.Outlet;
+import com.cerberus.module.outlets.workflows.OutletWorkflow;
 import com.cerberus.module.system.constants.EventType;
+import com.cerberus.module.system.workflows.SystemWorkflow;
 
 public class MessageHandler extends SimpleChannelUpstreamHandler {
 
@@ -90,20 +94,42 @@ public class MessageHandler extends SimpleChannelUpstreamHandler {
 			System.out.print(String.format("%02x ",  message[i]));
 		}
 		System.out.println();
+		
+		if(!ChannelOutletBinding.isChannelBinded(channel.getId())){			
 
-		if (message[0] == MessageType.INIT.getIntValue()){
-			ChannelOutletBinding.addChannelToGroup(channel);
-			String outletSerialNumber = new String(new ByteMessage(message).getOutletSerialNumber());
-			ChannelOutletBinding.bindOutletSerialNumberWithChannelId(outletSerialNumber, channel.getId());
+			if (message[0] == MessageType.INIT.getIntValue()){
+				ChannelOutletBinding.addChannelToGroup(channel);
+				String outletSerialNumber = new String(new ByteMessage(message).getOutletSerialNumber());
+				ChannelOutletBinding.bindOutletSerialNumberWithChannelId(outletSerialNumber, channel.getId());
 
-			//Send an init message back with the correct timestamp.
-			CerberusApplicationContext.getWorkflows().getInitializationWorkflow().sendMessage(outletSerialNumber);
-			CerberusApplicationContext.getWorkflows().getEventWorkflow().logEvent(EventType.CONNECTION_ESTABLISHED, outletSerialNumber);
+				//Send an init message back with the correct timestamp.
+				CerberusApplicationContext.getWorkflows().getInitializationWorkflow().sendMessage(outletSerialNumber);
+				CerberusApplicationContext.getWorkflows().getEventWorkflow().logEvent(EventType.CONNECTION_ESTABLISHED, outletSerialNumber);
+			}
 		}else{
+			
+
+			//Decrypt message
+			SystemWorkflow systemWorkflow = CerberusApplicationContext.getWorkflows().getSystemWorkflow();
+			OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
+			
+			Outlet outlet = outletWorkflow.getOutletFromSerialNumber(ChannelOutletBinding.getOutletSerialNumber(channel.getId()));
+			byte[] encryptionKey = systemWorkflow.getEncryptionKeyForOutlet(outlet.getId());
+
+			byte[] decryptedMsg = new byte[message.length];
+			decryptedMsg = Encryption.decrypt(encryptionKey, message);
+
+
+			
+			//For debugging purposes only
+			for(int i=0; i<decryptedMsg.length; i++){
+				System.out.print(String.format("%02x ",  decryptedMsg[i]));
+			}
+			System.out.println();
 
 			//Add a task to the Decoder Thread Pool.
 			ExecutorService executor = ExecutorServiceFactory.getDecoderThreadPool();
-			MessageContainer messageContainer = new MessageContainer(channel, message);
+			MessageContainer messageContainer = new MessageContainer(channel, decryptedMsg);
 
 			//Runnable decoderTask = new JsonDecoder(messageContainer);
 			Runnable decoderTask = new ByteMessageDecoder(messageContainer);
