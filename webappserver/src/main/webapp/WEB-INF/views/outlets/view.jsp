@@ -247,9 +247,7 @@
 										</div>
 										
 										<div class="span7">
-											<div class="box-content">
-												<div id="socket${socket.position}" style="height:160px;"></div>
-											</div>
+											<div id="socket${socket.position}" style="height:160px;"></div>
 										</div>
 										<div class="clearfix"></div>										
 									</div>						

@@ -12,7 +12,7 @@ $(document).ready(function(){
 					   points: { show: false }
 				   },
 				   grid: { hoverable: true, clickable: true, backgroundColor: { colors: ["#fff", "#eee"] } },
-				   xaxis: {min: minAX, max: maxAX, tickSize: 1,  tickDecimals:0},
+				   xaxis: {min: minAX, max: maxAX, tickSize: 1, axisLabel: "Hours (h)", tickDecimals:0},
 				   yaxis: { min: minAY, max: maxAY, axisLabel: 'Consumption (kW/h)' },
 				   colors: ["#369bd7", "#3C67A5"]
 				 });
@@ -73,7 +73,7 @@ $(document).ready(function(){
 					   points: { show: false }
 				   },
 				   grid: { hoverable: true, clickable: true, backgroundColor: { colors: ["#fff", "#eee"] } },
-				   xaxis: {min: minBX, max: maxBX, tickSize: 1,  tickDecimals:0},
+				   xaxis: {min: minBX, max: maxBX, tickSize: 1, axisLabel: "Hours (h)", tickDecimals:0},
 				   yaxis: { min: minBY, max: maxBY, axisLabel: 'Consumption (kW/h)' },
 				   colors: ["#369bd7", "#3C67A5"]
 				 });

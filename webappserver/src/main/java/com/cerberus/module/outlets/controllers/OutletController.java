@@ -1,5 +1,6 @@
 package com.cerberus.module.outlets.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cerberus.daemon.constants.OperationMode;
+import com.cerberus.daemon.workflow.SwitchOperationModeWorkflow;
 import com.cerberus.frameworks.logging.CerberusLogger;
 import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
@@ -85,7 +88,18 @@ public class OutletController extends CerberusController {
 		model.addAttribute(CerberusConstants.OUTLET, OutletBackingObjectFactory.INSTANCE.getBackingObject(outlet));
 
 		List<Socket> sockets = outletWorkflow.getSocketsByOutlet(outlet);
-		model.addAttribute(CerberusConstants.SOCKETS, SocketBackingObjectFactory.INSTANCE.getBackingObjects(sockets));
+		List<Socket> ordered = new ArrayList<Socket>();
+		if(sockets.size() == 2) {
+			if(sockets.get(0).getPosition() == 0) {
+				ordered.add(sockets.get(0));
+				ordered.add(sockets.get(1));
+			} else {
+				ordered.add(sockets.get(1));
+				ordered.add(sockets.get(0));				
+			}	
+		}
+		
+		model.addAttribute(CerberusConstants.SOCKETS, SocketBackingObjectFactory.INSTANCE.getBackingObjects(ordered));
 
 		if(sockets.size() > 0) {
 			if(sockets.size() > 1) {
@@ -194,6 +208,14 @@ public class OutletController extends CerberusController {
 		}
 		
 		outletWorkflow.updateSocket(socket);
+		
+		SwitchOperationModeWorkflow switchOpWorkflow = CerberusApplicationContext.getWorkflows().getSwitchOperationModeWorkflow();
+		switchOpWorkflow.sendMessage(
+				socket.getOutlet().getSerialNumber(), 
+				socket.getPosition(), 
+				"0000000000", 
+				new OperationMode(socket.getOutlet().getMode().getId(), socket.getMode().getId()), 
+				0);
 	}
 
 }
