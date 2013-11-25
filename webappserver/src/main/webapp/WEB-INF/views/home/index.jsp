@@ -167,7 +167,7 @@
 					<div class="box span6 xl">
 						<div class="box-header well">
 							<h2>
-								<i class="icon-info-sign"></i> Information Logs
+								<i class="icon-list"></i> Information Logs
 							</h2>
 							<div class="box-icon">
 								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
