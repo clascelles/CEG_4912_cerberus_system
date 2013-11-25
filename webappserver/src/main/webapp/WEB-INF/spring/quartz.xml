@@ -32,25 +32,38 @@
 		<property name="repeatInterval" value="0" />
 	</bean>
 	
-	<!-- -->
-	<bean id="simpleTriggerData" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+	
+	<bean id="cronTriggerData" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="dataAggregationJob" />
+		<property name="cronExpression" value="0 0 * * * ?" />
+ 
+	</bean>
+	
+	<bean id="cronTriggerTip" class="org.springframework.scheduling.quartz.CronTriggerBean">
+ 		<property name="jobDetail" ref="tipGenerationJob" />
+		<property name="cronExpression" value="0 0 * * * ?" />
+ 
+	</bean>
+ 
+	<!-- 
+	 <bean id="simpleTriggerData" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<property name="jobDetail" ref="dataAggregationJob" />
 		<property name="repeatCount" value="0" />
 		<property name="repeatInterval" value="0" />
-	</bean>
+	</bean>-->
 	
-	<!--  -->
-	<bean id="simpleTriggerTip" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+
+	<!-- <bean id="simpleTriggerTip" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<property name="jobDetail" ref="tipGenerationJob" />
 		<property name="repeatCount" value="0" />
 		<property name="repeatInterval" value="0" />
-	</bean>
+	</bean>-->
 
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="jobDetails">
 			<list>
 				<ref bean="startDaemonServerJob" />
-				<!-- <ref bean="dataAggregationJob" />-->
+				<ref bean="dataAggregationJob" />
 				<ref bean="tipGenerationJob" />
 			</list>
 		</property>
@@ -58,8 +71,8 @@
 		<property name="triggers">
 			<list>
 				<ref bean="simpleTriggerDaemon" />
-				<!-- <ref bean="simpleTriggerData" />-->
-				<ref bean="simpleTriggerTip" />
+				<ref bean="cronTriggerData" />
+				<ref bean="cronTriggerTip" />
 			</list>
 		</property>
 	</bean>

@@ -77,6 +77,9 @@ public class UsageWorkflow extends Workflow {
 
 	public void updateCurrentHour(Date date){
 		DateTime threshold = new DateTime(date.getTime()).minusDays(UsageConstants.KEEP_FOR_DAYS);
+		threshold = threshold.minusMinutes(threshold.getMinuteOfDay());
+		threshold = threshold.minusSeconds(threshold.getSecondOfMinute());
+		
 		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
 
 		consumptionService.updateCurrentHour(threshold);
