@@ -14,7 +14,7 @@ $(document).ready(function(){
 				   grid: { hoverable: true, clickable: true, backgroundColor: { colors: ["#fff", "#eee"] } },
 				   xaxis: {min: minX, max: maxX, tickSize: 1, axisLabel: xLabel,  tickDecimals:0},
 				   yaxis: { min: minY, max: maxY, axisLabel: 'Consumption (kW/h)' },
-				   colors: ["#539F2E", "#3C67A5"]
+				   colors: ["#369bd7", "#3C67A5"]
 				 });
 
 		function showTooltip(x, y, contents) {
@@ -76,7 +76,7 @@ $(document).ready(function(){
 				   grid: { hoverable: true, clickable: true, backgroundColor: { colors: ["#fff", "#eee"] } },
 				   xaxis: {min: minX2, max: maxX2, tickSize: 1, axisLabel: xLabel2,  tickDecimals:0},
 				   yaxis: { min: minY2, max: maxY2, axisLabel: 'Consumption (kW/h)' },
-				   colors: ["#539F2E", "#3C67A5"]
+				   colors: ["#369bd7", "#3C67A5"]
 				 });
 
 		function showTooltip(x, y, contents) {

@@ -376,7 +376,8 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `outlet_system_view` (
   `OUTLET_ID` tinyint NOT NULL,
-  `SYSTEM_ID` tinyint NOT NULL
+  `SYSTEM_ID` tinyint NOT NULL,
+  `SOCKET_ID` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -914,7 +915,7 @@ CREATE TABLE `system_tip` (
   PRIMARY KEY (`ID`),
   KEY `SYSTEM_ID_idx` (`SYSTEM_ID`),
   KEY `TIP_ID_idx` (`TIP_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -923,7 +924,7 @@ CREATE TABLE `system_tip` (
 
 LOCK TABLES `system_tip` WRITE;
 /*!40000 ALTER TABLE `system_tip` DISABLE KEYS */;
-INSERT INTO `system_tip` VALUES (1,1,1,'2013-11-21 23:35:15'),(2,1,1,'2013-11-21 00:14:18'),(3,3,1,'2013-11-01 22:47:05'),(5,1,1,'2013-11-22 01:50:15'),(6,2,1,'2013-11-22 01:50:15'),(7,3,1,'2013-11-22 01:50:15'),(8,4,1,'2013-11-22 01:50:15'),(9,1,1,'2013-11-22 01:50:15'),(10,2,1,'2013-11-22 01:50:15'),(11,3,1,'2013-11-22 01:50:15'),(12,4,1,'2013-11-22 01:50:15'),(13,1,3,'2013-11-22 01:32:37'),(14,2,3,'2013-11-22 01:32:37'),(15,3,3,'2013-11-22 01:32:37'),(16,4,3,'2013-11-22 01:32:37'),(17,1,3,'2013-11-22 01:55:58'),(18,2,3,'2013-11-22 01:55:58'),(19,3,3,'2013-11-22 01:55:58'),(20,4,3,'2013-11-22 01:55:58'),(21,1,3,'2013-11-22 02:07:21'),(22,2,3,'2013-11-22 02:07:21'),(23,3,3,'2013-11-22 02:07:21'),(24,4,3,'2013-11-22 02:07:21'),(25,1,3,'2013-11-22 13:57:18'),(26,2,3,'2013-11-22 13:57:18'),(27,3,3,'2013-11-22 13:57:18'),(28,4,3,'2013-11-22 13:57:18'),(29,1,3,'2013-11-22 14:48:58'),(30,2,3,'2013-11-22 14:48:58'),(31,3,3,'2013-11-22 14:48:58'),(32,4,3,'2013-11-22 14:48:58'),(33,1,3,'2013-11-22 15:06:26'),(34,1,3,'2013-11-22 15:06:45'),(35,2,3,'2013-11-22 15:06:49'),(36,3,3,'2013-11-22 15:06:51'),(37,4,3,'2013-11-22 15:06:53');
+INSERT INTO `system_tip` VALUES (1,1,1,'2013-11-21 23:35:15'),(2,1,1,'2013-11-21 00:14:18'),(3,3,1,'2013-11-01 22:47:05'),(5,1,1,'2013-11-22 01:50:15'),(6,2,1,'2013-11-22 01:50:15'),(7,3,1,'2013-11-22 01:50:15'),(8,4,1,'2013-11-22 01:50:15'),(9,1,1,'2013-11-22 01:50:15'),(10,2,1,'2013-11-22 01:50:15'),(11,3,1,'2013-11-22 01:50:15'),(12,4,1,'2013-11-22 01:50:15'),(13,1,3,'2013-11-22 01:32:37'),(14,2,3,'2013-11-22 01:32:37'),(15,3,3,'2013-11-22 01:32:37'),(16,4,3,'2013-11-22 01:32:37'),(17,1,3,'2013-11-22 01:55:58'),(18,2,3,'2013-11-22 01:55:58'),(19,3,3,'2013-11-22 01:55:58'),(20,4,3,'2013-11-22 01:55:58'),(21,1,3,'2013-11-22 02:07:21'),(22,2,3,'2013-11-22 02:07:21'),(23,3,3,'2013-11-22 02:07:21'),(24,4,3,'2013-11-22 02:07:21'),(25,1,3,'2013-11-22 13:57:18'),(26,2,3,'2013-11-22 13:57:18'),(27,3,3,'2013-11-22 13:57:18'),(28,4,3,'2013-11-22 13:57:18'),(29,1,3,'2013-11-22 14:48:58'),(30,2,3,'2013-11-22 14:48:58'),(31,3,3,'2013-11-22 14:48:58'),(32,4,3,'2013-11-22 14:48:58'),(33,1,3,'2013-11-22 15:06:26'),(34,1,3,'2013-11-22 15:06:45'),(35,2,3,'2013-11-22 15:06:49'),(36,3,3,'2013-11-22 15:06:51'),(37,4,3,'2013-11-22 15:06:53'),(38,2,3,'2013-11-24 20:22:04'),(39,3,1,'2013-11-24 20:22:05'),(40,4,2,'2013-11-24 20:22:05'),(41,2,3,'2013-11-24 20:24:23'),(42,3,2,'2013-11-24 20:24:24'),(43,4,3,'2013-11-24 20:24:25'),(44,2,3,'2013-11-25 16:40:22'),(45,3,3,'2013-11-25 16:40:22'),(46,4,2,'2013-11-25 16:40:22'),(47,2,3,'2013-11-25 16:41:07'),(48,3,3,'2013-11-25 16:41:07'),(49,4,2,'2013-11-25 16:41:07');
 /*!40000 ALTER TABLE `system_tip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1125,7 +1126,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `current_view_by_hour` AS select `current`.`ID` AS `ID`,date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current`.`TIMESTAMP`,'%H') AS `HOUR`,(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) AS `SYSTEM_ID`,((sum(`current`.`CURRENT`) * 30) / 1000) AS `CURRENT_HOUR_KWH` from `current` group by date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H'),(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) */;
+/*!50001 VIEW `current_view_by_hour` AS select `current`.`ID` AS `ID`,date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H') AS `TIMESTAMP_HOUR`,date_format(`current`.`TIMESTAMP`,'%H') AS `HOUR`,(select `outlet_system_view`.`SYSTEM_ID` from `outlet_system_view` where (`current`.`SOCKET_ID` = `outlet_system_view`.`SOCKET_ID`)) AS `SYSTEM_ID`,((sum(`current`.`CURRENT`) * 30) / 1000) AS `CURRENT_HOUR_KWH` from `current` group by date_format(`current`.`TIMESTAMP`,'%Y-%m-%d %H'),(select `user_system_view`.`SYSTEM_ID` from `user_system_view` where (`current`.`USERS_ID` = `user_system_view`.`USERS_ID`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1144,7 +1145,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `outlet_system_view` AS select `outlet`.`ID` AS `OUTLET_ID`,`room`.`SYSTEM_ID` AS `SYSTEM_ID` from (`outlet` join `room` on((`room`.`ID` = `outlet`.`ROOM_ID`))) */;
+/*!50001 VIEW `outlet_system_view` AS select `outlet`.`ID` AS `OUTLET_ID`,`room`.`SYSTEM_ID` AS `SYSTEM_ID`,`socket`.`ID` AS `SOCKET_ID` from ((`outlet` join `room` on((`room`.`ID` = `outlet`.`ROOM_ID`))) join `socket` on((`socket`.`OUTLET_ID` = `outlet`.`ID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1215,4 +1216,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-24 15:06:05
+-- Dump completed on 2013-11-25 12:31:41
