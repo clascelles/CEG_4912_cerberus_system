@@ -2,7 +2,6 @@ package com.cerberus.daemon.workflow;
 
 import java.util.concurrent.ExecutorService;
 
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
 import com.cerberus.daemon.constants.OperationMode;
@@ -14,9 +13,6 @@ import com.cerberus.daemon.message.WrongMessageException;
 import com.cerberus.daemon.response.MessageResponse;
 
 public class SwitchOperationModeWorkflow extends MessageWorkflow {
-
-	// Get Logger
-	private final static Logger LOGGER = Logger.getLogger(SwitchOperationModeWorkflow.class);
 
 	public SwitchOperationModeWorkflow() {
 		super(false);

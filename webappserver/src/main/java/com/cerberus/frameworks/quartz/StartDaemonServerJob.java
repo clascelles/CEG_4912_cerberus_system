@@ -14,6 +14,7 @@ import com.cerberus.daemon.scheduling.CerberusScheduler;
 import com.cerberus.frameworks.netty.CommunicationBootstrap;
 import com.cerberus.frameworks.spring.ServerContext;
 
+@SuppressWarnings("deprecation")
 public class StartDaemonServerJob extends QuartzJobBean {
 
 	private static String SERVER_ROOT;
@@ -41,9 +42,8 @@ public class StartDaemonServerJob extends QuartzJobBean {
 			communication.start();
 
 			//Scheduling Bootstrap
-			// TODO: Change XmlBeanFactory to use ApplicationContext instead (or JobExecutionContext?)
 			ClassPathResource res = new ClassPathResource("dynamic-jobs.xml");
-	        XmlBeanFactory factory = new XmlBeanFactory(res);
+			XmlBeanFactory factory = new XmlBeanFactory(res);
 
 	        //get the quartzFactory bean
 	        Scheduler scheduler = (Scheduler) factory.getBean("scheduler");
