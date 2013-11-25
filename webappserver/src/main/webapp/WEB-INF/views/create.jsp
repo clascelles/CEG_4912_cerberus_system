@@ -73,31 +73,47 @@
 			<div class="row-fluid">
 				<div class="well span5 center login-box">
 					<div class="alert alert-info">
-						<i class="icon-info-sign"></i> <fmt:message key="login.instruction"/>
+						<i class="icon-info-sign"></i> Create a new Cerberus system account
 					</div>
-					<form:form class="form-horizontal" modelAttribute="loginBackingObject" action="" method="post">
+					<c:if test="${newAccountBackingObject.error != null}">
+						<div class="alert alert-error">
+							<i class="icon-exclamation-sign"></i> ${newAccountBackingObject.error}
+						</div>
+					</c:if>
+					<form:form class="form-horizontal" modelAttribute="newAccountBackingObject" action="" method="post">
 						<fieldset>
-							<div class="input-prepend" title="Username" data-rel="tooltip">
-								<span class="add-on"><i class="icon-user"></i></span><form:input autofocus="autofocus" class="input-large span10" name="username" id="username" path="username" type="text"/>
+							<div class="input-prepend" title="Choose a unique username" data-rel="tooltip">
+								<span class="add-on" style="min-width: 80px">Username</span><form:input autofocus="autofocus" class="input-large" name="username" id="username" path="username" type="text"/>
 							</div>
 							<div class="clearfix"></div>
 
-							<div class="input-prepend" title="Password" data-rel="tooltip">
-								<span class="add-on"><i class="icon-lock"></i></span><form:input class="input-large span10" name="password" id="password" type="password" path="password" />
+							<div class="input-prepend" title="Choose a secure password" data-rel="tooltip">
+								<span class="add-on" style="min-width: 80px">Password</span><form:input class="input-large" name="password" id="password" type="password" path="password" />
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="input-prepend" title="Enter your first name" data-rel="tooltip">
+								<span class="add-on" style="min-width: 80px">First Name</span><form:input class="input-large" name="firstname" id="firstname" path="firstname" type="text"/>
+							</div>
+							<div class="clearfix"></div>
+							
+							<div class="input-prepend" title="Enter your last name" data-rel="tooltip">
+								<span class="add-on" style="min-width: 80px">Last Name</span><form:input class="input-large" name="lastname" id="lastname" path="lastname" type="text"/>
 							</div>
 							<div class="clearfix"></div>
 
 							<p class="center span5">
-							<button type="submit" class="btn btn-primary"><h2 style="color:#ffffff"><fmt:message key="login.button.login"/></h2></button>
+							<button type="submit" class="btn btn-success"><h2 style="color:#ffffff">Create Account</h2></button>
 							</p>
 						</fieldset>
 					</form:form>
-					<form:form class="form-horizontal" modelAttribute="newAccountBackingObject" action="newaccount" method="post">
-						<p class="center span5">
-							<button type="submit" class="btn btn-success"><h3 style="color:#ffffff">Create New Account</h3></button>
-						</p>
+					<form:form class="form-horizontal" action="cancel" method="post">
+						<fieldset>
+							<p class="center span5">
+								<button type="submit" class="btn btn-inverse"><h2 style="color:#ffffff">Cancel</h2></button>
+							</p>
+						</fieldset>
 					</form:form>
-					
 				</div><!--/span-->
 			</div><!--/row-->
 				</div><!--/fluid-row-->

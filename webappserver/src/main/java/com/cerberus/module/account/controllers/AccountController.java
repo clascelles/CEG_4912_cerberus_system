@@ -13,6 +13,7 @@ import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.module.account.backingobjects.UserBackingObject;
 import com.cerberus.module.account.backingobjects.UserBackingObjectFactory;
+import com.cerberus.module.account.constants.AccountConstants;
 import com.cerberus.module.account.workflows.AccountWorkflow;
 import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
@@ -21,14 +22,10 @@ import com.cerberus.module.overview.backingobjects.TopBarBackingObject;
 @Controller
 public class AccountController extends CerberusController {
 
-	private static final String TOP_BAR_BACKING_OBJECT = "topBarBackingObject";
-	private static final String USER = "user";
-	private static final String USER_BACKING_OBJECT = "userBackingObject";
-
 	@RequestMapping(value="/account/index", method=RequestMethod.GET)
 	public String getProfilePage(HttpServletRequest request, Model model)	{
 
-	
+
 		User user = getUser(request);
 		if(user == null){
 			return CerberusConstants.REDIRECT;
@@ -38,9 +35,9 @@ public class AccountController extends CerberusController {
 		TopBarBackingObject topBarBackingObject = new TopBarBackingObject();
 		topBarBackingObject.setName(user.getInformation().getFirstName() + " " + user.getInformation().getLastName());
 
-		model.addAttribute(TOP_BAR_BACKING_OBJECT, topBarBackingObject);
-		model.addAttribute(USER, user);
-		model.addAttribute(USER_BACKING_OBJECT, UserBackingObjectFactory.INSTANCE.getBackingObject(user));
+		model.addAttribute(AccountConstants.TOP_BAR_BACKING_OBJECT, topBarBackingObject);
+		model.addAttribute(AccountConstants.USER, user);
+		model.addAttribute(AccountConstants.USER_BACKING_OBJECT, UserBackingObjectFactory.INSTANCE.getBackingObject(user));
 
 		CerberusLogger.get(CerberusConstants.ACCOUNT_VIEW);
 
@@ -48,7 +45,7 @@ public class AccountController extends CerberusController {
 	}
 
 	@RequestMapping(value=CerberusConstants.ACCOUNT_MAPPING, method=RequestMethod.POST)
-	public String post(Model model, @ModelAttribute(USER_BACKING_OBJECT) UserBackingObject userBackingObject, HttpServletRequest request)	{
+	public String post(Model model, @ModelAttribute(AccountConstants.USER_BACKING_OBJECT) UserBackingObject userBackingObject, HttpServletRequest request)	{
 		CerberusLogger.post(CerberusConstants.ACCOUNT_VIEW);
 
 		User sessionUser = getUser(request);

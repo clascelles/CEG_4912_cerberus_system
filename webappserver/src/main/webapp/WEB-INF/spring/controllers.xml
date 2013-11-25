@@ -15,6 +15,7 @@
 	<!-- Initiating all the controllers -->
 	<bean id="loginController" class="com.cerberus.module.account.controllers.LoginController"></bean>
 	<bean id="accountController" class="com.cerberus.module.account.controllers.AccountController"></bean>
+	<bean id="newAccountController" class="com.cerberus.module.account.controllers.NewAccountController"></bean>
 	<bean id="overviewController" class="com.cerberus.module.overview.controllers.OverviewController"></bean>
 	<bean id="outletController" class="com.cerberus.module.outlets.controllers.OutletController"></bean>
 	<bean id="scheduleController" class="com.cerberus.module.schedules.controllers.ScheduleController"></bean>

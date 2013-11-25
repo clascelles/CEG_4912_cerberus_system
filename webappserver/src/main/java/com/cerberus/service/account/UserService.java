@@ -106,6 +106,11 @@ public class UserService {
 		return loginDAO.getAll();
 	}
 
+	public Login getLoginByUsername(String username) {
+		DetachedCriteria criteria = LoginFilter.getLoginByUsername(username);
+		return loginDAO.getByFilter(criteria);
+	}
+
 	public Login getLoginByUsernameAndPassword(String username, String password){
 		DetachedCriteria criteria = LoginFilter.getLoginByUsernameAndPassword(username, password);
 		return loginDAO.getByFilter(criteria);

@@ -7,16 +7,21 @@ import com.cerberus.model.account.bean.Login;
 
 public class LoginFilter {
 
+	public static DetachedCriteria getLoginByUsername(String username) {
+		return DetachedCriteria.forClass(Login.class).
+				add(Restrictions.like("username", username));
+	}
+
 	public static DetachedCriteria getLoginByUsernameAndPassword(String username, String password){
 		return DetachedCriteria.forClass(Login.class).
 				add(Restrictions.like("username", username)).
 				add(Restrictions.like("passwordValue", password));
 	}
-	
+
 	public static DetachedCriteria getLoginsBySystemId(Integer systemId){
 		return DetachedCriteria.forClass(Login.class).
 				add(Restrictions.eq("system.id", systemId));
 	}
-	
-	
+
+
 }
