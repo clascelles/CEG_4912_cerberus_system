@@ -7,7 +7,7 @@ import com.cerberus.module.security.constants.RfidPermission;
 public class RfidTagViewBackingObject extends BackingObject<RfidTagView> {
 
 	private Integer id;
-	private String 	number;
+	private String number;
 	private String name;
 	private String profile;
 	private RfidPermission permission;

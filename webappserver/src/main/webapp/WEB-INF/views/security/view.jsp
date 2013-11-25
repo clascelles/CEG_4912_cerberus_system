@@ -96,7 +96,7 @@
 									  		<span><b>Tag Name</b></span>
 										</div>
 										<div class="span2">
-									  		<input type="text" name="description" value="${rfidTag.name}">
+									  		<input type="text" name="name" value="${rfidTag.name}">
 										</div>
 									</div>
 									
