@@ -77,6 +77,8 @@ public class CerberusConstants {
 	public static final String SCHEDULED_EVENTS = "scheduledEvents";
 	public static final String SCHEDULE_RECURRENCES = "recurrences";
 	public static final String OUTLET_OPERATION_MODES = "outletModes";
-	public static final String SOCKET_OPERATION_MODES = "socketModes";
+	public static final String SOCKET_OPERATION_MODES = "socketModes";	
+	public static final String TOTAL_SOCKETS = "totalSockets";
+	public static final String PRESENT_USAGE = "presentUsage";
 
 }

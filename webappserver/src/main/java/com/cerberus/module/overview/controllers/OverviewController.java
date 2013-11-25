@@ -19,6 +19,7 @@ import com.cerberus.model.usage.bean.SystemTip;
 import com.cerberus.model.usage.bean.Tip;
 import com.cerberus.module.generic.constants.CerberusConstants;
 import com.cerberus.module.generic.controllers.CerberusController;
+import com.cerberus.module.outlets.workflows.OutletWorkflow;
 import com.cerberus.module.overview.backingobjects.EventBackingObject;
 import com.cerberus.module.overview.backingobjects.EventBackingObjectFactory;
 import com.cerberus.module.overview.backingobjects.TipBackingObject;
@@ -66,6 +67,12 @@ public class OverviewController extends CerberusController {
 		List<SystemTip> systemTips = usageWorkflow.getLatest10SystemTips(systemId);
 		
 		List<TipBackingObject> tipsBO = TipBackingObjectFactory.INSTANCE.getBackingObjects(tips, systemTips);
+		
+		// OVERVIEW SQUARES
+		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
+		model.addAttribute(CerberusConstants.TOTAL_SOCKETS, outletWorkflow.getSocketsByUser(user).size());
+
+		model.addAttribute(CerberusConstants.PRESENT_USAGE, usageWorkflow.getCurrentTotalUsage(user) + " kWh");
 
 		// DAY CONSUMPTION GRAPH
 		UsageBackingObject usageOptions = new UsageBackingObject();

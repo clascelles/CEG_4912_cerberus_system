@@ -102,17 +102,17 @@
 				</div>
 
 				<div class="row-fluid">
-					<a data-rel="tooltip" title="2 sockets allocated today" class="well span3 top-block" href="#">
+					<a data-rel="tooltip" class="well span3 top-block" href="/webappserver/outlets/index">
 						<span><i class="icon32 icon-blue icon-home"></i></span>
 						<div>My Sockets</div>
-						<div>25</div>
-						<span class="notification green">2</span>
+						<div>${totalSockets}</div>
+						<!-- <span class="notification green">2</span> -->
 					</a>
 					
-					<a data-rel="tooltip" class="well span3 top-block" href="#">
+					<a data-rel="tooltip" class="well span3 top-block" href="/webappserver/usage/index">
 						<i class="icon32 icon-color icon-lightbulb"></i>
 						<div>Present Usage</div>
-						<div>15 kWh</div>
+						<div>${presentUsage}</div>
 						<!-- <span class="notification green">2</span> -->
 					</a>
 					

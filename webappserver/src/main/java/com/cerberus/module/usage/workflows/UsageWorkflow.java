@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.joda.time.DateTime;
 
+import com.cerberus.frameworks.spring.CerberusApplicationContext;
 import com.cerberus.model.account.bean.User;
 import com.cerberus.model.outlets.bean.Current;
 import com.cerberus.model.outlets.bean.Socket;
@@ -16,7 +17,9 @@ import com.cerberus.model.usage.bean.SocketCurrentHourView;
 import com.cerberus.model.usage.bean.SystemTip;
 import com.cerberus.model.usage.bean.Tip;
 import com.cerberus.module.generic.workflows.Workflow;
+import com.cerberus.module.outlets.workflows.OutletWorkflow;
 import com.cerberus.module.usage.constants.UsageConstants;
+import com.cerberus.service.outlets.OutletService;
 import com.cerberus.service.system.SystemService;
 import com.cerberus.service.usage.ConsumptionService;
 
@@ -126,6 +129,29 @@ public class UsageWorkflow extends Workflow {
 	public List<Integer> getSystemList(List<Integer> currentList){
 		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
 		return consumptionService.getSystemListFromCurrentList(currentList);
+	}
+	
+	public Double getCurrentTotalUsage(User user) {
+		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
+		List<Socket> sockets = outletWorkflow.getSocketsByUser(user);
+		
+		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
+		
+		Date oneMinuteAgo = new Date(new Date().getTime() - 1000*30);
+		
+		Double total = 0.0;
+		
+		for(Socket socket : sockets) {
+			List<Current> currents = consumptionService.getCurrentBySocketId(socket.getId());
+			
+			for(Current current : currents) {
+				if(current.getTimestamp().after(oneMinuteAgo)) {
+					total += current.getCurrent();
+				}
+			}
+		}
+		
+		return total;		
 	}
 	
 	public Integer insertSystemTip(Integer tipId, Integer systemId ){
