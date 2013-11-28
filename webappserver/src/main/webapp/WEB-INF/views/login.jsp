@@ -77,12 +77,12 @@
 					</div>
 					<form:form class="form-horizontal" modelAttribute="loginBackingObject" action="" method="post">
 						<fieldset>
-							<div class="input-prepend" title="Username" data-rel="tooltip">
+							<div class="input-prepend" title="Username" data-rel="tooltip" data-placement="right">
 								<span class="add-on"><i class="icon-user"></i></span><form:input autofocus="autofocus" class="input-large span10" name="username" id="username" path="username" type="text"/>
 							</div>
 							<div class="clearfix"></div>
 
-							<div class="input-prepend" title="Password" data-rel="tooltip">
+							<div class="input-prepend" title="Password" data-rel="tooltip" data-placement="right">
 								<span class="add-on"><i class="icon-lock"></i></span><form:input class="input-large span10" name="password" id="password" type="password" path="password" />
 							</div>
 							<div class="clearfix"></div>

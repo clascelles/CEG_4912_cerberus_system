@@ -80,5 +80,8 @@ public class CerberusConstants {
 	public static final String SOCKET_OPERATION_MODES = "socketModes";	
 	public static final String TOTAL_SOCKETS = "totalSockets";
 	public static final String PRESENT_USAGE = "presentUsage";
+	public static final String DAY_COST_SAVINGS = "dayCostSavings";
+	public static final String MONTH_COST_SAVINGS = "monthCostSavings";
+	public static final String TIP_OF_THE_DAY = "tipOfTheDay";
 
 }

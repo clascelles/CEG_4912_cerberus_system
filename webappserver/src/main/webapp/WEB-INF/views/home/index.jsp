@@ -119,15 +119,14 @@
 					<a data-rel="tooltip" class="well span3 top-block" href="#">
 						<span class="icon32 icon-blue icon-cart"></span>
 						<div>Cost / Savings</div>
-						<div>$20.46 / $5.09</div>
-						<span class="notification yellow">$0.46 / $0.09</span>
+						<div>${monthCostSavings}</div>
+						<span class="notification yellow">${dayCostSavings}</span>
 					</a>
 					
-					<a data-rel="tooltip" title="1 new tip today" class="well span3 top-block" href="#">
+					<a class="well span3 top-block" href="#">
 						<i class="icon32 icon-green icon-info"></i>
 						<div>Savings Tip</div>
-						<div>Run dishwasher at night</div>
-						<span class="notification green">1</span>
+						<div>${tipOfTheDay}</div>
 					</a>
 				</div>
 					

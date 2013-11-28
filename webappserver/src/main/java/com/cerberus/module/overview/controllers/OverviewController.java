@@ -74,6 +74,17 @@ public class OverviewController extends CerberusController {
 
 		model.addAttribute(CerberusConstants.PRESENT_USAGE, usageWorkflow.getCurrentTotalUsage(user) + " kWh");
 
+		double[] dayCostSavings = usageWorkflow.getCostSavingsForDay(user, new Date());
+		double[] monthCostSavings = usageWorkflow.getCostSavingsForMonth(user, new Date());
+		model.addAttribute(CerberusConstants.DAY_COST_SAVINGS, "$" + dayCostSavings[0] + " / " + "$" + dayCostSavings[1]);
+		model.addAttribute(CerberusConstants.MONTH_COST_SAVINGS, "$" + monthCostSavings[0] + " / " + "$" + monthCostSavings[1]);
+		
+		String tipOfTheDay = "None today!";
+		if(!tipsBO.isEmpty()) {
+			tipOfTheDay = tipsBO.get(0).getMessage();
+		}
+		model.addAttribute(CerberusConstants.TIP_OF_THE_DAY, tipOfTheDay);
+
 		// DAY CONSUMPTION GRAPH
 		UsageBackingObject usageOptions = new UsageBackingObject();
 		double[] currentList = usageWorkflow.getCurrentByHourForDay(user, new Date());
@@ -99,10 +110,6 @@ public class OverviewController extends CerberusController {
 		
 		model.addAttribute(UsageConstants.USAGE_OPTIONS_2, usageOptions2);
 		model.addAttribute(UsageConstants.CURRENT_HOUR_LIST_2, currentListString2);
-		
-		
-		
-		
 		
 		model.addAttribute(OverviewConstants.EVENTS, eventsBO);
 		model.addAttribute(OverviewConstants.TIPS, tipsBO);
