@@ -79,11 +79,7 @@ public class OverviewController extends CerberusController {
 		model.addAttribute(CerberusConstants.DAY_COST_SAVINGS, "$" + dayCostSavings[0] + " / " + "$" + dayCostSavings[1]);
 		model.addAttribute(CerberusConstants.MONTH_COST_SAVINGS, "$" + monthCostSavings[0] + " / " + "$" + monthCostSavings[1]);
 		
-		String tipOfTheDay = "None today!";
-		if(!tipsBO.isEmpty()) {
-			tipOfTheDay = tipsBO.get(0).getMessage();
-		}
-		model.addAttribute(CerberusConstants.TIP_OF_THE_DAY, tipOfTheDay);
+		model.addAttribute(CerberusConstants.TIP_OF_THE_DAY, tipsBO.size() + " new tips today");
 
 		// DAY CONSUMPTION GRAPH
 		UsageBackingObject usageOptions = new UsageBackingObject();

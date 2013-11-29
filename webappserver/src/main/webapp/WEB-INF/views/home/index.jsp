@@ -123,7 +123,7 @@
 						<span class="notification yellow">${dayCostSavings}</span>
 					</a>
 					
-					<a class="well span3 top-block" href="#">
+					<a class="well span3 top-block" href="#tips">
 						<i class="icon32 icon-green icon-info"></i>
 						<div>Savings Tip</div>
 						<div>${tipOfTheDay}</div>
@@ -216,7 +216,7 @@
 				
 				
 							
-					<div class="box span6 xl">
+					<div id="tips" class="box span6 xl">
 						<div class="box-header well">
 							<h2>
 								<i class="icon-info-sign"></i> Latest Tips
