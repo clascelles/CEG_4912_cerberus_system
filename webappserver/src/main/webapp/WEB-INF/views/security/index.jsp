@@ -28,7 +28,11 @@
 
 	<!-- The fav icon -->
 	<link rel="shortcut icon" href="/webappserver/resources/img/favicon.png">
-		
+	
+	<!-- JSP Java code imports -->
+	<%@ page import="java.util.List" %>
+	<%@ page import="com.cerberus.module.security.backingobjects.RfidTagViewBackingObject" %>
+	<%@ page import="com.cerberus.module.security.constants.RfidPermission" %>
 </head>
 
 <body>
@@ -64,6 +68,26 @@
 					</ul>
 				</div>
 
+				<%
+				boolean showAlert = false;
+				List<RfidTagViewBackingObject> tags = (List<RfidTagViewBackingObject>) request.getAttribute("rfidTags");
+				for(RfidTagViewBackingObject tag : tags) {
+					if(tag.getPermission() == RfidPermission.UNSET) {
+						showAlert = true;
+						break;
+					}
+				}
+				
+				if(showAlert) {
+					%>
+					<div class="alert alert-warn span5 center">
+						<i class="icon-exclamation-sign"></i>
+						You have new RFID tags! Please configure their permission through the <strong>View</strong> button.
+						<div class="clearfix"></div>
+					</div>
+					<%
+				}
+				%>
 				<!-- view rfid tags -->
 				
 				<div class="row-fluid">
@@ -101,27 +125,6 @@
 								</c:forEach>
 							  </tbody>
 						    </table>							
-							<div class="clearfix"></div>
-						</div>
-					</div>
-				</div>
-				
-				<!-- add rfid tags -->
-				
-				<div class="row-fluid">
-					<div class="box span12">
-						<div class="box-header well">
-							<h2>
-								<i class="icon-tag"></i> Add an RFID Tag
-							</h2>
-							<div class="box-icon">
-								<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-							</div>
-						</div>
-						<div class="box-content">
-						  	<i class="icon-info"></i> Simply enable your new RFID tag by placing it near one of your outlets!
-						  	<p></p>
-						  	<i class="icon-excl"></i> Don't forget to set the permissions for your newly added RFID! 						  								
 							<div class="clearfix"></div>
 						</div>
 					</div>
