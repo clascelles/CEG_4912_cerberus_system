@@ -77,7 +77,7 @@
 							</div>
 						</div>
 						<div class="box-content">
-						  	<table class="table table-striped table-bordered bootstrap-datatable datatable">
+						  	<table id="rfidTable" class="table table-striped table-bordered bootstrap-datatable datatable">
 							  <thead>
 								  <tr>
 									  <th>Tag ID</th>
@@ -158,6 +158,19 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<%@include file="\WEB-INF\views\main\javascript.jsp" %>
+	
+	<script type="text/javascript">
+	    // Sorting rfid table
+		$(document).ready(function()
+		{
+		  var oTable = $('#rfidTable').dataTable();
+
+		  // Sorting rfid tag table by tag ID ascending, then by tag permission descending
+		  oTable.fnSort( [ [0,'asc'] ] );
+		  oTable.fnSort( [ [4,'desc'] ] );
+
+		} );
+	</script>
 	
 </body>
 </html>
