@@ -117,6 +117,10 @@ public class RfidService {
 
 	public void updateRfidTagView(RfidTagView rfidTagView) {
 		RfidTag rfidTag = getRfidTagById(rfidTagView.getId());
+		if(rfidTag == null) {
+			// Shouldn't be able to update rfid tag that doesn't exists!
+			return;
+		}
 		RfidAuthentication rfidAuth = getRfidAuthenticationByRfidTagId(rfidTag.getId());
 
 		if(rfidTagView.getName() != null) {
