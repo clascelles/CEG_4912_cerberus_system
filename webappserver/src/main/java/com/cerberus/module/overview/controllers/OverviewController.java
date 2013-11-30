@@ -67,6 +67,13 @@ public class OverviewController extends CerberusController {
 		List<SystemTip> systemTips = usageWorkflow.getLatest10SystemTips(systemId);
 		
 		List<TipBackingObject> tipsBO = TipBackingObjectFactory.INSTANCE.getBackingObjects(tips, systemTips);
+		Integer newTipsNum = 0;
+		
+		for(TipBackingObject tipBO : tipsBO){
+			if(tipBO.getLevel() == 1){
+				newTipsNum++;
+			}
+		}
 		
 		// OVERVIEW SQUARES
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
@@ -79,7 +86,7 @@ public class OverviewController extends CerberusController {
 		model.addAttribute(CerberusConstants.DAY_COST_SAVINGS, "$" + dayCostSavings[0] + " / " + "$" + dayCostSavings[1]);
 		model.addAttribute(CerberusConstants.MONTH_COST_SAVINGS, "$" + monthCostSavings[0] + " / " + "$" + monthCostSavings[1]);
 		
-		model.addAttribute(CerberusConstants.TIP_OF_THE_DAY, tipsBO.size() + " new tips today");
+		model.addAttribute(CerberusConstants.TIP_OF_THE_DAY, newTipsNum + " new tips today");
 
 		// DAY CONSUMPTION GRAPH
 		UsageBackingObject usageOptions = new UsageBackingObject();

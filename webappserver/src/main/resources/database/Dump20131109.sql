@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `cerberus` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cerberus`;
--- MySQL dump 10.13  Distrib 5.6.11, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.11, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: cerberus
+-- Host: localhost    Database: cerberus
 -- ------------------------------------------------------
--- Server version	5.5.30
+-- Server version	5.6.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -60,10 +60,10 @@ CREATE TABLE `current` (
   KEY `CURRENT_FKIndex1` (`SOCKET_ID`),
   KEY `CURRENT_FKIndex2` (`USERS_ID`),
   KEY `CURRENT_FKIndex3` (`RFID_TAG_ID`),
-  CONSTRAINT `fk_?620A4C79?2344?4454?B471?0E8D01FE0A66?` FOREIGN KEY (`USERS_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?01A8162B?8EAC?4B02?A493?867D7E7F7719?` FOREIGN KEY (`RFID_TAG_ID`) REFERENCES `rfid_tag` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_?620A4C79?2344?4454?B471?0E8D01FE0A66?` FOREIGN KEY (`USERS_ID`) REFERENCES `users` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?98F77DA9?88D3?44E2?809F?A02D07A0174E?` FOREIGN KEY (`SOCKET_ID`) REFERENCES `socket` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,6 @@ CREATE TABLE `current` (
 
 LOCK TABLES `current` WRITE;
 /*!40000 ALTER TABLE `current` DISABLE KEYS */;
-INSERT INTO `current` VALUES (1,1,4,10,'2013-11-18 08:00:00',5),(2,1,4,10,'2013-11-18 11:30:00',11),(3,NULL,NULL,7,'2013-11-24 18:56:12',0),(4,NULL,NULL,23,'2013-11-24 18:56:26',0),(5,NULL,NULL,7,'2013-11-24 18:56:42',0.1791),(6,NULL,NULL,23,'2013-11-24 18:56:56',0.2393),(7,NULL,NULL,7,'2013-11-24 18:57:12',0.2149),(8,NULL,NULL,23,'2013-11-24 18:57:26',0.2051),(9,NULL,NULL,7,'2013-11-24 18:57:42',0.1791),(10,NULL,NULL,23,'2013-11-24 18:57:56',0.2393),(11,NULL,NULL,7,'2013-11-24 18:58:12',0.1791),(12,NULL,NULL,23,'2013-11-24 18:58:26',0.2051),(13,NULL,NULL,7,'2013-11-24 18:58:42',0.1432),(14,NULL,NULL,23,'2013-11-24 18:58:56',0.2051),(15,NULL,NULL,7,'2013-11-24 18:59:12',0.2149),(16,NULL,NULL,23,'2013-11-24 18:59:26',0.2393),(17,NULL,NULL,7,'2013-11-24 18:59:42',0.2149),(18,NULL,NULL,23,'2013-11-24 18:59:56',0.2393),(19,NULL,NULL,7,'2013-11-24 19:00:12',0.2149),(20,NULL,NULL,23,'2013-11-24 19:00:26',1.3333),(21,NULL,NULL,7,'2013-11-24 19:00:42',0.1432),(22,NULL,NULL,23,'2013-11-24 19:00:56',1.0598),(23,NULL,NULL,7,'2013-11-24 19:01:12',0.1791),(24,NULL,NULL,23,'2013-11-24 19:01:26',0.1709),(25,NULL,NULL,7,'2013-11-24 19:01:42',0.1791),(26,NULL,NULL,23,'2013-11-24 19:01:56',1.5042),(27,NULL,NULL,7,'2013-11-24 19:02:12',0.1791),(28,NULL,NULL,23,'2013-11-24 19:02:26',0.1709),(29,NULL,NULL,7,'2013-11-24 19:02:42',0.1791),(30,NULL,NULL,23,'2013-11-24 19:02:56',1.1965),(31,NULL,NULL,7,'2013-11-24 19:03:12',0.1432),(32,NULL,NULL,23,'2013-11-24 19:03:26',0.13670000000000002),(33,NULL,NULL,7,'2013-11-24 19:03:42',0.1432),(34,NULL,NULL,23,'2013-11-24 19:03:56',1.2649),(35,NULL,NULL,7,'2013-11-24 19:04:12',0.1791),(36,NULL,NULL,23,'2013-11-24 19:04:26',0.1709),(37,NULL,NULL,7,'2013-11-24 19:04:42',0.10740000000000001),(38,NULL,NULL,23,'2013-11-24 19:04:56',0.2051),(39,NULL,NULL,7,'2013-11-24 19:05:12',0.2149);
 /*!40000 ALTER TABLE `current` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,7 +107,7 @@ CREATE TABLE `current_hour` (
   PRIMARY KEY (`ID`),
   KEY `CURRENT_HOUR_FKIndex2` (`SYSTEM_ID`),
   CONSTRAINT `fk_?JKIGUF7895HJH` FOREIGN KEY (`SYSTEM_ID`) REFERENCES `system` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +116,7 @@ CREATE TABLE `current_hour` (
 
 LOCK TABLES `current_hour` WRITE;
 /*!40000 ALTER TABLE `current_hour` DISABLE KEYS */;
-INSERT INTO `current_hour` VALUES (1,3,'2013-05-28 04:00:00',172.2),(2,3,'2013-05-28 05:00:00',25.98),(3,1,'2013-05-28 06:00:00',165.45),(4,2,'2013-05-28 07:00:00',126.09),(5,2,'2013-05-28 08:00:00',140.19),(6,2,'2013-05-29 09:00:00',124.68),(7,1,'2013-05-29 10:00:00',145.02),(8,2,'2013-05-29 11:00:00',157.56),(9,3,'2013-05-29 12:00:00',124.44),(10,3,'2013-05-29 13:00:00',59.34),(11,2,'2013-05-29 14:00:00',63.3),(12,1,'2013-05-29 15:00:00',56.58),(13,3,'2013-05-29 16:00:00',24.15),(14,3,'2013-05-29 17:00:00',139.26),(15,3,'2013-05-29 18:00:00',164.76),(16,2,'2013-05-30 19:00:00',19.95),(17,1,'2013-05-30 20:00:00',61.26),(18,3,'2013-05-21 21:00:00',151.65),(19,2,'2013-05-21 22:00:00',31.71),(20,2,'2013-05-21 23:00:00',161.13),(21,2,'2013-05-22 00:00:00',86.82),(22,3,'2013-05-29 01:00:00',2.49),(23,3,'2013-05-29 02:00:00',143.94),(24,3,'2013-05-29 03:00:00',81.48),(25,2,'2013-05-28 22:00:00',23300.16),(26,1,'2013-05-28 22:00:00',26392.65),(30,3,'2013-05-28 22:00:00',59930.43);
+INSERT INTO `current_hour` VALUES (3,1,'2013-11-24 18:00:00',0.08693100000000001),(19,1,'2013-11-24 19:00:00',0.272265);
 /*!40000 ALTER TABLE `current_hour` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -553,7 +552,7 @@ CREATE TABLE `rule` (
   `CONSUMPTION` double DEFAULT NULL,
   `APPLIANCE` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -562,7 +561,7 @@ CREATE TABLE `rule` (
 
 LOCK TABLES `rule` WRITE;
 /*!40000 ALTER TABLE `rule` DISABLE KEYS */;
-INSERT INTO `rule` VALUES (1,1,'>','2013-11-15',NULL,NULL,NULL),(2,1,'<','2013-11-16',NULL,NULL,NULL),(3,3,'>',NULL,NULL,1.3,NULL),(4,2,'>',NULL,'14:17:17',NULL,NULL);
+INSERT INTO `rule` VALUES (1,1,'=','2013-12-02',NULL,NULL,NULL),(2,1,'=','2014-03-28',NULL,NULL,NULL),(3,2,'>',NULL,'11:00:00',NULL,NULL),(4,2,'<',NULL,'17:00:00',NULL,NULL),(5,4,'=',NULL,NULL,NULL,3),(6,4,'=',NULL,NULL,NULL,4),(7,4,'=',NULL,NULL,NULL,7),(8,4,'=',NULL,NULL,NULL,11),(9,4,'=',NULL,NULL,NULL,17),(10,4,'=',NULL,NULL,NULL,19);
 /*!40000 ALTER TABLE `rule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -582,7 +581,7 @@ CREATE TABLE `rule_tip_xref` (
   KEY `TIPS_FKIndex2` (`TIP_ID`),
   CONSTRAINT `fk_?441E7FCC?889E?45AA?B46E?B768C2F35E91?` FOREIGN KEY (`TIP_ID`) REFERENCES `tip` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_?98B92FAF?94B6?412E?840D?CAD887C4CD04?` FOREIGN KEY (`RULE_ID`) REFERENCES `rule` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -591,7 +590,7 @@ CREATE TABLE `rule_tip_xref` (
 
 LOCK TABLES `rule_tip_xref` WRITE;
 /*!40000 ALTER TABLE `rule_tip_xref` DISABLE KEYS */;
-INSERT INTO `rule_tip_xref` VALUES (1,1,1),(2,1,4);
+INSERT INTO `rule_tip_xref` VALUES (1,1,1),(2,2,2),(3,3,3),(4,3,4),(5,3,5),(6,4,3),(7,4,4),(8,4,6),(9,5,3),(10,5,4),(11,5,7),(12,6,3),(13,6,4),(14,6,8),(15,7,3),(16,7,4),(17,7,9),(18,8,3),(19,8,4),(20,8,10);
 /*!40000 ALTER TABLE `rule_tip_xref` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -915,7 +914,7 @@ CREATE TABLE `system_tip` (
   PRIMARY KEY (`ID`),
   KEY `SYSTEM_ID_idx` (`SYSTEM_ID`),
   KEY `TIP_ID_idx` (`TIP_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -924,7 +923,6 @@ CREATE TABLE `system_tip` (
 
 LOCK TABLES `system_tip` WRITE;
 /*!40000 ALTER TABLE `system_tip` DISABLE KEYS */;
-INSERT INTO `system_tip` VALUES (1,1,1,'2013-11-21 23:35:15'),(2,1,1,'2013-11-21 00:14:18'),(3,3,1,'2013-11-01 22:47:05'),(5,1,1,'2013-11-22 01:50:15'),(6,2,1,'2013-11-22 01:50:15'),(7,3,1,'2013-11-22 01:50:15'),(8,4,1,'2013-11-22 01:50:15'),(9,1,1,'2013-11-22 01:50:15'),(10,2,1,'2013-11-22 01:50:15'),(11,3,1,'2013-11-22 01:50:15'),(12,4,1,'2013-11-22 01:50:15'),(13,1,3,'2013-11-22 01:32:37'),(14,2,3,'2013-11-22 01:32:37'),(15,3,3,'2013-11-22 01:32:37'),(16,4,3,'2013-11-22 01:32:37'),(17,1,3,'2013-11-22 01:55:58'),(18,2,3,'2013-11-22 01:55:58'),(19,3,3,'2013-11-22 01:55:58'),(20,4,3,'2013-11-22 01:55:58'),(21,1,3,'2013-11-22 02:07:21'),(22,2,3,'2013-11-22 02:07:21'),(23,3,3,'2013-11-22 02:07:21'),(24,4,3,'2013-11-22 02:07:21'),(25,1,3,'2013-11-22 13:57:18'),(26,2,3,'2013-11-22 13:57:18'),(27,3,3,'2013-11-22 13:57:18'),(28,4,3,'2013-11-22 13:57:18'),(29,1,3,'2013-11-22 14:48:58'),(30,2,3,'2013-11-22 14:48:58'),(31,3,3,'2013-11-22 14:48:58'),(32,4,3,'2013-11-22 14:48:58'),(33,1,3,'2013-11-22 15:06:26'),(34,1,3,'2013-11-22 15:06:45'),(35,2,3,'2013-11-22 15:06:49'),(36,3,3,'2013-11-22 15:06:51'),(37,4,3,'2013-11-22 15:06:53'),(38,2,3,'2013-11-24 20:22:04'),(39,3,1,'2013-11-24 20:22:05'),(40,4,2,'2013-11-24 20:22:05'),(41,2,3,'2013-11-24 20:24:23'),(42,3,2,'2013-11-24 20:24:24'),(43,4,3,'2013-11-24 20:24:25'),(44,2,3,'2013-11-25 16:40:22'),(45,3,3,'2013-11-25 16:40:22'),(46,4,2,'2013-11-25 16:40:22'),(47,2,3,'2013-11-25 16:41:07'),(48,3,3,'2013-11-25 16:41:07'),(49,4,2,'2013-11-25 16:41:07');
 /*!40000 ALTER TABLE `system_tip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -939,7 +937,7 @@ CREATE TABLE `tip` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `NAME` text,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -948,7 +946,7 @@ CREATE TABLE `tip` (
 
 LOCK TABLES `tip` WRITE;
 /*!40000 ALTER TABLE `tip` DISABLE KEYS */;
-INSERT INTO `tip` VALUES (1,'EarthDay'),(2,'Tip2'),(3,'Tip3'),(4,'Tip4');
+INSERT INTO `tip` VALUES (1,'Turn on and off your Christmas lights with the help of our scheduling feature and save energy at the same time.'),(2,'Use our convenient web interface to participate to the Earth hour by turning off all electricity in your home!'),(3,'Try to use your Home Appliances during off peak periods to reduce your electric bill.'),(4,'Try to use your Clothe Dryer during off peak periods to reduce your electric bill.'),(5,'Try to use your Air Conditioner during off peak periods to reduce your electric bill.'),(6,'Try to use your Portable Heater during off peak periods to reduce your electric bill.'),(7,'Try to use your Dishwasher during off peak periods to reduce your electric bill.'),(8,'Try to use your Clothe Washer during off peak periods to reduce your electric bill.'),(9,'You can shedule your pool filter to run only for some period of time in off-peak hour to save energy being consumed.'),(10,'Use the sheduling tool for devices with high consumption'),(11,'The Child Safety mode will disable each socket unless it sees a plugged device'),(12,'You can view the consumption of each device independantly by navigating to the outlet it is currently plugged'),(13,'The Dashboard is the perfect page to get an overview of your system'),(14,'You can see the total consumption of your system by day or month in the usage page'),(15,'Cerberus encrypts all your data for your security. Keep your key secret.'),(16,'You can go in System Settings to configure your outlet default operation mode.'),(17,'To add a new RFID tag, simply plug it in an outlet and it will appear in your system as UNSET'),(18,'You can restrict the use of outlets only to devices that your system recongnizes'),(19,'Each outlet will give you the status of its connectivity'),(20,'Look at the event logs to make sure that your system is oerating without errors'),(21,'When at work, heat less to conserve energy while you\'re not there'),(22,'Do you have a block heater for your car? You can schedule that too!'),(23,'After midnight? Schedule all the lights off.'),(24,'Have difficulty waking up? You can schedule the lights to turn on in the morning.'),(25,'You can use the CLI interface to reconfigure directly an outlet.');
 /*!40000 ALTER TABLE `tip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1216,4 +1214,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-28 13:58:31
+-- Dump completed on 2013-11-30 12:54:33
