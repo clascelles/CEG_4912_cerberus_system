@@ -65,11 +65,11 @@ public class CurrentFilter {
 	
 	public static DetachedCriteria addApplianceRestriction(DetachedCriteria criteria, String operator, Integer rfidTagId){
 		if(operator.equals("<")){
-			return criteria.add(Restrictions.lt("rfidTagId.id", rfidTagId));
+			return criteria.add(Restrictions.lt("rfidTagId.profile.id", rfidTagId));
 		}else if(operator.equals(">")){
-			return criteria.add(Restrictions.gt("rfidTagId.id", rfidTagId));
+			return criteria.add(Restrictions.gt("rfidTagId.profile.id", rfidTagId));
 		}else if(operator.equals("=")){
-			return criteria.add(Restrictions.eq("rfidTagId.id", rfidTagId));
+			return criteria.add(Restrictions.eq("rfidTagId.profile.id", rfidTagId));
 		}else{
 			return criteria;
 		}
