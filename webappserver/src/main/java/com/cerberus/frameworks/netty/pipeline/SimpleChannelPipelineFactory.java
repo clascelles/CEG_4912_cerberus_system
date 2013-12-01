@@ -26,7 +26,7 @@ public class SimpleChannelPipelineFactory implements ChannelPipelineFactory {
 
 		// Splitting frames based on pipe '|' delimiters instead of new lines
 		DelimiterBasedFrameDecoder delimiterFrameDecoder = new DelimiterBasedFrameDecoder(FRAME_MAXIMUM_LENGTH,
-				ChannelBuffers.wrappedBuffer(new byte[] {'|'}));
+				ChannelBuffers.wrappedBuffer(new byte[] {'|', '|'}));
 		//StringDecoder stringDecoder = new StringDecoder(CharsetUtil.UTF_8);
 
 
