@@ -70,6 +70,10 @@ public class NewAccountController extends CerberusController {
 						redirectAttrs.addFlashAttribute(AccountConstants.NEW_ACCOUNT_BACKING_OBJECT, newAccountBackingObject);
 						return "redirect:/create";
 					}
+					
+					//Add new rooms to that system
+					systemWorkflow.addDefaultRoomsToSystem(system);
+					
 					User user = accountWorkflow.getUserByLogin(userLogin);
 					request.getSession().setAttribute("user", user);
 
@@ -105,4 +109,6 @@ public class NewAccountController extends CerberusController {
 
 		return "redirect:/";
 	}
+	
+	
 }

@@ -34,6 +34,8 @@ public class RoomType implements Serializable{
 	public static final Integer BEDROOM = 14;
 	public static final Integer GUEST_BEDROOM = 15;
 	public static final Integer BALCONY = 16;	
+	public static final Integer OFFICE = 17;	
+	public static final Integer BASEMENT = 18;	
 	
 	Integer id;
 	String name;
@@ -45,6 +47,11 @@ public class RoomType implements Serializable{
 	public RoomType(String name) {
 		super();
 		this.name = name;
+	}
+	
+	public RoomType(Integer id) {
+		super();
+		this.id = id;
 	}
 	
 	@Id

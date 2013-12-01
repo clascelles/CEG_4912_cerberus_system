@@ -185,20 +185,7 @@ public class UsageWorkflow extends Workflow {
 	
 	public Current getCurrentForSocket(Socket socket) {
 		ConsumptionService consumptionService = serviceFactory.getConsumptionService();
-		List<Current> currents = consumptionService.getCurrentBySocketId(socket.getId());
-		
-		if(currents.isEmpty()) {
-			return null;
-		}
-		
-		Current mostRecent = null;
-		for(Current current : currents) {
-			if((mostRecent == null) 
-				|| (current.getTimestamp().before(mostRecent.getTimestamp()))) {
-				mostRecent = current;
-			}
-		}
-		return mostRecent;
+		return consumptionService.getMostRecentCurrentBySocketId(socket.getId());
 	}
 	
 	public String getCurrentUsageForSocket(Socket socket) {

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,8 +50,8 @@ public class RfidTag implements Serializable{
 		this.id = id;
 	}
 
-	@ManyToOne()
-	@JoinColumn(name="PROFILE_ID", nullable=false)
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="PROFILE_ID")
 	public ConsumptionProfile getProfile() {
 		return profile;
 	}

@@ -18,6 +18,7 @@ import com.cerberus.model.outlets.dao.SocketOperationModeDAO;
 import com.cerberus.model.outlets.dao.SocketOperationStatusDAO;
 import com.cerberus.model.outlets.filter.OutletFilter;
 import com.cerberus.model.outlets.filter.OutletOperationModeFilter;
+import com.cerberus.model.outlets.filter.OutletSystemViewFilter;
 import com.cerberus.model.outlets.filter.SocketAssignmentFilter;
 import com.cerberus.model.outlets.filter.SocketFilter;
 
@@ -78,7 +79,7 @@ public class OutletService {
 	}
 
 	public Integer getSystemIdFromOutlet(Integer outletId) {
-		return outletSystemViewDAO.getById(outletId).getSystemId();
+		return outletSystemViewDAO.getByFilter(OutletSystemViewFilter.getByOutletId(outletId)).getSystemId();
 	}
 
 	//***************************************************

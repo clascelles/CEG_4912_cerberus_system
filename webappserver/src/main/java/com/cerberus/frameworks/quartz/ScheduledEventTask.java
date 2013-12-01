@@ -11,6 +11,7 @@ import com.cerberus.model.outlets.bean.Socket;
 import com.cerberus.model.outlets.bean.SocketOperationMode;
 import com.cerberus.model.schedules.bean.ScheduleRecurrence;
 import com.cerberus.model.schedules.bean.ScheduledEvent;
+import com.cerberus.module.outlets.workflows.OutletWorkflow;
 import com.cerberus.module.system.constants.EventType;
 
 public class ScheduledEventTask {
@@ -55,12 +56,18 @@ public class ScheduledEventTask {
 
 	public void sendMessage() {
 		Integer position = socket.getPosition();
-		OperationMode opMode = new OperationMode(socket.getOutlet().getMode().getId(), socket.getMode().getId());
+		OperationMode opMode = new OperationMode(socket.getOutlet().getMode().getId(), mode.getId());
 		CerberusApplicationContext.getWorkflows().getSwitchOperationModeWorkflow().
 				sendMessage(socket.getOutlet().getSerialNumber(),
 						position,
 						"0000000000",
 						opMode,
 						0);
+		
+		//Added the update to the Database to keep everyting in sync.
+		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
+		socket.setMode(mode);
+		outletWorkflow.updateSocket(socket);
+		
 	}
 }

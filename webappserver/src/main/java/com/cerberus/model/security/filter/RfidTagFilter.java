@@ -9,7 +9,7 @@ public class RfidTagFilter {
 
 	public static DetachedCriteria getRfidTagByNumber(String number){
 		return DetachedCriteria.forClass(RfidTag.class).
-				add(Restrictions.like("number", number));
+				add(Restrictions.eq("number", number));
 	}
 
 }

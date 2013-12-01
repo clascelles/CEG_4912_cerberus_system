@@ -42,6 +42,35 @@ public class SystemWorkflow extends Workflow {
 	}
 
 
+	public void addDefaultRoomsToSystem(CerberusSystem system){
+		List<Room> rooms = new ArrayList<Room>(10);
+		rooms.add(new Room("Foyer", new RoomType(RoomType.FOYER), system));
+		rooms.add(new Room("Front Hall", new RoomType(RoomType.FRONT_HALL), system));
+		rooms.add(new Room("Living Room", new RoomType(RoomType.LIVING_ROOM), system));
+		rooms.add(new Room("Dining Room", new RoomType(RoomType.DINING_ROOM), system));
+		rooms.add(new Room("Laundry Room", new RoomType(RoomType.LAUNDRY_ROOM), system));
+		rooms.add(new Room("Sitting Room", new RoomType(RoomType.SITTING_ROOM), system));
+		rooms.add(new Room("Kitchen", new RoomType(RoomType.KITCHEN), system));
+		rooms.add(new Room("Stairwell", new RoomType(RoomType.STAIRWELL), system));
+		rooms.add(new Room("Hallway", new RoomType(RoomType.HALLWAY), system));
+		rooms.add(new Room("Bathroom", new RoomType(RoomType.BATHROOM), system));
+		rooms.add(new Room("Half Bath", new RoomType(RoomType.HALF_BATH), system));
+		rooms.add(new Room("Ensuite Bathroom", new RoomType(RoomType.ENSUITE_BATH), system));
+		rooms.add(new Room("Master Bedroom", new RoomType(RoomType.MASTER_BEDROOM), system));
+		rooms.add(new Room("Bedroom", new RoomType(RoomType.BEDROOM), system));
+		rooms.add(new Room("Guest Bedroom", new RoomType(RoomType.GUEST_BEDROOM), system));
+		rooms.add(new Room("Balcony", new RoomType(RoomType.BALCONY), system));
+		rooms.add(new Room("Office", new RoomType(RoomType.OFFICE), system));
+		rooms.add(new Room("Basement", new RoomType(RoomType.BASEMENT), system));
+		
+		SystemService systemService = serviceFactory.getSystemService();
+		for(Room room: rooms){
+			systemService.insertRoom(room);
+		}
+
+	}
+	
+	
 	public List<RoomBackingObject> getRoomBackingObjects(User user) {
 
 		SystemService systemService = serviceFactory.getSystemService();

@@ -40,7 +40,7 @@ public class OutletWorkflow extends Workflow {
 		Outlet outlet = getOutletById(newOutlet.getId());
 
 		if(outlet != null) {
-			if(outlet.getMode().getId() != newOutlet.getModeId()) {
+			//if(outlet.getMode().getId() != newOutlet.getModeId()) {
 				outlet.setMode(getOutletOperationModeById(newOutlet.getModeId()));
 				updateOutlet(outlet);
 
@@ -53,9 +53,9 @@ public class OutletWorkflow extends Workflow {
 				// Send two messages, one for each socket
 				messageWorkflow.sendMessage(outlet.getSerialNumber(), 0, "0000000000",
 						opMode, 1);
-				messageWorkflow.sendMessage(outlet.getSerialNumber(), 1, "0000000000",
-						opMode, 1);
-			}
+//				messageWorkflow.sendMessage(outlet.getSerialNumber(), 1, "0000000000",
+//						opMode, 1);
+			//}
 		}
 
 	}

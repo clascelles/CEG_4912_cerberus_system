@@ -216,6 +216,13 @@ public class OutletController extends CerberusController {
 				"0000000000", 
 				new OperationMode(socket.getOutlet().getMode().getId(), socket.getMode().getId()), 
 				0);
+		
+//		switchOpWorkflow.sendMessage(
+//				socket.getOutlet().getSerialNumber(), 
+//				socket.getPosition(), 
+//				"0000000000", 
+//				new OperationMode(socket.getOutlet().getMode().getId(), socket.getMode().getId()), 
+//				0);
 	}
 
 }

@@ -11,5 +11,10 @@ public class OutletSystemViewFilter {
 		return DetachedCriteria.forClass(OutletSystemView.class)
 				.add(Restrictions.eq("systemId", systemId));
 	}
+	
+	public static DetachedCriteria getByOutletId(Integer outletId) {
+		return DetachedCriteria.forClass(OutletSystemView.class)
+				.add(Restrictions.eq("id", outletId));
+	}
 
 }

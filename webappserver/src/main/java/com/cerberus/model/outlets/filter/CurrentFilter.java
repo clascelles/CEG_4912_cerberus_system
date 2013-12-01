@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 
@@ -15,6 +16,12 @@ public class CurrentFilter {
 	public static DetachedCriteria getBySocketId(Integer socketId){
 		return DetachedCriteria.forClass(Current.class).
 				add(Restrictions.eq("socket.id", socketId));
+	}
+	
+	public static DetachedCriteria getMostRecentBySocketId(Integer socketId){
+		return DetachedCriteria.forClass(Current.class).
+				add(Restrictions.eq("socket.id", socketId))
+				.addOrder(Order.desc("timestamp"));
 	}
 	
 	public static DetachedCriteria getDetachedCriteria(){
@@ -64,12 +71,15 @@ public class CurrentFilter {
 	}
 	
 	public static DetachedCriteria addApplianceRestriction(DetachedCriteria criteria, String operator, Integer rfidTagId){
+		//criteria.createAlias("rfidTagId", "rfidTagId");
+		criteria.createCriteria("rfidTagId").createCriteria("profile");
+		
 		if(operator.equals("<")){
-			return criteria.add(Restrictions.lt("rfidTagId.profile.id", rfidTagId));
+			return criteria.add(Restrictions.lt("id", rfidTagId));
 		}else if(operator.equals(">")){
-			return criteria.add(Restrictions.gt("rfidTagId.profile.id", rfidTagId));
+			return criteria.add(Restrictions.gt("id", rfidTagId));
 		}else if(operator.equals("=")){
-			return criteria.add(Restrictions.eq("rfidTagId.profile.id", rfidTagId));
+			return criteria.add(Restrictions.eq("id", rfidTagId));
 		}else{
 			return criteria;
 		}

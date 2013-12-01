@@ -76,6 +76,10 @@ public class ConsumptionService {
 		return currentDAO.getAllByFilter(CurrentFilter.getBySocketId(socketId));
 	}
 	
+	public Current getMostRecentCurrentBySocketId(Integer socketId) {
+		return currentDAO.getByFilter(CurrentFilter.getMostRecentBySocketId(socketId));
+	}
+	
 	public boolean deleteCurrentByThreshold(DateTime threshold){
 		return currentDAO.deleteCurrent(new Timestamp(threshold.getMillis()));
 	}

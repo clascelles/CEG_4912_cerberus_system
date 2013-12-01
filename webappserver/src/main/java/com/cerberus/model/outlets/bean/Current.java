@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,7 +57,7 @@ public class Current implements Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne()
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "RFID_TAG_ID", nullable=true)
 	public RfidTag getRfidTagId() {
 		return rfidTagId;

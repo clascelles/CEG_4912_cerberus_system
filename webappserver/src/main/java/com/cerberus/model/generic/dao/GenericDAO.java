@@ -102,7 +102,7 @@ public class GenericDAO<T, ID extends Serializable> {
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			get = (T) criteria.getExecutableCriteria(session).uniqueResult();
+			get = (T) criteria.getExecutableCriteria(session).setMaxResults(1).uniqueResult();
 			tx.commit();
 		}catch (RuntimeException e) {
 			tx.rollback();
