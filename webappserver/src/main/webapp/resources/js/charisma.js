@@ -85,10 +85,10 @@ $(document).ready(function(){
 	
 	//animating menus on hover
 	$('ul.main-menu li:not(.nav-header)').hover(function(){
-		$(this).animate({'margin-left':'+=5'},300);
+		$(this).animate({'margin-left':'+=5'},150);
 	},
 	function(){
-		$(this).animate({'margin-left':'-=5'},300);
+		$(this).animate({'margin-left':'-=5'},150);
 	});
 	
 	//other things to do on document ready, seperated for ajax calls
