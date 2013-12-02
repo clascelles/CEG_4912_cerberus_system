@@ -101,15 +101,15 @@ public class OutletController extends CerberusController {
 		
 		model.addAttribute(CerberusConstants.SOCKETS, SocketBackingObjectFactory.INSTANCE.getBackingObjects(ordered));
 
-		if(sockets.size() > 0) {
-			if(sockets.size() > 1) {
-				addSocketToModel(model, CerberusConstants.SOCKET_A, sockets.get(0));
-				addSocketToModel(model, CerberusConstants.SOCKET_B, sockets.get(1));				
+		if(ordered.size() > 0) {
+			if(ordered.size() > 1) {
+				addSocketToModel(model, CerberusConstants.SOCKET_A, ordered.get(0));
+				addSocketToModel(model, CerberusConstants.SOCKET_B, ordered.get(1));				
 			} else {
 				if(sockets.get(0).getPosition() == 0) {
-					addSocketToModel(model, CerberusConstants.SOCKET_A, sockets.get(0));					
+					addSocketToModel(model, CerberusConstants.SOCKET_A, ordered.get(0));					
 				} else {
-					addSocketToModel(model, CerberusConstants.SOCKET_B, sockets.get(0));					
+					addSocketToModel(model, CerberusConstants.SOCKET_B, ordered.get(0));					
 				}
 			}			
 		}
@@ -216,13 +216,6 @@ public class OutletController extends CerberusController {
 				"0000000000", 
 				new OperationMode(socket.getOutlet().getMode().getId(), socket.getMode().getId()), 
 				0);
-		
-//		switchOpWorkflow.sendMessage(
-//				socket.getOutlet().getSerialNumber(), 
-//				socket.getPosition(), 
-//				"0000000000", 
-//				new OperationMode(socket.getOutlet().getMode().getId(), socket.getMode().getId()), 
-//				0);
 	}
 
 }

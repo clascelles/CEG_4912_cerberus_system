@@ -119,7 +119,7 @@ public class UsageWorkflow extends Workflow {
 				
 				if(peak.contains(currentHour.getHour())) {
 					cost = usage * peakRate;
-				} else if(peak.contains(currentHour.getHour())) {
+				} else if(midPeak.contains(currentHour.getHour())) {
 					cost = usage * midPeakRate;
 					savings = usage * (peakRate - midPeakRate);
 				} else {

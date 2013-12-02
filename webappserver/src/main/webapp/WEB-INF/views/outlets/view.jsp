@@ -176,35 +176,7 @@
 										</div>
 									</div>
 									<div class="box-content">
-										<div class="span5">
-											<%-- <div class="row-fluid">
-												<div class="span4"><b>Consumer</b></div>
-												<div class="span4">
-													<c:choose>
-													    <c:when test="${socket.connectedUserId == -1}">											    
-										  					<select name="connectedUserId" data-rel="chosen" disabled>
-																<option value="-1" selected>Unassigned</option>
-																<option value="${user.id}">Me</option>
-															</select>
-													    </c:when>
-													      
-												        <c:when test="${socket.connectedUserId == user.id}">									    
-										  					<select name="connectedUserId" data-rel="chosen" disabled>
-																<option value="-1">Unassigned</option>
-																<option value="${user.id}" selected>Me</option>
-															</select>
-													    </c:when>
-													
-													    <c:otherwise>							    
-										  					<select name="connectedUserId" data-rel="chosen" disabled <c:if test="${!user.sysAdmin}">disabled</c:if>>
-																<option value="${socket.connectedUserId}">${socket.connectedUsername}</option>
-																<option value="-1">Unassigned</option>
-															</select>
-													    </c:otherwise>
-													</c:choose>
-												</div>												
-											</div> --%>
-									
+										<div class="span5">									
 											<div class="row-fluid">
 												<div class="span4">
 											  		<span><b>Operation Mode</b></span>
