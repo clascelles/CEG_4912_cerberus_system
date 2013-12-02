@@ -61,66 +61,68 @@ public class OverviewController extends CerberusController {
 
 		List<EventRecord> events = eventWorkflow.getMostRecentEvents(systemId, 10);
 		List<EventBackingObject> eventsBO = EventBackingObjectFactory.INSTANCE.getBackingObjects(events);
-		
+
 		UsageWorkflow usageWorkflow = CerberusApplicationContext.getWorkflows().getUsageWorkflow();
 		List<Tip> tips = usageWorkflow.getLatest10Tips(systemId);
 		List<SystemTip> systemTips = usageWorkflow.getLatest10SystemTips(systemId);
-		
+
 		List<TipBackingObject> tipsBO = TipBackingObjectFactory.INSTANCE.getBackingObjects(tips, systemTips);
 		Integer newTipsNum = 0;
-		
+
 		for(TipBackingObject tipBO : tipsBO){
 			if(tipBO.getLevel() == 1){
 				newTipsNum++;
 			}
 		}
-		
+
 		// OVERVIEW SQUARES
 		OutletWorkflow outletWorkflow = CerberusApplicationContext.getWorkflows().getOutletWorkflow();
 		model.addAttribute(CerberusConstants.TOTAL_SOCKETS, outletWorkflow.getSocketsByUser(user).size());
 
-		model.addAttribute(CerberusConstants.PRESENT_USAGE, usageWorkflow.getCurrentTotalUsage(user) + " kWh");
+		model.addAttribute(CerberusConstants.PRESENT_USAGE, usageWorkflow.getCurrentTotalUsage(user) + " W/s");
 
 		double[] dayCostSavings = usageWorkflow.getCostSavingsForDay(user, new Date());
 		double[] monthCostSavings = usageWorkflow.getCostSavingsForMonth(user, new Date());
-		model.addAttribute(CerberusConstants.DAY_COST_SAVINGS, "$" + dayCostSavings[0] + " / " + "$" + dayCostSavings[1]);
-		model.addAttribute(CerberusConstants.MONTH_COST_SAVINGS, "$" + monthCostSavings[0] + " / " + "$" + monthCostSavings[1]);
-		
+		String dayCostSavingStr = "$" + Double.toString(dayCostSavings[0]).substring(0, 5) + " / " + "$" + Double.toString(dayCostSavings[1]).substring(0, 5);
+		String mountCostSavingStr = "$" + Double.toString(monthCostSavings[0]).substring(0, 5) + " / " + "$" + Double.toString(monthCostSavings[1]).substring(0, 5);
+		model.addAttribute(CerberusConstants.DAY_COST_SAVINGS, dayCostSavingStr);
+		model.addAttribute(CerberusConstants.MONTH_COST_SAVINGS, mountCostSavingStr);
+
 		model.addAttribute(CerberusConstants.TIP_OF_THE_DAY, newTipsNum + " new tips today");
 
 		// DAY CONSUMPTION GRAPH
 		UsageBackingObject usageOptions = new UsageBackingObject();
 		double[] currentList = usageWorkflow.getCurrentByHourForDay(user, new Date());
-		
+
 		usageOptions.setGraphForDay();
 		usageOptions.setMaximumYAxisValue(UsageController.maxValue(currentList));
 		String currentListString = UsageController.arrayToJavascript(currentList);
-		
+
 		model.addAttribute(UsageConstants.USAGE_OPTIONS, usageOptions);
 		model.addAttribute(UsageConstants.CURRENT_HOUR_LIST, currentListString);
-		
+
 		//MONTH CONSUMPTION GRAPH
 		UsageBackingObject usageOptions2 = new UsageBackingObject();
-		
+
 		DateTime tempDate = new DateTime();
 		DateTime beginningOfMonth = new DateTime(tempDate.getYear(), tempDate.getMonthOfYear(), 1, 0, 0);
 		usageOptions2.setNumberOfDataPoints(beginningOfMonth.plusMonths(1).minusDays(1).getDayOfMonth());
 		usageOptions2.setGraphForMonth();
 		double[] currentList2 = usageWorkflow.getCurrentByDayForMonth(user, new Date(beginningOfMonth.getMillis()), usageOptions2.getNumberOfDataPoints());
-		
+
 		usageOptions2.setMaximumYAxisValue(UsageController.maxValue(currentList2));
 		String currentListString2 = UsageController.arrayToJavascript(currentList2);
-		
+
 		model.addAttribute(UsageConstants.USAGE_OPTIONS_2, usageOptions2);
 		model.addAttribute(UsageConstants.CURRENT_HOUR_LIST_2, currentListString2);
-		
+
 		model.addAttribute(OverviewConstants.EVENTS, eventsBO);
 		model.addAttribute(OverviewConstants.TIPS, tipsBO);
 
 		ScheduleWorkflow scheduleWorkflow = CerberusApplicationContext.getWorkflows().getScheduleWorkflow();
 		List<ScheduledEvent> schedules = scheduleWorkflow.getTodaysScheduledEvents(user);
 		List<ScheduledEventBackingObject> scheduledEventBackingObjects = ScheduledEventBackingObjectFactory.INSTANCE.getBackingObjects(schedules);
-		
+
 		model.addAttribute(CerberusConstants.SCHEDULED_EVENTS, scheduledEventBackingObjects);
 
 		return "home/index";
