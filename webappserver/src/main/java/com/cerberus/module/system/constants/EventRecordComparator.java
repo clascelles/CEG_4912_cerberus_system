@@ -17,7 +17,7 @@ public class EventRecordComparator implements Comparator<EventRecord>,
 		long o1Time = o1.getTimestamp().getTime();
 		long o2Time = o2.getTimestamp().getTime();
 		// Inversing the comparator to get set in descending order
-		return Long.compare(o1Time, o2Time);
+		return Long.compare(o2Time, o1Time);
 	}
 
 }
