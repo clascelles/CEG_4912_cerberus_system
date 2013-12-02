@@ -83,10 +83,8 @@ public class OverviewController extends CerberusController {
 
 		double[] dayCostSavings = usageWorkflow.getCostSavingsForDay(user, new Date());
 		double[] monthCostSavings = usageWorkflow.getCostSavingsForMonth(user, new Date());
-		String dayCostSavingStr = "$" + Double.toString(dayCostSavings[0]).substring(0, 5) + " / " + "$" + Double.toString(dayCostSavings[1]).substring(0, 5);
-		String mountCostSavingStr = "$" + Double.toString(monthCostSavings[0]).substring(0, 5) + " / " + "$" + Double.toString(monthCostSavings[1]).substring(0, 5);
-		model.addAttribute(CerberusConstants.DAY_COST_SAVINGS, dayCostSavingStr);
-		model.addAttribute(CerberusConstants.MONTH_COST_SAVINGS, mountCostSavingStr);
+		model.addAttribute(CerberusConstants.DAY_COST_SAVINGS, "$" + dayCostSavings[0] + " / " + "$" + dayCostSavings[1]);
+		model.addAttribute(CerberusConstants.MONTH_COST_SAVINGS, "$" + monthCostSavings[0] + " / " + "$" + monthCostSavings[1]);
 
 		model.addAttribute(CerberusConstants.TIP_OF_THE_DAY, newTipsNum + " new tips today");
 
