@@ -84,6 +84,7 @@
 									  <th>Room</th>
 									  <th>Operation Mode</th>
 									  <th>Serial Number</th>
+									  <th>Status</th>
 									  <th>Action</th>
 								  </tr>
 							  </thead>   
@@ -94,6 +95,7 @@
 							  			<td>${item.roomName}</td>
 							  			<td>${item.modeName}</td>
 							  			<td>${item.serialNumber}</td>
+							  			<td>${item.status}</td>
 							  			<td><a class="btn btn-primary" href="/webappserver/outlets/view?id=${item.id}"><i class="icon-zoom-in icon-white"></i>View</a></td>
 							  		</tr>
 								</c:forEach>
